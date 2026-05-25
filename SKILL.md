@@ -1,0 +1,667 @@
+---
+title: "history-today-writer"
+summary: "On This Day — narrative-driven historical storytelling skill for WorkBuddy/OpenClaw"
+agent_created: true
+---
+
+# history-today-writer
+
+A structured narrative writing skill for "On This Day" historical micro-articles (~350-800 words, flexible pacing — stop naturally before 800, no padding if under 600). Covers topic scoring, narrative structure, 6-dimension narrative toolkit, writing standards, and quality review.
+
+---
+
+## 🎯 核心哲学：故事第一，升华第二
+
+> **首要目标**：让不懂故事全貌的人，读完能知道发生了什么、为什么重要。
+>
+> **次要目标**：在此基础上完成标题总览、主旨升华。
+
+**写作逻辑**：
+```
+旧逻辑：先有主旨 → 再找标题 → 再写故事 → 最后升华
+新逻辑：先讲好故事（让不懂的人读懂）→ 标题总览故事 → 在此基础上升华
+```
+
+**核心原则**：
+1. **读者视角优先**：从"不懂这个事件的人"角度出发，确保故事清晰易懂
+2. **人性共通性**：让读者在历史人物身上看到自己的影子——"如果是我，我会怎么选？"
+3. **命运与规律的对照**：展现个人选择 vs 历史必然的张力，强调个人选择的意义
+4. **现代参悟**：通过历史参悟古今、参悟自身、参悟人生——读者能带走什么智慧
+5. **标题直达主题**：让不了解故事的读者也能一目了然，而非制造理解迷雾
+
+**Theory sources**:
+- *How to Tell a Story* (The Moth / China Renmin University Press, 2025)
+- *How to Tell a Good Story (Collection Edition)* — Zhihu article, narrative 6-dimension framework
+- *Writing Historical Essays* — Rutgers University History Department (thesis-first methodology)
+- *How to Write Historical Essays: Expert Tips* — Proof-Reading-Service.com (transparent research methods)
+- *How to Write a Short Story* — National Centre for Writing UK (character-focused narrative)
+- *The Short Story Checklist* — Writers.com (character arc & structural integrity)
+- *How to Write Short Stories: Complete Guide* — Orca Paper / 巨鲸写作 (iceberg theory, detail-driven writing)
+- *On Writing: A Memoir of the Craft* — Stephen King (emotional impact & pacing control)
+- *How to Write a Historical Essay* — The New York Times Books Review (character-driven history, lens-based description)
+- *Historical Writing's Narrative Revolution* — The Atlantic (non-linear narrative, counter-intuitive perspectives)
+
+**Rule templates**: `TEMPLATE.md` (v5.0 — added LOCK kernel check, rhythm control, Show Don't Tell, 80/20 ratio, opening formulas)
+
+**2026-05-24 升级来源**：*短篇故事写作指南：以司马迁《史记》创作解析人性与历史*（投喂素材20260524）—— 新增标题设计5法、现代视角解读框架、人物心理深度描写、历史规律提取
+
+---
+
+## 1. Event Value Matrix Scoring
+
+Score candidate events on 5 dimensions (1-5 each). Priority: total ≥ 18. If none ≥ 18, pick highest.
+
+| Dimension | Description | High Score Signal |
+|-----------|-------------|-------------------|
+| **Counter-intuition** | Degree of overturning common perception | "So that's what really happened" shock |
+| **Contemporary Resonance** | Relevance to today's issues | Maps to tech ethics, climate, social issues |
+| **Emotional Impact** | Empathy via details/numbers/people | Specific casualties, personal choices, direct quotes |
+| **Data Availability** | Concrete data to support narrative | Exact dates, specific numbers, primary sources |
+| **Domain Uniqueness** | Fills gap in current topic coverage | +2 bonus for least-covered domain |
+
+### Domain Distribution (example starting state)
+- Military/War: 3 articles
+- Political/Social: 4 articles
+- Legal/Cultural: 2 articles
+- Science/Environment: 4 articles
+- Ancient Politics/Human Nature: 1 article
+- Art/War Intersection: 1 article
+
+---
+
+## 2. Topic Elimination Tests
+
+After scoring, pass both gates or downgrade to next candidate:
+
+**① Counter-Intuition Refinability**: Can the event yield an "It's not X, it's Y" insight?
+- Pass: One sentence that captures "surface impression vs. deep truth" contrast
+- Fail: Event is common knowledge, forcing a fabricated counter-intuition
+
+**② Narrative Structure Match**: Does the event strongly match at least one of the 4 narrative structures?
+- Pass: At least one structure can naturally unfold the event's core conflict
+- Fail: Event is a flat timeline with no contrast/suspense/character arc/metaphor potential
+
+---
+
+## 3. Narrative Structure Library
+
+4 basic structures. Use with the **6-Dimension Narrative Toolkit** (Chapter 4) to translate structure into concrete storytelling techniques.
+
+### Structure 1: Contrast
+**Best for**: Events with strong binary opposition (good/evil, win/lose, remembered/forgotten)
+```
+Title: [Opposing Sides]'s [Core Conflict]
+Hook: Scene A + strong contrast introduction
+Body: A unfolds → turning point → B unfolds, all details serve the contrast
+Conclusion: Expose the deeper meaning behind the contrast
+```
+
+### Structure 2: Suspense
+**Best for**: Counter-intuitive events, hidden truths, misunderstood events
+```
+Title: [Counter-Intuitive Assertion]
+Hook: Present counter-intuitive fact + create suspense
+Body: Surface appearance → first reversal → second reversal, layer by layer
+Conclusion: Reveal ultimate truth, echo the opening suspense
+```
+
+### Structure 3: Character Arc
+**Best for**: Individual choices, fate reversals, historical re-evaluations
+```
+Title: [Person]'s [Pivotal Moment]
+Hook: The decisive moment (not necessarily the ending)
+Body: Background & dilemma → choice process → consequences
+Conclusion: Extract the historical significance of the choice
+```
+
+### Structure 4: Metaphor
+**Best for**: Abstract patterns, institutional change, cultural phenomena
+```
+Title: [Concrete Object]'s [Abstract Fate]
+Hook: Introduce via an object's feature or state
+Body: Object's historical trajectory → becoming a symbol → interaction with reality
+Conclusion: Final fusion of object and theme
+```
+
+### Structure Mixing Guide
+| Combination | Best For |
+|-------------|----------|
+| Suspense + Contrast | Counter-intuitive events that also have strong binary contrast |
+| Contrast + Metaphor | Concrete contrast that needs abstract significance |
+| Character Arc + Suspense | Characters with secrets or reversal choices |
+
+---
+
+## 4. 6-Dimension Narrative Toolkit
+
+> **Core Principle**: Story deals with "internal elements" (characters, plot, motivation, conflict). Narrative deals with "the relationship between story and reader." The same historical event, told through a different narrative approach, produces dramatically different effects.
+
+Write each article reviewing at least 2-3 of these 6 dimensions. Changing just **one** dimension can transform the entire piece.
+
+### 4.1 Narrative Perspective — Who's Watching?
+
+| Perspective | Effect | Usage in "On This Day" |
+|-------------|--------|------------------------|
+| **Omniscient** | All-knowing, relatively objective | Historical overview, context setting (avoid being cold/distant) |
+| **First-person (witness)** | Strong immersion, inner disclosure | Channel a historical person's voice — "What was a mother thinking as she carried her child to the air raid shelter in 1938?" |
+| **Character proxy** | A specific entry point for the reader | Pick a participant/bystander as the narrative guide |
+| **Multi-perspective** | Rashomon-style tension | Same event viewed from different sides (one side's documents vs. the other's diaries) |
+
+**Key insight**: Every perspective is simultaneously "showing the reader" and "hiding from the reader." Choosing a perspective determines **what the reader sees first, and what they don't see yet**.
+
+**Advanced technique — Counter-intuitive perspective**: Instead of narrating from the king/general/famous figure's viewpoint, try the **marginal figure's lens** (a soldier's diary, a maid's recollection, a merchant's ledger). This subverts the mainstream narrative and creates fresh insight. The same event looks completely different when told through a different pair of eyes.
+
+### 4.2 Narrative Tone — What's the Attitude?
+
+Tone is not "style" — it's **the narrator's attitude toward what they're telling**.
+
+**Core case — García Márquez writing *One Hundred Years of Solitude***:
+- He was stuck for 15 years, couldn't find the opening tone
+- Breakthrough: remembering his grandmother telling fantasy stories with a **deadpan, matter-of-fact, utterly convincing** expression
+- His realization: *"I had been telling the story too forcefully, and I didn't believe it myself. Then I realized I needed to believe the story first, then tell it in my grandmother's way."*
+
+**Finding tone: build the scene — ask 5 questions**
+1. Who is the narrator? (Historian? Witness? Observer?)
+2. Where are they telling this? (At a desk? In the ruins? On a witness stand?)
+3. What just happened to them? (Anger? Grief? Shock? Absurdity?)
+4. What's their attitude toward this event? (Critical? Mournful? Sarcastic?)
+5. What's their relationship with the reader? (Professor to student? Friend to friend?)
+
+**Recommended tones for historical writing**:
+- ✅ **Cool detachment**: For reflective events (e.g., mass bombing — let data speak for itself)
+- ✅ **Ironic bite**: For exposé events (e.g., unequal treaties)
+- ✅ **Solemn respect**: For memorial events
+- ❌ **Melodrama**: Pushes reader away
+- ❌ **Flat textbook tone**: Guaranteed reader abandonment
+
+### 4.3 Narrative Time — When to Reveal What?
+
+| Time Structure | Description | Use in Historical Writing |
+|---------------|-------------|--------------------------|
+| **Chronological** | Natural time progression | Basic — "first this happened, then that" |
+| **Flashback/In medias res** | Start with climax/ending, then go back | ✅ Highly recommended. Put the most subversive result first, then explain how we got there |
+| **Embedding** | Weave background into an action | "He put down the pen after signing — the same pen that had signed another treaty ten years ago" |
+| **Last-minute rescue** | Two simultaneous timelines create tension | Historical "simultaneity": cross-cutting events happening on the same day in different places |
+
+**Key strategy**: Always prefer flashback for "On This Day" writing.
+- Don't start with "On [date], [event] happened" (mediocre)
+- Start with the **most counter-intuitive result**, create suspense, then return to process
+- Example: Berlin Airlift — start with "On May 12, 1949, a plane landed in Berlin carrying... candy"
+
+### 4.4 Narrative Distance — How Close is the Reader to the Protagonist?
+
+**Controlling emotional distance between reader and historical figure:**
+- **Close**: Specific details, direct quotes, concrete numbers ("He wrote one line in his diary that night")
+- **Far**: Macro data, historical evaluation, time span ("Looking back 100 years later")
+- **Dynamic shift**: Move far→close — let the reader first think "this person was nothing special," then gradually reveal their complexity and humanity
+
+### 4.5 Narrative Style — Written or Spoken?
+
+Recommended register for "On This Day": **Crisp conversational** — between written and spoken:
+
+- Short sentences (under 30 characters each)
+- Conversational vocabulary (avoid internet slang)
+- Concrete nouns over abstractions ("plane" not "air transport vehicle")
+- Rhythmic alternation: mix short and long sentences
+
+### 4.6 Narrative Rhythm — Strategic Information Release
+
+> **This is the highest level of pacing control.**
+
+> "A story is not just about what you tell — it's about what you withhold, and when you reveal it. You don't maintain reader interest by giving information. You maintain it by withholding the right amount of information at the right time."
+
+**Three-layer release strategy:**
+
+```
+Layer 1 (opening) → Must-know: time, place, core conflict
+Layer 2 (middle) → Want-to-know: underlying causes, key turning points
+Layer 3 (ending) → Didn't-know: ultimate truth, thematic elevation
+```
+
+**Self-check before writing:**
+- □ Did I withhold one key piece of information in the opening? — Creates suspense
+- □ Is there a "layer flip" in the middle? — Makes the reader feel "aha"
+- □ Is the deepest truth revealed only at the end? — Delivers the final blow
+
+---
+
+## 5. Writing Standards
+
+### Core Principle: One Spike, One Target
+Title, body, and conclusion must serve the SAME thesis. No drifting.
+
+### Three-Question Test (must pass before writing)
+1. **One-sentence thesis**: Can I state the core insight as "It's not X, it's Y"?
+   ⚠️ **Red line**: This framing works for **events** but becomes **whitewashing** for **character evaluations**
+   - ✅ Events: "Not that the virus was discovered, but that science was politicized"
+   - ❌ Characters: "Not treason, but choosing under pressure" (whitewashing) — use puncturing language instead
+2. **Title hints thesis**: Does the title alone suggest the thesis keyword?
+3. **Conclusion delivers final blow**: Does the ending make the reader reinterpret the title?
+
+### Standard Structure (3 Parts)
+- **Part 1: Hook** (≤ 50 chars): Scene or counter-intuitive fact, hinting at the thesis
+- **Part 2: Core Narrative** (~ 200 words): 3-5 key information points, all driving in the same direction
+- **Part 3: Conclusion**: Natural extension of the narrative, delivers the final thesis reinforcement
+
+### Narrative Self-Check List
+
+```
+□ Did I choose the right narrative perspective? — Try switching it
+□ Does the narrative tone have attitude? — Or is it flat?
+□ Should I adjust narrative time? — Would flashback work better?
+□ Did I control narrative distance? — Should the reader be closer or farther?
+□ Did I execute information release? — What key info am I withholding?
+□ Does the opening "front-load" the most interesting part?
+□ Does the ending leave a lingering aftertaste or complete a circle?
+□ Is there at least one "detail anchor" readers will remember? — A number, an object, a moment, a contrast
+□ Does the piece have an emotional "stab point"? — A line that makes the reader pause and feel
+```
+
+Not every dimension needs to be used in every piece. **Changing even one dimension can transform the entire piece.**
+
+## 5A. v4.0 Writing Quality Standards (2026-05-21)
+
+Merged from IMA-sourced guide: *LOCK principle*, *Show Don't Tell*, *80/20 fact-fiction ratio*, *rhythm control (tension-relief alternation)*.
+Upgraded from v3.2 (2026-05-14). Based on real-world A/B comparison with Doubao + Qwen outputs and editorial review.
+
+### 13 Mandatory Rules for Every Article
+
+| # | Rule | Standard | Example |
+|---|------|----------|---------|
+| 1 | **Title pattern** | **默认**：`{言简意赅，直达主题}` — 让不了解故事的读者也能一目了然。**可选**：5B节的6种替代方案（诗意意象、身份对比、时间隐喻等） | ✅ "司马迁的选择：宫刑与《史记》之间" / ❌ "黎明前的抉择，文明的代价"（有高度但一头雾水） |
+| 2 | **Opening style** | Two alternative openings, pick ONE: (A) **Sensory scene type**: ≥2 sensory dimensions + character state in first paragraph / (B) **Direct timeline type**: flat chronological statement "On [date/year]..." —简明直接，不绕场景 | A: 晨雾(visual) + 微凉(tactile) + 男孩眼里藏着怯意 / B: "1910年的春天，哈雷彗星正拖着长长的尾巴向地球飞来。" |
+| 3 | **Object metaphor** | Each key physical object must have a texture/quality simile | 牛痘脓液"灰白色，黏稠如膏" |
+| 4 | **Scene commentary** | After every scene description, add a guiding commentary sentence | "这个场景看似简单，却悄然掀开了新篇章" |
+| 5 | **Data rhythm** | Add a comma after the subject before presenting data | "天花，是18世纪的死神" (not "天花是18世纪的死神") |
+| 6 | **Experiment language** | Use "当时无人敢为" level formality; no colloquial phrases | "做了一件当时无人敢为的事" not "做了更出格的事" |
+| 7 | **Character arc** | MUST include the protagonist's later-life struggle/promotion/perseverance | 詹纳后半生说服国王/写小册子/对抗嘲讽/活到见证 |
+| 8 | **Dual-ending** | Two-paragraph ending: image echo (first) + values elevation (second) | 意象回扣：柳叶刀/男孩/口子 → 升华：科学勇气/理性改写命运 |
+| 9 | **Flexible length** | 350-800 chars; stop naturally; no padding if under 600 | — |
+| 10 | **Formal address** | Full name + formal title at first appearance | "一位八岁的小男孩詹姆斯·菲普斯" not "园丁八岁的儿子" |
+| 11 | **Show Don't Tell** | 🆕 **NEVER use summary adjectives for character state.** Every emotion must be shown through concrete action, physical detail, or dialogue. | ❌ "他非常愤怒" → ✅ "他攥紧拳头，指节发白" / ❌ "局势紧张" → ✅ "会议室里没人说话，只有座钟的秒针在走" |
+| 12 | **LOCK kernel check** | 🆕 Before writing, verify all 4 LOCK elements exist in the story: **L**ead (focused character), **O**bjective (clear goal or dilemma), **C**onfrontation (specific opposing force), **K**nock-out (impactful ending) | L=林白 / O=飞跃大西洋 / C=33小时不眠+无前窗+积冰 / K=降落时15万人涌向机场 |
+| 13 | **80/20 Fact-Fiction ratio** | 🆕 Core facts (person, event, outcome, date) must be 100% accurate. Artistic liberty restricted to: psychological interior, dialogue completion, sensory environment detail. **Never fabricate core historical facts.** | ✅ 允许：揣摩林白在驾驶舱的内心活动 / ❌ 禁止：虚构林白中途降落加油 |
+
+### Updated Narrative Self-Check Additions
+
+```
+□ Rule 1 — Title = 言简意赅+直达主题? (或5B节的6种替代方案?)
+□ Rule 2 — Opening: sensory scene type (≥2 senses) OR direct timeline type? (pick one)
+□ Rule 3 — Key object has a texture metaphor?
+□ Rule 4 — Scene followed by commentary sentence?
+□ Rule 5 — Data preceded by comma-stopped subject?
+□ Rule 6 — Experiment action in formal register?
+□ Rule 7 — Protagonist's later-life story included? (serves thesis, not encyclopedia)
+□ Rule 8 — Ending = image echo paragraph + values elevation paragraph?
+□ Rule 9 — Length 350-800, no padding?
+□ Rule 10 — First appearance uses full name + formal title?
+□ Rule 11 — All emotions shown through action/detail, NOT summary adjectives?
+□ Rule 12 — LOCK 4 elements all present in the story? (Lead / Objective / Confrontation / Knock-out)
+□ Rule 13 — Core facts 100% accurate, artistic liberty only on interior/dialogue/environment?
+□ Rule 14 — (Optional) Modern perspective analysis included? (for complex/philosophical events)
+□ Rule 15 — (Optional) Character psychology shown through trauma/resilience/value reconstruction?
+□ Rule 16 — 读者视角检查：不懂这个事件的人读完能知道发生了什么吗？
+□ Rule 17 — 人性共通性：读者能在人物身上看到自己的影子吗？
+□ Rule 18 — 命运与规律对照：个人选择 vs 历史必然的张力是否呈现？
+□ Rule 19 — 史料验证：核心事实是否双源确认？
+```
+
+## 5B. Title Design Approaches (2026-05-24 🆕)
+
+> 来源：司马迁《史记》创作解析投喂素材。**默认模式已改为"言简意赅+直达主题"**，以下6种为可选方案，根据事件特性选择。
+
+### 标题设计原则
+
+**首要原则**：让不了解故事的读者也能一目了然，知道这个故事讲什么。
+
+**禁区**：
+- ❌ 有高度但让读者一头雾水（如"黎明前的抉择，文明的代价"）
+- ❌ 深奥难懂，需要先读正文才能理解标题
+- ❌ 过度诗意，丧失信息量
+
+**推荐**：
+- ✅ 言简意赅、直达主题
+- ✅ 略微带点深度（不是大白话，但也不深奥）
+- ✅ 让读者看到标题就知道"这是关于什么的故事"
+
+### 7种标题设计法
+
+| # | 方法 | 结构 | 适用场景 | 示例 |
+|---|------|------|----------|------|
+| 0 | **默认：言简意赅+直达主题** | [人物/事件]的[核心冲突/选择] | 通用，优先使用 | "司马迁的选择：宫刑与《史记》之间" |
+| 1 | **身份对比法** | [身份A]与[身份B]的[核心冲突] | 人物有标志性身份转变 | "复仇者与潮神：伍子胥的执念与传奇" |
+| 2 | **时间+现代隐喻法** | [时间数字]+[现代隐喻]：[事件] | 有明确时间跨度的戏剧性事件 | "二十七日皇帝：刘贺的试用期与海昏侯墓的证言" |
+| 3 | **著名事件+因果法** | [标志性事件]：[失败的实验/选择] | 有著名结局但原因被误解的事件 | "沙丘宫变：赵武灵王的禅让实验与父子困局" |
+| 4 | **具体物象+后果法** | [一件物品]的[代价/命运] | 有关键道具推动情节的事件 | "一封信的代价：陈仪、汤恩伯与1949年的师生绝义" |
+| 5 | **核心抉择法** | [人物]的选择：[选项A]与[选项B]之间 | 人物面临生死/荣辱抉择 | "司马迁的选择：宫刑与《史记》之间" |
+| 6 | **诗意意象+宏大主题** | {poetic image}, {grand theme} | 需要文学性、适合深度阅读的事件 | "柳叶刀下的黎明，人类对抗瘟疫的新纪元" |
+
+### 选择决策树
+
+```
+默认 → 言简意赅+直达主题（优先使用，确保读者一目了然）
+需要文学性？ → 诗意意象+宏大主题（仅在适合深度阅读时使用）
+事件有标志性身份转变？ → 身份对比法
+事件有明确时间跨度+戏剧性？ → 时间+现代隐喻法
+事件有著名结局但原因被误解？ → 著名事件+因果法
+事件有关键道具推动情节？ → 具体物象+后果法
+人物面临生死/荣辱抉择？ → 核心抉择法
+```
+
+### 标题设计自检
+
+- □ 标题是否让不了解故事的读者也能一目了然？
+- □ 标题是否"言简意赅、直达主题"，而非制造理解迷雾？
+- □ 标题是否略微带点深度（不是大白话，但也不深奥）？
+- □ 只看标题，读者能否猜到故事大概讲什么？
+
+## 5C. 现代参悟框架 (2026-05-24 🆕)
+
+> **核心目标**：通过历史参悟古今、参悟自身、参悟人生——让读者能带走什么智慧。
+>
+> **适用场景**：人物传记、人性抉择、制度变迁等有深度的事件。**非强制**，800字以内可融入正文。
+
+### 参悟三问
+
+写完故事后，自问以下三个问题，选择1-2个最相关的融入结尾升华：
+
+| 问题 | 指向 | 示例（司马迁篇） |
+|------|------|------------------|
+| **这个故事对今天的我们意味着什么？** | 现代共鸣 | 在职场/生活中遭遇不公时，我们是否也能找到自己的"《史记》"？ |
+| **我们生活中是否也有类似的困境？** | 人性共通 | 是坚持原则而玉碎，还是为更大目标而忍辱瓦全？ |
+| **我们能从中学到什么智慧？** | 实用价值 | 将个人创伤转化为创造性动力，是一种悲壮但可行的路径 |
+
+### 参悟四维度（可选）
+
+从以下维度中选择1-2个与主旨最相关的：
+
+| 维度 | 问题 | 读者能带走什么 |
+|------|------|----------------|
+| **尊严重构** | 当外部标签被剥夺时，如何重建内在价值？ | 不依赖他人的认可，源于对自我使命的忠诚 |
+| **韧性核心** | 如何将破坏性力量重组为建设性工程？ | 找到一个足以支撑穿越黑暗的"未完成的《史记》" |
+| **创伤升华** | 如何将个人苦难转化为普遍叙事？ | 用经历去共鸣或帮助他人面对类似困境 |
+| **历史智慧** | 事件揭示了哪些超越时代的规律？ | 在结构中发现个体；以"人"为终极尺度 |
+
+### 参悟自检
+
+- □ 结尾是否让读者能带走一个具体的智慧或启发？
+- □ 这个智慧是否与读者的生活产生共鸣？
+- □ 是否避免了"这个故事告诉我们……"式的道德说教？
+- □ 参悟是否自然从故事中延伸，而非硬塞的大道理？
+
+## 5D. Character Psychology & Human Commonality (2026-05-24 🆕)
+
+> **核心目标**：让读者在历史人物身上看到自己的影子——"如果是我，我会怎么选？"
+>
+> **适用场景**：人物传记类、抉择类事件。通过Show Don't Tell（Rule 11）展现人物心理，而非直接陈述。
+
+### 心理描写三层递进
+
+| 层次 | 描写对象 | 技法 | 示例 |
+|------|----------|------|------|
+| **表层：行为反应** | 可观察的动作、表情、生理反应 | 用具体细节代替形容词 | ❌"他非常痛苦" → ✅"他攥紧拳头，指节发白" |
+| **中层：认知挣扎** | 内心的权衡、矛盾、自我对话 | 用"问题-选项-抉择"结构 | "求死的念头无数次涌现，与父亲临终前泣血的嘱托激烈碰撞" |
+| **深层：价值重构** | 人物如何重新定义意义、尊严、生存 | 用"从X到Y"的转变弧线 | "将衡量尺度，从当下社会的道德评判，拉长到了千秋万代的历史评判" |
+
+### 人性共通性写作指南
+
+**核心原则**：展现人物的挣扎时，要让读者想到"如果是我，我会怎么选？"
+
+| 技法 | 说明 | 示例 |
+|------|------|------|
+| **用具体细节触发普遍情感** | 恐惧、犹豫、孤独、希望——这些情感跨越时代 | "他攥紧拳头，指节发白" → 读者想起自己紧张时的反应 |
+| **避免把人物写成"圣人"或"恶人"** | 写成"人"——有软肋、有犹豫、有挣扎 | 司马迁不是天生勇敢，他也怕死、怕辱、怕被遗忘 |
+| **展现"两难"而非"正确选择"** | 读者共鸣的不是"他选对了"，而是"他选得好难" | 士可杀不可辱 vs 隐忍苟活——两个选项都有道理 |
+| **用"如果是我"触发代入感** | 在关键抉择处，暗示读者面临类似困境 | "换作是你，你会怎么选？"（不直接写，但让读者自己想） |
+
+### 创伤反应描写（适用于受难/抉择类人物）
+
+| 反应类型 | 表现 | 历史案例写法 |
+|----------|------|--------------|
+| **记忆闪回** | 反复回想耻辱/痛苦时刻 | "每念斯耻，汗未尝不发背沾衣也" |
+| **社交回避** | 逃避原有圈子、自我隔离 | "居则忽忽若有所亡，出则不知所如往" |
+| **高度警觉** | 对环境过度敏感、条件反射式恐惧 | "见狱吏则头抢地，视徒隶则心惕息" |
+| **价值重构** | 重新定义生存意义、找到超越性目标 | "人固有一死，或重于泰山，或轻于鸿毛" |
+
+### 人物心理自检
+
+- □ 人物的痛苦是否通过具体行为/生理反应展现，而非形容词？
+- □ 人物的内心挣扎是否有"问题-选项-抉择"的递进？
+- □ 人物的转变弧线是否服务于主旨？（不是独立的心理分析）
+- □ 创伤反应是否符合历史背景下的合理性？（不套用现代心理学术语）
+- □ 读者能在人物身上看到自己的影子吗？（人性共通性）
+- □ 人物是否被写成了"人"而非"圣人"或"恶人"？
+
+## 5E. 命运与规律对照 (2026-05-24 🆕)
+
+> **核心目标**：展现个人选择 vs 历史必然的张力，强调个人选择的意义。
+>
+> **适用场景**：制度变迁、文化现象、重复出现的历史模式。**非强制**，仅在事件本身揭示深层规律时使用。
+
+### 命运与规律的对照写法
+
+**核心张力**：个人命运如何被历史规律裹挟？个人如何在规律中寻找出路？
+
+| 写法 | 说明 | 示例 |
+|------|------|------|
+| **展现"规律"** | 事件属于历史上反复出现的类型 | 皇权碾压下，个体的声音会被系统性抹除 |
+| **展现"个人选择"** | 人物如何在规律中寻找出路 | 司马迁选择忍受宫刑，完成《史记》 |
+| **提炼"异数"** | 个人如何打破/超越规律 | 从"被审判者"转变为"审判者" |
+| **强调"选择的意义"** | 避免宿命论，强调个人选择的价值 | 掌握叙事权，就是在权力结构中开辟另一条反抗之路 |
+
+### 提取方法
+
+1. **识别重复模式**：事件是否属于历史上反复出现的类型？（如：改革者的困境、条约的谈判逻辑、技术颠覆的路径）
+2. **寻找"异数"**：事件中是否有打破常规模式的元素？（如：司马迁从"记录者"变为"审判者"）
+3. **提炼"规律中的异数"**：不是简单总结"历史规律"，而是发现"规律中的例外"——这才是最有叙事价值的洞察
+4. **强调"选择的意义"**：避免宿命论，让读者看到个人选择的价值
+
+### 输出形式
+
+```
+规律：[描述重复出现的模式]
+个人命运：[人物如何被规律裹挟]
+异数：[这个事件如何打破/超越了该模式]
+启示：[对当代的意义，1-2句——强调个人选择的价值]
+```
+
+### 示例（司马迁篇）
+
+```
+规律：皇权碾压下，个体的声音会被系统性抹除
+个人命运：司马迁因直言被判"诬圄"，面临死刑或宫刑
+异数：他选择忍受宫刑，通过掌握历史书写权，从"被审判者"转变为"审判者"
+启示：掌握叙事权，就是在权力结构中开辟另一条反抗之路——个人选择仍有意义
+```
+
+### 使用注意
+
+- **仅限深度解读类文章**，800字以内短文不必独立成章
+- **核心原则**：规律提取必须服务于主旨升华，不是独立的"历史总结"
+- **避免道德说教**：不要写"这个故事告诉我们……"，而是让规律自然呈现
+- **避免宿命论**：强调个人选择的意义，而非"一切都是命运"
+
+### 命运与规律自检
+
+- □ 是否展现了个人命运如何被历史规律裹挟？
+- □ 是否展现了个人如何在规律中寻找出路？
+- □ 是否强调了个人选择的意义（而非宿命论）？
+- □ 规律提取是否服务于主旨升华？
+
+### Forbidden Patterns
+1. ✗ Chronological opening without purpose: "On [date], [event] happened..." — 但直入时间线型开篇（Rule 2-B）例外，可用报时间+事件直接切入
+2. ✗ Encyclopedia listing: Flat list of facts
+3. ✗ Moralizing conclusion: "This story teaches us..."
+4. ✗ Disconnected structure: Title, body, conclusion pulling in different directions
+5. ✗ Forced quotes: Conclusion suddenly veering to an unrelated platitude
+6. ✗ Tangent ending: Adding "Interestingly..." that has nothing to do with the thesis
+7. ✗ **Summary character state** 🆕: "他非常愤怒/绝望/害怕" — MUST replace with concrete action/physical detail
+8. ✗ **排他性措辞未验证** 🆕: 任何包含"第一/唯一/最/首次/首次击败/击退"等排他性或价值判断修饰词，必须在写入前双源验证。虚构排他性等于虚构核心史实（P0级风险）
+9. ✗ **人物弧光等同人物百科** 🆕: 人物后半生必须服务于主旨。若人物后续事件与原文主旨无关（如条约叙事中写主角称帝/葬礼），应当删除而非堆砌。Rule 7的"人物后半生"应理解为"主旨弧光"——人物经历必须强化核心判断，无强化则删
+
+### 条约/外交类事件特殊检查 🆕
+条约叙事必须在正文中包含以下两个要素，否则视为缺失叙事骨架（P1）：
+- **谈判核心冲突**：谈判桌上最激烈的一次交锋（条款争议/外交角力/翻译陷阱）
+- **妥协方案**：冲突如何收场（让步/折中/各退一步/文字游戏）
+两者共同构成条约叙事的"戏剧骨骼"——没有冲突和妥协，条约就是一张废纸
+
+### 叙事时间链检查 🆕
+写作中每次出现"第一次""首次""之前从未"等时序排他性措辞前，必须自问：
+- □ 这个事件之前真的没有类似先例吗？
+- □ 如果有先例，这个措辞是否应该改为"更精确地说，此前已有XX"？
+违反此条 = P0级事实错误
+
+### Output Format
+```
+# On This Day | [Title]
+
+[Date] · [Location/Key Figure]
+
+---
+
+[Body content, 3-part structure]
+
+---
+
+*Word count: ~XXX | Domain: XX/XX*
+```
+
+**版本管理**（2026-05-25 更新 ➊）：所有迭代直接在目标文件 `YYYY-MM-DD.md` 上 Edit。Write(初稿) → Edit(修复) → Edit(Humanizer) → 完成。不写中间草稿文件。
+
+---
+
+## 5F. 读者视角检查 & 史料验证 (2026-05-24 🆕)
+
+> **核心原则**：从"不懂这个事件的人"角度出发，确保故事清晰易懂、事实可验证。
+
+### 读者视角检查（强制）
+
+写完故事后，从"完全不了解这个事件的读者"角度自问：
+
+| 检查项 | 标准 | 不通过信号 |
+|--------|------|------------|
+| **故事清晰度** | 读完能知道发生了什么、为什么重要 | 读者需要先读正文才能理解标题 |
+| **背景交代** | 关键背景信息是否交代清楚？ | 有未解释的专业术语或历史背景 |
+| **核心冲突** | 故事的核心冲突、转折、结局是否清晰？ | 读者读完不知道"所以呢？" |
+| **人物聚焦** | 是否聚焦于一个人物的视角？ | 全文没有聚焦个体，"人类/社会/时代"当主语 |
+| **情感共鸣** | 读者能在人物身上看到自己的影子吗？ | 人物被写成"圣人"或"恶人"，没有人性挣扎 |
+
+**自检清单**：
+- □ 一个完全不了解这个事件的人，读完能知道发生了什么吗？
+- □ 故事的核心冲突、转折、结局是否清晰？
+- □ 是否有未解释的专业术语或背景知识？
+- □ 读者能在人物身上看到自己的影子吗？
+
+### 史料验证规则（强制）
+
+**核心原则**：不同AI基于同一主题创作时，史料可能不一致。必须确保核心事实可验证。
+
+| 验证级别 | 范围 | 要求 |
+|----------|------|------|
+| **P0级** | 人名、时间、地点、数字、关键事件 | 必须双源验证（≥2个独立来源确认） |
+| **P1级** | 细节、引语、背景描述 | 尽量双源，单源需标注"一说……" |
+| **P2级** | 心理描写、环境渲染 | 艺术自由，但需符合历史背景合理性 |
+
+**禁区**：
+- ❌ 使用"第一次""唯一""最""首次"等排他性措辞，除非双源确认
+- ❌ 虚构核心历史事实（Rule 13）
+- ❌ 单源数据直接写入，不交叉验证
+
+**操作指南**：
+- WebSearch × 2 + WebFetch × 1（或 WebSearch × 3）
+- 核心事实（人名、时间、地点、数字）写入前，必须找到≥2个独立来源确认
+- 有争议的史料，明确标注"一说……"
+- 单源数据不能作为核心叙事依据
+
+### 史料验证自检
+
+- □ 核心事实（人名、时间、地点、数字）是否双源确认？
+- □ 是否使用了"第一次""唯一""最"等排他性措辞？如果是，是否双源验证？
+- □ 有争议的史料是否标注了"一说……"？
+- □ 单源数据是否作为核心叙事依据？（如果是，需要更多验证）
+
+---
+
+## 6. P0/P1/P2 Quality Review
+
+| Priority | Dimension | Description |
+|----------|-----------|-------------|
+| **P0** | Factual error | Wrong date/person/number — **Rule 13 violation** |
+| **P0** | Thesis drift | Title, body, conclusion misaligned |
+| **P0** | Fabricated core facts | Core historical facts invented or altered — **Rule 13 violation** |
+| **P0** | **排他性措辞错误** 🆕 | 使用"第一次/首次/唯一/击退"等排他性/价值判断措辞未经验证，与实际史实不符 |
+| **P0** | **史料单源** 🆕 | 核心事实（人名/时间/地点/数字）仅单源验证，未交叉确认 |
+| **P1** | AI voice | Chronological opening, encyclopedic listing, moralizing ending — includes summary character state — **Rule 11 violation** |
+| **P1** | Weak conclusion | Doesn't deliver the "final blow," forced elevation |
+| **P1** | Flat narrative | Single perspective, single timeline — no variation |
+| **P1** | Weak emotional impact | No "stab point" — no detail that makes the reader pause and feel |
+| **P1** | Missing LOCK element | Any of Lead/Objective/Confrontation/Knock-out absent — **Rule 12 violation** |
+| **P1** | **条约缺叙事骨架** 🆕 | 条约/外交类事件未包含"谈判核心冲突"和"妥协方案"，叙事缺少戏剧骨骼 |
+| **P1** | **人物弧光脱节** 🆕 | Rule 7的人物后半生内容与全文主旨无关，变成了独立人物传记而非主旨强化 |
+| **P1** | **读者看不懂** 🆕 | 不懂故事全貌的人读完不知道发生了什么，或有未解释的专业术语/背景 |
+| **P1** | **人物非人** 🆕 | 人物被写成"圣人"或"恶人"，没有人性挣扎，读者无法产生共鸣 |
+| **P1** | **宿命论** 🆕 | 强调"一切都是命运"，未展现个人选择的意义 |
+| **P2** | Rhythm & wording | Uniform paragraph length, filler transitions — **tension-relief alternation missing** |
+| **P2** | Poor info release | All key info dumped at once, no suspense |
+
+**Pass criteria**: P0=0 AND P1≤1
+
+If failed → revise immediately → re-review → loop until clear.
+
+---
+
+## 7. Humanizer Polish
+
+After passing P0/P1/P2 review, optionally apply Humanizer for AI-voice removal.
+
+Humanizer targets:
+- Chronological opening ("On [date]...")
+- Encyclopedic information listing
+- Moralizing conclusion
+- Overly uniform paragraph structure
+
+**Warning**: Humanizer must not change facts or core thesis. Re-run P0 review after Humanizer to verify data integrity.
+
+---
+
+## 8. Execution Review
+
+After each run, optionally log to a review file (e.g., TOPICS.md):
+
+```yaml
+## Review: [YYYY-MM-DD]
+- Topic: [Event] ([score])
+- Candidate comparison: [简要列出候选事件及各自评分，如"王尔德22分 vs 台湾民主国22分 vs 左权19分 → 选王尔德（当代共鸣最高+新领域）"]
+- Narrative structure: [primary + secondary]
+- 6-dimensions used: [e.g., perspective-proxy / time-flashback / rhythm-withholding]
+- P0/P1/P2: P0=[n] P1=[n] P2=[n]
+- Humanizer: [yes/no]
+- Lessons learned: [one sentence]
+```
+
+---
+
+## 9. Feedback Log
+
+| Date | Issue | Lesson |
+|------|-------|--------|
+| 2026-05-09 | "It's not X, it's Y" framing on a historical figure's moral evaluation felt like whitewashing | "It's not... it's..." works for events but NOT for character evaluations — use puncturing language instead |
+| 2026-05-19 | 4 AI reviews unanimously pointed out 4 factual errors (crew count 6→8, airport name, flight path missing refuel stop, commander title) | **Single-source data is not trustworthy.** WebFetch AI-supplemented facts must be cross-validated. Core numbers/names/titles require >=2 independent sources before writing |
+| 2026-05-19 | "油箱仅够单程" created false dramatic tension at expense of accuracy | Avoid manufacturing tension through factual distortion. If data doesn't support drama, let the inherent counter-intuition carry the narrative |
+| 2026-05-19 | Multi-AI comparison revealed patterns: DeepSeek=best dialog, 豆包=best historical context, 千问=richest imagery but most AI-fabricated, IMA=best dramatic hook | Each AI has a "long board" — absorbing their strengths while filtering out fabrication is a repeatable optimization pattern |
+| 2026-05-22 | "第一次向西方打开国门"——但1876年日本已用江华条约先打开 | **叙事时间链校验**：任何排他性措辞（第一/首次/唯一）必须在写作前验证先例是否存在。虚构排他性=P0 |
+| 2026-05-22 | "朝鲜军民以弓弩火绳枪将其击退"——实际是美军攻陷要塞后因无政治目标撤兵 | **战役类事件的"胜利/击退"判断不可单源**：战局胜负≠战略结果。单方宣称的"击退"需要敌我双方伤亡数据交叉验证才能使用 |
+| 2026-05-22 | 全文未提"属邦照会"之争——整个签约中最有戏剧张力的环节 | **条约类叙事必须包括：谈判核心冲突+妥协方案**。条约的戏剧张力不在条款本身，而在签字的讨价还价中 |
+| 2026-05-22 | 高宗后半生（称帝/三一运动）与1882年签约主旨无关，成为冗余支线 | **人物弧光≠人物百科**。Rule 7的目的是让主角经历强化主旨，而不是堆砌全部后续生平。与主旨无关的后半生=噪声→删 |
+| 2026-05-24 | 投喂素材《司马迁〈史记〉创作解析》提供5种标题设计法、现代视角解读框架、人物心理深度描写、历史规律提取 | **标题设计多样化**：Rule 1的"诗意意象+宏大主题"是默认，但可选身份对比/时间隐喻/事件因果/物象后果/核心抉择等5种替代方案。**现代视角解读**：复杂事件可加"权力结构+人性挣扎+历史规律"三层分析。**人物心理**：通过"行为反应→认知挣扎→价值重构"三层递进展现，而非形容词。**历史规律**：寻找"规律中的异数"而非简单总结规律 |
+| 2026-05-24 | 司马迁篇展示"创伤反应描写"技法：记忆闪回、社交回避、高度警觉、价值重构 | **Show Don't Tell的心理学升级**：Rule 11的"用动作代替形容词"可扩展为"表层行为→中层认知→深层价值"三层递进。创伤反应描写需符合历史背景下的合理性，不套用现代心理学术语 |
+| 2026-05-24 | 用户需求分析：标题要言简意赅、直达主题，而非"有高度但让读者一头雾水" | **标题设计重心调整**：Rule 1默认模式从"诗意意象+宏大主题"改为"言简意赅+直达主题"。"诗意意象+宏大主题"降为可选方案之一（仅在适合深度阅读时使用） |
+| 2026-05-24 | 用户需求分析：核心是讲好故事，让不懂故事全貌的人能读懂 | **新增读者视角检查**（5F节）：从"不懂这个事件的人"角度出发，确保故事清晰易懂。新增P1检查项"读者看不懂"——不懂故事全貌的人读完不知道发生了什么 |
+| 2026-05-24 | 用户需求分析：人性的共通与挣扎、历史规律与个人命运的对照 | **新增人性共通性写作指南**（5D节）：让读者在人物身上看到自己的影子——"如果是我，我会怎么选？"新增命运与规律对照写法（5E节）：展现个人选择 vs 历史必然的张力 |
+| 2026-05-24 | 用户需求分析：不同AI基于同一主题创作时，史料不一致 | **新增史料验证规则**（5F节）：核心事实必须双源验证（≥2个独立来源确认）。新增P0检查项"史料单源"——核心事实仅单源验证 |
+| 2026-05-25 | 四AI（DS/豆包/千问/IMA）同题对比：一致指出诽谤案反噬逻辑缺失、波西角色缺位、监狱描写单薄 | **新增P1检查项"逻辑链条断裂"**：叙事因果必须完整——关键转折（如原告变被告）不可跳跃。**新增Rule 14：关键配角不可缺位**——推动情节的次要人物必须交代角色和动机。**监狱/苦难描写规范**：需≥2项感官细节（触觉/听觉/视觉）+ 1项社会关系断裂（家人离散/友人疏远） |
+| 2026-05-25 | 千问版优化过度文学化（"灵魂凌迟""星辰照亮苍穹"），豆包/DS版更克制 | **文学性的边界**：文化史文章可适度文学化，但不应超过DS版水平——保留克制文风、具体细节为王。千问式修辞膨胀（每句一个比喻）反而削弱真实感 |
+
+---
+
+*Version: v5.2 | 2026-05-25 | 四AI同题对比升级：+P1"逻辑链条断裂"检查项、+Rule 14"关键配角不可缺位"、+监狱/苦难描写规范（≥2感官+1社会断裂）、+文学性边界（克制优于修辞膨胀）、+版本管理改写（不写草稿）*</think>
