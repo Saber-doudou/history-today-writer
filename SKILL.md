@@ -663,25 +663,24 @@ Upgraded from v3.2 (2026-05-14). Based on real-world A/B comparison with Doubao 
 | **P0** | Thesis drift | Title, body, conclusion misaligned |
 | **P0** | Fabricated core facts | Core historical facts invented or altered — **Rule 13 violation** |
 | **P0** | **排他性措辞错误** 🆕 | 使用"第一次/首次/唯一/击退"等排他性/价值判断措辞未经验证，与实际史实不符 |
-| **P0** | **史料单源** 🆕 | 核心事实（人名/时间/地点/数字）仅单源验证，未交叉确认 |
+| **P0** | **数据验证不足** 🆕v5.3.1 | 核心数据未充分验证。两种表现：①仅单源写入（含字面单源 + 同质源头视为一源）；②多AI分歧数据未取多数共识即写入（如酬金/件数/面积） |
 | **P0** | **时间跨度错误** 🆕v5.3 | "X世纪到Y世纪"跨度声明超过事件封闭/结束年限（如藏经洞11世纪封闭却写"14世纪"） |
-| **P0** | **数据分歧未纠** 🆕v5.3 | 各AI版本间存在分歧的数据（酬金/件数/面积）未经多数来源共识验证即写入 |
 | **P1** | AI voice | Chronological opening, encyclopedic listing, moralizing ending — includes summary character state — **Rule 11 violation** |
-| **P1** | Weak conclusion | Doesn't deliver the "final blow," forced elevation |
-| **P1** | Flat narrative | Single perspective, single timeline — no variation |
+| **P1** | Weak conclusion | Doesn't deliver the "final blow," forced elevation. **含子类型**：文化史/流散类结尾停在叹息未给正面收束（后人接续/数字化/当代格局） |
 | **P1** | Weak emotional impact | No "stab point" — no detail that makes the reader pause and feel |
 | **P1** | Missing LOCK element | Any of Lead/Objective/Confrontation/Knock-out absent — **Rule 12 violation** |
 | **P1** | **条约缺叙事骨架** 🆕 | 条约/外交类事件未包含"谈判核心冲突"和"妥协方案"，叙事缺少戏剧骨骼 |
 | **P1** | **人物弧光脱节** 🆕 | Rule 7的人物后半生内容与全文主旨无关，变成了独立人物传记而非主旨强化 |
 | **P1** | **读者看不懂** 🆕 | 不懂故事全貌的人读完不知道发生了什么，或有未解释的专业术语/背景 |
-| **P1** | **人物非人** 🆕 | 人物被写成"圣人"或"恶人"，没有人性挣扎，读者无法产生共鸣 |
-| **P1** | **宿命论** 🆕 | 强调"一切都是命运"，未展现个人选择的意义 |
-| **P1** | **结尾不给光** 🆕v5.3 | 文化史/流散/劫难类事件结尾停在叹息，未给至少一句正面收束（后人接续/数字化/当代格局） |
-| **P1** | **批判矛头下移** 🆕v5.3 | 将悲剧归因于个体局限（"不识字""无知"等）而非系统（官僚冷漠/国力衰弱） |
+| **P1** | **人物非人** 🆕 | 人物被写成"圣人"或"恶人"，没有人性挣扎，读者无法产生共鸣。**含子类型**：宿命论——人物成了命运被动的棋子，失去选择权 |
+| **P1** | **逻辑链条断裂** 🆕 | 叙事因果跳跃——关键转折（原告变被告/防御变进攻等戏剧性逆转）未交代清楚原因 |
+| **P1** | **关键配角缺位** 🆕 | 推动情节的次要人物未交代角色和动机（Rule 14 violation） |
 | **P1** | **叙事比例失衡** 🆕v5.3 | 多人/多阶段事件中某阶段占据过半篇幅，后续一笔带过 |
-| **P1** | **考古背景缺失** 🆕v5.3 | 文化史/考古类事件未回答"原是什么→为什么封存→多久后发现"三要素 |
 | **P2** | Rhythm & wording | Uniform paragraph length, filler transitions — **tension-relief alternation missing** |
 | **P2** | Poor info release | All key info dumped at once, no suspense |
+| **P2** | **批判矛头下移** v5.3.1 | 将悲剧归因于个体局限（"不识字""无知"等）而非系统（官僚冷漠/国力衰弱）。低频低害，仅文物流失类事件检查 |
+| **P2** | **考古背景缺失** v5.3.1 | 文化史/考古类事件未回答"原是什么→为什么封存→多久后发现"三要素。缺少背景不等于写错事实 |
+| **P2** | **叙事视角单一** v5.3.1 | 全文使用单一视角/单一时序，无叙事变化。近5篇零触发，已内化为Humanizer备注 |
 
 **Pass criteria**: P0=0 AND P1≤1
 
@@ -746,4 +745,4 @@ After each run, optionally log to a review file (e.g., TOPICS.md):
 
 ---
 
-*Version: v5.3 | 2026-05-26 | 四AI同题对比敦煌藏经洞升级：+P0"时间跨度校验"、+考古背景三步法、+文化史结尾给光、+批判矛头上移规则、+叙事均衡检查、+数据分歧处理*</think>
+*Version: v5.3.1 | 2026-05-26 | 规则健康度优化：P0 7→6（合并史料单源+数据分歧为数据验证不足）、P1 16→11（子归类结尾不给光+宿命论、降级批判矛头/考古背景/叙事视角至P2）、P2 2→5*</think>
