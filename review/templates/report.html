@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史文章审校报告 - {{article_title}}</title>
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --text-muted: #666;
+            --accent-p0: #ff4444;
+            --accent-p1: #ffaa00;
+            --accent-p2: #44aaff;
+            --accent-pass: #44ff44;
+            --border-color: #333;
+            --highlight-p0: rgba(255, 68, 68, 0.2);
+            --highlight-p1: rgba(255, 170, 0, 0.2);
+            --highlight-p2: rgba(68, 170, 255, 0.2);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 20px;
+            min-height: 100vh;
+        }
+        /* 头部统计 */
+        .header {
+            grid-column: 1 / -1;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+        .stat-card {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+        .stat-card .count {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .stat-card .label {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+        .stat-card.p0 .count { color: var(--accent-p0); }
+        .stat-card.p1 .count { color: var(--accent-p1); }
+        .stat-card.p2 .count { color: var(--accent-p2); }
+        .stat-card.pass .count { color: var(--accent-pass); }
+        /* 文章正文 */
+        .article-panel {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        .article-panel h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+        .article-content {
+            font-size: 16px;
+            line-height: 1.8;
+        }
+        .article-content p {
+            margin-bottom: 12px;
+        }
+        .issue-marker {
+            cursor: pointer;
+            border-radius: 3px;
+            padding: 2px 4px;
+            transition: all 0.2s;
+            position: relative;
+        }
+        .issue-marker:hover {
+            transform: scale(1.05);
+        }
+        .issue-marker.p0 {
+            background: var(--highlight-p0);
+            border-bottom: 2px solid var(--accent-p0);
+        }
+        .issue-marker.p1 {
+            background: var(--highlight-p1);
+            border-bottom: 2px solid var(--accent-p1);
+        }
+        .issue-marker.p2 {
+            background: var(--highlight-p2);
+            border-bottom: 2px solid var(--accent-p2);
+        }
+        .issue-marker .tooltip {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 100;
+        }
+        .issue-marker:hover .tooltip {
+            display: block;
+        }
+        /* 问题详情面板 */
+        .issues-panel {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+        .issues-panel h2 {
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--border-color);
+            color: var(--text-primary);
+        }
+        .issue-card {
+            background: var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .issue-card:hover {
+            transform: translateX(4px);
+        }
+        .issue-card.p0 { border-left-color: var(--accent-p0); }
+        .issue-card.p1 { border-left-color: var(--accent-p1); }
+        .issue-card.p2 { border-left-color: var(--accent-p2); }
+        .issue-card.active {
+            background: var(--border-color);
+        }
+        .issue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .issue-category {
+            font-size: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: var(--bg-primary);
+            color: var(--text-secondary);
+        }
+        .issue-location {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .issue-text {
+            margin-bottom: 8px;
+        }
+        .issue-current {
+            color: var(--accent-p0);
+            text-decoration: line-through;
+            font-size: 14px;
+        }
+        .issue-suggested {
+            color: var(--accent-pass);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        .issue-reason {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-color);
+        }
+        .issue-rule {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+        /* 汇总统计 */
+        .category-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .category-stat {
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+        }
+        .category-stat .name {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+        .category-stat .count {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        /* 响应式 */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .article-panel, .issues-panel {
+                max-height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部统计 -->
+        <div class="header">
+            <h1>{{article_title}}</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                审校时间：{{review_timestamp}} | 耗时：{{duration_seconds}}秒
+            </p>
+            <div class="stats-grid">
+                <div class="stat-card p0">
+                    <div class="count">{{p0_count}}</div>
+                    <div class="label">P0 严重</div>
+                </div>
+                <div class="stat-card p1">
+                    <div class="count">{{p1_count}}</div>
+                    <div class="label">P1 重要</div>
+                </div>
+                <div class="stat-card p2">
+                    <div class="count">{{p2_count}}</div>
+                    <div class="label">P2 建议</div>
+                </div>
+                <div class="stat-card pass">
+                    <div class="count">{{pass_status}}</div>
+                    <div class="label">审校结果</div>
+                </div>
+            </div>
+            <div class="category-stats">
+                <div class="category-stat">
+                    <div class="name">语言组织</div>
+                    <div class="count" style="color: var(--accent-p2);">{{language_count}}</div>
+                </div>
+                <div class="category-stat">
+                    <div class="name">史实准确</div>
+                    <div class="count" style="color: var(--accent-p0);">{{fact_count}}</div>
+                </div>
+                <div class="category-stat">
+                    <div class="name">叙事逻辑</div>
+                    <div class="count" style="color: var(--accent-p1);">{{logic_count}}</div>
+                </div>
+                <div class="category-stat">
+                    <div class="name">术语一致</div>
+                    <div class="count" style="color: var(--accent-p1);">{{term_count}}</div>
+                </div>
+                <div class="category-stat">
+                    <div class="name">结构规范</div>
+                    <div class="count" style="color: var(--accent-p1);">{{struct_count}}</div>
+                </div>
+                <div class="category-stat">
+                    <div class="name">表达润色</div>
+                    <div class="count" style="color: var(--accent-p2);">{{expr_count}}</div>
+                </div>
+            </div>
+        </div>
+        <!-- 文章正文 -->
+        <div class="article-panel">
+            <h2>文章正文</h2>
+            <div class="article-content">
+                {{article_content_with_markers}}
+            </div>
+        </div>
+        <!-- 问题详情 -->
+        <div class="issues-panel">
+            <h2>问题详情</h2>
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">全部</button>
+                <button class="filter-btn" data-filter="p0">P0</button>
+                <button class="filter-btn" data-filter="p1">P1</button>
+                <button class="filter-btn" data-filter="p2">P2</button>
+                <button class="filter-btn" data-filter="language">语言</button>
+                <button class="filter-btn" data-filter="fact">史实</button>
+                <button class="filter-btn" data-filter="logic">逻辑</button>
+                <button class="filter-btn" data-filter="term">术语</button>
+                <button class="filter-btn" data-filter="struct">结构</button>
+                <button class="filter-btn" data-filter="expr">表达</button>
+            </div>
+            <div class="issues-list">
+                {{issue_cards}}
+            </div>
+        </div>
+    </div>
+    <script>
+        // 问题筛选
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.issue-card').forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                    } else if (filter === 'p0' || filter === 'p1' || filter === 'p2') {
+                        card.style.display = card.classList.contains(filter) ? 'block' : 'none';
+                    } else {
+                        card.style.display = card.dataset.category === filter ? 'block' : 'none';
+                    }
+                });
+            });
+        });
+        // 点击问题卡片高亮对应文本
+        document.querySelectorAll('.issue-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const issueId = card.dataset.id;
+                document.querySelectorAll('.issue-marker').forEach(marker => {
+                    marker.style.outline = 'none';
+                });
+                const targetMarker = document.querySelector(`.issue-marker[data-id="${issueId}"]`);
+                if (targetMarker) {
+                    targetMarker.style.outline = '2px solid #fff';
+                    targetMarker.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                document.querySelectorAll('.issue-card').forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+            });
+        });
+        // 点击文本中的问题标记
+        document.querySelectorAll('.issue-marker').forEach(marker => {
+            marker.addEventListener('click', () => {
+                const issueId = marker.dataset.id;
+                const targetCard = document.querySelector(`.issue-card[data-id="${issueId}"]`);
+                if (targetCard) {
+                    targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    document.querySelectorAll('.issue-card').forEach(c => c.classList.remove('active'));
+                    targetCard.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

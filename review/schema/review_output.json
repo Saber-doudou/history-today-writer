@@ -1,0 +1,241 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "History Article Review Output",
+  "description": "历史文章审校输出格式规范 v1.0",
+  "type": "object",
+  "required": ["article_id", "title", "review_timestamp", "summary", "issues"],
+  "properties": {
+    "article_id": {
+      "type": "string",
+      "description": "文章ID，格式为 YYYY-MM-DD",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "title": {
+      "type": "string",
+      "description": "文章标题"
+    },
+    "review_timestamp": {
+      "type": "string",
+      "description": "审校时间戳，ISO 8601格式",
+      "format": "date-time"
+    },
+    "review_duration_seconds": {
+      "type": "integer",
+      "description": "审校耗时（秒）",
+      "minimum": 0
+    },
+    "summary": {
+      "type": "object",
+      "description": "审校结果汇总",
+      "required": ["total_issues", "p0_count", "p1_count", "p2_count", "pass"],
+      "properties": {
+        "total_issues": {
+          "type": "integer",
+          "description": "问题总数",
+          "minimum": 0
+        },
+        "p0_count": {
+          "type": "integer",
+          "description": "P0级问题数",
+          "minimum": 0
+        },
+        "p1_count": {
+          "type": "integer",
+          "description": "P1级问题数",
+          "minimum": 0
+        },
+        "p2_count": {
+          "type": "integer",
+          "description": "P2级问题数",
+          "minimum": 0
+        },
+        "pass": {
+          "type": "boolean",
+          "description": "是否通过（P0=0 AND P1≤1）"
+        },
+        "pass_reason": {
+          "type": "string",
+          "description": "通过/不通过原因"
+        }
+      }
+    },
+    "category_summary": {
+      "type": "object",
+      "description": "按类别汇总",
+      "properties": {
+        "language": {
+          "type": "object",
+          "properties": {
+            "total": {"type": "integer"},
+            "p0": {"type": "integer"},
+            "p1": {"type": "integer"},
+            "p2": {"type": "integer"}
+          }
+        },
+        "fact_accuracy": {
+          "type": "object",
+          "properties": {
+            "total": {"type": "integer"},
+            "p0": {"type": "integer"},
+            "p1": {"type": "integer"},
+            "p2": {"type": "integer"}
+          }
+        },
+        "narrative_logic": {
+          "type": "object",
+          "properties": {
+            "total": {"type": "integer"},
+            "p0": {"type": "integer"},
+            "p1": {"type": "integer"},
+            "p2": {"type": "integer"}
+          }
+        },
+        "terminology": {
+          "type": "object",
+          "properties": {
+            "total": {"type": "integer"},
+            "p0": {"type": "integer"},
+            "p1": {"type": "integer"},
+            "p2": {"type": "integer"}
+          }
+        },
+        "structure": {
+          "type": "object",
+          "properties": {
+            "total": {"type": "integer"},
+            "p0": {"type": "integer"},
+            "p1": {"type": "integer"},
+            "p2": {"type": "integer"}
+          }
+        },
+        "expression": {
+          "type": "object",
+          "properties": {
+            "total": {"type": "integer"},
+            "p0": {"type": "integer"},
+            "p1": {"type": "integer"},
+            "p2": {"type": "integer"}
+          }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "description": "问题列表",
+      "items": {
+        "type": "object",
+        "required": ["id", "category", "subcategory", "severity", "location", "current", "suggested", "reason"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "问题ID",
+            "minimum": 1
+          },
+          "category": {
+            "type": "string",
+            "description": "问题类别",
+            "enum": ["language", "fact_accuracy", "narrative_logic", "terminology", "structure", "expression"]
+          },
+          "subcategory": {
+            "type": "string",
+            "description": "问题子类别"
+          },
+          "severity": {
+            "type": "string",
+            "description": "严重程度",
+            "enum": ["p0", "p1", "p2"]
+          },
+          "location": {
+            "type": "string",
+            "description": "问题位置，格式为 P{start}-P{end} 或 P{single}",
+            "pattern": "^P\\d+(-P\\d+)?$"
+          },
+          "line_text": {
+            "type": "string",
+            "description": "问题所在原文片段"
+          },
+          "current": {
+            "type": "string",
+            "description": "问题文本"
+          },
+          "suggested": {
+            "type": "string",
+            "description": "建议修改"
+          },
+          "reason": {
+            "type": "string",
+            "description": "问题原因说明"
+          },
+          "rule_ref": {
+            "type": "string",
+            "description": "关联规则引用"
+          },
+          "agent_id": {
+            "type": "string",
+            "description": "审校Agent ID"
+          },
+          "verification": {
+            "type": "object",
+            "description": "验证信息（仅fact_accuracy类别）",
+            "properties": {
+              "source_count": {
+                "type": "integer",
+                "description": "来源数量"
+              },
+              "sources": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": "来源列表"
+              },
+              "consensus": {
+                "type": "string",
+                "description": "共识情况"
+              }
+            }
+          },
+          "occurrences": {
+            "type": "array",
+            "description": "问题出现位置列表（仅terminology类别）",
+            "items": {
+              "type": "object",
+              "properties": {
+                "location": {"type": "string"},
+                "text": {"type": "string"}
+              }
+            }
+          }
+        }
+      }
+    },
+    "agent_results": {
+      "type": "array",
+      "description": "各Agent审校结果",
+      "items": {
+        "type": "object",
+        "properties": {
+          "agent_id": {
+            "type": "string",
+            "description": "Agent ID"
+          },
+          "agent_name": {
+            "type": "string",
+            "description": "Agent名称"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["completed", "failed", "timeout"],
+            "description": "Agent状态"
+          },
+          "duration_seconds": {
+            "type": "integer",
+            "description": "Agent耗时（秒）"
+          },
+          "issue_count": {
+            "type": "integer",
+            "description": "Agent发现问题数"
+          }
+        }
+      }
+    }
+  }
+}
