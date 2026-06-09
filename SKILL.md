@@ -2,6 +2,23 @@
 title: "history-today-writer"
 summary: "On This Day — narrative-driven historical storytelling skill for WorkBuddy"
 agent_created: true
+trigger_words:
+  - "历史上的今天"
+  - "今天的历史"
+  - "历史故事"
+  - "on this day"
+  - "historical story"
+  - "历史短篇"
+  - "每日历史"
+  - "写历史"
+  - "历史写作"
+keywords:
+  - "历史"
+  - "故事"
+  - "写作"
+  - "叙事"
+  - "自动化"
+  - "微文章"
 ---
 
 # history-today-writer
@@ -36,10 +53,10 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 44条规则 + Forbidden Patterns + Humanizer | ~12K |
-| **Phase 3.5 审校** | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-44 + 审校子系统 + 标点规范 | ~10K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 50条规则 + Forbidden Patterns + Humanizer | ~13K |
+| **Phase 3.5 审校** | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-50 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 17条判例库（按需Grep检索，不预加载） | ~8K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 19条判例库（按需Grep检索，不预加载） | ~9K |
 
 **模块化设计原则**：
 - WriterAgent 不加载 review_rules.md —— 避免"知道考纲做题"
@@ -75,6 +92,24 @@ Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
 
 ---
 
+## 🚨 边界条件与异常处理
+
+### 网络异常处理
+1. **搜索无结果**：使用备用选题列表（TOPICS.md 中的待写选题）
+2. **API 超时**：重试 2 次，间隔 5 秒；仍失败则使用缓存数据
+3. **网络不可用**：切换到离线模式，使用本地素材库
+
+### 质量异常处理
+1. **多轮修改不达标**：超过 3 轮修改仍不通过，标记为"需人工审核"
+2. **选题冲突**：自动选择下一个高分选题
+3. **Token 超限**：精简内容，优先保证核心叙事
+
+### 资源限制处理
+1. **文件过大**：自动压缩图片，精简非核心内容
+2. **存储空间不足**：清理旧的临时文件，保留最近 30 天的存档
+
+---
+
 ## 📊 质量仪表盘（每次执行后更新 MEMORY.md）
 
 ```yaml
@@ -106,4 +141,4 @@ Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
 
 ---
 
-*Version: v7.1 | 2026-06-08 | 新增Rule 45-47（备胎叙事/科技史创新/时间线阶段）；Forbidden#14-16；科技/技术领域判例预检；8086处理器案例*
+*Version: v7.2 | 2026-06-09 | Rule 48-50新增（因果链/禁令需档案/技术决策）；§7A标点快扫；Forbidden#17-19；唐胥铁路四AI优化案例（案例19）*
