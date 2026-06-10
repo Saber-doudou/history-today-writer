@@ -92,6 +92,52 @@ Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
 
 ---
 
+## 🤖 多 Agent 执行模式（v8.0 🆕）
+
+> **2 Agent spawn 模式**：Automation 本身充当 Orchestrator，负责编排协调；实际 spawn 的 Agent 只有 2 个。
+
+| Agent | 职责 | 阶段 | 加载模块 | 预估 Token |
+|-------|------|------|---------|:---:|
+| **writer** | 选题 + 搜索 + 写作 + Humanizer + 自检 | Phase 1-3 | `topic_rules.md` + `writing_rules.md` | ~15K |
+| **reviewer** | 6维度审校 + 判例检索 | Phase 3.5-3.6 | `review_rules.md` + `review/prompts/*.md` | ~32K |
+
+**Orchestrator**（Automation 自身，非 spawn 的 Agent）负责：TeamCreate → 分派 → 收集 → 裁决 → 输出 → TeamDelete。
+
+### Agent 级异常处理
+
+| 场景 | 处理策略 |
+|------|---------|
+| writer 超时（8分钟无响应） | Orchestrator 重试 1 次，仍失败则终止并报告 |
+| reviewer 超时（10分钟无响应） | Orchestrator 跳过审校，直接输出初稿 + 标注"⚠️ 未审校" |
+| writer 返回空文 | 检查搜索结果是否为空 → 使用 TOPICS.md 备用选题 |
+| reviewer 返回空结果 | Orchestrator 重试 1 次，仍为空则跳过审校 |
+| 文件写入冲突 | writer 写 `.md`，reviewer 写 `_review.json`，天然隔离 |
+| SendMessage 丢失 | Orchestrator 分派后 3 分钟内未收到回复 → 重试分派 |
+
+### 迭代终结条件
+
+- 审校通过（P0=0 且 P1≤1）→ 输出文章
+- 审校不通过 → writer 修复 → reviewer 重新审校（最多 2 轮）
+- 2 轮后仍不通过 → 标记"⚠️ 需人工审核"，输出当前最佳版本
+
+### 消息协议
+
+writer → orchestrator：
+```json
+{ "agent": "writer", "status": "done", "file": "archive/daily/{date}.md", "topic": "选题标题", "score": 18 }
+```
+
+reviewer → orchestrator：
+```json
+{ "agent": "reviewer", "status": "done", "file": "archive/daily/{date}_review.json", "p0_count": 0, "p1_count": 0, "pass": true }
+```
+
+orchestrator → writer（修复指令）：
+```json
+{ "action": "fix", "review_file": "archive/daily/{date}_review.json", "fix_only": ["p0", "p1"] }
+```
+
+---
 ## 🚨 边界条件与异常处理
 
 ### 网络异常处理
@@ -141,4 +187,4 @@ Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
 
 ---
 
-*Version: v7.2 | 2026-06-09 | Rule 48-50新增（因果链/禁令需档案/技术决策）；§7A标点快扫；Forbidden#17-19；唐胥铁路四AI优化案例（案例19）*
+*Version: v8.0 | 2026-06-10 | 多 Agent 执行模式适配（writer+reviewer+orchestrator）；Agent 级异常处理 + 消息协议 + 迭代终结条件*
