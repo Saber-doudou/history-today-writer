@@ -23,7 +23,7 @@ keywords:
 
 # history-today-writer
 
-A structured narrative writing skill for "On This Day" historical micro-articles (~350-800 words). Modular architecture: rules split by execution phase for context efficiency.
+A structured narrative writing skill for "On This Day" historical micro-articles (~500-800 words). Modular architecture: rules split by execution phase for context efficiency.
 
 ---
 
@@ -53,10 +53,10 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 50条规则 + Forbidden Patterns + Humanizer | ~13K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 54条规则 + 20条禁止模式 + Humanizer | ~14K |
 | **Phase 3.5 审校** | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-50 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 19条判例库（按需Grep检索，不预加载） | ~9K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 20条判例库（按需Grep检索，不预加载） | ~10K |
 
 **模块化设计原则**：
 - WriterAgent 不加载 review_rules.md —— 避免"知道考纲做题"
@@ -107,12 +107,12 @@ Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
 
 | 场景 | 处理策略 |
 |------|---------|
-| writer 超时（8分钟无响应） | Orchestrator 重试 1 次，仍失败则终止并报告 |
+| writer 超时（8分钟无响应） | Orchestrator 检查文件是否已写入 → 若已写入则手动继续 → 若未写入则重试 1 次，仍失败则终止并报告 |
 | reviewer 超时（10分钟无响应） | Orchestrator 跳过审校，直接输出初稿 + 标注"⚠️ 未审校" |
 | writer 返回空文 | 检查搜索结果是否为空 → 使用 TOPICS.md 备用选题 |
 | reviewer 返回空结果 | Orchestrator 重试 1 次，仍为空则跳过审校 |
 | 文件写入冲突 | writer 写 `.md`，reviewer 写 `_review.json`，天然隔离 |
-| SendMessage 丢失 | Orchestrator 分派后 3 分钟内未收到回复 → 重试分派 |
+| SendMessage 丢失 | 等待完整超时（writer 8分钟/reviewer 10分钟）→ 检查文件是否已写入 → 若已写入则手动继续 → 若未写入则重试 |
 
 ### 迭代终结条件
 
@@ -187,4 +187,4 @@ orchestrator → writer（修复指令）：
 
 ---
 
-*Version: v8.0 | 2026-06-10 | 多 Agent 执行模式适配（writer+reviewer+orchestrator）；Agent 级异常处理 + 消息协议 + 迭代终结条件*
+*Version: v8.1 | 2026-06-10 | 超时逻辑修复（文件检查优先）；自检规则14-20（因果链/句式去重/泛化断言/中国视角/全员结局/数据唯一/场景具象）；Forbidden#20（元信息外露）；目标字数500-800*

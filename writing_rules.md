@@ -186,11 +186,18 @@ Not every dimension needs to be used in every piece. **Changing even one dimensi
 | 6 | **Experiment language** | Use "当时无人敢为" level formality | "做了一件当时无人敢为的事" |
 | 7 | **Character arc** | MUST include the protagonist's later-life (serves thesis, not encyclopedia) | — |
 | 8 | **Dual-ending** | Two-paragraph ending: image echo + values elevation | — |
-| 9 | **Flexible length** | 350-800 chars; stop naturally; no padding if under 600 | — |
+| 9 | **Flexible length** | 500-800字；推荐600字；确保因果过渡有展开空间 | — |
 | 10 | **Formal address** | Full name + formal title at first appearance | "一位八岁的小男孩詹姆斯·菲普斯" |
 | 11 | **Show Don't Tell** | NEVER use summary adjectives for character state | ❌ "他非常愤怒" → ✅ "他攥紧拳头，指节发白" |
 | 12 | **LOCK kernel check** | Verify: Lead / Objective / Confrontation / Knock-out | — |
 | 13 | **80/20 Fact-Fiction ratio** | Core facts 100% accurate. Artistic liberty restricted to: psychological interior, dialogue completion, sensory environment. **Never fabricate core historical facts.** | ✅ 揣摩内心活动 / ❌ 虚构中途降落加油 |
+| 14 | **因果链完整性** | 冲突→转折→结局 三段必须有明确因果连接词或逻辑过渡。禁止"障碍罗列→直接成功"式跳跃 | ❌ "遇到困难…他最终成功了" → ✅ "困难X迫使他做了Y，这反而让他Z" |
+| 15 | **句式去重** | 全文扫描，同一句式（如"不仅…更是…"、"不是…而是…"）最多出现 1 次 | ❌ 两处"不仅是…更是…" → 第二处换为其他句式 |
+| 16 | **禁止泛化断言** | 结尾不得使用"任何地方""一切""永远""所有"等绝对化表述，必须用具体意象收束 | ❌ "人类从此相信任何地方都能到达" → ✅ "汽车证明了大陆是可以被穿越的" |
+| 17 | **中国视角检查** | 历史事件发生在中国土地上时，必须交代中国政府/当局态度 + 百姓/民众反应 | ❌ 原版缺失清政府态度 → ✅ "清政府起初坚决反对…经反复交涉，路线被迫改道蒙古" |
+| 18 | **全员结局检查** | 竞赛/比赛/多方参与事件，必须交代所有参赛者结局（哪怕一句话） | ❌ 只写冠军 → ✅ "康塔尔三轮车在蒙古戈壁失联，其余四辆陆续驶入欧洲" |
+| 19 | **数据唯一性** | 同一数据全文只能出现一次，不能前后矛盾。标题数字与正文必须一致 | ❌ 标题"一万四千公里"正文"14,994公里" → ✅ 全文统一为一个数值 |
+| 20 | **场景具象化最低要求** | 全文≥2个具体场景描写 + ≥1个感官细节，不能全用概括句推进 | ❌ "车辆陷入泥泞时只能靠人力抬出" → ✅ "车陷泥潭，蒙古牧民惊恐地称这些冒烟的机器为'恶魔的铁马'" |
 
 ---
 
@@ -575,6 +582,7 @@ Humanizer targets:
 17. ✗ **因果链倒置**: 把后续契机写成初始原因（如把战争写成造车原因） → Rule 48
 18. ✗ **"官方禁令"无档案支撑**: 核心叙事依赖"某机构下了禁令"却无原始档案，需加限定词 → Rule 49
 19. ✗ **关键技术决策遗漏**: 涉及轨距/制式/标准等影响深远的选型却不交代 → Rule 50
+20. ✗ **元信息外露**: 正文中出现"Word count""Domain"等元信息标签，应删除或移至注释区
 
 ### 条约/外交类事件特殊检查
 条约叙事必须包含：谈判核心冲突 + 妥协方案。两者共同构成条约叙事的"戏剧骨骼"。
