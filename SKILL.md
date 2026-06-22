@@ -4,6 +4,7 @@ summary: "On This Day — narrative-driven historical storytelling skill for Wor
 agent_created: true
 trigger_words:
   - "历史上的今天"
+  - "historytoday"
   - "今天的历史"
   - "历史故事"
   - "on this day"
@@ -13,7 +14,8 @@ trigger_words:
   - "写历史"
   - "历史写作"
 keywords:
-  - "历史"
+  - "历史上的今天"
+  - "historytoday"
   - "故事"
   - "写作"
   - "叙事"
@@ -53,14 +55,15 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 54条规则 + 20条禁止模式 + Humanizer | ~14K |
-| **Phase 3.5 审校** | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-50 + 审校子系统 + 标点规范 | ~11K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 56条规则 + 26条禁止模式 + Humanizer | ~14K |
+| **Phase 3.5 审校** | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-59 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 20条判例库（按需Grep检索，不预加载） | ~10K |
 
 **模块化设计原则**：
-- WriterAgent 不加载 review_rules.md —— 避免"知道考纲做题"
-- ReviewAgent 不加载 writing_rules.md —— 纯粹的审核视角
+- Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
+- Orchestrator 精修阶段加载 review_rules.md —— 精准修复
+- ReviewerAgent 不加载 writing_rules.md —— 纯粹的审核视角
 - CASE_STUDIES.md 按需检索，不塞进上下文
 
 ---
@@ -85,6 +88,8 @@ Phase 3.6: 【判例预检 + Grep CASE_STUDIES.md】→ 领域专项检查
     ↓
 Phase 4: 输出（全文 + 执行摘要）
     ↓
+Phase 4.5: ASO优化（标题+摘要+标签优化）→ archive/daily/YYYY-MM-DD_aso.md
+    ↓
 Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
 ```
 
@@ -92,49 +97,35 @@ Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
 
 ---
 
-## 🤖 多 Agent 执行模式（v8.0 🆕）
+## 🤖 多 Agent 执行模式（v9.1）
 
-> **2 Agent spawn 模式**：Automation 本身充当 Orchestrator，负责编排协调；实际 spawn 的 Agent 只有 2 个。
+> **1 Agent spawn 模式**：Orchestrator 亲自选题+写作+精修，只 spawn Reviewer 做独立审校。
 
-| Agent | 职责 | 阶段 | 加载模块 | 预估 Token |
-|-------|------|------|---------|:---:|
-| **writer** | 选题 + 搜索 + 写作 + Humanizer + 自检 | Phase 1-3 | `topic_rules.md` + `writing_rules.md` | ~15K |
-| **reviewer** | 6维度审校 + 判例检索 | Phase 3.5-3.6 | `review_rules.md` + `review/prompts/*.md` | ~32K |
-
-**Orchestrator**（Automation 自身，非 spawn 的 Agent）负责：TeamCreate → 分派 → 收集 → 裁决 → 输出 → TeamDelete。
+| 角色 | 职责 | 阶段 | 加载模块 | 预估 Token |
+|------|------|------|---------|:---:|
+| **Orchestrator**（Automation 自身） | 选题 + 写作 + 精修 + 输出 + 记忆更新 | Phase 1-2, 4-8 | 写作阶段: `topic_rules.md` + `writing_rules.md`；精修阶段: + `review_rules.md` | 峰值~32K |
+| **reviewer**（spawn） | 6维度审校 + 判例检索 | Phase 3 | `review_rules.md` + `review/prompts/*.md` | ~32K |
 
 ### Agent 级异常处理
 
 | 场景 | 处理策略 |
 |------|---------|
-| writer 超时（8分钟无响应） | Orchestrator 检查文件是否已写入 → 若已写入则手动继续 → 若未写入则重试 1 次，仍失败则终止并报告 |
 | reviewer 超时（10分钟无响应） | Orchestrator 跳过审校，直接输出初稿 + 标注"⚠️ 未审校" |
-| writer 返回空文 | 检查搜索结果是否为空 → 使用 TOPICS.md 备用选题 |
+| reviewer spawn 失败 | 重试 1 次 → 仍失败 → 跳过审校 |
 | reviewer 返回空结果 | Orchestrator 重试 1 次，仍为空则跳过审校 |
-| 文件写入冲突 | writer 写 `.md`，reviewer 写 `_review.json`，天然隔离 |
-| SendMessage 丢失 | 等待完整超时（writer 8分钟/reviewer 10分钟）→ 检查文件是否已写入 → 若已写入则手动继续 → 若未写入则重试 |
+| 搜索失败 | 从 TOPICS.md 待写选题列表中选取备用事件 |
 
 ### 迭代终结条件
 
 - 审校通过（P0=0 且 P1≤1）→ 输出文章
-- 审校不通过 → writer 修复 → reviewer 重新审校（最多 2 轮）
+- 审校不通过 → Orchestrator 直接修复 → reviewer 重新审校（最多 2 轮）
 - 2 轮后仍不通过 → 标记"⚠️ 需人工审核"，输出当前最佳版本
 
 ### 消息协议
 
-writer → orchestrator：
-```json
-{ "agent": "writer", "status": "done", "file": "archive/daily/{date}.md", "topic": "选题标题", "score": 18 }
-```
-
 reviewer → orchestrator：
 ```json
 { "agent": "reviewer", "status": "done", "file": "archive/daily/{date}_review.json", "p0_count": 0, "p1_count": 0, "pass": true }
-```
-
-orchestrator → writer（修复指令）：
-```json
-{ "action": "fix", "review_file": "archive/daily/{date}_review.json", "fix_only": ["p0", "p1"] }
 ```
 
 ---
@@ -178,8 +169,8 @@ orchestrator → writer（修复指令）：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+44条规则+禁止模式 |
-| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-44+审校子系统 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+56条规则+26条禁止模式 |
+| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-59+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
@@ -187,4 +178,4 @@ orchestrator → writer（修复指令）：
 
 ---
 
-*Version: v8.1 | 2026-06-10 | 超时逻辑修复（文件检查优先）；自检规则14-20（因果链/句式去重/泛化断言/中国视角/全员结局/数据唯一/场景具象）；Forbidden#20（元信息外露）；目标字数500-800*
+*Version: v9.3 | 2026-06-22 | Rule 58（反转事件须交代溃败背景）+ Rule 59（受压方心理反应不可空白）；贡比涅停战协定四AI学习*
