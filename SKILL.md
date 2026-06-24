@@ -55,8 +55,8 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 56条规则 + 26条禁止模式 + Humanizer | ~14K |
-| **Phase 3.5 审校** | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-59 + 审校子系统 + 标点规范 | ~11K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 58条规则 + 26条禁止模式 + Humanizer | ~14K |
+| **Phase 3.5 审校** | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-61 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 20条判例库（按需Grep检索，不预加载） | ~10K |
 
@@ -91,6 +91,8 @@ Phase 4: 输出（全文 + 执行摘要）
 Phase 4.5: ASO优化（标题+摘要+标签优化）→ archive/daily/YYYY-MM-DD_aso.md
     ↓
 Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
+    ↓
+Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ 四AI学习用
 ```
 
 **效率规范**：网络请求上限3次；版本管理直接在目标文件 Edit；记忆更新合并为1次。
@@ -103,7 +105,7 @@ Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
 
 | 角色 | 职责 | 阶段 | 加载模块 | 预估 Token |
 |------|------|------|---------|:---:|
-| **Orchestrator**（Automation 自身） | 选题 + 写作 + 精修 + 输出 + 记忆更新 | Phase 1-2, 4-8 | 写作阶段: `topic_rules.md` + `writing_rules.md`；精修阶段: + `review_rules.md` | 峰值~32K |
+| **Orchestrator**（Automation 自身） | 选题 + 写作 + 精修 + 输出 + 记忆更新 + 投喂素材准备 | Phase 1-2, 4-9 | 写作阶段: `topic_rules.md` + `writing_rules.md`；精修阶段: + `review_rules.md` | 峰值~32K |
 | **reviewer**（spawn） | 6维度审校 + 判例检索 | Phase 3 | `review_rules.md` + `review/prompts/*.md` | ~32K |
 
 ### Agent 级异常处理
@@ -169,8 +171,8 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+56条规则+26条禁止模式 |
-| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-59+审校子系统 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+58条规则+26条禁止模式 |
+| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-61+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
@@ -178,4 +180,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.3 | 2026-06-22 | Rule 58（反转事件须交代溃败背景）+ Rule 59（受压方心理反应不可空白）；贡比涅停战协定四AI学习*
+*Version: v9.3.3 | 2026-06-24 | Rule 60（科学假说保留学术开放性）+ Rule 61（群体心理必须解释传播机制）；舞蹈瘟疫四AI学习*
