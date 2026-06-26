@@ -1,4 +1,5 @@
 ---
+name: "history-today-writer"
 title: "history-today-writer"
 summary: "On This Day — narrative-driven historical storytelling skill for WorkBuddy"
 agent_created: true
