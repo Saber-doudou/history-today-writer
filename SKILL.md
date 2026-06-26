@@ -202,8 +202,20 @@ reviewer → orchestrator：
 | 平均P2数 | [n] | [↑→↓] |
 | 首版通过率 | [n]% | [↑→↓] |
 | 平均修改轮次 | [n] | [↑→↓] |
-| 规则触发Top3 | Rule[n](n次), Rule[n](n次), Rule[n](n次) | - |
+  | 规则触发Top3 | Rule[n](n次), Rule[n](n次), Rule[n](n次) | - |
+
+## 规则温控月报
+| 指标 | 值 |
+|------|-----|
+| 总规则数 | 90 (62条规则+28条禁止) |
+| hot 规则 | [n] |
+| cold 规则 | [n] |
+| recovered 规则 | [n] |
+| 本月升温数 | [n] |
+| 本月降级数 | [n] |
 ```
+
+| 温控数据 | `review/rule_heat.json` | 全量规则触发记录，机器可读 |
 
 ---
 
@@ -219,6 +231,7 @@ reviewer → orchestrator：
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
 | 记忆文件 | `../.workbuddy/memory/MEMORY.md` | 执行记录+系统改造 |
+| 温控数据 | `review/rule_heat.json` | 全量规则触发记录，机器可读 |
 
 ---
 

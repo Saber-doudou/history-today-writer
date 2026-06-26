@@ -126,3 +126,6 @@
 - 专业术语首次出现必须解释
 - 历史地名、国名使用历史时期的名称
 - 不检查语言表达和史实准确性（由其他Agent负责）
+
+## 温控集成
+在 summary 中追加 `rule_triggers: [rule_XX, forbidden_XX, ...]` 字段，列出本次审校命中的规则编号，用于更新温控系统 `review/rule_heat.json`。

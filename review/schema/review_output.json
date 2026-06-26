@@ -56,6 +56,14 @@
         "pass_reason": {
           "type": "string",
           "description": "通过/不通过原因"
+        },
+        "rule_triggers": {
+          "type": "array",
+          "description": "本次审校命中的规则ID列表（用于温控系统更新 rule_heat.json）",
+          "items": {
+            "type": "string",
+            "description": "规则ID，如 rule_62, forbidden_27"
+          }
         }
       }
     },

@@ -120,3 +120,6 @@
 - 节奏词检查为P2级，仅建议优化，不强制修改
 - 历史文章的特殊用语（如"大清帝国"）保持原貌
 - 不检查史实准确性（由其他Agent负责）
+
+## 温控集成
+在 summary 中追加 `rule_triggers: [rule_XX, forbidden_XX, ...]` 字段，列出本次审校命中的规则编号，用于更新温控系统 `review/rule_heat.json`。

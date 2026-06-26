@@ -151,3 +151,6 @@
 - 灾难因果链断裂是P1级问题
 - 信息释放节奏是P2级问题，仅建议优化
 - 不检查语言表达和史实准确性（由其他Agent负责）
+
+## 温控集成
+在 summary 中追加 `rule_triggers: [rule_XX, forbidden_XX, ...]` 字段，列出本次审校命中的规则编号，用于更新温控系统 `review/rule_heat.json`。
