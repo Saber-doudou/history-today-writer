@@ -55,8 +55,8 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 58条规则 + 26条禁止模式 + Humanizer | ~14K |
-| **Phase 3.5 审校** | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-61 + 审校子系统 + 标点规范 | ~11K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 59条规则 + 28条禁止模式 + Humanizer | ~15K |
+| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-62 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 20条判例库（按需Grep检索，不预加载） | ~10K |
 
@@ -171,8 +171,8 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+58条规则+26条禁止模式 |
-| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-61+审校子系统 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+59条规则+28条禁止模式 |
+| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-62+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
@@ -180,4 +180,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.3.3 | 2026-06-24 | Rule 60（科学假说保留学术开放性）+ Rule 61（群体心理必须解释传播机制）；舞蹈瘟疫四AI学习*
+*Version: v9.3.4 | 2026-06-26 | Rule 62（技术竞争中的优势归属必须验证）+ Forbidden #27（技术特征张冠李戴）+ Forbidden #28（标题纯文艺缺信息锚点）；条形码四AI学习*
