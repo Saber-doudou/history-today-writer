@@ -56,8 +56,8 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 59条规则 + 28条禁止模式 + Humanizer | ~15K |
-| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-62 + 审校子系统 + 标点规范 | ~11K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 60条规则 + 28条禁止模式 + Humanizer | ~15K |
+| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-63 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 20条判例库（按需Grep检索，不预加载） | ~10K |
 
@@ -207,7 +207,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 90 (62条规则+28条禁止) |
+| 总规则数 | 91 (63条规则+28条禁止) |
 | hot 规则 | [n] |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -225,7 +225,7 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+59条规则+28条禁止模式 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+60条规则+28条禁止模式 |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-62+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
@@ -235,4 +235,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.3.4 | 2026-06-26 | Rule 62（技术竞争中的优势归属必须验证）+ Forbidden #27（技术特征张冠李戴）+ Forbidden #28（标题纯文艺缺信息锚点）；条形码四AI学习*
+*Version: v9.3.5 | 2026-06-29 | Rule 63（科技产品成功归因必须突破表层到范式转变）；iPhone首日发售四AI学习*
