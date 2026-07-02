@@ -207,7 +207,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 93 (64条规则+29条禁止) |
+| 总规则数 | 95 (65条规则+30条禁止) |
 | hot 规则 | [n] |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -225,8 +225,8 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+64条规则+29条禁止模式 |
-| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-64+审校子系统 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+65条规则+30条禁止模式 |
+| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-65+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
@@ -235,4 +235,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.3.6 | 2026-06-30 | Rule 64（天文事件"撞击"vs"空中爆炸"）+ Forbidden #29（自然现象局部替代整体）；通古斯大爆炸四AI学习*
+*Version: v9.3.7 | 2026-07-02 | Rule 65（环境/资源危机须含关键政策转折节点）+ Forbidden #30（政策转折节点缺失）；加拿大鳕鱼崩溃四AI学习*
