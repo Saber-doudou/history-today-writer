@@ -56,7 +56,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 64条规则 + 29条禁止模式 + Humanizer | ~16K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 66条规则 + 32条禁止模式 + Humanizer | ~16K |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-64 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 20条判例库（按需Grep检索，不预加载） | ~10K |
@@ -207,8 +207,8 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 95 (65条规则+30条禁止) |
-| hot 规则 | [n] |
+| 总规则数 | 98 (66条规则+32条禁止) |
+| hot 规则 | 2 |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
 | 本月升温数 | [n] |
@@ -225,7 +225,7 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+65条规则+30条禁止模式 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+66条规则+32条禁止模式 |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-65+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
@@ -235,4 +235,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.3.7 | 2026-07-02 | Rule 65（环境/资源危机须含关键政策转折节点）+ Forbidden #30（政策转折节点缺失）；加拿大鳕鱼崩溃四AI学习*
+*Version: v9.3.8 | 2026-07-03 | Rule 66（物种灭绝须含生物学约束+关键转折）+ Forbidden #31（缺繁殖率）+ Forbidden #32（缺关键转折）；大海雀灭绝四AI学习*
