@@ -56,7 +56,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 70条规则 + 35条禁止模式 + Humanizer | ~16K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 71条规则 + 35条禁止模式 + Humanizer | ~16K |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-70 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 26条判例库（按需Grep检索，不预加载） | ~10K |
@@ -207,7 +207,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 105 (70条规则+35条禁止) |
+| 总规则数 | 106 (71条规则+35条禁止) |
 | hot 规则 | 2 |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -225,7 +225,7 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+70条规则+35条禁止模式 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+71条规则+35条禁止模式 |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-70+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
@@ -235,4 +235,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.4.0 | 2026-07-07 | 新增 Rule 68-70（体育史：人物外貌色系查实/技术时代核实/绝对纪录限定）+ Forbidden #34-35（绝对纪录无限定/夺冠日插悲剧）；贝克尔温网四AI学习*
+*Version: v9.4.1 | 2026-07-08 | 新增 Rule 71（长时段历史转折须补全中间因果链，P1）——黑船来航四AI学习（IMA/千问/豆包一致指出从《神奈川条约》直跳明治维新/对马海战，缺幕府权威衰落→倒幕中间链）；基于 v9.4.0（贝克尔温网，Rule 68-70）*
