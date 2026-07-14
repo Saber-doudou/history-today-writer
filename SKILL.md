@@ -56,7 +56,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 72条规则 + 36条禁止模式 + Humanizer | ~16K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 74条规则 + 37条禁止模式 + Humanizer | ~16K |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-70 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 26条判例库（按需Grep检索，不预加载） | ~10K |
@@ -225,8 +225,8 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+72条规则+36条禁止模式 |
-| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-70+审校子系统 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+74条规则+37条禁止模式 |
+| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-74+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
@@ -235,4 +235,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.5.1 | 2026-07-10 | L2学习新增 Rule 73（法律/制度弧光——法律/制度类事件须交代最终命运，P1）+ 同步更新review_rules.md/CHANGELOG/CASE_STUDIES；规则数73+36=109；斯科普斯审判四AI学习（4/4 AI指出《巴特勒法》后续命运缺失）+ 基于 v9.5.0（罗素—爱因斯坦宣言，Rule 72）*
+*Version: v9.5.2 | 2026-07-14 | L2学习新增 Rule 74（援外/基建叙事"求援背景链"——须交代受援方先向世行/美/苏求助均拒的背景）+ Forbidden #37；规则数74+37=111；坦赞铁路四AI学习（4/4 AI指出求援链缺失导致中国援建决定分量不足）+ 基于 v9.5.1（Live Aid / Rule 73）*
