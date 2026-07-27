@@ -56,10 +56,10 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 74条规则 + 37条禁止模式 + Humanizer | ~16K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 80条规则 + 44条禁止模式 + Humanizer | ~18K |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-70 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 26条判例库（按需Grep检索，不预加载） | ~10K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 27条判例库（按需Grep检索，不预加载） | ~10K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
@@ -207,7 +207,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 109 (73条规则+36条禁止) |
+| 总规则数 | 117 (77条规则+40条禁止) |
 | hot 规则 | 2 |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -225,7 +225,7 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+74条规则+37条禁止模式 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+76条规则+39条禁止模式 |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-74+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
@@ -235,4 +235,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.5.3 | 2026-07-15 | L2学习新增 Rule 75（科技商业史"商业模式闭环"——须交代权利金/第三方许可等制度创新，P1强制）+ Forbidden #38（人物前身/过渡名称交代缺失）；规则数75+38=113；红白机FC四AI学习（3/4 AI指出第三方许可制度是救市核心制度创新缺失）+ 基于 v9.5.2（坦赞铁路 / Rule 74+#37）*
+*Version: v9.5.9 | 2026-07-27 | L2学习（胰岛素发现）新增 Rule 80（"On This Day"日期锚点法则，P1强制）+ Forbidden #44（灵感时间压缩，P0）；规则数80+44=124；4/4 AI共识：日期锚点模糊问题 + 灵感时间错位；基于 v9.5.8（马丘比丘Master反馈修正）*
