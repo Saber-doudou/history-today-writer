@@ -207,7 +207,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 117 (77条规则+40条禁止) |
+| 总规则数 | 126 (81条规则+45条禁止) |
 | hot 规则 | 2 |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -225,8 +225,8 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+76条规则+39条禁止模式 |
-| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-74+审校子系统 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+81条规则+45条禁止模式 |
+| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-81+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
@@ -235,4 +235,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.5.9 | 2026-07-27 | L2学习（胰岛素发现）新增 Rule 80（"On This Day"日期锚点法则，P1强制）+ Forbidden #44（灵感时间压缩，P0）；规则数80+44=124；4/4 AI共识：日期锚点模糊问题 + 灵感时间错位；基于 v9.5.8（马丘比丘Master反馈修正）*
+*Version: v9.6.0 | 2026-07-28 | L2学习（青龙奇迹）新增 Rule 81（灾害史制度基础，P1强制）+ Forbidden #45（防震疏散描写空洞化，P1）；规则数81+45=126；4/4 AI共识：防震疏散过程缺乏质感 + 个人英雄叙事忽略制度基础；基于 v9.5.9（胰岛素发现）*
