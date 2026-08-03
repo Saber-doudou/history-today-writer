@@ -56,7 +56,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 80条规则 + 44条禁止模式 + Humanizer | ~18K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 84条规则 + 47条禁止模式 + Humanizer | ~18K |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-70 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 27条判例库（按需Grep检索，不预加载） | ~10K |
@@ -207,7 +207,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 126 (81条规则+45条禁止) |
+| 总规则数 | 131 (84条规则+47条禁止) |
 | hot 规则 | 2 |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -225,8 +225,8 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+81条规则+45条禁止模式 |
-| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-81+审校子系统 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+84条规则+47条禁止模式 |
+| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-84+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
@@ -235,4 +235,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.6.1 | 2026-07-30 | L2学习（USS Indianapolis）新增 Forbidden #46（灾难叙事遗漏标志性次级元素）；规则数81+46=127；4/4 AI共识：鲨鱼袭击作为该事件最具辨识度的标志性元素不可省略，否则"近900落水仅316生还"的伤亡逻辑链断裂；基于 v9.6.0（青龙奇迹）*
+*Version: v9.6.3 | 2026-08-03 | L2学习（沈阳防爆器械厂）新增 Forbidden #47（数据堆砌/多组同类对比数字并列，P2审校）；规则数84+47=131；DS/千问/豆包 3/4 共识：多组资产负债数字并列堆砌稀释核心对比冲击力（v1"26.5万/48.6万"+"30.02万/50.3万"两组→v2精简为破产时点一组）；§5B补充"核心意象贯穿"自检（DS/豆包/千问标题建议：白纸花意象闭环）；基于 v9.6.2（裴多菲 Rule 82/83/84）*
