@@ -228,7 +228,7 @@ reviewer → orchestrator：
 | 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+88条规则+48条禁止模式 |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-88+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
-| 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
+| 判例库 | `review/CASE_STUDIES.md` | 49条案例库（45+判例+来源附录） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
 | 记忆文件 | `../.workbuddy/memory/MEMORY.md` | 执行记录+系统改造 |
 | 温控数据 | `review/rule_heat.json` | 全量规则触发记录，机器可读 |
