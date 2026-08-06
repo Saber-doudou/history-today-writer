@@ -59,7 +59,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 88条规则 + 48条禁止模式 + Humanizer | ~18K |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-88 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 27条判例库（按需Grep检索，不预加载） | ~10K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 45+ 条判例库（按需Grep检索，不预加载） | ~10K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
