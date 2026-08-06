@@ -56,8 +56,8 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | Token估算 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 84条规则 + 47条禁止模式 + Humanizer | ~18K |
-| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-70 + 审校子系统 + 标点规范 | ~11K |
+| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 88条规则 + 48条禁止模式 + Humanizer | ~18K |
+| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-88 + 审校子系统 + 标点规范 | ~11K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 27条判例库（按需Grep检索，不预加载） | ~10K |
 
@@ -207,7 +207,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 133 (85条规则+48条禁止) |
+| 总规则数 | 136 (88条规则+48条禁止) |
 | hot 规则 | 2 |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -225,8 +225,8 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+84条规则+47条禁止模式 |
-| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-84+审校子系统 |
+| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+88条规则+48条禁止模式 |
+| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-88+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
@@ -235,4 +235,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.6.4 | 2026-08-04 | L2学习（法国八月四日之夜）新增 Rule 85（重大会议/机构驻所地点锚定，P1强制）+ Forbidden #48（立法/制度事件缺"当下成果"交代，P1）；规则数85+48=133；DS/千问/豆包 3/4 共识：制宪议会开会地点为凡尔赛非巴黎（机构驻地迁徙史：1789.5凡尔赛→10.5妇女进军后迁巴黎，v1"巴黎"为P0硬伤）；4/4 AI共识：立法叙事须正面交代法令核心条款（无偿废人身义务 vs 地租赎买二分）再谈局限；基于 v9.6.3（沈阳防爆器械厂 Forbidden #47=131）*
+*Version: v9.6.6 | 2026-08-06 | L2学习（万维网公开）新增 Rule 87（科技史核心机制解释须具象类比，P1强制）+ Rule 88（重大决策须给反事实对照，P2强制）；规则数88+48=136；ds/ima/千问 3/4 共识：v1 技术解释偏抽象（ima 独家邮政类比：HTTP=寄信规则/HTML=信纸格式/URL=门牌地址）；千问独家反事实对照"万维网若收费大概率变成另一个 Gopher——精致，但小众"+ima 同向补因果链；基于 v9.6.5（圣何塞矿难 Rule 86=134）*

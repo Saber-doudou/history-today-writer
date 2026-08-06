@@ -92,6 +92,7 @@
     "forbidden_25": {"last_triggered": null, "count_30d": 0, "status": "hot", "demoted_at": null, "never_cool": false},
     "forbidden_26": {"last_triggered": null, "count_30d": 0, "status": "hot", "demoted_at": null, "never_cool": false},
     "forbidden_27": {"last_triggered": null, "count_30d": 0, "status": "hot", "demoted_at": null, "never_cool": false},
-    "forbidden_28": {"last_triggered": null, "count_30d": 0, "status": "hot", "demoted_at": null, "never_cool": false}
+    "forbidden_28": {"last_triggered": null, "count_30d": 0, "status": "hot", "demoted_at": null, "never_cool": false},
+    "rule_71": {"last_triggered": "2026-07-08", "count_30d": 1, "status": "hot", "demoted_at": null, "never_cool": true}
   }
 }
