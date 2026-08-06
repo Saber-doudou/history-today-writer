@@ -1,1 +1,2 @@
 timestamp	commit	skill	old_score	new_score	status	dimension	note	eval_mode
+2026-08-06T18:23:41	0c32c54	history-today-writer	-	8.75	baseline	实测表现	2篇基线通过(P0=0/P1=0)：加加林796字9.0分、日本投降792字8.5分(P2意象微重复)；写作阶段规则51484字符、全流程74273字符；耗时约5.5min	full_test
