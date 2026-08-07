@@ -1,6 +1,6 @@
 # topic_rules — 选题评分与淘汰
 
-> 本文件为 history-today-writer 的选题模块。其他模块：`writing_rules.md`（写作）、`review_rules.md`（审校）。
+> 本文件为 history-today-writer 的选题模块。其他模块：`writing_core.md`（写作）、`review_rules.md`（审校）。
 > 主索引：`SKILL.md`
 
 ---

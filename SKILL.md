@@ -53,18 +53,21 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 
 ## 📂 模块索引（按执行阶段加载）
 
-| 阶段 | 加载文件 | 内容 | Token估算 |
+| 阶段 | 加载文件 | 内容 | 字符数 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_rules.md` | 叙事结构 + 6维工具包 + 写作标准 + 88条规则 + 48条禁止模式 + Humanizer | ~18K |
-| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-88 + 审校子系统 + 标点规范 | ~11K |
+| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 44通用hot规则 + 温控表；索引：136条规则编号+摘要；题材专项×3；非强制技法 | 核心32K + 索引8K + 题材3-5K（+按需6K） |
+| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-88 + 审校子系统 + 标点规范 | ~17K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 27条判例库（按需Grep检索，不预加载） | ~10K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 45+ 条判例库（按需Grep检索，不预加载） | ~39K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
+- Orchestrator 写作阶段加载：writing_core.md + rule_index.md +（按题材）topics/ 1 个 —— 题材专项规则按需加载省Token（darwin step3.4）
+- craft_optional.md 非强制技法按需 Read，不默认加载
+- cold 规则降级为「编号+1行摘要」（rule_index.md），正文存 archive/cold_rules.md
 - Orchestrator 精修阶段加载 review_rules.md —— 精准修复
-- ReviewerAgent 不加载 writing_rules.md —— 纯粹的审核视角
+- ReviewerAgent 不加载 writing_core.md —— 纯粹的审核视角
 - CASE_STUDIES.md 按需检索，不塞进上下文
 
 ---
@@ -76,7 +79,7 @@ Phase 0: 防重跑检查（archive/daily/YYYY-MM-DD.md）
     ↓
 Phase 1: 【加载 topic_rules.md】→ 选题+搜索 → topic_result.json
     ↓
-Phase 2: 【加载 writing_rules.md】→ 写作+自检 → draft.md
+Phase 2: 【加载 writing_core.md + rule_index.md】→ 写作+自检 → draft.md
     ↓
 Phase 3: Phase 2内置 — Humanizer + P0复检
     ↓
@@ -140,7 +143,7 @@ Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ �
 
 | 角色 | 职责 | 阶段 | 加载模块 | 预估 Token |
 |------|------|------|---------|:---:|
-| **Orchestrator**（Automation 自身） | 选题 + 写作 + 精修 + 输出 + 记忆更新 + 投喂素材准备 | Phase 1-2, 4-9 | 写作阶段: `topic_rules.md` + `writing_rules.md`；精修阶段: + `review_rules.md` | 峰值~32K |
+| **Orchestrator**（Automation 自身） | 选题 + 写作 + 精修 + 输出 + 记忆更新 + 投喂素材准备 | Phase 1-2, 4-9 | 写作阶段: `topic_rules.md` + `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个；精修阶段: + `review_rules.md` | 峰值~32K |
 | **reviewer**（spawn） | 6维度审校 + 判例检索 | Phase 3 | `review_rules.md` + `review/prompts/*.md` | ~32K |
 
 ### Agent 级异常处理
@@ -225,14 +228,18 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作规则 | `writing_rules.md` | 叙事结构+6维工具包+88条规则+48条禁止模式 |
+| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+44通用hot规则+基础/hot禁止模式+温控表 |
+| 规则索引 | `rule_index.md` | 136条规则编号+摘要+温控+文件定位 |
+| 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（15 hot Rule + 7 hot Forbidden） |
+| 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |
+| 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden） |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-88+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
-| 判例库 | `review/CASE_STUDIES.md` | 17条历史判例+四AI对比 |
+| 判例库 | `review/CASE_STUDIES.md` | 49条案例库（45+判例+来源附录） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
 | 记忆文件 | `../.workbuddy/memory/MEMORY.md` | 执行记录+系统改造 |
 | 温控数据 | `review/rule_heat.json` | 全量规则触发记录，机器可读 |
 
 ---
 
-*Version: v9.6.6 | 2026-08-06 | L2学习（万维网公开）新增 Rule 87（科技史核心机制解释须具象类比，P1强制）+ Rule 88（重大决策须给反事实对照，P2强制）；规则数88+48=136；ds/ima/千问 3/4 共识：v1 技术解释偏抽象（ima 独家邮政类比：HTTP=寄信规则/HTML=信纸格式/URL=门牌地址）；千问独家反事实对照"万维网若收费大概率变成另一个 Gopher——精致，但小众"+ima 同向补因果链；基于 v9.6.5（圣何塞矿难 Rule 86=134）*
+*Version: v9.7.0 | 2026-08-07 | darwin结构化拆分：writing_rules.md→writing_core+rule_index+topics×3+craft_optional+cold_rules（分面索引/按需加载，实测9.0分，写作上下文-15%）；Forbidden编号对齐；基于 v9.6.6（万维网 Rule 87/88）*
