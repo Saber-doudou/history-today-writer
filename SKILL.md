@@ -79,7 +79,7 @@ Phase 0: 防重跑检查（archive/daily/YYYY-MM-DD.md）
     ↓
 Phase 1: 【加载 topic_rules.md】→ 选题+搜索 → topic_result.json
     ↓
-Phase 2: 【加载 writing_rules.md】→ 写作+自检 → draft.md
+Phase 2: 【加载 writing_core.md + rule_index.md】→ 写作+自检 → draft.md
     ↓
 Phase 3: Phase 2内置 — Humanizer + P0复检
     ↓

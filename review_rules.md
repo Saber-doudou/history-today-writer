@@ -2,7 +2,7 @@
 
 > 本文件为 history-today-writer 的审校模块。加载于审校阶段（Phase 3.5-3.6）。
 > **本模块不参与创作**——纯粹的审核视角，消除作者偏见。
-> 其他模块：`topic_rules.md`（选题）、`writing_rules.md`（写作）。主索引：`SKILL.md`
+> 其他模块：`topic_rules.md`（选题）、`writing_core.md`（写作）。主索引：`SKILL.md`
 
 ---
 
@@ -146,7 +146,7 @@ After each run, optionally log to TOPICS.md:
 | 层 | 文件 | 职责 | 类比 |
 |----|------|------|------|
 | 法典 | SKILL.md | 核心哲学+模块索引 | 法条总纲 |
-| 规则 | topic_rules.md / writing_rules.md / review_rules.md | 按阶段加载的具体规则 | 分则 |
+| 规则 | topic_rules.md / writing_core.md + rule_index.md + topics/ / review_rules.md | 按阶段加载的具体规则 | 分则 |
 | 判例 | review/CASE_STUDIES.md | 详细案例分析+四AI对比 | 判例集 |
 
 ### 9A.3 判例按需检索
@@ -160,7 +160,7 @@ CASE_STUDIES.md **不预加载**。审校发现 P0/P1 问题时，用 Grep 按�
 
 ### 9A.4 规则生命周期管理（温控系统）
 
-**已升级为温控系统**，详情见 `writing_rules.md §5S` 和 `review/rule_heat.json`。
+**已升级为温控系统**，详情见 `writing_core.md §5S` 和 `review/rule_heat.json`。
 
 | 状态 | 条件 | 加载行为 |
 |------|------|---------|
