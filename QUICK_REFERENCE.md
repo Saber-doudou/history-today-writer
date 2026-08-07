@@ -1,4 +1,4 @@
-# 🗺️ history-today-writer v9.7.0 模块加载指南
+# 🗺️ history-today-writer v9.7.1 模块加载指南
 
 > 快速参考：按阶段读什么、写什么、输出什么。
 
@@ -23,7 +23,7 @@ Phase 5  记忆            更新 MEMORY.md + TOPICS.md + CASE_STUDIES.md
 | 写作 | writing_core.md + rule_index.md | ~13K | 核心叙事规则+全量索引（darwin step3.4 拆分） |
 | 写作(按题材) | topics/ 1 个 | ~1-2K | 题材专项规则（灾难/战争制度/科技工程） |
 | 写作(按需) | craft_optional.md | ~2K | 非强制技法（参悟/心理/节奏词/镜像等） |
-| 审校 | review_rules.md | ~7K | 审校表、Rule 31-88、标点 |
+| 审校 | review_rules.md | ~7K | 审校表、Rule 31-90、标点 |
 | 审校 | review/prompts/ | ~21K | 6维度深度审校模板 |
 | 判例 | CASE_STUDIES.md | ~8K | 按需Grep，不预加载 |
 | 总览 | SKILL.md | ~2K | 核心哲学+模块索引 |
@@ -43,7 +43,7 @@ Phase 5  记忆            更新 MEMORY.md + TOPICS.md + CASE_STUDIES.md
 ├── SKILL.md                         ← 模块索引（2K）
 ├── topic_rules.md                   ← 选题规则（1K）
 ├── writing_core.md                  ← 写作核心（darwin step3.4）
-├── rule_index.md                    ← 规则全量索引（136行）
+├── rule_index.md                    ← 规则全量索引（138行）
 ├── topics/                          ← 题材专项规则（按题材加载1个）
 │   ├── nature_disaster.md
 │   ├── war_institution.md

@@ -56,10 +56,10 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | 字符数 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 44通用hot规则 + 温控表；索引：136条规则编号+摘要；题材专项×3；非强制技法 | 核心32K + 索引8K + 题材3-5K（+按需6K） |
-| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-88 + 审校子系统 + 标点规范 | ~17K |
+| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 46通用hot规则 + 温控表；索引：138条规则编号+摘要；题材专项×3；非强制技法 | 核心32K + 索引8K + 题材3-5K（+按需6K） |
+| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-90 + 审校子系统 + 标点规范 | ~17K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 49条案例（续号至45+来源附录；按需Grep检索，不预加载） | ~39K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 50条案例（续号至46+来源附录；按需Grep检索，不预加载） | ~39K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
@@ -210,7 +210,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 136 (88条规则+48条禁止) |
+| 总规则数 | 138 (90条规则+48条禁止) |
 | hot 规则 | [n] |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -228,8 +228,8 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+44通用hot规则+基础/hot禁止模式+温控表 |
-| 规则索引 | `rule_index.md` | 136条规则编号+摘要+温控+文件定位 |
+| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+46通用hot规则+基础/hot禁止模式+温控表 |
+| 规则索引 | `rule_index.md` | 138条规则编号+摘要+温控+文件定位 |
 | 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（15 hot Rule + 7 hot Forbidden） |
 | 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden） |
@@ -242,4 +242,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.7.0 | 2026-08-07 | darwin结构化拆分：writing_rules.md→writing_core+rule_index+topics×3+craft_optional+cold_rules（分面索引/按需加载，实测9.0分，写作上下文-15%）；Forbidden编号对齐；基于 v9.6.6（万维网 Rule 87/88）*
+*Version: v9.7.1 | 2026-08-07 | 九江大堤决口L2学习：新增 Rule 89（灾难/事件叙事避免公文套语,P2强制）+ Rule 90（灾难史"人"的厚度——核心人物之外补微观个体瞬间,P2强制）；基于 v9.7.0（darwin结构化拆分：writing_rules.md→writing_core+rule_index+topics×3+craft_optional+cold_rules；Forbidden编号对齐）*
