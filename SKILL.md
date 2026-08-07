@@ -242,4 +242,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.6.6-slim | 2026-08-06 | L2学习（万维网公开）新增 Rule 87 + Rule 88；规则数88+48=136。darwin step3 拆分（2026-08-06）：writing_rules.md → writing_core.md（32K字符）+ rule_index.md（8K字符）+ topics/×3（按题材加载）+ craft_optional.md（按需）+ archive/cold_rules.md（冷规则存档）；Forbidden 编号对齐修正（3.0）；温控回填归属修正（forbidden_20/22 → cold）。基于 v9.6.6（万维网 Rule 87/88）*
+*Version: v9.7.0 | 2026-08-07 | darwin结构化拆分：writing_rules.md→writing_core+rule_index+topics×3+craft_optional+cold_rules（分面索引/按需加载，实测9.0分，写作上下文-15%）；Forbidden编号对齐；基于 v9.6.6（万维网 Rule 87/88）*

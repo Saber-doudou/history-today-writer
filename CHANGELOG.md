@@ -1,5 +1,13 @@
 # CHANGELOG — history-today-writer
 
+## v9.7.0 | 2026-08-07（darwin 结构化拆分）
+- 判例外移：writing_rules.md 内 CASE 判例库移出为独立引用，规则正文保留编号+摘要，22处CASE引用全部可解析、无缺判例无法执行情形；写作阶段字符 48960（-4.9%），实测 9.0 分
+- 温控落地：review/rule_heat.json 真实回填（78/58/0 有效），新增 §5S.3 cold规则表；cold 规则该用时正确应用无漏规则
+- 结构化拆分：writing_rules.md → writing_core.md（32K字符）+ rule_index.md（8K字符/136行全量索引）+ topics/×3（nature_disaster / war_institution / tech_engineering 按题材加载）+ craft_optional.md（按需）+ archive/cold_rules.md（冷规则存档）；写作阶段按题材加载 44628/43845 字符（-13.9%/-15.4% vs Step2），rule_index 定位专项 Rule 全命中无漏规则；writing_rules.md 占位指针自愈不误导
+- Forbidden 编号对齐修正（3.0）：编号体系统一
+- 实测：2篇通过（加加林792字 9.0分、日本投降751字 9.0分）P0=0/P1=0/P2=0；results.tsv 4行（baseline 8.75 → step1/2/3 均 9.0 keep）
+- 同步更新：SKILL.md（v9.7.0 模块加载表 + footer）、rule_index.md、writing_core.md、topics/×3、craft_optional.md、archive/cold_rules.md、review_rules.md、QUICK_REFERENCE.md、results.tsv
+
 ## v9.6.6 | 2026-08-06（万维网公开 L2学习）
 - 新增 Rule 87: 科技史核心机制解释须具象类比（P1强制）——科技史/互联网史题材解释核心机制（协议/标准/架构）时，用 1 个生活化类比（邮政/交通/建筑）让非技术读者直观理解，多个并列机制用同一类比体系贯穿（HTTP=寄信规则/HTML=信纸格式/URL=门牌地址），类比后回到体验层（"点一下带下划线的字，你就到了另一台电脑上"）。附5NN节+自检清单
 - 新增 Rule 88: 重大决策须给反事实对照（P2强制）——涉及免费/收费、开放/封闭等改变格局的重大决策时，给一句"如果走另一条路会怎样"的反事实推演，优先用同赛道真实对照物（Gopher 收费 vs 万维网免费）。附5OO节+自检清单
