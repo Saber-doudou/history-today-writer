@@ -1,6 +1,6 @@
 # 表达润色校对 Agent
 
-> **v7.0**: 模块化架构 — 本 prompt 由 `review_rules.md` 审校阶段加载。新增 AI流水线感检查（§6 P1项）。规则来源：`writing_rules.md`（5C-5E人物心理/现代参悟/命运规律）+ `review_rules.md`（5I/5J/5K 专项 + 9A 元规则 + 9B 共性问题）。
+> **v7.0**: 模块化架构 — 本 prompt 由 `review_rules.md` 审校阶段加载。新增 AI流水线感检查（§6 P1项）。规则来源：`craft_optional.md`（5C-5E人物心理/现代参悟/命运规律）+ `review_rules.md`（5I/5J/5K 专项 + 9A 元规则 + 9B 共性问题）。
 
 ## 角色定义
 

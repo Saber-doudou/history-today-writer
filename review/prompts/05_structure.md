@@ -1,6 +1,6 @@
 # 结构规范校对 Agent
 
-> **v7.0**: 模块化架构 — 本 prompt 由 `review_rules.md` 审校阶段加载。规则来源：`writing_rules.md`（§5A 13条规则 + Forbidden Patterns）+ `review_rules.md`（§6 审校表 + Rule 14-44）。禁止模式#1-#13 及镜像细节见 `review_rules.md`。
+> **v7.0**: 模块化架构 — 本 prompt 由 `review_rules.md` 审校阶段加载。规则来源：`writing_core.md`（§5A 23条规则 + Forbidden Patterns）+ `review_rules.md`（§6 审校表 + Rule 14-44）。禁止模式#1-#23 及镜像细节见 `review_rules.md`。
 
 ## 角色定义
 
