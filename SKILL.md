@@ -59,7 +59,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 44通用hot规则 + 温控表；索引：136条规则编号+摘要；题材专项×3；非强制技法 | 核心32K + 索引8K + 题材3-5K（+按需6K） |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-88 + 审校子系统 + 标点规范 | ~17K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 45+ 条判例库（按需Grep检索，不预加载） | ~39K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 49条案例（续号至45+来源附录；按需Grep检索，不预加载） | ~39K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
@@ -211,7 +211,7 @@ reviewer → orchestrator：
 | 指标 | 值 |
 |------|-----|
 | 总规则数 | 136 (88条规则+48条禁止) |
-| hot 规则 | 2 |
+| hot 规则 | [n] |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
 | 本月升温数 | [n] |
@@ -235,7 +235,7 @@ reviewer → orchestrator：
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden） |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-88+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
-| 判例库 | `review/CASE_STUDIES.md` | 49条案例库（45+判例+来源附录） |
+| 判例库 | `review/CASE_STUDIES.md` | 49条案例（续号至45+来源附录） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
 | 记忆文件 | `../.workbuddy/memory/MEMORY.md` | 执行记录+系统改造 |
 | 温控数据 | `review/rule_heat.json` | 全量规则触发记录，机器可读 |

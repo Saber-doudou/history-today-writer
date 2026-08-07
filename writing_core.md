@@ -179,7 +179,7 @@ Not every dimension needs to be used in every piece. **Changing even one dimensi
 
 ---
 
-## 5A. 13 Mandatory Rules for Every Article
+## 5A. 23 Mandatory Rules for Every Article
 
 | # | Rule | Standard | Example |
 |---|------|----------|---------|
@@ -833,4 +833,4 @@ Humanizer targets:
 
 ---
 
-*Version: v9.6.6-slim | 2026-08-06 | darwin step3.4 拆分：题材专项→topics/（15 hot Rule + 7 hot Forbidden）；非强制技法→craft_optional.md；cold→archive/cold_rules.md；核心保留 44 条通用 hot Rule + 基础/hot Forbidden + 温控表*
+*Version: v9.7.0 | 2026-08-07 | darwin 拆分：题材专项→topics/（15 hot Rule + 7 hot Forbidden）；非强制技法→craft_optional.md；cold→archive/cold_rules.md；核心保留 44 条通用 hot Rule + 基础/hot Forbidden + 温控表*

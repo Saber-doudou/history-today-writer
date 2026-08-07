@@ -242,4 +242,4 @@
 
 ---
 
-*版本：darwin step3.4 | 2026-08-06 | 内容逐字迁移自 writing_rules.md（§5C/5D/5E/5H/5J/5K/5EE/5M），按需加载*
+*版本：v9.7.0 | 2026-08-07 | 内容逐字迁移自 writing_rules.md（§5C/5D/5E/5H/5J/5K/5EE/5M），按需加载*

@@ -270,4 +270,4 @@
 
 ---
 
-*版本：darwin step3.2 | 2026-08-06 | 存档 29 冷 Rule + 26 冷 Forbidden（含 3.0 修正后新增的 forbidden_20/22）*
+*版本：v9.7.0 | 2026-08-07 | 存档 29 冷 Rule + 26 冷 Forbidden（含 3.0 修正后新增的 forbidden_20/22）*

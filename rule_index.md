@@ -153,3 +153,5 @@
 | F48 | 制 | 专 | P1 | hot | war | 立法事件缺"当下成果" |
 
 > 注：F1-6 基础 Forbidden 全量保留于 core（F1/2/3/5/6 温控 cold* 但基础性质不降级）；cold 行=「编号+1行摘要」，正文见 `archive/cold_rules.md`；hot 专行全量见对应 `topics/` 文件。
+
+*版本：v9.7.0 | 2026-08-07 | darwin 拆分后全量索引（136 行），hot 专行见 topics/，cold 摘要见本表，正文见 archive/cold_rules.md*

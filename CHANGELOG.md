@@ -2,7 +2,7 @@
 
 ## v9.7.0 | 2026-08-07（darwin 结构化拆分）
 - 判例外移：writing_rules.md 内 CASE 判例库移出为独立引用，规则正文保留编号+摘要，22处CASE引用全部可解析、无缺判例无法执行情形；写作阶段字符 48960（-4.9%），实测 9.0 分
-- 温控落地：review/rule_heat.json 真实回填（78/58/0 有效），新增 §5S.3 cold规则表；cold 规则该用时正确应用无漏规则
+- 温控落地：review/rule_heat.json 真实回填（76/60/0 有效），新增 §5S.3 cold规则表；cold 规则该用时正确应用无漏规则
 - 结构化拆分：writing_rules.md → writing_core.md（32K字符）+ rule_index.md（8K字符/136行全量索引）+ topics/×3（nature_disaster / war_institution / tech_engineering 按题材加载）+ craft_optional.md（按需）+ archive/cold_rules.md（冷规则存档）；写作阶段按题材加载 44628/43845 字符（-13.9%/-15.4% vs Step2），rule_index 定位专项 Rule 全命中无漏规则；writing_rules.md 占位指针自愈不误导
 - Forbidden 编号对齐修正（3.0）：编号体系统一
 - 实测：2篇通过（加加林792字 9.0分、日本投降751字 9.0分）P0=0/P1=0/P2=0；results.tsv 4行（baseline 8.75 → step1/2/3 均 9.0 keep）
