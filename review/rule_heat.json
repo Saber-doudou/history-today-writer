@@ -746,31 +746,31 @@
       "never_cool": false
     },
     "forbidden_19": {
-      "last_triggered": null,
+      "last_triggered": "2026-06-10",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
       "never_cool": false
     },
     "forbidden_20": {
-      "last_triggered": "2026-08-06",
-      "count_30d": 14,
-      "status": "hot",
-      "demoted_at": null,
+      "last_triggered": "2026-06-11",
+      "count_30d": 0,
+      "status": "cold",
+      "demoted_at": "2026-08-06",
       "never_cool": false
     },
     "forbidden_21": {
-      "last_triggered": null,
+      "last_triggered": "2026-06-11",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
       "never_cool": false
     },
     "forbidden_22": {
-      "last_triggered": "2026-08-03",
-      "count_30d": 5,
-      "status": "hot",
-      "demoted_at": null,
+      "last_triggered": "2026-06-11",
+      "count_30d": 0,
+      "status": "cold",
+      "demoted_at": "2026-08-06",
       "never_cool": false
     },
     "forbidden_23": {
