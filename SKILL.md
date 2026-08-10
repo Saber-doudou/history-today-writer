@@ -210,7 +210,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 138 (90条规则+48条禁止) |
+| 总规则数 | 141 (93条规则+48条禁止) |
 | hot 规则 | [n] |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -229,17 +229,17 @@ reviewer → orchestrator：
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
 | 写作核心 | `writing_core.md` | 叙事结构+6维工具包+46通用hot规则+基础/hot禁止模式+温控表 |
-| 规则索引 | `rule_index.md` | 138条规则编号+摘要+温控+文件定位 |
+| 规则索引 | `rule_index.md` | 141条规则编号+摘要+温控+文件定位 |
 | 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（15 hot Rule + 7 hot Forbidden） |
 | 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden） |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-88+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
-| 判例库 | `review/CASE_STUDIES.md` | 49条案例（续号至45+来源附录） |
+| 判例库 | `review/CASE_STUDIES.md` | 50条案例（续号至47+来源附录） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
 | 记忆文件 | `../.workbuddy/memory/MEMORY.md` | 执行记录+系统改造 |
 | 温控数据 | `review/rule_heat.json` | 全量规则触发记录，机器可读 |
 
 ---
 
-*Version: v9.7.1 | 2026-08-07 | 九江大堤决口L2学习：新增 Rule 89（灾难/事件叙事避免公文套语,P2强制）+ Rule 90（灾难史"人"的厚度——核心人物之外补微观个体瞬间,P2强制）；基于 v9.7.0（darwin结构化拆分：writing_rules.md→writing_core+rule_index+topics×3+craft_optional+cold_rules；Forbidden编号对齐）*
+*Version: v9.7.3 | 2026-08-10 | 凡尔登条约 Master 指示：新增 Rule 93（古代题材副标题加注"对应中国朝代/年号",P2强制——尤适朝代更迭/帝国兴亡类）；基于 v9.7.2（凡尔登L2：Rule 91 继承/分家类制度根源诱因 + Rule 92 盟誓标志时刻语言细节）*
