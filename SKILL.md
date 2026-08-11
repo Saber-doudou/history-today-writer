@@ -56,10 +56,10 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | 字符数 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 46通用hot规则 + 温控表；索引：138条规则编号+摘要；题材专项×3；非强制技法 | 核心32K + 索引8K + 题材3-5K（+按需6K） |
+| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 49通用hot规则 + 温控表；索引：147条规则编号+摘要；题材专项×3；非强制技法 | 核心32K + 索引8K + 题材3-5K（+按需6K） |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-90 + 审校子系统 + 标点规范 | ~17K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 50条案例（续号至46+来源附录；按需Grep检索，不预加载） | ~39K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 50条案例（续号至48+来源附录；按需Grep检索，不预加载） | ~39K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
@@ -210,7 +210,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 141 (93条规则+48条禁止) |
+| 总规则数 | 147 (96条规则+51条禁止) |
 | hot 规则 | [n] |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -229,17 +229,17 @@ reviewer → orchestrator：
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
 | 写作核心 | `writing_core.md` | 叙事结构+6维工具包+46通用hot规则+基础/hot禁止模式+温控表 |
-| 规则索引 | `rule_index.md` | 141条规则编号+摘要+温控+文件定位 |
+| 规则索引 | `rule_index.md` | 147条规则编号+摘要+温控+文件定位 |
 | 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（15 hot Rule + 7 hot Forbidden） |
 | 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden） |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-88+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
-| 判例库 | `review/CASE_STUDIES.md` | 50条案例（续号至47+来源附录） |
+| 判例库 | `review/CASE_STUDIES.md` | 50条案例（续号至48+来源附录） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
 | 记忆文件 | `../.workbuddy/memory/MEMORY.md` | 执行记录+系统改造 |
 | 温控数据 | `review/rule_heat.json` | 全量规则触发记录，机器可读 |
 
 ---
 
-*Version: v9.7.3 | 2026-08-10 | 凡尔登条约 Master 指示：新增 Rule 93（古代题材副标题加注"对应中国朝代/年号",P2强制——尤适朝代更迭/帝国兴亡类）；基于 v9.7.2（凡尔登L2：Rule 91 继承/分家类制度根源诱因 + Rule 92 盟誓标志时刻语言细节）*
+*Version: v9.7.4 | 2026-08-11 | 留美幼童 L2 学习：新增 Rule 94（留学/出洋类"归来落地"闭环，P1）、Rule 95（"学成"须证据节点，P1）、Rule 96（群体年龄/规模数据核验，P0），F49-51 对应；规则 96+51=147；基于 v9.7.3（凡尔登 Master 指示：Rule 93 古代题材副标题加注"对应中国朝代/年号"，P2强制）*
