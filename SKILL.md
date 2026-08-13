@@ -56,7 +56,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | 字符数 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 49通用hot规则 + 温控表；索引：149条规则编号+摘要；题材专项×3；非强制技法 | 核心32K + 索引8K + 题材3-5K（+按需6K） |
+| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 49通用hot规则 + 温控表；索引：152条规则编号+摘要；题材专项×3；非强制技法 | 核心32K + 索引8K + 题材3-5K（+按需6K） |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-90 + 审校子系统 + 标点规范 | ~17K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 50条案例（续号至48+来源附录；按需Grep检索，不预加载） | ~39K |
@@ -210,7 +210,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 149 (98条规则+51条禁止) |
+| 总规则数 | 152 (101条规则+51条禁止) |
 | hot 规则 | [n] |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -229,7 +229,7 @@ reviewer → orchestrator：
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
 | 写作核心 | `writing_core.md` | 叙事结构+6维工具包+46通用hot规则+基础/hot禁止模式+温控表 |
-| 规则索引 | `rule_index.md` | 149条规则编号+摘要+温控+文件定位 |
+| 规则索引 | `rule_index.md` | 152条规则编号+摘要+温控+文件定位 |
 | 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（15 hot Rule + 7 hot Forbidden） |
 | 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden） |
@@ -242,4 +242,4 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.7.5 | 2026-08-12 | 日内瓦公约 L2 学习：新增 Rule 97（条约/公约体系须检查并列创新条款完整性，P1）、Rule 98（政权更替后条约签署/批准主体须区分表述，P1）；规则 98+51=149；基于 v9.7.4（留美幼童：Rule 94/95/96+F49-51）*
+*Version: v9.7.6 | 2026-08-13 | 柏林墙 L2 学习：新增 Rule 99（军事/封锁/秘密行动类须写入官方行动代号，P2）、Rule 100（封锁/筑墙/戒严首日场景区分"当晚部署"与"后续数日部署"，P1，war）、Rule 101（国际对抗/封锁类须交代对方/国际社会反应，P2）；规则 101+51=152；基于 v9.7.5（日内瓦：Rule 97/98）*

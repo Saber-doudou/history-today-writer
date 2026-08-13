@@ -1,4 +1,4 @@
-# 🗺️ history-today-writer v9.7.1 模块加载指南
+# 🗺️ history-today-writer v9.7.6 模块加载指南
 
 > 快速参考：按阶段读什么、写什么、输出什么。
 
