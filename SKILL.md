@@ -55,11 +55,11 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 
 | 阶段 | 加载文件 | 内容 | 字符数 |
 |------|---------|------|-----------|
-| **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~2K |
-| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 49通用hot规则 + 温控表；索引：152条规则编号+摘要；题材专项×3；非强制技法 | 核心32K + 索引8K + 题材3-5K（+按需6K） |
-| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-90 + 审校子系统 + 标点规范 | ~17K |
-| **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~21K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 50条案例（续号至48+来源附录；按需Grep检索，不预加载） | ~39K |
+| **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~1.9K |
+| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 59条hot规则（§5A基础23 + §5X通用36）+ 温控表；索引：155条规则编号+摘要；题材专项×3；非强制技法 | 核心70K（v9.7.8瘦身后）+ 索引14K + 题材6-12K（+按需12K） |
+| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-90 + 审校子系统 + 标点规范 | ~39K |
+| **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~47K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 51条案例（续号至50+来源附录；只Grep命中关键词，禁止整读进上下文） | ~96K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
@@ -68,7 +68,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 - cold 规则降级为「编号+1行摘要」（rule_index.md），正文存 archive/cold_rules.md
 - Orchestrator 精修阶段加载 review_rules.md —— 精准修复
 - ReviewerAgent 不加载 writing_core.md —— 纯粹的审核视角
-- CASE_STUDIES.md 按需检索，不塞进上下文
+- CASE_STUDIES.md（约96K）只 grep 命中关键词，禁止整读进上下文
 
 ---
 
@@ -85,7 +85,7 @@ Phase 3: Phase 2内置 — Humanizer + P0复检
     ↓
 Phase 3.5: 【加载 review_rules.md + review/prompts/】→ 6维度审校 → review_report.json
     ↓
-Phase 3.6: 【判例预检 + Grep CASE_STUDIES.md】→ 领域专项检查
+Phase 3.6: 【判例预检 + Grep CASE_STUDIES.md（只grep命中关键词，禁止整读96K进上下文）】→ 领域专项检查
     ↓
   若 P0=0 且 P1≤1 → Phase 3.7
   否则 → 回到 Phase 2（最多2轮）
@@ -105,6 +105,11 @@ Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
     ↓
 Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ 四AI学习用
 ```
+
+**reviewer spawn 规范与熔断链（P0-1，v9.7.8 写死）**：
+- **spawn 写法**：`Agent(subagent_type="general-purpose", model="reasoning")`——**禁止传 name 参数**（name 参数依赖 team 上下文，本地 automation 环境必失败；08-13 实证去掉 name 后 spawn 成功）
+- **熔断链**：spawn 报 team 上下文错误 → 去掉 name 参数重试 1 次 → 仍失败 → **熔断**（本次运行不再尝试 spawn）→ Orchestrator 自审（加载 review_rules.md + review/prompts/ 6 个模板执行 6 维度审校）→ 输出标注「⚠️ 未独立审校」
+- **等待策略（P0-2）**：spawn 成功后才进入等待；每 1 分钟轮询检查 `archive/daily/{YYYY-MM-DD}_review.json` 是否生成；reviewer 显式上限 15 分钟（spawn 成功起算）；收到 SendMessage(status=done) 或文件已生成 → 继续；15 分钟未产出 → 按熔断降级（Orchestrator 自审 + 标注）
 
 **效率规范**：网络请求上限3次；版本管理直接在目标文件 Edit；记忆更新合并为1次。
 
@@ -133,7 +138,7 @@ Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ �
 - **标题格式**：`# On This Day | [核心意象/双关语]`
 - **副标题**：具体日期 + 地点
 - **结尾**：`*字数：约N字 | 领域：[主题]*`
-- 写完后必须通过 §7.5 版本号一致性和 §7.6 同步检查清单验证
+- 写完后必须运行 `scripts/sync_check.py` 核验（规则数 155=104+51、版本号、文件路径一致性）
 
 ---
 
@@ -150,16 +155,26 @@ Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ �
 
 | 场景 | 处理策略 |
 |------|---------|
-| reviewer 超时（10分钟无响应） | Orchestrator 跳过审校，直接输出初稿 + 标注"⚠️ 未审校" |
-| reviewer spawn 失败 | 重试 1 次 → 仍失败 → 跳过审校 |
-| reviewer 返回空结果 | Orchestrator 重试 1 次，仍为空则跳过审校 |
+| **spawn 规范** | `Agent(subagent_type="general-purpose", model="reasoning")`——**禁止传 name 参数**（name 依赖 team 上下文，本地 automation 环境必失败；08-13 实证去掉 name 可成功） |
+| reviewer spawn 报 team 上下文错误 | 去掉 name 参数重试 1 次 → 仍失败 → **熔断**（本次运行不再尝试 spawn）→ Orchestrator 自审（加载 review_rules.md + review/prompts/ 6 个模板执行 6 维度审校）→ 输出标注「⚠️ 未独立审校」 |
+| reviewer 超时（spawn 成功后 15 分钟无响应/未产出） | 按熔断降级：Orchestrator 自审（同上）+ 输出标注「⚠️ 未独立审校」 |
+| reviewer 返回空结果 | Orchestrator 重试 1 次，仍为空 → 按熔断降级（Orchestrator 自审 + 标注「⚠️ 未独立审校」） |
 | 搜索失败 | 从 TOPICS.md 待写选题列表中选取备用事件 |
+
+### reviewer 等待策略（文件检测优先，v9.7.8）
+
+1. **spawn 成功后才进入等待**；spawn 失败不进入等待，直接走上方熔断链
+2. 每 1 分钟轮询检查 `archive/daily/{YYYY-MM-DD}_review.json` 是否已生成（文件检测为主）
+3. reviewer 显式上限 **15 分钟**（从 spawn 成功起算）
+4. 收到 reviewer SendMessage（status=done）或检测到 review.json 已生成 → 立即继续
+5. 15 分钟未产出 → 按熔断降级（Orchestrator 自审 + 输出标注「⚠️ 未独立审校」）
 
 ### 迭代终结条件
 
 - 审校通过（P0=0 且 P1≤1）→ 输出文章
 - 审校不通过 → Orchestrator 直接修复 → reviewer 重新审校（最多 2 轮）
 - 2 轮后仍不通过 → 标记"⚠️ 需人工审核"，输出当前最佳版本
+- **防死循环（v9.7.8）**：连续 2 轮审校指向同一 P 级问题且修复无实质改进 → 停止迭代，标记"⚠️ 需人工审核"并输出当前最佳版本
 
 ### 消息协议
 
@@ -210,7 +225,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 152 (101条规则+51条禁止) |
+| 总规则数 | 155 (104条规则+51条禁止) |
 | hot 规则 | [n] |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -228,18 +243,18 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+46通用hot规则+基础/hot禁止模式+温控表 |
-| 规则索引 | `rule_index.md` | 152条规则编号+摘要+温控+文件定位 |
-| 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（15 hot Rule + 7 hot Forbidden） |
+| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+59条hot规则（§5A基础23+§5X通用36）+基础/hot禁止模式+温控表（v9.7.8瘦身：26条cold Forbidden正文与cold状态表已迁 archive） |
+| 规则索引 | `rule_index.md` | 155条规则编号+摘要+温控+文件定位 |
+| 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（17 hot Rule + 7 hot Forbidden） |
 | 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |
-| 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden） |
+| 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden）+ cold 状态表（v9.7.8 迁入） |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-88+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
-| 判例库 | `review/CASE_STUDIES.md` | 50条案例（续号至48+来源附录） |
+| 判例库 | `review/CASE_STUDIES.md` | 51条案例（续号至50+来源附录） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
 | 记忆文件 | `../.workbuddy/memory/MEMORY.md` | 执行记录+系统改造 |
 | 温控数据 | `review/rule_heat.json` | 全量规则触发记录，机器可读 |
 
 ---
 
-*Version: v9.7.6 | 2026-08-13 | 柏林墙 L2 学习：新增 Rule 99（军事/封锁/秘密行动类须写入官方行动代号，P2）、Rule 100（封锁/筑墙/戒严首日场景区分"当晚部署"与"后续数日部署"，P1，war）、Rule 101（国际对抗/封锁类须交代对方/国际社会反应，P2）；规则 101+51=152；基于 v9.7.5（日内瓦：Rule 97/98）*
+*Version: v9.7.8 | 2026-08-14 | 自动化卡顿优化：①reviewer spawn 规范写死（禁止 name 参数）+ 熔断链 + 文件检测等待策略（P0-1/P0-2）；②模块索引字符数与规则数校准（155=104+51）；③writing_core 冷规则物理瘦身（26 cold Forbidden 正文 + cold 状态表迁 archive/cold_rules.md，75.7K→70.3K，零丢失）；④sync_check.py 一键核验；⑤CASE_STUDIES 只 grep 禁整读；⑥精修防死循环；基于 v9.7.7（北美大停电 L2：Rule 102/103/104）*
