@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.7.8）
+sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.7.9）
 
 核对项：
   ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
@@ -11,6 +11,10 @@ sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.7
   ④ 文件路径可达性：topics×3、review/prompts×6、craft_optional.md、
      archive/cold_rules.md、review/CASE_STUDIES.md、review_rules.md、
      rule_index.md、topic_rules.md 等是否存在
+  ⑤ hot 规则正文完整性：rule_index 标记 hot 的规则（文件=core/nat/war/tech），
+     在对应文件定位 `### Rule {n}.` / `### Rule {n}:` 标题，检查标题后 1-5 行内
+     存在非空正文行（防「标题/引用保留、正文删除」假阳性）；「仅编号」幽灵编号
+     （R24/25/28/29/30 等）与 §5A 表格式基础规则（1-23）除外
 
 运行：在技能目录下执行  python scripts/sync_check.py
 依赖：仅 Python 标准库（os/re/pathlib），Windows 路径兼容。
@@ -28,7 +32,7 @@ SKILL_DIR = Path(__file__).resolve().parent.parent
 EXPECT_RULES = 104       # R1-R104
 EXPECT_FORBIDDEN = 51    # F1-F51
 EXPECT_TOTAL = 155       # 104 + 51
-EXPECT_VERSION = "v9.7.8"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_VERSION = "v9.7.9"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 规则正文来源文件（规则编号并集由此统计）
 RULE_SOURCE_PATHS = [
@@ -74,9 +78,16 @@ def check(ok: bool, label: str, detail: str = "") -> None:
 
 
 def read_text(rel_path: str) -> str:
-    """以 UTF-8（容错）读取技能目录下的相对路径文件。"""
+    """以 UTF-8（容错）读取技能目录下的相对路径文件。
+
+    文件缺失时打印 ⚠️ 提示并返回空字符串（调用方据此判 ❌），避免脚本 traceback 崩溃。
+    """
     p = SKILL_DIR / rel_path
-    return p.read_text(encoding="utf-8", errors="replace")
+    try:
+        return p.read_text(encoding="utf-8", errors="replace")
+    except FileNotFoundError:
+        print(f"   ⚠️ 文件缺失：{rel_path}")
+        return ""
 
 
 def extract_rule_numbers(text: str) -> set[int]:
@@ -122,17 +133,127 @@ def count_index_rows(index_text: str, table_header: str) -> int:
     return len(re.findall(r"^\|\s*F\d", section, re.MULTILINE))
 
 
+# ---- ⑤ hot 规则正文完整性检查（v9.7.9 新增）----
+
+# rule_index 文件代码 → 相对文件路径
+FILE_CODE_TO_PATH = {
+    "core": "writing_core.md",
+    "nat": "topics/nature_disaster.md",
+    "war": "topics/war_institution.md",
+    "tech": "topics/tech_engineering.md",
+}
+
+# §5A 基础规则以表格行呈现（无 "### Rule N" 标题），由 extract_s5a_base_rules 覆盖，不参与正文检查
+S5A_TABLE_RULES = frozenset(range(1, 24))
+
+
+def parse_hot_rule_targets(index_text: str) -> list[tuple[int, str]]:
+    """从 rule_index 解析 hot 规则目标：(编号, 相对文件路径)。
+
+    匹配表格行 `| R<数字> | 题材 | 性质 | 级别 | hot | (core|nat|war|tech) | 摘要 |`，
+    注意 R 后数字可能带空格（`| R 36 |`）。摘要含「仅编号」的幽灵编号
+    （R24/25/28/29/30 等，无独立正文）自动排除；§5A 表格式基础规则（1-23，core）
+    由 extract_s5a_base_rules 覆盖，一并排除，避免误报。
+    """
+    targets: list[tuple[int, str]] = []
+    for line in index_text.splitlines():
+        line = line.strip()
+        if not (line.startswith("|") and line.endswith("|")):
+            continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        if len(cells) < 7:
+            continue
+        m = re.fullmatch(r"R\s*(\d{1,3})", cells[0])
+        if not m:
+            continue
+        n = int(m.group(1))
+        if cells[4] != "hot":          # 温控列
+            continue
+        file_code = cells[5]           # 文件列
+        if file_code not in FILE_CODE_TO_PATH:
+            continue
+        if "仅编号" in cells[6]:       # 幽灵编号：仅编号、无独立正文
+            continue
+        if file_code == "core" and n in S5A_TABLE_RULES:
+            continue
+        targets.append((n, FILE_CODE_TO_PATH[file_code]))
+    return targets
+
+
+def is_body_line(line: str) -> bool:
+    """判断一行是否为规则正文行。
+
+    排除：空行、标题行、自检清单/列表项、纯分隔行、判例来源行、引用行、表格行。
+    """
+    s = line.strip()
+    if not s:
+        return False
+    if re.match(r"^#{1,6}\s", s):              # 标题行
+        return False
+    if re.match(r"^[-*]\s", s) or s.startswith("□") or s.startswith("○"):  # 自检清单 / 列表项（注意 `**加粗**` 不以空格开头，不误伤）
+        return False
+    if re.match(r"^[—\-]{3,}$", s):            # 纯分隔行
+        return False
+    if re.match(r"^\*\*判例来源", s) or re.match(r"^判例来源", s):  # 判例来源行
+        return False
+    if re.match(r"^>\s*", s):                  # 引用行
+        return False
+    if s.startswith("|"):                      # 表格行
+        return False
+    return True
+
+
+def verify_hot_rule_bodies(targets: list[tuple[int, str]]) -> list[int]:
+    """核验 hot 规则正文完整性：以 `### Rule {n}.` 或 `### Rule {n}:` 定位标题，
+    检查标题行之后至下一个标题前的 1-5 行内是否存在非空正文行。
+
+    标题不存在（正文整段被删），或标题后至下一标题间无正文行 → 记为缺失。
+    返回正文缺失的规则编号列表。
+    """
+    missing: list[int] = []
+    for n, rel in targets:
+        text = read_text(rel)
+        if not text:
+            missing.append(n)
+            continue
+        heading = re.compile(
+            rf"^#{{1,6}}\s*Rule\s*{n}\s*[:.．、]",
+            re.MULTILINE | re.IGNORECASE,
+        )
+        hm = heading.search(text)
+        if not hm:
+            missing.append(n)
+            continue
+        # 跳过标题行残余（分隔符后的标题文字），从下一行开始扫描，最多 5 行
+        tail_lines = text[hm.end():].splitlines()
+        tail_lines = tail_lines[1:] if tail_lines else []
+        found_body = False
+        for line in tail_lines[:5]:
+            s = line.strip()
+            if re.match(r"^#{1,6}\s", s):   # 已到下一个标题 → 本规则无正文
+                break
+            if is_body_line(line):
+                found_body = True
+                break
+        if not found_body:
+            missing.append(n)
+    return missing
+
+
 def main() -> int:
     print("=" * 64)
-    print("history-today-writer sync_check（v9.7.8）")
+    print("history-today-writer sync_check（v9.7.9）")
     print(f"技能目录：{SKILL_DIR}")
     print("=" * 64)
 
     # ---- ① 规则数 ----
     rule_nums: set[int] = set()
     forbid_nums: set[int] = set()
+    missing_sources: list[str] = []
     for rel in RULE_SOURCE_PATHS:
         text = read_text(rel)
+        if not text and not (SKILL_DIR / rel).exists():
+            missing_sources.append(rel)
         rule_nums |= extract_rule_numbers(text)
         forbid_nums |= extract_forbidden_numbers(text)
         if rel == "writing_core.md":
@@ -141,10 +262,11 @@ def main() -> int:
     missing_rules = sorted(set(range(1, EXPECT_RULES + 1)) - rule_nums)
     extra_rules = sorted(rule_nums - set(range(1, EXPECT_RULES + 1)))
     check(
-        not missing_rules and not extra_rules,
+        not missing_rules and not extra_rules and not missing_sources,
         "① 规则数（正文文件并集）",
         f"共 {len(rule_nums)} 个唯一编号（期望 {EXPECT_RULES}）；"
-        f"缺失: {missing_rules or '无'}；越界: {extra_rules or '无'}",
+        f"缺失: {missing_rules or '无'}；越界: {extra_rules or '无'}；"
+        f"源文件缺失: {missing_sources or '无'}",
     )
 
     # rule_index 索引行数
@@ -208,6 +330,25 @@ def main() -> int:
         not missing_paths,
         "④ 文件路径可达性",
         f"共 {len(EXIST_PATHS)} 个路径；缺失: {missing_paths or '无'}",
+    )
+
+    # ---- ⑤ hot 规则正文完整性（v9.7.9 新增，防「标题保留、正文删除」假阳性）----
+    hot_targets = parse_hot_rule_targets(index_text)
+    core_targets = [t for t in hot_targets if t[1] == "writing_core.md"]
+    topics_targets = [t for t in hot_targets if t[1] != "writing_core.md"]
+
+    core_missing = verify_hot_rule_bodies(core_targets)
+    check(
+        not core_missing,
+        "⑤ hot 规则正文完整性（core 通用）",
+        f"核验 {len(core_targets)} 条 hot 规则；正文缺失: {core_missing or '无'}",
+    )
+
+    topics_missing = verify_hot_rule_bodies(topics_targets)
+    check(
+        not topics_missing,
+        "⑤ hot 规则正文完整性（topics 专项）",
+        f"核验 {len(topics_targets)} 条 hot 规则；正文缺失: {topics_missing or '无'}",
     )
 
     # ---- 附加信息：关键文件体积（供字符数校准参考，不影响通过/失败） ----

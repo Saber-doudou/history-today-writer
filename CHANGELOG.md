@@ -1,5 +1,19 @@
 # CHANGELOG — history-today-writer
 
+## v9.7.9 | 2026-08-14（全量审查修复）
+- **P0 sync_check.py 修复**：①`read_text` 捕获 FileNotFoundError 返回空字符串并打印 ⚠️「文件缺失：{rel_path}」，不再 traceback 崩溃；规则数统计阶段任一 RULE_SOURCE_PATHS 缺失自动判 ❌ ②新增 `verify_hot_rule_bodies()`：从 rule_index 提取 hot 规则（文件=core/nat/war/tech），在对应文件定位 `### Rule {n}.`/`### Rule {n}:` 标题，检查标题后 1-5 行内存在非空正文行（排除自检清单/判例来源/纯分隔/标题/空行），正文缺失→❌；「仅编号」幽灵编号（R24/25/28/29/30）与 §5A 表格式基础规则（1-23）除外；检查项 8→10 项
+- **S3 Rule 97 双份正文去重**：writing_core.md 的 Rule 97 完整正文改为指针（→ topics/war_institution.md §5ZZ，判例 CASE-49），正文唯一存放于 topics/war_institution.md
+- **M1** F26「维基百科式来历堆砌」删除误挂的「→ Rule 57」（Rule 57 为人物经典原话锚定，指向错误）
+- **M2** writing_core 5S.2「13 条基础规则（§5A 核心规则）」→「23 条基础规则（§5A 强制规则）」（§5A 实际 23 条）
+- **M3** archive/cold_rules.md cold 状态表 F1/2/3/5/6 状态列 cold→基础不降级 + 表上方注释（按 5S.2 永不降级，仅记录温控数据）
+- **M4** review_rules.md 9B 标题范围 Rule 31-55 → Rule 31-77
+- **M5** review_rules.md 判例数 49 → 51 条（CASE_STUDIES 现 51 条）
+- **M6** SKILL.md 质量异常处理「超过 3 轮修改仍不通过」→「超过 2 轮」（与迭代终结条件、automation prompt 一致）
+- **M7** SKILL.md Token 预估「峰值~32K」→「峰值~70K+（core 70K + index 14K + topics 12K）」
+- **M8** rule_index.md R103/R104 性质 专→通（适用于任何事故/灾难、任何制度变革叙事，非题材专属；文件列保持 core，与 R102 一致）
+- 同步更新：SKILL.md / writing_core.md / rule_index.md / archive/cold_rules.md / review_rules.md / topics/war_institution.md 版本行 → v9.7.9；automation-prompt-v9.7.9.md
+- 测试：正测全部 ✅；负测 S1（缺文件优雅报告退出码1）/S2（Rule 36 正文删除检出❌）/版本负测（v9.7.10 检出❌）均通过
+
 ## v9.7.7 | 2026-08-14（北美大停电 L2学习）
 - 新增 Rule 102: 地理范围概括须核验端点（P0强制）——"从A到B"式城市/地区链概括事件范围前，逐点核验链上端点均在事件范围内；端点有误改用区域词（"中西部与东北部"）或只列双源确证城市。附5ZZ节
 - 新增 Rule 103: 事故/灾难叙事须交代前置诱因（P1强制）——写"直接起因"前检查更早的前置事件（机组先跳闸/系统余量不足/检修停机）是否削弱系统，有则补1句形成"前置松动→直接触发→连锁"三段链

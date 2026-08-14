@@ -148,7 +148,7 @@ Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ �
 
 | 角色 | 职责 | 阶段 | 加载模块 | 预估 Token |
 |------|------|------|---------|:---:|
-| **Orchestrator**（Automation 自身） | 选题 + 写作 + 精修 + 输出 + 记忆更新 + 投喂素材准备 | Phase 1-2, 4-9 | 写作阶段: `topic_rules.md` + `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个；精修阶段: + `review_rules.md` | 峰值~32K |
+| **Orchestrator**（Automation 自身） | 选题 + 写作 + 精修 + 输出 + 记忆更新 + 投喂素材准备 | Phase 1-2, 4-9 | 写作阶段: `topic_rules.md` + `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个；精修阶段: + `review_rules.md` | 峰值~70K+（按 v9.7.9 文件体积：core 70K + index 14K + topics 12K） |
 | **reviewer**（spawn） | 6维度审校 + 判例检索 | Phase 3 | `review_rules.md` + `review/prompts/*.md` | ~32K |
 
 ### Agent 级异常处理
@@ -192,7 +192,7 @@ reviewer → orchestrator：
 3. **网络不可用**：切换到离线模式，使用本地素材库
 
 ### 质量异常处理
-1. **多轮修改不达标**：超过 3 轮修改仍不通过，标记为"需人工审核"
+1. **多轮修改不达标**：超过 2 轮修改仍不通过，标记为"需人工审核"
 2. **选题冲突**：自动选择下一个高分选题
 3. **Token 超限**：精简内容，优先保证核心叙事
 
@@ -257,6 +257,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.7.8 | 2026-08-14 | 自动化卡顿优化：①reviewer spawn 规范写死（禁止 name 参数）+ 熔断链 + 文件检测等待策略（P0-1/P0-2）；②模块索引字符数与规则数校准（155=104+51）；③writing_core 冷规则物理瘦身（26 cold Forbidden 正文 + cold 状态表迁 archive/cold_rules.md，72.2K→70.3K，零丢失）；④sync_check.py 一键核验；⑤CASE_STUDIES 只 grep 禁整读；⑥精修防死循环；基于 v9.7.7（北美大停电 L2：Rule 102/103/104）*
+*Version: v9.7.9 | 2026-08-14 | 全量审查修复：sync_check 崩溃/假阳性修复（read_text 容错 + hot 规则正文完整性检查）、Rule97 双份正文去重（正文唯一存放 topics/war_institution.md §5ZZ）、文档索引批量修正（F26 指向、5S.2 数字、9B 标题、判例数 49→51、R103/104 性质、轮次 3→2、Token 预估 32K→70K+）；基于 v9.7.8（自动化卡顿优化：①reviewer spawn 规范写死（禁止 name 参数）+ 熔断链 + 文件检测等待策略（P0-1/P0-2）；②模块索引字符数与规则数校准（155=104+51）；③writing_core 冷规则物理瘦身（26 cold Forbidden 正文 + cold 状态表迁 archive/cold_rules.md，72.2K→70.3K，零丢失）；④sync_check.py 一键核验；⑤CASE_STUDIES 只 grep 禁整读；⑥精修防死循环；基于 v9.7.7（北美大停电 L2：Rule 102/103/104））*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。
