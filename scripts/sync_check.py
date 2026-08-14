@@ -7,7 +7,7 @@ sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.7
   ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
      vs rule_index.md 索引行数 vs SKILL.md 声称数（155 = 104 Rule + 51 Forbidden）
   ② Forbidden 数（51）
-  ③ 版本号：SKILL.md 末尾 Version 行（automation prompt 引用需人工核对）
+  ③ 版本号：SKILL.md 末尾 Version 行须等于 EXPECT_VERSION（automation prompt 引用需人工核对）
   ④ 文件路径可达性：topics×3、review/prompts×6、craft_optional.md、
      archive/cold_rules.md、review/CASE_STUDIES.md、review_rules.md、
      rule_index.md、topic_rules.md 等是否存在
@@ -28,6 +28,7 @@ SKILL_DIR = Path(__file__).resolve().parent.parent
 EXPECT_RULES = 104       # R1-R104
 EXPECT_FORBIDDEN = 51    # F1-F51
 EXPECT_TOTAL = 155       # 104 + 51
+EXPECT_VERSION = "v9.7.8"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 规则正文来源文件（规则编号并集由此统计）
 RULE_SOURCE_PATHS = [
@@ -194,7 +195,11 @@ def main() -> int:
     # ---- ③ 版本号 ----
     vm = re.search(r"Version:\s*(v[\d.]+)", skill_text)
     version = vm.group(1) if vm else "未找到"
-    check(vm is not None, "③ 版本号（SKILL.md Version 行）", f"SKILL.md = {version}")
+    check(
+        vm is not None and version == EXPECT_VERSION,
+        "③ 版本号（SKILL.md Version 行）",
+        f"SKILL.md = {version}（期望 {EXPECT_VERSION}）",
+    )
     print("   ℹ️ automation prompt 中的版本引用需人工核对（脚本无法读取 automation prompt 文件）")
 
     # ---- ④ 文件路径可达性 ----

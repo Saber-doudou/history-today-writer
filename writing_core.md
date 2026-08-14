@@ -959,7 +959,7 @@ hot ──(30天未触发)──→ cold ──(被审校命中)──→ recove
 
 ### 5S.3 当前 cold/recovered 规则
 
-> **v9.7.8 瘦身迁移**：完整状态表（74 行，含最后触发/30天次数/降级日）已迁至 `archive/cold_rules.md`「三、cold 状态表」。
+> **v9.7.8 瘦身迁移**：完整状态表（60 行数据，含最后触发/30天次数/降级日）已迁至 `archive/cold_rules.md`「三、cold 状态表」。
 > 写作阶段判断规则是否 cold：以 `rule_index.md` 温控列（hot/cold）为准，或查询 `review/rule_heat.json`（机器可读）。recovered 暂无。
 
 ### 5S.4 温控加载策略

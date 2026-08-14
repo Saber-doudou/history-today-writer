@@ -257,4 +257,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.7.8 | 2026-08-14 | 自动化卡顿优化：①reviewer spawn 规范写死（禁止 name 参数）+ 熔断链 + 文件检测等待策略（P0-1/P0-2）；②模块索引字符数与规则数校准（155=104+51）；③writing_core 冷规则物理瘦身（26 cold Forbidden 正文 + cold 状态表迁 archive/cold_rules.md，75.7K→70.3K，零丢失）；④sync_check.py 一键核验；⑤CASE_STUDIES 只 grep 禁整读；⑥精修防死循环；基于 v9.7.7（北美大停电 L2：Rule 102/103/104）*
+*Version: v9.7.8 | 2026-08-14 | 自动化卡顿优化：①reviewer spawn 规范写死（禁止 name 参数）+ 熔断链 + 文件检测等待策略（P0-1/P0-2）；②模块索引字符数与规则数校准（155=104+51）；③writing_core 冷规则物理瘦身（26 cold Forbidden 正文 + cold 状态表迁 archive/cold_rules.md，72.2K→70.3K，零丢失）；④sync_check.py 一键核验；⑤CASE_STUDIES 只 grep 禁整读；⑥精修防死循环；基于 v9.7.7（北美大停电 L2：Rule 102/103/104）*
+
+> 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。
