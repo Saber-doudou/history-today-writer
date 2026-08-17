@@ -56,7 +56,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | 字符数 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~1.9K |
-| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 59条hot规则（§5A基础23 + §5X通用36）+ 温控表；索引：155条规则编号+摘要；题材专项×3；非强制技法 | 核心70K（v9.7.8瘦身后）+ 索引14K + 题材6-12K（+按需12K） |
+| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 62条hot规则（§5A基础23 + §5X通用39）+ 温控表；索引：158条规则编号+摘要；题材专项×3；非强制技法 | 核心70K（v9.7.8瘦身后）+ 索引14K + 题材6-12K（+按需12K） |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-90 + 审校子系统 + 标点规范 | ~39K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~47K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 51条案例（续号至50+来源附录；只Grep命中关键词，禁止整读进上下文） | ~96K |
@@ -138,7 +138,7 @@ Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ �
 - **标题格式**：`# On This Day | [核心意象/双关语]`
 - **副标题**：具体日期 + 地点
 - **结尾**：`*字数：约N字 | 领域：[主题]*`
-- 写完后必须运行 `scripts/sync_check.py` 核验（规则数 155=104+51、版本号、文件路径、hot 规则正文完整性）
+- 写完后必须运行 `scripts/sync_check.py` 核验（规则数 158=107+51、版本号、文件路径、hot 规则正文完整性）
 
 ---
 
@@ -148,7 +148,7 @@ Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ �
 
 | 角色 | 职责 | 阶段 | 加载模块 | 预估 Token |
 |------|------|------|---------|:---:|
-| **Orchestrator**（Automation 自身） | 选题 + 写作 + 精修 + 输出 + 记忆更新 + 投喂素材准备 | Phase 1-2, 4-9 | 写作阶段: `topic_rules.md` + `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个；精修阶段: + `review_rules.md` | 峰值~70K+（按 v9.7.9 文件体积：core 70K + index 14K + topics 12K） |
+| **Orchestrator**（Automation 自身） | 选题 + 写作 + 精修 + 输出 + 记忆更新 + 投喂素材准备 | Phase 1-2, 4-9 | 写作阶段: `topic_rules.md` + `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个；精修阶段: + `review_rules.md` | 峰值~70K+（按 v9.8.0 文件体积：core 70K + index 14K + topics 12K） |
 | **reviewer**（spawn） | 6维度审校 + 判例检索 | Phase 3 | `review_rules.md` + `review/prompts/*.md` | ~32K |
 
 ### Agent 级异常处理
@@ -225,7 +225,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 155 (104条规则+51条禁止) |
+| 总规则数 | 158 (107条规则+51条禁止) |
 | hot 规则 | [n] |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -243,8 +243,8 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+59条hot规则（§5A基础23+§5X通用36）+基础/hot禁止模式+温控表（v9.7.8瘦身：26条cold Forbidden正文与cold状态表已迁 archive） |
-| 规则索引 | `rule_index.md` | 155条规则编号+摘要+温控+文件定位 |
+| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+62条hot规则（§5A基础23+§5X通用39）+基础/hot禁止模式+温控表（v9.7.8瘦身：26条cold Forbidden正文与cold状态表已迁 archive） |
+| 规则索引 | `rule_index.md` | 158条规则编号+摘要+温控+文件定位 |
 | 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（17 hot Rule + 7 hot Forbidden） |
 | 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden）+ cold 状态表（v9.7.8 迁入） |
@@ -257,6 +257,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.7.9 | 2026-08-14 | 全量审查修复：sync_check 崩溃/假阳性修复（read_text 容错 + hot 规则正文完整性检查）、Rule97 双份正文去重（正文唯一存放 topics/war_institution.md §5ZZ）、文档索引批量修正（F26 指向、5S.2 数字、9B 标题、判例数 49→51、R103/104 性质、轮次 3→2、Token 预估 32K→70K+）；基于 v9.7.8（自动化卡顿优化：①reviewer spawn 规范写死（禁止 name 参数）+ 熔断链 + 文件检测等待策略（P0-1/P0-2）；②模块索引字符数与规则数校准（155=104+51）；③writing_core 冷规则物理瘦身（26 cold Forbidden 正文 + cold 状态表迁 archive/cold_rules.md，72.2K→70.3K，零丢失）；④sync_check.py 一键核验；⑤CASE_STUDIES 只 grep 禁整读；⑥精修防死循环；基于 v9.7.7（北美大停电 L2：Rule 102/103/104））*
+*Version: v9.8.0 | 2026-08-17 | 伊兹米特地震 L2 学习：新增 Rule 105（同场对照组）/106（事前预测预警纵深）/107（多因素归因限定），155→158 条（107+51），hot 59→62（§5X 36→39）；基于 v9.7.9（全量审查修复：sync_check 崩溃/假阳性修复（read_text 容错 + hot 规则正文完整性检查）、Rule97 双份正文去重（正文唯一存放 topics/war_institution.md §5ZZ）、文档索引批量修正（F26 指向、5S.2 数字、9B 标题、判例数 49→51、R103/104 性质、轮次 3→2、Token 预估 32K→70K+）；基于 v9.7.8（自动化卡顿优化：①reviewer spawn 规范写死（禁止 name 参数）+ 熔断链 + 文件检测等待策略（P0-1/P0-2）；②模块索引字符数与规则数校准（155=104+51）；③writing_core 冷规则物理瘦身（26 cold Forbidden 正文 + cold 状态表迁 archive/cold_rules.md，72.2K→70.3K，零丢失）；④sync_check.py 一键核验；⑤CASE_STUDIES 只 grep 禁整读；⑥精修防死循环；基于 v9.7.7（北美大停电 L2：Rule 102/103/104））*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。
