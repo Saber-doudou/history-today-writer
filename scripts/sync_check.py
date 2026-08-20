@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.1）
+sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.3）
 
 核对项：
   ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
-     vs rule_index.md 索引行数 vs SKILL.md 声称数（162 = 110 Rule + 52 Forbidden）
-  ② Forbidden 数（52）
+     vs rule_index.md 索引行数 vs SKILL.md 声称数（165 = 112 Rule + 53 Forbidden）
+  ② Forbidden 数（53）
   ③ 版本号：SKILL.md 末尾 Version 行须等于 EXPECT_VERSION（automation prompt 引用需人工核对）
   ④ 文件路径可达性：topics×3、review/prompts×6、craft_optional.md、
      archive/cold_rules.md、review/CASE_STUDIES.md、review_rules.md、
@@ -29,10 +29,10 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 111       # R1-R111
-EXPECT_FORBIDDEN = 52    # F1-F52
-EXPECT_TOTAL = 163       # 111 + 52
-EXPECT_VERSION = "v9.8.2"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_RULES = 112       # R1-R112
+EXPECT_FORBIDDEN = 53    # F1-F53
+EXPECT_TOTAL = 165       # 112 + 53
+EXPECT_VERSION = "v9.8.3"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 规则正文来源文件（规则编号并集由此统计）
 RULE_SOURCE_PATHS = [
@@ -242,7 +242,7 @@ def verify_hot_rule_bodies(targets: list[tuple[int, str]]) -> list[int]:
 
 def main() -> int:
     print("=" * 64)
-    print("history-today-writer sync_check（v9.8.1）")
+    print("history-today-writer sync_check（v9.8.3）")
     print(f"技能目录：{SKILL_DIR}")
     print("=" * 64)
 
