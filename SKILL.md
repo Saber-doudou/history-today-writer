@@ -53,13 +53,15 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 
 ## 📂 模块索引（按执行阶段加载）
 
+> **计数口径说明**：所有规则数 / Forbidden 数 / 文件体积声称值，一律以 `scripts/sync_check.py` 实跑结果为准（提及并集口径）；声称值如有出入（如 cold 29 条含 7 个幽灵编号 24-30 无正文、hot 84 vs 索引 83 差 1 来自 R97 指针头），以校验脚本为权威。
+
 | 阶段 | 加载文件 | 内容 | 字符数 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~1.9K |
-| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 67条hot规则（§5A基础23 + §5X通用44）+ 温控表；索引：165条规则编号+摘要；题材专项×3；非强制技法 | 核心70K（v9.7.8瘦身后）+ 索引14K + 题材6-12K（+按需12K） |
-| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-90 + 审校子系统 + 标点规范 | ~39K |
+| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 67条hot规则（§5A基础23 + §5X通用44）+ 温控表；索引：165条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~79K + 索引14K + 题材6-12K（+按需12K+4K） |
+| Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-77 四AI共性模式（+R111 等 hot 引用，编号见 rule_index）+ 审校子系统 + 标点规范 | ~43K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~47K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 55条案例（续号至55；只Grep命中关键词，禁止整读进上下文） | ~96K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 55条案例（续号至55；只Grep命中关键词，禁止整读进上下文） | ~105K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
@@ -106,7 +108,7 @@ Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
 Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ 四AI学习用
 ```
 
-**reviewer spawn 规范与熔断链（P0-1，v9.7.8 写死）**：
+**Reviewer 独立子进程规范与熔断链（P0-1，v9.8.3 收敛，08-18 起不依赖 team）**：
 - **spawn 写法**：`Agent(subagent_type="general-purpose", model="reasoning")`——**禁止传 name 参数**（name 参数依赖 team 上下文，本地 automation 环境必失败；08-13 实证去掉 name 后 spawn 成功）
 - **熔断链**：spawn 报 team 上下文错误 → 去掉 name 参数重试 1 次 → 仍失败 → **熔断**（本次运行不再尝试 spawn）→ Orchestrator 自审（加载 review_rules.md + review/prompts/ 6 个模板执行 6 维度审校）→ 输出标注「⚠️ 未独立审校」
 - **等待策略（P0-2）**：spawn 成功后才进入等待；每 1 分钟轮询检查 `archive/daily/{YYYY-MM-DD}_review.json` 是否生成；reviewer 显式上限 15 分钟（spawn 成功起算）；收到 SendMessage(status=done) 或文件已生成 → 继续；15 分钟未产出 → 按熔断降级（Orchestrator 自审 + 标注）
@@ -142,32 +144,9 @@ Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ �
 
 ---
 
-## 🤖 多 Agent 执行模式（v9.1）
+## 审校子进程协议（已收敛，详见上文「Reviewer 独立子进程规范」）
 
-> **1 Agent spawn 模式**：Orchestrator 亲自选题+写作+精修，只 spawn Reviewer 做独立审校。
-
-| 角色 | 职责 | 阶段 | 加载模块 | 预估 Token |
-|------|------|------|---------|:---:|
-| **Orchestrator**（Automation 自身） | 选题 + 写作 + 精修 + 输出 + 记忆更新 + 投喂素材准备 | Phase 1-2, 4-9 | 写作阶段: `topic_rules.md` + `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个；精修阶段: + `review_rules.md` | 峰值~70K+（按 v9.8.2 文件体积：core 70K + index 14K + topics 12K） |
-| **reviewer**（spawn） | 6维度审校 + 判例检索 | Phase 3 | `review_rules.md` + `review/prompts/*.md` | ~32K |
-
-### Agent 级异常处理
-
-| 场景 | 处理策略 |
-|------|---------|
-| **spawn 规范** | `Agent(subagent_type="general-purpose", model="reasoning")`——**禁止传 name 参数**（name 依赖 team 上下文，本地 automation 环境必失败；08-13 实证去掉 name 可成功） |
-| reviewer spawn 报 team 上下文错误 | 去掉 name 参数重试 1 次 → 仍失败 → **熔断**（本次运行不再尝试 spawn）→ Orchestrator 自审（加载 review_rules.md + review/prompts/ 6 个模板执行 6 维度审校）→ 输出标注「⚠️ 未独立审校」 |
-| reviewer 超时（spawn 成功后 15 分钟无响应/未产出） | 按熔断降级：Orchestrator 自审（同上）+ 输出标注「⚠️ 未独立审校」 |
-| reviewer 返回空结果 | Orchestrator 重试 1 次，仍为空 → 按熔断降级（Orchestrator 自审 + 标注「⚠️ 未独立审校」） |
-| 搜索失败 | 从 TOPICS.md 待写选题列表中选取备用事件 |
-
-### reviewer 等待策略（文件检测优先，v9.7.8）
-
-1. **spawn 成功后才进入等待**；spawn 失败不进入等待，直接走上方熔断链
-2. 每 1 分钟轮询检查 `archive/daily/{YYYY-MM-DD}_review.json` 是否已生成（文件检测为主）
-3. reviewer 显式上限 **15 分钟**（从 spawn 成功起算）
-4. 收到 reviewer SendMessage（status=done）或检测到 review.json 已生成 → 立即继续
-5. 15 分钟未产出 → 按熔断降级（Orchestrator 自审 + 输出标注「⚠️ 未独立审校」）
+> spawn 规范 / 熔断链 / 等待策略统一见「自动化执行流程」中的「Reviewer 独立子进程规范与熔断链」段（08-13 实证去掉 name 可成功；08-17/18 独立子进程为主路径）。此处仅保留协议细节：
 
 ### 迭代终结条件
 
@@ -247,8 +226,9 @@ reviewer → orchestrator：
 | 规则索引 | `rule_index.md` | 165条规则编号+摘要+温控+文件定位 |
 | 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（17 hot Rule + 7 hot Forbidden） |
 | 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |
+| 事实核查清单 | `fact_checklist.md` | 写作侧事实核查（P0/P1/P2 逐项：核查项→怎么做→通过标准→失败动作，按需Read） |
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden）+ cold 状态表（v9.7.8 迁入） |
-| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-88+审校子系统 |
+| 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-77（四AI共性）+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
 | 判例库 | `review/CASE_STUDIES.md` | 55条案例（续号至55） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
