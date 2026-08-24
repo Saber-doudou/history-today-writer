@@ -58,7 +58,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | 字符数 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~1.9K |
-| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 68条hot规则（§5A基础23 + §5X通用44 + 题材专项1）+ 温控表；索引：166条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~79K + 索引14K + 题材6-12K（+按需12K+4K） |
+| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 69条hot规则（§5A基础23 + §5X通用44 + 题材专项2）+ 温控表；索引：167条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~79K + 索引14K + 题材6-12K（+按需12K+4K） |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-77 四AI共性模式（+R111 等 hot 引用，编号见 rule_index）+ 审校子系统 + 标点规范 | ~43K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~47K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 56条案例（续号至56；只Grep命中关键词，禁止整读进上下文） | ~105K |
@@ -140,7 +140,7 @@ Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ �
 - **标题格式**：`# On This Day | [核心意象/双关语]`
 - **副标题**：具体日期 + 地点
 - **结尾**：`*字数：约N字 | 领域：[主题]*`
-- 写完后必须运行 `scripts/sync_check.py` 核验（规则数 166=113+53、版本号、文件路径、hot 规则正文完整性）
+- 写完后必须运行 `scripts/sync_check.py` 核验（规则数 167=114+53、版本号、文件路径、hot 规则正文完整性）
 
 ---
 
@@ -204,7 +204,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 166 (113条规则+53条禁止) |
+| 总规则数 | 167 (114条规则+53条禁止) |
 | hot 规则 | [n] |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -223,8 +223,8 @@ reviewer → orchestrator：
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
 | 写作核心 | `writing_core.md` | 叙事结构+6维工具包+68条hot规则（§5A基础23+§5X通用44+题材专项1）+基础/hot禁止模式+温控表（v9.7.8瘦身：26条cold Forbidden正文与cold状态表已迁 archive） |
-| 规则索引 | `rule_index.md` | 166条规则编号+摘要+温控+文件定位 |
-| 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（17 hot Rule + 7 hot Forbidden） |
+| 规则索引 | `rule_index.md` | 167条规则编号+摘要+温控+文件定位 |
+| 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（18 hot Rule + 7 hot Forbidden） |
 | 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |
 | 事实核查清单 | `fact_checklist.md` | 写作侧事实核查（P0/P1/P2 逐项：核查项→怎么做→通过标准→失败动作，按需Read） |
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden）+ cold 状态表（v9.7.8 迁入） |
@@ -237,6 +237,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v9.8.4 | 2026-08-21 | 伽利略望远镜 L2 学习：新增 Rule 113（科学史多证据须按"否证/确证"力排序，P2，ima 独家"木星卫星只否证'一切绕地'、真正支持日心说的关键证据是金星相位，v1 未提"，千问/豆包优化版亦补入；正文附 topics/tech_engineering.md），165→166 条（113+53），hot 67→68（题材专项 17→18）；v2 标题改"一根铜管，撬动了地球的位置"（ima 优化版，消"那一夜"白天/夜晚时间错位）；基于 v9.8.3（布拉格之春 L2：新增 Rule 112 + Forbidden #53，163→165，hot 66→67）；基于 v9.8.2（达盖尔银版摄影法 L2：新增 Rule 111，162→163，hot 65→66）；基于 v9.8.1（妇女选举权 L2：Rule 108/109/110 + Forbidden #52，158→162，hot 62→65）；基于 v9.8.0（伊兹米特地震 L2：Rule 105/106/107，155→158）；基于 v9.7.9（全量审查修复：sync_check 崩溃/假阳性修复 + hot 正文完整性 + Rule97 去重 + 文档索引批量修正）；基于 v9.7.8（自动化卡顿优化：spawn 规范写死/熔断链/文件检测等待/冷规则瘦身/sync_check 一键核验/CASE_STUDIES 只 grep 禁整读/精修防死循环）*
+*Version: v9.8.5 | 2026-08-24 | 庞贝 L2 学习：新增 Rule 114（灾难史感官细节须物理自洽，P2，ds 点评独家"凉而呛人"温度误置、豆包 2/4 认同；正文附 topics/nature_disaster.md），166→167 条（114+53），hot 68→69（题材专项 18→19）；v2 吸收 ima 独家修正（距离 30→三十多公里、时间线"近一天→浮石落到深夜"、老普林尼死因加"据说"、赫库兰尼姆两说并存、补"普林尼式喷发"命名彩蛋、补维苏威现代回响 1944/200 万居民）+ ds/千问"面包房日常展开"+ 豆包/千问"两阶段递进衔接"；基于 v9.8.4（伽利略望远镜 L2：新增 Rule 113，165→166，hot 67→68）；基于 v9.8.3（布拉格之春 L2：新增 Rule 112 + Forbidden #53，163→165，hot 66→67）；基于 v9.8.2（达盖尔银版摄影法 L2：新增 Rule 111，162→163，hot 65→66）；基于 v9.8.1（妇女选举权 L2：Rule 108/109/110 + Forbidden #52，158→162，hot 62→65）；基于 v9.8.0（伊兹米特地震 L2：Rule 105/106/107，155→158）；基于 v9.7.9（全量审查修复：sync_check 崩溃/假阳性修复 + hot 正文完整性 + Rule97 去重 + 文档索引批量修正）；基于 v9.7.8（自动化卡顿优化：spawn 规范写死/熔断链/文件检测等待/冷规则瘦身/sync_check 一键核验/CASE_STUDIES 只 grep 禁整读/精修防死循环）*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。
