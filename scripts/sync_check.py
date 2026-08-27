@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.7）
+sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.8）
 
 核对项：
   ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
-     vs rule_index.md 索引行数 vs SKILL.md 声称数（170 = 117 Rule + 53 Forbidden）
-  ② Forbidden 数（53）
+     vs rule_index.md 索引行数 vs SKILL.md 声称数（173 = 119 Rule + 54 Forbidden）
+  ② Forbidden 数（54）
   ③ 版本号：SKILL.md 末尾 Version 行须等于 EXPECT_VERSION（automation prompt 引用需人工核对）
   ④ 文件路径可达性：topics×3、review/prompts×6、craft_optional.md、
      archive/cold_rules.md、review/CASE_STUDIES.md、review_rules.md、
@@ -15,13 +15,18 @@ sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8
      在对应文件定位 `### Rule {n}.` / `### Rule {n}:` 标题，检查标题后 1-5 行内
      存在非空正文行（防「标题/引用保留、正文删除」假阳性）；「仅编号」幽灵编号
      （R24/25/28/29/30 等）与 §5A 表格式基础规则（1-23）除外
+  ⑥ rule_heat ↔ rule_index ↔ 正文落点 三向一致性（v0.1 增补，migrate_cold_rules 配套）：
+     rule_heat.status 与 rule_index 温控列（去 * 归一化）须一致；rule_index 标 cold 的
+     规则（幽灵编号/§5A 除外）正文须已在 archive；rule_index 标 hot 的规则正文须在 hot
+     区。已知例外（F1-6 物理保留全文、P0+cold、疑似应 recovered）记 ⚠️ 不判失败。
 
 运行：在技能目录下执行  python scripts/sync_check.py
-依赖：仅 Python 标准库（os/re/pathlib），Windows 路径兼容。
+依赖：仅 Python 标准库（os/re/json/pathlib），Windows 路径兼容。
 退出码：0 = 全部通过；1 = 存在失败项。
 """
 from __future__ import annotations
 
+import json
 import os
 import re
 import sys
@@ -29,10 +34,10 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 117       # R1-R117
-EXPECT_FORBIDDEN = 53    # F1-F53
-EXPECT_TOTAL = 170       # 117 + 53
-EXPECT_VERSION = "v9.8.7"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_RULES = 119       # R1-R119
+EXPECT_FORBIDDEN = 54    # F1-F54
+EXPECT_TOTAL = 173       # 119 + 54
+EXPECT_VERSION = "v9.8.8"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 规则正文来源文件（规则编号并集由此统计）
 RULE_SOURCE_PATHS = [
@@ -146,6 +151,9 @@ FILE_CODE_TO_PATH = {
 # §5A 基础规则以表格行呈现（无 "### Rule N" 标题），由 extract_s5a_base_rules 覆盖，不参与正文检查
 S5A_TABLE_RULES = frozenset(range(1, 24))
 
+# 基础 Forbidden F1-6（物理保留全文，不参与冷迁移）
+BASE_FORBIDDEN = frozenset(range(1, 7))
+
 
 def parse_hot_rule_targets(index_text: str) -> list[tuple[int, str]]:
     """从 rule_index 解析 hot 规则目标：(编号, 相对文件路径)。
@@ -240,9 +248,102 @@ def verify_hot_rule_bodies(targets: list[tuple[int, str]]) -> list[int]:
     return missing
 
 
+def cross_check_three_way(index_text: str, heat_text: str) -> tuple[list[str], list[str]]:
+    """⑥ 三向一致性（v0.1 增补，migrate_cold_rules 配套）。
+
+    返回 (fail_items, warn_items)：
+    - A 向：rule_heat.status 与 rule_index 温控列（去 * 归一化）不一致 → fail
+    - B 向：rule_index 标 cold → 正文须已在 archive（幽灵编号/§5A 除外）；
+           正文仍在 hot 区 → warn（待 migrate 降级）；无处可寻 → fail
+    - C 向：rule_index 标 hot → 正文须在 hot 区；正文在 cold 区 → warn（待 v0.2 升温）
+    - 已知例外（F1-6 物理保留全文、P0+cold、疑似应 recovered）记 warn 不判失败
+    """
+    fails: list[str] = []
+    warns: list[str] = []
+    try:
+        heat = json.loads(heat_text).get("rules", {})
+    except (json.JSONDecodeError, AttributeError):
+        return ["rule_heat.json 解析失败"], []
+    hot_rule_nums: set[int] = set()
+    hot_fb_nums: set[int] = set()
+    cold_rule_nums: set[int] = set()
+    cold_rule_table_nums: set[int] = set()   # archive 表格行承载（无独立标题块）
+    cold_fb_nums: set[int] = set()
+    for rel in RULE_SOURCE_PATHS:
+        text = read_text(rel)
+        if rel == "archive/cold_rules.md":
+            for m in re.finditer(r"^#{1,6}\s*Rule\s*(\d{1,3})\s*[:.．、]", text, re.MULTILINE | re.IGNORECASE):
+                cold_rule_nums.add(int(m.group(1)))
+            for m in re.finditer(r"^\|\s*Rule\s*(\d{1,3})\s*\|", text, re.MULTILINE):
+                cold_rule_table_nums.add(int(m.group(1)))
+            for m in re.finditer(r"^\|\s*Forbidden #(\d{1,2})\s*\|", text, re.MULTILINE):
+                cold_fb_nums.add(int(m.group(1)))
+        else:
+            for m in re.finditer(r"^#{1,6}\s*Rule\s*(\d{1,3})\s*[:.．、]", text, re.MULTILINE | re.IGNORECASE):
+                hot_rule_nums.add(int(m.group(1)))
+            for line in text.splitlines():
+                m = re.match(r"^(\d{1,2})\.\s*✗", line)
+                if m and "（cold）" not in line:
+                    hot_fb_nums.add(int(m.group(1)))
+    for line in index_text.splitlines():
+        line = line.strip()
+        if not (line.startswith("|") and line.endswith("|")):
+            continue
+        cells = [c.strip() for c in line.strip("|").split("|")]
+        if len(cells) < 7:
+            continue
+        m = re.fullmatch(r"([RF])\s*(\d{1,3})", cells[0])
+        if not m:
+            continue
+        is_rule = m.group(1) == "R"
+        n = int(m.group(2))
+        idx_heat_raw = cells[4]
+        idx_heat = idx_heat_raw.rstrip("*")
+        summary = cells[6]
+        is_ghost = "仅编号" in summary
+        is_s5a = is_rule and n in S5A_TABLE_RULES
+        heat_key = ("rule" if is_rule else "forbidden") + "_" + f"{n:02d}"
+        heat_st = heat.get(heat_key, {}).get("status")
+        # A 向：rule_heat.status vs rule_index 温控列
+        if heat_st and heat_st != idx_heat:
+            fails.append(f"{'R' if is_rule else 'F'}{n}：rule_heat={heat_st} ≠ rule_index={idx_heat_raw}")
+        # B 向：rule_index 标 cold → 正文须在 archive
+        if idx_heat == "cold" and not is_ghost and not is_s5a:
+            if is_rule:
+                if n not in cold_rule_nums and n not in cold_rule_table_nums:
+                    if n in hot_rule_nums:
+                        warns.append(f"R{n}：rule_index=cold 但正文仍在 hot 区（待 migrate 降级）")
+                    else:
+                        fails.append(f"R{n}：rule_index=cold 但正文无处可寻")
+            else:
+                if n not in cold_fb_nums:
+                    if n in hot_fb_nums:
+                        if n in BASE_FORBIDDEN:
+                            warns.append(f"F{n}：基础 Forbidden 物理保留全文（已知例外）")
+                        else:
+                            warns.append(f"F{n}：rule_index=cold 但正文仍在 hot 区（待 migrate 降级）")
+                    else:
+                        fails.append(f"F{n}：rule_index=cold 但正文无处可寻")
+        # C 向：rule_index 标 hot → 正文须在 hot 区
+        elif idx_heat == "hot" and not is_ghost and not is_s5a:
+            if is_rule:
+                if n not in hot_rule_nums:
+                    if n in cold_rule_nums:
+                        warns.append(f"R{n}：rule_index=hot 但正文在 cold 区（待 v0.2 升温）")
+                    else:
+                        fails.append(f"R{n}：rule_index=hot 但正文无处可寻")
+            else:
+                if n not in hot_fb_nums:
+                    if n in cold_fb_nums:
+                        warns.append(f"F{n}：rule_index=hot 但正文在 cold 区（待 v0.2 升温）")
+                    else:
+                        fails.append(f"F{n}：rule_index=hot 但正文无处可寻")
+    return fails, warns
+
+
 def main() -> int:
     print("=" * 64)
-    print("history-today-writer sync_check（v9.8.7）")
+    print("history-today-writer sync_check（v9.8.8）")
     print(f"技能目录：{SKILL_DIR}")
     print("=" * 64)
 
@@ -350,6 +451,21 @@ def main() -> int:
         "⑤ hot 规则正文完整性（topics 专项）",
         f"核验 {len(topics_targets)} 条 hot 规则；正文缺失: {topics_missing or '无'}",
     )
+
+    # ---- ⑥ rule_heat ↔ rule_index ↔ 正文落点 三向一致性（v0.1 增补）----
+    heat_text6 = read_text("review/rule_heat.json")
+    if heat_text6:
+        fails6, warns6 = cross_check_three_way(index_text, heat_text6)
+        warn_disp = warns6[:6]
+        if len(warns6) > 6:
+            warn_disp.append(f"…（共 {len(warns6)} 项提示）")
+        check(
+            not fails6,
+            "⑥ rule_heat↔rule_index↔落点 三向一致",
+            f"硬不一致 {len(fails6)} 项：{fails6 or '无'}；提示 {len(warns6)} 项：{warn_disp or '无'}",
+        )
+    else:
+        check(False, "⑥ rule_heat↔rule_index↔落点 三向一致", "review/rule_heat.json 缺失")
 
     # ---- 附加信息：关键文件体积（供字符数校准参考，不影响通过/失败） ----
     print("-" * 64)
