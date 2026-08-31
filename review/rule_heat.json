@@ -760,11 +760,12 @@
       "never_cool": false
     },
     "forbidden_19": {
-      "last_triggered": "2026-08-28",
-      "count_30d": 2,
-      "status": "cold",
+      "last_triggered": "2026-08-31",
+      "count_30d": 3,
+      "status": "recovered",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "note": "SKILL 输出规范强制脚注(*字数/领域*)除外（B2 2026-08-31 恢复，正文见 review_rules.md）"
     },
     "forbidden_20": {
       "last_triggered": "2026-06-11",

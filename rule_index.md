@@ -155,7 +155,7 @@
 | F16 | 科 | 专 | P1 | cold | cold | 因果链倒置→R48 |
 | F17 | 科 | 专 | P1 | cold | cold | "官方禁令"无档案→R49 |
 | F18 | 科 | 专 | P1 | cold | cold | 关键技术决策遗漏→R50 |
-| F19 | 通 | 通 | P2 | cold | cold | 元信息外露（Word count/Domain） |
+| F19 | 通 | 通 | P2 | recovered | cold | 元信息外露（Word count/Domain，SKILL 强制脚注 *字数/领域* 除外，2026-08-31 恢复，正文见 review_rules.md） |
 | F20 | 阴/审 | 专 | P1 | cold | cold | 反间计要素缺失→R51 |
 | F21 | 通 | 通 | P0 | hot | core | 虚构对话无出处→R52 |
 | F22 | 审 | 专 | P1 | cold | cold | 审判场景完整性缺失→R53 |
