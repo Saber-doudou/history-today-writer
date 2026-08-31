@@ -1,7 +1,7 @@
 ---
 name: "history-today-writer"
 title: "history-today-writer"
-summary: "On This Day — narrative-driven historical storytelling skill for WorkBuddy"
+summary: "On This Day — narrative-driven historical storytelling skill for WorkBuddy. 适用：'On This Day' 历史微文（500-800字）写作/自动化。不适用：非历史叙事任务（如新闻、攻略、技术文档），此类任务勿触发。"
 agent_created: true
 trigger_words:
   - "历史上的今天"
@@ -58,10 +58,10 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | 字符数 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~1.9K |
-| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 69条hot规则（§5A基础23 + §5X通用44 + 题材专项2）+ 温控表；索引：176条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~79K + 索引14K + 题材6-12K（+按需12K+4K） |
+| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 73条hot规则（core 51 + 题材专项 22，sync_check ⑤ 口径）+ 温控表；索引：176条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~85K + 索引18K + 题材8-16K（+按需12K+4K） |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-77 四AI共性模式（+R111 等 hot 引用，编号见 rule_index）+ 审校子系统 + 标点规范 | ~43K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~47K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 56条案例（续号至56；只Grep命中关键词，禁止整读进上下文） | ~105K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 58条案例（续号至58；只Grep命中关键词，禁止整读进上下文） | ~118K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
@@ -226,9 +226,9 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+68条hot规则（§5A基础23+§5X通用44+题材专项1）+基础/hot禁止模式+温控表（v9.7.8瘦身：26条cold Forbidden正文与cold状态表已迁 archive） |
+| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+73条hot规则（core 51 + 题材专项 22）+基础/hot禁止模式+温控表（v9.7.8瘦身：26条cold Forbidden正文与cold状态表已迁 archive） |
 | 规则索引 | `rule_index.md` | 176条规则编号+摘要+温控+文件定位 |
-| 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（18 hot Rule + 7 hot Forbidden） |
+| 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（题材专项 hot 22 条，sync_check ⑤ 口径） |
 | 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |
 | 事实核查清单 | `fact_checklist.md` | 写作侧事实核查（P0/P1/P2 逐项：核查项→怎么做→通过标准→失败动作，按需Read） |
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden）+ cold 状态表（v9.7.8 迁入） |
