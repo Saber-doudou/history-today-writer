@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.9）
+sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.11）
 
 核对项：
   ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
-     vs rule_index.md 索引行数 vs SKILL.md 声称数（176 = 122 Rule + 54 Forbidden）
+     vs rule_index.md 索引行数 vs SKILL.md 声称数（180 = 126 Rule + 54 Forbidden）
   ② Forbidden 数（54）
-  ③ 版本号：SKILL.md 末尾 Version 行须等于 EXPECT_VERSION（automation prompt 引用需人工核对）
+  ③ 版本号：SKILL.md 末尾 Version 行须等于 EXPECT_VERSION（automation prompt 版本/计数一致性由 ⑦ 自动核验）
   ④ 文件路径可达性：topics×3、review/prompts×6、craft_optional.md、
      archive/cold_rules.md、review/CASE_STUDIES.md、review_rules.md、
      rule_index.md、topic_rules.md 等是否存在
@@ -34,10 +34,10 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 122       # R1-R122
+EXPECT_RULES = 126       # R1-R126
 EXPECT_FORBIDDEN = 54    # F1-F54
-EXPECT_TOTAL = 176       # 122 + 54
-EXPECT_VERSION = "v9.8.9"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_TOTAL = 180       # 126 + 54
+EXPECT_VERSION = "v9.8.11"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 规则正文来源文件（规则编号并集由此统计）
 RULE_SOURCE_PATHS = [
@@ -341,9 +341,45 @@ def cross_check_three_way(index_text: str, heat_text: str) -> tuple[list[str], l
     return fails, warns
 
 
+def check_automation_prompt() -> None:
+    """⑦ automation prompt 版本与规则数一致性核验（DB 读取，标准库 sqlite3）。
+
+    - 版本号：prompt 开头 vX.Y[.Z] 须等于 EXPECT_VERSION
+    - 规则数：prompt 须含 EXPECT_TOTAL 与 EXPECT_RULES+EXPECT_FORBIDDEN 引用，且不含已知旧值（176/122+54）
+    - DB 不可读时降级为提示（不判失败），避免脚本在无 DB 环境挂掉
+    """
+    import sqlite3
+    db_path = Path("C:/Users/admin/.workbuddy/workbuddy.db")
+    auto_id = "automation-1778209807842"
+    if not db_path.exists():
+        print("   ⚠️ ⑦ automation prompt 核验：DB 不可读，跳过（请人工核对）")
+        return
+    try:
+        conn = sqlite3.connect(str(db_path))
+        row = conn.execute("SELECT prompt FROM automations WHERE id = ?", (auto_id,)).fetchone()
+        conn.close()
+    except Exception as e:  # noqa: BLE001 — 只读核验，任何异常均降级为提示
+        print(f"   ⚠️ ⑦ automation prompt 核验：读取失败（{e}），请人工核对")
+        return
+    if not row:
+        print(f"   ⚠️ ⑦ automation prompt 核验：automation {auto_id} 不存在，请人工核对")
+        return
+    prompt = row[0]
+    vm = re.search(r"v\d+\.\d+(?:\.\d+)?", prompt[:120])
+    ver_ok = bool(vm and vm.group(0) == EXPECT_VERSION)
+    count_ok = (f"{EXPECT_TOTAL}" in prompt) and (f"{EXPECT_RULES}+{EXPECT_FORBIDDEN}" in prompt)
+    stale = [s for s in ("176", "122+54", "173", "119+54") if s in prompt]
+    detail = (
+        f"prompt 版本 = {vm.group(0) if vm else '未找到'}（期望 {EXPECT_VERSION}）；"
+        f"规则数引用 = {'合规' if count_ok else '需核对'}；"
+        f"旧值残留 = {stale or '无'}"
+    )
+    check(ver_ok and count_ok and not stale, "⑦ automation prompt 版本与规则数一致性", detail)
+
+
 def main() -> int:
     print("=" * 64)
-    print("history-today-writer sync_check（v9.8.9）")
+    print("history-today-writer sync_check（v9.8.11）")
     print(f"技能目录：{SKILL_DIR}")
     print("=" * 64)
 
@@ -423,7 +459,9 @@ def main() -> int:
         "③ 版本号（SKILL.md Version 行）",
         f"SKILL.md = {version}（期望 {EXPECT_VERSION}）",
     )
-    print("   ℹ️ automation prompt 中的版本引用需人工核对（脚本无法读取 automation prompt 文件）")
+
+    # ---- ⑦ automation prompt 版本与规则数一致性（2026-09-01 新增，消除「人工核对」盲区；P2-2 遗留项落地）----
+    check_automation_prompt()
 
     # ---- ④ 文件路径可达性 ----
     missing_paths = [p for p in EXIST_PATHS if not (SKILL_DIR / p).exists()]
