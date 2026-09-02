@@ -377,6 +377,26 @@ def check_automation_prompt() -> None:
     check(ver_ok and count_ok and not stale, "⑦ automation prompt 版本与规则数一致性", detail)
 
 
+def check_memory_size() -> None:
+    """⑧ automation memory 体积上限检查（warn-only，2026-09-02 C 项）。
+
+    自动化运行前会全文读入 .workbuddy/automations/*/memory.md，体积过大会持续
+    推高每次运行的 token 成本。超限时打印 ⚠️ 提示人工归档（不判失败，避免
+    因渐进恶化指标直接红掉运行）；正常时记为通过项。
+    """
+    p = Path("F:/WorkBuddy/history-today/.workbuddy/automations/automation-1778209807842/memory.md")
+    limit_kb = 20.0
+    if not p.exists():
+        print("   ⚠️ ⑧ automation memory 体积：文件缺失（路径可能已变更），请人工核对")
+        return
+    kb = p.stat().st_size / 1024
+    if kb > limit_kb:
+        print(f"   ⚠️ ⑧ automation memory 体积：{kb:.1f} KB 超过 {limit_kb:.0f} KB 建议上限，"
+              f"请归档瘦身（参照 archive/memory_archive/ 迁移先例，2026-09-02）")
+        return
+    check(True, "⑧ automation memory 体积上限", f"{kb:.1f} KB（建议上限 {limit_kb:.0f} KB，warn-only）")
+
+
 def main() -> int:
     print("=" * 64)
     print("history-today-writer sync_check（v9.8.12）")
@@ -478,6 +498,9 @@ def main() -> int:
 
     # ---- ⑦ automation prompt 版本与规则数一致性（2026-09-01 新增，消除「人工核对」盲区；P2-2 遗留项落地）----
     check_automation_prompt()
+
+    # ---- ⑧ automation memory 体积上限（warn-only，2026-09-02 C 项：防运行前读入成本膨胀）----
+    check_memory_size()
 
     # ---- ④ 文件路径可达性 ----
     missing_paths = [p for p in EXIST_PATHS if not (SKILL_DIR / p).exists()]
