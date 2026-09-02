@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.11）
+sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.12）
 
 核对项：
   ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
-     vs rule_index.md 索引行数 vs SKILL.md 声称数（180 = 126 Rule + 54 Forbidden）
+     vs rule_index.md 索引行数 vs SKILL.md 声称数（182 = 127 Rule + 55 Forbidden）
   ② Forbidden 数（54）
   ③ 版本号：SKILL.md 末尾 Version 行须等于 EXPECT_VERSION（automation prompt 版本/计数一致性由 ⑦ 自动核验）
   ④ 文件路径可达性：topics×3、review/prompts×6、craft_optional.md、
@@ -34,10 +34,10 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 126       # R1-R126
-EXPECT_FORBIDDEN = 54    # F1-F54
-EXPECT_TOTAL = 180       # 126 + 54
-EXPECT_VERSION = "v9.8.11"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_RULES = 127       # R1-R127
+EXPECT_FORBIDDEN = 55    # F1-F55
+EXPECT_TOTAL = 182       # 127 + 55
+EXPECT_VERSION = "v9.8.12"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 规则正文来源文件（规则编号并集由此统计）
 RULE_SOURCE_PATHS = [
@@ -379,7 +379,7 @@ def check_automation_prompt() -> None:
 
 def main() -> int:
     print("=" * 64)
-    print("history-today-writer sync_check（v9.8.11）")
+    print("history-today-writer sync_check（v9.8.12）")
     print(f"技能目录：{SKILL_DIR}")
     print("=" * 64)
 
