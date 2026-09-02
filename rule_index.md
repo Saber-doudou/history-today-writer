@@ -1,4 +1,4 @@
-# rule_index — 规则全量索引（180 条，写作阶段加载）
+# rule_index — 规则全量索引（182 条，写作阶段加载）
 
 > 加载：`writing_core.md` + 本索引 +（按题材）`topics/` 1 个 +（按需）`craft_optional.md`。
 > 列：编号 | 题材 | 性质(通=通用/专=题材专项) | 级别(P0/P1/P2/—) | 温控(hot/cold) | 文件 | 摘要。

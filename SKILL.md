@@ -240,7 +240,7 @@ reviewer → orchestrator：
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden）+ cold 状态表（v9.7.8 迁入） |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-77（四AI共性）+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
-| 判例库 | `review/CASE_STUDIES.md` | 62条案例（续号至62；CASE-61 存在近重复双块，待 Master 决策清理） |
+| 判例库 | `review/CASE_STUDIES.md` | 63条案例（续号至63） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题去重 |
 | 选题索引 | `archive/daily/选题索引.md` | 纯选题两列视图（运行日期\|选题名），Phase 5b 从 TOPICS.md 选题复盘块重建 |
 | 记忆文件 | `../.workbuddy/memory/MEMORY.md` | 执行记录+系统改造 |

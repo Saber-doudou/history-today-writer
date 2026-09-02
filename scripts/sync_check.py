@@ -421,6 +421,22 @@ def main() -> int:
         f"{idx_forbidden} 行（期望 {EXPECT_FORBIDDEN}）",
     )
 
+    # rule_index 首行标题声称条数（2026-09-02 A4 新增：防「（180 条）」等标题声称值滞留不更新；
+    # 标题形如 `# rule_index — 规则全量索引（182 条，写作阶段加载）`）
+    idx_first_line = index_text.splitlines()[0] if index_text.splitlines() else ""
+    tm = re.search(r"（\s*(\d+)\s*条", idx_first_line)
+    if tm:
+        title_claim = int(tm.group(1))
+        detail = f"标题「（{title_claim} 条）」 vs 期望 {EXPECT_TOTAL}"
+    else:
+        title_claim = -1
+        detail = f"首行未含「（N 条）」（首行前 60 字符: {idx_first_line[:60]!r}）"
+    check(
+        tm is not None and title_claim == EXPECT_TOTAL,
+        "① rule_index 标题声称条数",
+        detail,
+    )
+
     # SKILL.md 声称数
     skill_text = read_text("SKILL.md")
     claim_total = 0
