@@ -1,5 +1,17 @@
 # CHANGELOG — history-today-writer
 
+## v9.8.13 增补 | 2026-09-03（audit-fix 机制补强：声称值一致性，b437343）
+- **背景**：09-03 运营体检发现 L2（v9.8.12→13）升级时 rule_index 小节标题滞留（Rules 126/Forbidden 54 vs 实测 129/55）、SKILL.md 判例声称 58 vs 实际 CASE-64、hot 声称 77/78 双值矛盾、feed-learning 引用滞留 v9.8.12/182——而 sync_check 旧版全绿（14/14）。根因：sync_check 只校首行标题/规则总数，未覆盖字段级声称。
+- **sync_check.py 机制补强（检查项 14 → 18）**：
+  ① 新增「rule_index Rules 小节标题声称条数」：`## Rules（N 条）` 与实测索引行数比对（防首行已改、小节滞留）
+  ① 新增「rule_index Forbidden 小节标题声称条数」：同上（Forbidden 54→55 曾滞留）
+  ① 新增「SKILL.md 判例声称数」：SKILL 全部「N条案例」声称 = CASE_STUDIES 实际最大 CASE 编号（防 58 vs 64）
+  ⑤ 新增「SKILL.md hot 声称数」：SKILL「N条hot规则（core M + 题材专项 K）」= parse_hot_rule_targets 实跑（防 77/78 双值矛盾）
+- **SKILL.md 配套**：模块表/关键路径表 hot 声称统一为「80条hot规则（core 58 + 题材专项 22，sync_check ⑤ 实跑口径）」可校验格式
+- **负测验证**：Rules 128/Forbidden 54 模拟漂移均被 ❌ 拦截（17/18 fail）；恢复后 18/18 全绿
+- **跨仓库配套**：feed-learning Phase 4 增补「字段级声称同步」（小节标题/判例/hot）与「跨技能引用同步」（自身 SKILL 关键文件路径表写作规则行须同步 writer 版本）；l3_publish.py phase6 增补声称一致性自检（漂移时禁止「无新变更」静默跳过、推送前 fail）+ 修复 commit message 提取 bug（旧 split("|")[-1] 因 Version 行内嵌「运行日期|选题名」竖线截到乱文本，817c160/8f1ab93 等 message 即此 bug 所致；改正则取首个「|」后当前版本说明段）
+- 版本号说明：无新规则、无 L2，仅机制/脚本补强 → 维持 v9.8.13 不 bump（增补先例）；results.tsv 记 8.98→9.05（dry_run 估算，写作维度沿用基线）
+
 ## v9.8.12 增补 | 2026-09-02（bugfix 交接落地 A1-A5 + P1-B）
 - sync_check.py 新增「① rule_index 标题声称条数」核验（A4）：读 rule_index.md 首行「（N 条）」与 EXPECT_TOTAL 比对，不一致即 ❌（防「（180 条）」等标题声称值滞留）；检查项 12 → 13
 - CASE_STUDIES.md 追加 CASE-63（A5）：清廷废科举——R127 群体反应绝对化 + F55 半截隐喻悬置判例 + 标题概念窄化（Master 复审，未单独固化、走 Phase 2.5「概念准确」清单）；SKILL.md 判例库描述 62 → 63
