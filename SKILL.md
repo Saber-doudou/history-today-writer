@@ -58,7 +58,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | 字符数 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~1.9K |
-| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + hot规则正文核验（core 58 + 题材专项 22，sync_check ⑤ 实跑）+ 温控表；索引：184条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~85K + 索引18K + 题材8-16K（+按需12K+4K） |
+| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 80条hot规则（core 58 + 题材专项 22，sync_check ⑤ 实跑口径）+ 温控表；索引：184条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~85K + 索引18K + 题材8-16K（+按需12K+4K） |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-77 四AI共性模式（+R111 等 hot 引用，编号见 rule_index）+ 审校子系统 + 标点规范 | ~43K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~47K |
 | **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 64条案例（续号至64；只Grep命中关键词，禁止整读进上下文） | ~118K |
@@ -232,7 +232,7 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+hot规则正文（core 58 + 题材专项 22，sync_check ⑤ 实跑口径）+基础/hot禁止模式+温控表（v9.7.8瘦身：26条cold Forbidden正文与cold状态表已迁 archive） |
+| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+80条hot规则（core 58 + 题材专项 22，sync_check ⑤ 实跑口径）+基础/hot禁止模式+温控表（v9.7.8瘦身：26条cold Forbidden正文与cold状态表已迁 archive） |
 | 规则索引 | `rule_index.md` | 184条规则编号+摘要+温控+文件定位 |
 | 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（题材专项 hot 22 条，sync_check ⑤ 口径） |
 | 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |

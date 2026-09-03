@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.12）
+sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.13）
 
 核对项：
   ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
-     vs rule_index.md 索引行数 vs SKILL.md 声称数（184 = 129 Rule + 55 Forbidden）
-  ② Forbidden 数（54）
+     vs rule_index.md 索引行数 vs SKILL.md 声称数（184 = 129 Rule + 55 Forbidden）；
+     另含 rule_index 小节标题声称（Rules/Forbidden N 条）与 SKILL.md 判例声称
+     （= CASE_STUDIES 实际最大 CASE 编号）核验
+  ② Forbidden 数（55）
   ③ 版本号：SKILL.md 末尾 Version 行须等于 EXPECT_VERSION（automation prompt 版本/计数一致性由 ⑦ 自动核验）
   ④ 文件路径可达性：topics×3、review/prompts×6、craft_optional.md、
      archive/cold_rules.md、review/CASE_STUDIES.md、review_rules.md、
@@ -14,7 +16,8 @@ sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8
   ⑤ hot 规则正文完整性：rule_index 标记 hot 的规则（文件=core/nat/war/tech），
      在对应文件定位 `### Rule {n}.` / `### Rule {n}:` 标题，检查标题后 1-5 行内
      存在非空正文行（防「标题/引用保留、正文删除」假阳性）；「仅编号」幽灵编号
-     （R24/25/28/29/30 等）与 §5A 表格式基础规则（1-23）除外
+     （R24/25/28/29/30 等）与 §5A 表格式基础规则（1-23）除外；
+     另含 SKILL.md hot 声称数（core + 题材专项）与实跑一致核验
   ⑥ rule_heat ↔ rule_index ↔ 正文落点 三向一致性（v0.1 增补，migrate_cold_rules 配套）：
      rule_heat.status 与 rule_index 温控列（去 * 归一化）须一致；rule_index 标 cold 的
      规则（幽灵编号/§5A 除外）正文须已在 archive；rule_index 标 hot 的规则正文须在 hot
@@ -47,6 +50,9 @@ RULE_SOURCE_PATHS = [
     "topics/tech_engineering.md",
     "archive/cold_rules.md",
 ]
+
+# 判例库文件（SKILL.md 声称的判例数须与此文件实际最大 CASE 编号一致）
+CASE_STUDIES_PATH = "review/CASE_STUDIES.md"
 
 # 路径可达性检查清单
 EXIST_PATHS = [
@@ -457,6 +463,28 @@ def main() -> int:
         detail,
     )
 
+    # ① rule_index 小节标题声称条数（2026-09-03 audit-fix：v9.8.12→13 升级曾漏改
+    # `## Rules（126 条）`/`## Forbidden（54 条）`，首行标题已更新但小节标题滞留；
+    # 首行只声称总数，小节标题分别声称 Rules/Forbidden 数，须与实测行数一致）
+    sec_rules_claim, sec_fb_claim = None, None
+    for sec_line in index_text.splitlines():
+        m_rules = re.match(r"^##\s*Rules（\s*(\d+)\s*条）", sec_line.strip())
+        m_fb = re.match(r"^##\s*Forbidden（\s*(\d+)\s*条）", sec_line.strip())
+        if m_rules:
+            sec_rules_claim = int(m_rules.group(1))
+        elif m_fb:
+            sec_fb_claim = int(m_fb.group(1))
+    check(
+        sec_rules_claim is not None and sec_rules_claim == idx_rules,
+        "① rule_index Rules 小节标题声称条数",
+        f"标题「Rules（{sec_rules_claim if sec_rules_claim is not None else '未找到'} 条）」 vs 实测 {idx_rules} 行",
+    )
+    check(
+        sec_fb_claim is not None and sec_fb_claim == idx_forbidden,
+        "① rule_index Forbidden 小节标题声称条数",
+        f"标题「Forbidden（{sec_fb_claim if sec_fb_claim is not None else '未找到'} 条）」 vs 实测 {idx_forbidden} 行",
+    )
+
     # SKILL.md 声称数
     skill_text = read_text("SKILL.md")
     claim_total = 0
@@ -468,6 +496,19 @@ def main() -> int:
         claim_match,
         "① SKILL.md 声称规则数",
         f"总规则数 = {claim_total}（期望 {EXPECT_TOTAL} = {EXPECT_RULES} Rule + {EXPECT_FORBIDDEN} Forbidden）",
+    )
+
+    # ① SKILL.md 判例声称 = CASE_STUDIES 实际最大 CASE 编号（2026-09-03 audit-fix：
+    # SKILL.md 模块表曾声称「58 条案例」而 CASE_STUDIES 已至 CASE-64，两处声称不一致；
+    # 取 SKILL.md 全部「N条案例（续号至N）」声称与判例库实际最大编号比对）
+    case_text = read_text(CASE_STUDIES_PATH)
+    case_max = max((int(m) for m in re.findall(r"CASE-(\d+)", case_text)), default=0)
+    skill_case_claims = [int(m) for m in re.findall(r"(\d+)\s*条案例", skill_text)]
+    case_claims_ok = bool(skill_case_claims) and all(c == case_max for c in skill_case_claims)
+    check(
+        case_claims_ok,
+        "① SKILL.md 判例声称数",
+        f"SKILL 声称 {sorted(set(skill_case_claims)) if skill_case_claims else '未找到'} vs 判例库实际 CASE-{case_max}",
     )
 
     # 三方一致：正文并集 == 索引 == SKILL 声称
@@ -528,6 +569,23 @@ def main() -> int:
         "⑤ hot 规则正文完整性（topics 专项）",
         f"核验 {len(topics_targets)} 条 hot 规则；正文缺失: {topics_missing or '无'}",
     )
+
+    # ⑤ SKILL.md hot 声称 = 实测（2026-09-03 audit-fix：SKILL.md 模块表曾声称
+    # 「77条hot（core 55+22）」与「78条hot（core 56+22）」两处互相矛盾且与实跑不符；
+    # 以 parse_hot_rule_targets 实跑 core/topics 数为准，校验 SKILL.md 所有
+    # 「N条hot规则（core M + 题材专项 K，sync_check ⑤ 口径）」声称）
+    core_actual = len(core_targets)
+    topics_actual = len(topics_targets)
+    hot_claims = re.findall(r"(\d+)\s*条\s*hot\s*规则（\s*core\s*(\d+)\s*\+\s*题材专项\s*(\d+)", skill_text, re.IGNORECASE)
+    if hot_claims:
+        hot_ok = all(int(c[0]) == (int(c[1]) + int(c[2])) and int(c[1]) == core_actual
+                     and int(c[2]) == topics_actual for c in hot_claims)
+        hot_detail = (f"SKILL 声称 {[(int(c[0]), int(c[1]), int(c[2])) for c in hot_claims]} "
+                      f"vs 实跑 core {core_actual} + 题材专项 {topics_actual}")
+    else:
+        hot_ok = False
+        hot_detail = f"SKILL.md 未找到「N条hot规则（core M + 题材专项 K）」声称模式"
+    check(hot_ok, "⑤ SKILL.md hot 声称数", hot_detail)
 
     # ---- ⑥ rule_heat ↔ rule_index ↔ 正文落点 三向一致性（v0.1 增补）----
     heat_text6 = read_text("review/rule_heat.json")
