@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.13）
+sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.8.14）
 
 核对项：
-  ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
-     vs rule_index.md 索引行数 vs SKILL.md 声称数（184 = 129 Rule + 55 Forbidden）；
+    ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
+     vs rule_index.md 索引行数 vs SKILL.md 声称数（186 = 130 Rule + 56 Forbidden）；
      另含 rule_index 小节标题声称（Rules/Forbidden N 条）与 SKILL.md 判例声称
      （= CASE_STUDIES 实际最大 CASE 编号）核验
   ② Forbidden 数（55）
@@ -37,10 +37,10 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 129       # R1-R129
-EXPECT_FORBIDDEN = 55    # F1-F55
-EXPECT_TOTAL = 184       # 129 + 55
-EXPECT_VERSION = "v9.8.13"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_RULES = 130       # R1-R130
+EXPECT_FORBIDDEN = 56    # F1-F56
+EXPECT_TOTAL = 186       # 130 + 56
+EXPECT_VERSION = "v9.8.14"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 规则正文来源文件（规则编号并集由此统计）
 RULE_SOURCE_PATHS = [
@@ -405,7 +405,7 @@ def check_memory_size() -> None:
 
 def main() -> int:
     print("=" * 64)
-    print("history-today-writer sync_check（v9.8.13）")
+    print("history-today-writer sync_check（v9.8.14）")
     print(f"技能目录：{SKILL_DIR}")
     print("=" * 64)
 

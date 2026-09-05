@@ -1,5 +1,14 @@
 # CHANGELOG — history-today-writer
 
+## v9.8.14 | 2026-09-05（Google成立 L2：新增 Rule 130 + Forbidden #56，184→186=130+56）
+- 新增 Rule 130: 标题具象钩子（具体数字/事实）须在正文兑现（P1，ds+ima+豆包 3/4 指出 v1 标题"一百万想卖掉"但正文未出现金额与被拒经过，读者期待落空）
+- 新增 Forbidden #56: 禁用无出处文学化推测套话（"X 大概没意识到""Y 静静躺在抽屉里"类作者脑补，ds+豆包 2/4 指出 v1 "报价单静静躺在抽屉里"为无来源推测）
+- 来源：2026-09-04 Google 公司成立（1998-09-04）L2 学习（四 AI 完整素材：ds/ima/千问/豆包；v2 约720字补一百万美元开价 Excite、降到七十五万仍被拒、Excite 拒绝原因；删除无来源推测；修正"Page 和 Brin"→"佩奇与布林"、"能猜你想要什么"→"按质量排序"）
+- 判例：CASE_STUDIES.md 追加 CASE-65（标题钩子未兑现 + 推测套话，同篇双缺陷）
+- sync_check.py 期望值同步：EXPECT_RULES 129→130 / EXPECT_FORBIDDEN 55→56 / EXPECT_TOTAL 184→186 / EXPECT_VERSION v9.8.13→v9.8.14
+- 跨技能引用同步：feed-learning SKILL.md 写作规则行 184→186 / 129→130 / 55→56 / v9.8.13→v9.8.14
+- 同步更新：writing_core.md（R130+F56）、rule_index.md（186 条、R130/F56 索引行）、SKILL.md（v9.8.14，186=130+56，hot 81=core59+22）、review_rules.md（审校表 R130/F56）
+
 ## v9.8.13 增补 | 2026-09-03（audit-fix 机制补强：声称值一致性，b437343）
 - **背景**：09-03 运营体检发现 L2（v9.8.12→13）升级时 rule_index 小节标题滞留（Rules 126/Forbidden 54 vs 实测 129/55）、SKILL.md 判例声称 58 vs 实际 CASE-64、hot 声称 77/78 双值矛盾、feed-learning 引用滞留 v9.8.12/182——而 sync_check 旧版全绿（14/14）。根因：sync_check 只校首行标题/规则总数，未覆盖字段级声称。
 - **sync_check.py 机制补强（检查项 14 → 18）**：
