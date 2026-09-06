@@ -79,9 +79,9 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 ```
 Phase 0: 防重跑检查（archive/daily/YYYY-MM-DD.md）
     ↓
-Phase 1: 【加载 topic_rules.md】→ 选题+搜索 → topic_result.json
+Phase 1: 【加载 topic_rules.md】→ 选题+搜索 → topic_result.json（事件价值矩阵≥18 + 选题淘汰测试，矩阵/测试口径见 topic_rules.md；WebSearch ≤2 次；对照 archive/daily/TOPICS.md 去重；标注题材域 natural_disaster / war_institution / tech_engineering，无则跳过；搜索失败 → TOPICS.md 待写列表 fallback）
     ↓
-Phase 2: 【加载 writing_core.md + rule_index.md】→ 写作+自检 → draft.md
+Phase 2: 【加载 writing_core.md + rule_index.md】→ 写作+自检 → draft.md（⚠️ 写作阶段不加载审校侧规则文件，保持「不知道考纲」隔离；按 core 写 500-800 字推荐 600，Humanizer 去 AI 味 + Forbidden 逐条自检 → 写入 archive/daily/YYYY-MM-DD.md）
     ↓
 Phase 2.5: 标题复审（强制，不可跳过，与 L2 feed-learning Phase 2.5 同款约束）
     - 写作定稿前，显式复审当前标题：套用 R38（不剧透最大悬念）/ R117（标题双钩）/ 首尾意象咬合
@@ -90,7 +90,7 @@ Phase 2.5: 标题复审（强制，不可跳过，与 L2 feed-learning Phase 2.5
     ↓
 Phase 3: Phase 2内置 — Humanizer + P0复检
     ↓
-Phase 3.5: 【加载 review_rules.md + review/prompts/】→ 6维度审校 → review_report.json
+Phase 3.5: 【加载 review_rules.md + review/prompts/】→ 6维度审校 → review_report.json（实际产物文件名：archive/daily/YYYY-MM-DD_review.json，含 p0/p1/p2 计数、pass、issues 数组、f19_check）
     ↓
 Phase 3.6: 【判例预检 + Grep CASE_STUDIES.md（只grep命中关键词，禁止整读96K进上下文）】→ 领域专项检查
     ↓
@@ -104,15 +104,15 @@ Phase 3.7: 【人工审核检查点】→ 输出当前最佳版本 → 等待 Ma
   - Master 要求废弃 → 标记后跳过此选题
   - 超时无人确认（默认）→ 自动进入 Phase 4
     ↓
-Phase 4: 输出（全文 + 执行摘要）
+Phase 4: 输出（全文 + 执行摘要）——执行摘要须含：候选事件对比评分 / 审校结果 P0/P1/P2 + 审校方式（独立 Reviewer 或自审标注）/ 迭代次数 / 版本号
     ↓
-Phase 5: 记忆更新（MEMORY.md + TOPICS.md + CASE_STUDIES.md）
+Phase 5: 记忆更新（MEMORY.md 执行记录+质量仪表盘 + TOPICS.md 选题+复盘 + CASE_STUDIES.md 新案例时 + 当日日志 .workbuddy/memory/YYYY-MM-DD.md）
     ↓
-Phase 5b: 选题索引重建（2026-08-26 新增）→ 写 archive/daily/选题索引.md（纯选题两列：运行日期 | 选题名；数据源 = TOPICS.md 全部「选题复盘」块标题；按运行日期倒序；每次运行重建，保证与 TOPICS.md 一致、无重复行；文件头注明仅收录有结构化选题记录的日期，更早无选题记录的旧文不纳入）。注：自动化 prompt 中对应编号为 Phase 6b（编号差异为历史遗留，语义一致）
+Phase 5b: 选题索引重建（2026-08-26 新增）→ 写 archive/daily/选题索引.md（纯选题两列：运行日期 | 选题名；数据源 = TOPICS.md 全部「选题复盘」块标题；按运行日期倒序；每次运行重建，保证与 TOPICS.md 一致、无重复行；文件头注明仅收录有结构化选题记录的日期，更早无选题记录的旧文不纳入）
     ↓
 Phase 5c: 冷热迁移对账（2026-08-26 新增，v0.1）→ 在技能目录运行 `python scripts/migrate_cold_rules.py --dry-run`（默认仅报告不搬运；出现 ① 建议降级候选或 ③ 新增冲突项 → 记录并提示 Master；`--force` 由 Master 明确指示后手动执行）。规则正文冷热迁移方案见 docs/rule-cold-migration-plan.md（定稿 v1.1）；L2 学习侧对应 feed-learning Phase 8
     ↓
-Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt）→ 四AI学习用
+Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt：ds.txt / ds点评优化.txt / ima.txt / ima点评优化.txt / 千问.txt / 千问点评优化.txt / 豆包.txt / 豆包点评优化.txt）→ 四AI学习用
 ```
 
 **Reviewer 独立子进程规范与熔断链（P0-1，v9.8.3 收敛，08-18 起不依赖 team）**：

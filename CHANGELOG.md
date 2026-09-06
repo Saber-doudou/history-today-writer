@@ -1,5 +1,19 @@
 # CHANGELOG — history-today-writer
 
+## v9.8.14 增补2 | 2026-09-07（SKILL 自动化执行流程区补全编排细节：瘦身复查的对齐收尾）
+- **背景**：09-06 prompt 瘦身（三件套 L2）后逐处对齐复查，发现 SKILL.md「自动化执行流程」是**极简流程图**，旧 prompt 独有的 4 处编排细节并未被 SKILL 承接，瘦身后等同丢失——「引用式」前提不成立。按单一事实源原则，细节补进 SKILL，prompt 保持引用式不改。
+- **补全 7 处**（SKILL.md 流程区）：
+  - Phase 1 补选题编排：事件价值矩阵≥18 + 淘汰测试（口径见 topic_rules.md）/ WebSearch ≤2 / TOPICS 去重 / 题材域标注（无则跳过）/ 失败 fallback 待写列表
+  - Phase 2 补：写作阶段不加载审校侧规则（不知道考纲隔离）/ Humanizer + Forbidden 逐条自检 / 写入 archive/daily/
+  - Phase 3.5 补产物名修正：原写 review_report.json → 实际为 archive/daily/YYYY-MM-DD_review.json（含 p0/p1/p2、pass、issues、f19_check），消除 SKILL 内部产物名不一致
+  - Phase 4 补执行摘要要素：候选事件对比评分 / 审校结果 P0/P1/P2 + 审校方式 / 迭代次数 / 版本号
+  - Phase 5 补当日日志 `.workbuddy/memory/YYYY-MM-DD.md`（旧 prompt 有、SKILL 原本漏）
+  - Phase 5b 删过时注释「自动化 prompt 对应 Phase 6b（历史遗留）」（prompt 已同用 5b 编号，编号双轨消除）
+  - Phase 6 补 8 个 txt 文件名（与 prompt 一致）
+- **跨文件同步**：MEMORY.md「执行规范」行 6b 注释更新；feed-learning SKILL.md 同步检查清单 18→19 项（增 ⑨）
+- **不改动**：automation prompt 保持引用式（2244 字符，⑨ 预检通过）；版本 v9.8.14 / 规则 186 不变
+- **验证**：sync_check 实跑 **19/19 全通过**（⑨ 无阶段副本命中）
+
 ## v9.8.14 增补 | 2026-09-06 晚间（防双源漂移三件套：phase4 误伤修复 + sync_check ⑨ + prompt 瘦身）
 - **背景**：ASO 删除后追查病根——automation prompt 自称「瘦身版、以 SKILL.md 为单一事实源」，实际复制了 SKILL 的阶段细节（写作/审校/判例文件加载清单），双源维护必然漂移；且 `l3_publish.py` phase4 版本同步用全局正则 `v\d+\.\d+` 会误伤工具版本号。
 - **L0 · phase4 误伤修复**（`F:/WorkBuddy/history-today/scripts/l3_publish.py`）：新增常量 `SKILL_VERSION_MAJOR_MIN = 1`；版本替换改为回调——`v0.x`（工具/第三方版本号，如 migrate_cold_rules「待 v0.2 回搬」）原样保留，仅替换 `major ≥ 1` 的技能版本。单元测试：4 处技能版本正确替换、v0.2 保留 ✅
