@@ -1,6 +1,12 @@
 # CHANGELOG — history-today-writer
 
-## v9.8.14 增补2 | 2026-09-07（SKILL 自动化执行流程区补全编排细节：瘦身复查的对齐收尾）
+## 版本正名说明 | 2026-09-07（v9.8.14 → v9.9.4，恢复逢十进位约定）
+- **背景**：约定「版本号每级 0-9，patch 逢 10 进位」（实证：v9.7.9 → v9.8.0）。但 **v9.8.10 起偏离**（9.8.9+1 应为 9.9.0，实为 9.8.10 逐次 +1），v9.8.10~v9.8.14 五个版本均非法。根因见 MEMORY 运维笔记（约定未成文 + 规则文本只写"PATCH+1" + sync_check 无逢十闸 + 无复核层）。
+- **正名基准**：当前活跃版本 v9.8.14 → 其合法表示 **v9.9.4**（minor 8→9，patch 14-10=4）。本文件及 SKILL/rule_index/sync_check/feed-learning/DB prompt 的现行版本标识全部落到 v9.9.4。
+- **不回溯**：git commit 历史、IMA 旧备份、更早 v9.8.10~v9.8.13 条目保留原编号（历史事实）；CASE_STUDIES 判例内版本引用保留原值（档案性质）。
+- **防再犯（根因修复）**：①本条目下方 v9.9.4 各条目原编号为 v9.8.14；②sync_check ③ 新增「逢十进位合法性」检查（各段 ≥10 直接判违规）；③MEMORY 执行规范与 feed-learning 升级步骤写入「每级 0-9、逢 10 进位」明文。
+
+## v9.9.4 增补2 | 2026-09-07（SKILL 自动化执行流程区补全编排细节：瘦身复查的对齐收尾，原编号 v9.8.14）
 - **背景**：09-06 prompt 瘦身（三件套 L2）后逐处对齐复查，发现 SKILL.md「自动化执行流程」是**极简流程图**，旧 prompt 独有的 4 处编排细节并未被 SKILL 承接，瘦身后等同丢失——「引用式」前提不成立。按单一事实源原则，细节补进 SKILL，prompt 保持引用式不改。
 - **补全 7 处**（SKILL.md 流程区）：
   - Phase 1 补选题编排：事件价值矩阵≥18 + 淘汰测试（口径见 topic_rules.md）/ WebSearch ≤2 / TOPICS 去重 / 题材域标注（无则跳过）/ 失败 fallback 待写列表
@@ -11,35 +17,35 @@
   - Phase 5b 删过时注释「自动化 prompt 对应 Phase 6b（历史遗留）」（prompt 已同用 5b 编号，编号双轨消除）
   - Phase 6 补 8 个 txt 文件名（与 prompt 一致）
 - **跨文件同步**：MEMORY.md「执行规范」行 6b 注释更新；feed-learning SKILL.md 同步检查清单 18→19 项（增 ⑨）
-- **不改动**：automation prompt 保持引用式（2244 字符，⑨ 预检通过）；版本 v9.8.14 / 规则 186 不变
+- **不改动**：automation prompt 保持引用式（2244 字符，⑨ 预检通过）；版本 v9.9.4 / 规则 186 不变
 - **验证**：sync_check 实跑 **19/19 全通过**（⑨ 无阶段副本命中）
 
-## v9.8.14 增补 | 2026-09-06 晚间（防双源漂移三件套：phase4 误伤修复 + sync_check ⑨ + prompt 瘦身）
+## v9.9.4 增补 | 2026-09-06 晚间（防双源漂移三件套：phase4 误伤修复 + sync_check ⑨ + prompt 瘦身）
 - **背景**：ASO 删除后追查病根——automation prompt 自称「瘦身版、以 SKILL.md 为单一事实源」，实际复制了 SKILL 的阶段细节（写作/审校/判例文件加载清单），双源维护必然漂移；且 `l3_publish.py` phase4 版本同步用全局正则 `v\d+\.\d+` 会误伤工具版本号。
 - **L0 · phase4 误伤修复**（`F:/WorkBuddy/history-today/scripts/l3_publish.py`）：新增常量 `SKILL_VERSION_MAJOR_MIN = 1`；版本替换改为回调——`v0.x`（工具/第三方版本号，如 migrate_cold_rules「待 v0.2 回搬」）原样保留，仅替换 `major ≥ 1` 的技能版本。单元测试：4 处技能版本正确替换、v0.2 保留 ✅
 - **L1 · sync_check 新增 ⑨**（`scripts/sync_check.py`）：`check_prompt_structure()` —— ①prompt 须含「SKILL.md … 单一事实源」引用声明；②prompt 不得出现阶段资源文件（writing_core/rule_index/review_rules/review-prompts/topic_rules/craft_optional/fact_checklist/CASE_STUDIES），出现即判定「阶段副本，存在漂移风险」。同步抽取 `_read_automation_prompt()` 复用 DB 读取（⑦⑨共用）。检查项 **18 → 19**。TDD 验证：旧 prompt 实测命中 7 处副本 ❌ → 新 prompt 后 19/19 ✅
 - **L2 · automation prompt 瘦身**（DB `automations.prompt`，3065 → **2244 字符**）：删除全部阶段细节复制（规则文件加载清单/选题矩阵阈值/审校维度展开等），改为「按 SKILL.md Phase 0-6 依次执行」引用式骨架；仅保留 SKILL 不覆盖的自动化运行时约束：spawn 禁传 name、Reviewer spawn prompt 要点、等待/熔断策略、通过标准、同步检查（含新 ⑨）、投喂素材、关键约束（版本/字数/F19/双破折号/类比红线）。备份：`deliverables/automation-prompt-backup-20260906-before-slim.md`（旧）与 `-slim-20260906.md`（新）
-- **不改动**：规则数 186=130+56 不变；版本号保持 v9.8.14（非规则变更，不触发全链路版本同步）；`v0.2` 保护不影响当前 prompt（瘦身版已无工具版本引用，属前瞻性防御）
+- **不改动**：规则数 186=130+56 不变；版本号保持 v9.9.4（非规则变更，不触发全链路版本同步）；`v0.2` 保护不影响当前 prompt（瘦身版已无工具版本引用，属前瞻性防御）
 - **验证**：`sync_check.py` 实跑 **19/19 全通过**；`l3_publish.py` 语法 + 单元测试通过；DB prompt 预检（⑦版本/规则数/旧值残留/⑨引用/⑨副本）全绿
-- **归档**：新 prompt 全文存档 `deliverables/automation-prompt-v9.8.14-slim-20260906.md`（审计可回溯）
+- **归档**：新 prompt 全文存档 `deliverables/automation-prompt-v9.9.4-slim-20260906.md`（审计可回溯）
 
-## v9.8.14 增补 | 2026-09-06（删除 Phase 4.5 ASO：清除从未执行的能力声明）
+## v9.9.4 增补 | 2026-09-06（删除 Phase 4.5 ASO：清除从未执行的能力声明）
 - **背景**：09-06 运营体检发现 SKILL.md 声明 Phase 4.5 ASO（标题+摘要+标签优化 → `_aso.md`），但 automation prompt 中命中数 = 0，自引入起从未在自动化路径执行。考古确认：唯一产物 `2026-06-11_aso.md` 早于引入日 06-22（commit `0b58c21`，v9.3），系更早版本的手动实验遗留；全技能库 ASO 仅 2 处引用、无任何消费方；文章不进任何公域发布渠道（只走 归档 + IMA 备份 + GitHub）。
 - **删除内容**（SKILL.md 共 3 行）：
   - 流程图 `Phase 4.5: ASO优化（标题+摘要+标签优化）→ archive/daily/YYYY-MM-DD_aso.md` 及其后 `↓`（Phase 4 → Phase 5 直接衔接）
   - Phase 2.5 内 `- 与 Phase 4.5 ASO 分工：...` 一行（指向已删阶段的悬空引用，一并清除）
 - **决策理由**：无下游消费者 = 死代码；若将来接入发布，标签体系/标题长度/摘要规则均为平台特定，届时必然重写，保留无收益。手动发布完全可行，无需在自动化保留占位。
-- **不改动**：规则数 186=130+56 不变；版本号保持 v9.8.14（非规则变更，不触发全链路版本同步）；`archive/daily/2026-06-11_aso.md` 作为历史归档保留。
+- **不改动**：规则数 186=130+56 不变；版本号保持 v9.9.4（非规则变更，不触发全链路版本同步）；`archive/daily/2026-06-11_aso.md` 作为历史归档保留。
 - **验证**：`grep -rn "ASO|_aso"` 全技能库 0 命中；`sync_check.py` 实跑 18/18 全通过。
 
-## v9.8.14 | 2026-09-05（Google成立 L2：新增 Rule 130 + Forbidden #56，184→186=130+56）
+## v9.9.4 | 2026-09-05（Google成立 L2：新增 Rule 130 + Forbidden #56，184→186=130+56）
 - 新增 Rule 130: 标题具象钩子（具体数字/事实）须在正文兑现（P1，ds+ima+豆包 3/4 指出 v1 标题"一百万想卖掉"但正文未出现金额与被拒经过，读者期待落空）
 - 新增 Forbidden #56: 禁用无出处文学化推测套话（"X 大概没意识到""Y 静静躺在抽屉里"类作者脑补，ds+豆包 2/4 指出 v1 "报价单静静躺在抽屉里"为无来源推测）
 - 来源：2026-09-04 Google 公司成立（1998-09-04）L2 学习（四 AI 完整素材：ds/ima/千问/豆包；v2 约720字补一百万美元开价 Excite、降到七十五万仍被拒、Excite 拒绝原因；删除无来源推测；修正"Page 和 Brin"→"佩奇与布林"、"能猜你想要什么"→"按质量排序"）
 - 判例：CASE_STUDIES.md 追加 CASE-65（标题钩子未兑现 + 推测套话，同篇双缺陷）
-- sync_check.py 期望值同步：EXPECT_RULES 129→130 / EXPECT_FORBIDDEN 55→56 / EXPECT_TOTAL 184→186 / EXPECT_VERSION v9.8.13→v9.8.14
-- 跨技能引用同步：feed-learning SKILL.md 写作规则行 184→186 / 129→130 / 55→56 / v9.8.13→v9.8.14
-- 同步更新：writing_core.md（R130+F56）、rule_index.md（186 条、R130/F56 索引行）、SKILL.md（v9.8.14，186=130+56，hot 81=core59+22）、review_rules.md（审校表 R130/F56）
+- sync_check.py 期望值同步：EXPECT_RULES 129→130 / EXPECT_FORBIDDEN 55→56 / EXPECT_TOTAL 184→186 / EXPECT_VERSION v9.8.13→v9.9.4
+- 跨技能引用同步：feed-learning SKILL.md 写作规则行 184→186 / 129→130 / 55→56 / v9.8.13→v9.9.4
+- 同步更新：writing_core.md（R130+F56）、rule_index.md（186 条、R130/F56 索引行）、SKILL.md（v9.9.4，186=130+56，hot 81=core59+22）、review_rules.md（审校表 R130/F56）
 
 ## v9.8.13 增补 | 2026-09-03（audit-fix 机制补强：声称值一致性，b437343）
 - **背景**：09-03 运营体检发现 L2（v9.8.12→13）升级时 rule_index 小节标题滞留（Rules 126/Forbidden 54 vs 实测 129/55）、SKILL.md 判例声称 58 vs 实际 CASE-64、hot 声称 77/78 双值矛盾、feed-learning 引用滞留 v9.8.12/182——而 sync_check 旧版全绿（14/14）。根因：sync_check 只校首行标题/规则总数，未覆盖字段级声称。
