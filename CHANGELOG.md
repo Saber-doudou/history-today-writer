@@ -1,5 +1,14 @@
 # CHANGELOG — history-today-writer
 
+## v9.8.14 增补 | 2026-09-06 晚间（防双源漂移三件套：phase4 误伤修复 + sync_check ⑨ + prompt 瘦身）
+- **背景**：ASO 删除后追查病根——automation prompt 自称「瘦身版、以 SKILL.md 为单一事实源」，实际复制了 SKILL 的阶段细节（写作/审校/判例文件加载清单），双源维护必然漂移；且 `l3_publish.py` phase4 版本同步用全局正则 `v\d+\.\d+` 会误伤工具版本号。
+- **L0 · phase4 误伤修复**（`F:/WorkBuddy/history-today/scripts/l3_publish.py`）：新增常量 `SKILL_VERSION_MAJOR_MIN = 1`；版本替换改为回调——`v0.x`（工具/第三方版本号，如 migrate_cold_rules「待 v0.2 回搬」）原样保留，仅替换 `major ≥ 1` 的技能版本。单元测试：4 处技能版本正确替换、v0.2 保留 ✅
+- **L1 · sync_check 新增 ⑨**（`scripts/sync_check.py`）：`check_prompt_structure()` —— ①prompt 须含「SKILL.md … 单一事实源」引用声明；②prompt 不得出现阶段资源文件（writing_core/rule_index/review_rules/review-prompts/topic_rules/craft_optional/fact_checklist/CASE_STUDIES），出现即判定「阶段副本，存在漂移风险」。同步抽取 `_read_automation_prompt()` 复用 DB 读取（⑦⑨共用）。检查项 **18 → 19**。TDD 验证：旧 prompt 实测命中 7 处副本 ❌ → 新 prompt 后 19/19 ✅
+- **L2 · automation prompt 瘦身**（DB `automations.prompt`，3065 → **2244 字符**）：删除全部阶段细节复制（规则文件加载清单/选题矩阵阈值/审校维度展开等），改为「按 SKILL.md Phase 0-6 依次执行」引用式骨架；仅保留 SKILL 不覆盖的自动化运行时约束：spawn 禁传 name、Reviewer spawn prompt 要点、等待/熔断策略、通过标准、同步检查（含新 ⑨）、投喂素材、关键约束（版本/字数/F19/双破折号/类比红线）。备份：`deliverables/automation-prompt-backup-20260906-before-slim.md`（旧）与 `-slim-20260906.md`（新）
+- **不改动**：规则数 186=130+56 不变；版本号保持 v9.8.14（非规则变更，不触发全链路版本同步）；`v0.2` 保护不影响当前 prompt（瘦身版已无工具版本引用，属前瞻性防御）
+- **验证**：`sync_check.py` 实跑 **19/19 全通过**；`l3_publish.py` 语法 + 单元测试通过；DB prompt 预检（⑦版本/规则数/旧值残留/⑨引用/⑨副本）全绿
+- **归档**：新 prompt 全文存档 `deliverables/automation-prompt-v9.8.14-slim-20260906.md`（审计可回溯）
+
 ## v9.8.14 增补 | 2026-09-06（删除 Phase 4.5 ASO：清除从未执行的能力声明）
 - **背景**：09-06 运营体检发现 SKILL.md 声明 Phase 4.5 ASO（标题+摘要+标签优化 → `_aso.md`），但 automation prompt 中命中数 = 0，自引入起从未在自动化路径执行。考古确认：唯一产物 `2026-06-11_aso.md` 早于引入日 06-22（commit `0b58c21`，v9.3），系更早版本的手动实验遗留；全技能库 ASO 仅 2 处引用、无任何消费方；文章不进任何公域发布渠道（只走 归档 + IMA 备份 + GitHub）。
 - **删除内容**（SKILL.md 共 3 行）：

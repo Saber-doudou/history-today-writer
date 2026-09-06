@@ -347,6 +347,29 @@ def cross_check_three_way(index_text: str, heat_text: str) -> tuple[list[str], l
     return fails, warns
 
 
+AUTO_ID = "automation-1778209807842"
+
+
+def _read_automation_prompt(auto_id: str) -> str | None:
+    """只读读取 automation prompt（DB），不可读/不存在时返回 None。
+
+    DB 路径硬编码于本技能（history-today-writer 专用），与 ⑦⑨ 共用，
+    避免重复连接逻辑（2026-09-06 抽取）。
+    """
+    import sqlite3
+
+    db_path = Path("C:/Users/admin/.workbuddy/workbuddy.db")
+    if not db_path.exists():
+        return None
+    try:
+        conn = sqlite3.connect(str(db_path))
+        row = conn.execute("SELECT prompt FROM automations WHERE id = ?", (auto_id,)).fetchone()
+        conn.close()
+    except Exception:  # noqa: BLE001 — 只读核验，任何异常均降级为提示
+        return None
+    return row[0] if row else None
+
+
 def check_automation_prompt() -> None:
     """⑦ automation prompt 版本与规则数一致性核验（DB 读取，标准库 sqlite3）。
 
@@ -354,23 +377,10 @@ def check_automation_prompt() -> None:
     - 规则数：prompt 须含 EXPECT_TOTAL 与 EXPECT_RULES+EXPECT_FORBIDDEN 引用，且不含已知旧值（176/122+54）
     - DB 不可读时降级为提示（不判失败），避免脚本在无 DB 环境挂掉
     """
-    import sqlite3
-    db_path = Path("C:/Users/admin/.workbuddy/workbuddy.db")
-    auto_id = "automation-1778209807842"
-    if not db_path.exists():
-        print("   ⚠️ ⑦ automation prompt 核验：DB 不可读，跳过（请人工核对）")
+    prompt = _read_automation_prompt(AUTO_ID)
+    if prompt is None:
+        print(f"   ⚠️ ⑦ automation prompt 核验：DB 不可读或 automation {AUTO_ID} 不存在，请人工核对")
         return
-    try:
-        conn = sqlite3.connect(str(db_path))
-        row = conn.execute("SELECT prompt FROM automations WHERE id = ?", (auto_id,)).fetchone()
-        conn.close()
-    except Exception as e:  # noqa: BLE001 — 只读核验，任何异常均降级为提示
-        print(f"   ⚠️ ⑦ automation prompt 核验：读取失败（{e}），请人工核对")
-        return
-    if not row:
-        print(f"   ⚠️ ⑦ automation prompt 核验：automation {auto_id} 不存在，请人工核对")
-        return
-    prompt = row[0]
     vm = re.search(r"v\d+\.\d+(?:\.\d+)?", prompt[:120])
     ver_ok = bool(vm and vm.group(0) == EXPECT_VERSION)
     count_ok = (f"{EXPECT_TOTAL}" in prompt) and (f"{EXPECT_RULES}+{EXPECT_FORBIDDEN}" in prompt)
@@ -381,6 +391,38 @@ def check_automation_prompt() -> None:
         f"旧值残留 = {stale or '无'}"
     )
     check(ver_ok and count_ok and not stale, "⑦ automation prompt 版本与规则数一致性", detail)
+
+
+def check_prompt_structure() -> None:
+    """⑨ automation prompt 结构核验（引用式，防双源漂移，2026-09-06 新增）。
+
+    背景：ASO 事件暴露 SKILL.md 与 automation prompt 双源漂移——prompt 曾复制
+    SKILL 的阶段细节（加载哪些规则文件/审校几维度），源头一改副本就漂移且无检测。
+    根治方向：prompt 只做「引用式」声明（按 SKILL.md Phase 0-6 执行），不复制细节。
+
+    - 引用声明：prompt 须显式含「SKILL.md … 单一事实源/按 SKILL.md」引用
+    - 无阶段副本：prompt 不得出现阶段资源文件（writing_core/rule_index/review_rules/
+      review/prompts/topic_rules/craft_optional/fact_checklist/CASE_STUDIES）——
+      出现即说明仍复制了阶段细节，存在漂移风险
+    - DB 不可读时降级为提示（与 ⑦ 同策略）
+    """
+    prompt = _read_automation_prompt(AUTO_ID)
+    if prompt is None:
+        print(f"   ⚠️ ⑨ automation prompt 结构核验：DB 不可读或 automation {AUTO_ID} 不存在，请人工核对")
+        return
+    # ① 引用式声明（SKILL.md 为阶段/规则唯一事实源）
+    ref_ok = ("SKILL.md" in prompt) and ("单一事实源" in prompt or "按 SKILL.md" in prompt)
+    # ② 阶段副本检测：这些文件名若出现在 prompt 中，说明复制了 SKILL 的阶段资源加载指令
+    stage_copy_files = [
+        "writing_core.md", "rule_index.md", "review_rules.md", "review/prompts",
+        "topic_rules.md", "craft_optional.md", "fact_checklist.md", "CASE_STUDIES.md",
+    ]
+    copy_hits = [f for f in stage_copy_files if f in prompt]
+    detail = (
+        f"引用声明 = {'含（单一事实源）' if ref_ok else '缺失'}；"
+        f"阶段副本 = {copy_hits or '无'}"
+    )
+    check(ref_ok and not copy_hits, "⑨ automation prompt 结构（引用式无阶段副本）", detail)
 
 
 def check_memory_size() -> None:
@@ -542,6 +584,9 @@ def main() -> int:
 
     # ---- ⑧ automation memory 体积上限（warn-only，2026-09-02 C 项：防运行前读入成本膨胀）----
     check_memory_size()
+
+    # ---- ⑨ automation prompt 结构（引用式无阶段副本，2026-09-06 新增：防 SKILL 与 prompt 双源漂移复发）----
+    check_prompt_structure()
 
     # ---- ④ 文件路径可达性 ----
     missing_paths = [p for p in EXIST_PATHS if not (SKILL_DIR / p).exists()]
