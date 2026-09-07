@@ -425,6 +425,57 @@ def check_prompt_structure() -> None:
     check(ref_ok and not copy_hits, "⑨ automation prompt 结构（引用式无阶段副本）", detail)
 
 
+def check_meta_schema() -> None:
+    """⑩ 元数据一致性（2026-09-07 新增，A3/A5 机械门禁）。
+
+    目标一（A3）：权威 automation memory 最近 L1 执行块须含必填要素
+    （选题 / 审校 / sync_check / 宿主状态）。宿主状态为 2026-09-07 新增字段，
+    防「摘要称正常、宿主实际失败」的对账盲区再犯。
+    目标二（A5）：陈旧编号「Phase 6b」残留 grep（选题索引模板头已修为 5b；
+    防模板/流程文件再次带出旧编号）。SKILL.md 的 Version 叙述行豁免（历史记录文字）。
+    """
+    problems = []
+
+    # 目标一：最近 L1 触发块必填要素（仅含「L1」标题的块，取日期最新；
+    # 旧「执行摘要」块为 2026-09-07 前历史格式，不要求新字段）
+    auth = Path("F:/WorkBuddy/history-today/.workbuddy/memory/automations/automation-1778209807842/memory.md")
+    if auth.exists():
+        txt = auth.read_text(encoding="utf-8", errors="replace")
+        l1_blocks = []
+        for m in re.finditer(r"## .*?(?=\n## |\Z)", txt, re.S):
+            head = m.group(0).splitlines()[0]
+            if "L1" in head:
+                dm = re.search(r"(\d{4}-\d{2}-\d{2})", head)
+                l1_blocks.append((dm.group(1) if dm else "", m.group(0)))
+        if l1_blocks:
+            latest = max(l1_blocks, key=lambda x: x[0])[1]
+            required = ["选题", "审校", "sync_check", "宿主状态"]
+            missing = [k for k in required if k not in latest]
+            if missing:
+                problems.append(f"最近 L1 块缺必填要素: {missing}")
+        else:
+            problems.append("未找到 L1 触发摘要块")
+    else:
+        problems.append("权威 automation memory 缺失")
+
+    # 目标二：6b 残留 grep（选题索引模板 + SKILL 流程区，Version 叙述行豁免）
+    idx = Path("F:/WorkBuddy/history-today/archive/daily/选题索引.md")
+    if idx.exists() and "Phase 6b" in idx.read_text(encoding="utf-8", errors="replace"):
+        problems.append("选题索引.md 头部仍含 Phase 6b 旧编号")
+    skill_text = (SKILL_DIR / "SKILL.md").read_text(encoding="utf-8", errors="replace")
+    for ln in skill_text.splitlines():
+        if ln.startswith("*Version:") or ln.startswith("# "):
+            continue
+        if "Phase 6b" in ln or "Phase6b" in ln:
+            problems.append(f"SKILL.md 含陈旧编号: {ln.strip()[:40]}")
+            break
+
+    if problems:
+        check(False, "⑩ 元数据一致性（摘要要素+编号残留）", "；".join(problems))
+        return
+    check(True, "⑩ 元数据一致性（摘要要素+编号残留）", "最近 L1 块要素齐全 / 无 6b 残留")
+
+
 def check_memory_size() -> None:
     """⑧ 记忆体积与单一路径检查（2026-09-07 升级：主记忆硬门禁 + 权威路径 + 分裂检测）。
 
@@ -611,6 +662,9 @@ def main() -> int:
 
     # ---- ⑨ automation prompt 结构（引用式无阶段副本，2026-09-06 新增：防 SKILL 与 prompt 双源漂移复发）----
     check_prompt_structure()
+
+    # ---- ⑩ 元数据一致性（2026-09-07 新增：执行摘要要素 + 陈旧编号残留门禁）----
+    check_meta_schema()
 
     # ---- ④ 文件路径可达性 ----
     missing_paths = [p for p in EXIST_PATHS if not (SKILL_DIR / p).exists()]
