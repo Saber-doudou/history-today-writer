@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-sync_check.py — 一键核验 history-today-writer 技能文件一致性（v9.9.5）
+sync_check.py — 一键核验 history-today-writer 技能文件一致性（v10.0.0）
 
 核对项：
     ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
@@ -40,7 +40,7 @@ SKILL_DIR = Path(__file__).resolve().parent.parent
 EXPECT_RULES = 131       # R1-R131
 EXPECT_FORBIDDEN = 56    # F1-F56
 EXPECT_TOTAL = 187       # 131 + 56
-EXPECT_VERSION = "v9.9.5"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_VERSION = "v10.0.0"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 规则正文来源文件（规则编号并集由此统计）
 RULE_SOURCE_PATHS = [
@@ -514,7 +514,7 @@ def check_memory_size() -> None:
 
 def main() -> int:
     print("=" * 64)
-    print("history-today-writer sync_check（v9.9.5）")
+    print("history-today-writer sync_check（v10.0.0）")
     print(f"技能目录：{SKILL_DIR}")
     print("=" * 64)
 
@@ -641,17 +641,19 @@ def main() -> int:
     vm = re.search(r"Version:\s*(v[\d.]+)", skill_text)
     version = vm.group(1) if vm else "未找到"
     # 逢十进位合法性（2026-09-07 正名后新增：v9.8.10~v9.9.4 期间偏离「每级 0-9、patch 逢 10 进位」
-    # 约定（9.8.9+1 应为 9.9.0 却写成 9.8.10），靠此闸防再犯——出现 ≥10 的段直接判违规）
+    # 约定（9.8.9+1 应为 9.9.0 却写成 9.8.10），靠此闸防再犯——minor/patch 出现 ≥10 的段直接判违规。
+    # 2026-09-07 修正（v10.0.0 配套）：major 段豁免 0-9 限制——「MINOR=结构性变化」逢十进 major 后
+    # major 可超 9（v9.9.5 彻底优化 → v10.0.0），原闸 all(0<=p<=9) 过紧会误伤 v10+ 纪元）
     if version != "未找到" and re.fullmatch(r"v\d+(?:\.\d+){1,2}", version):
         parts = [int(x) for x in version.lstrip("v").split(".")]
     else:
         parts = []
-    dec_ok = bool(parts) and all(0 <= p <= 9 for p in parts)
+    dec_ok = bool(parts) and all(0 <= p <= 9 for p in parts[1:])
     check(
         vm is not None and version == EXPECT_VERSION and dec_ok,
         "③ 版本号（Version 行 + 逢十进位合法性）",
         f"SKILL.md = {version}（期望 {EXPECT_VERSION}）；"
-        f"逢十合法性 = {'合规（各段 0-9）' if dec_ok else '违规（存在 ≥10 段，应按逢十进位改写）' if parts else '无法解析'}",
+        f"逢十合法性 = {'合规（minor/patch 各段 0-9，major 可超 9）' if dec_ok else '违规（minor/patch 存在 ≥10 段，应按逢十进位改写）' if parts else '无法解析'}",
     )
 
     # ---- ⑦ automation prompt 版本与规则数一致性（2026-09-01 新增，消除「人工核对」盲区；P2-2 遗留项落地）----

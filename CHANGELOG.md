@@ -1,5 +1,20 @@
 # CHANGELOG — history-today-writer
 
+## v10.0.0 | 2026-09-07（彻底优化架构纪元：MINOR 逢十进 major）
+- **性质**：非规则变更、**结构性大版本**。规则数不变仍 187=131+56（PATCH 位专属 L2 语义保持）；按 MEMORY 执行规范「MINOR=结构性变化」bump，minor 9 逢十进 major → **v10.0.0**。
+- **版本说明**：9.9.x 系「偏离正名修补期」编号（v9.9.4 正名 / v9.9.5 L2 R131）；本轮彻底优化为「维护态→进化态」切换，配 v10.0.0 纪元。**逢十闸同步修正**：major 段可超 9（v10+ 合法），仅 minor/patch 限 0-9——原闸 `all(0<=p<=9)` 过紧，遇 v10.0.0 会误伤（正名当天无 major 进位场景未暴露）。
+- **内容（2026-09-07 当日全部结构性改造汇总）**：
+  - 三层护栏落地：L0 sync_check 门禁体系（⑧ 聚合门禁：主记忆 3000 硬上限+权威 automation memory 路径+旧路径分裂检测；⑩ 元数据一致性：执行摘要要素+6b 残留 grep；19→20 项）
+  - 记忆分片重构：MEMORY.md 7416→1840 字符（分片零损失 sha256 校验，topics×4）
+  - automation memory 单源化（A2）：双路径合并至 `.workbuddy/memory/automations/`，写入方（SKILL Phase 5 / feed-learning Phase 7.5 / l3_publish B4）全部收敛
+  - 审校协议 P2 降级 note（Self-Critique Paradox，允许 pass=true 且 issues 为空）
+  - feed-learning Phase 3.1.5 下沉测试门槛（L0/L1/L2 分流，机械类不入规则库）
+  - 周棘轮 weekly-ratchet.md + 问题分类账 issue-ledger.md（复发熔断机制）
+  - l3_publish Git 判定源改 ls-remote（A6，复发第 3 次熔断后结构性改造）
+  - SKILL 游离声称修正（行 61/150/235）+ Phase 5 权威路径成文
+- **验证**：sync_check 实跑 **20/20 全通过**；git commit + push；IMA 备份（note 7502644922812007）
+- **范围说明**：SKILL/rule_index/review_rules/sync_check（EXPECT_VERSION+逢十闸）/feed-learning/MEMORY/DB automation prompt 全部同步 v10.0.0；CHANGELOG/CASE_STUDIES/archive 历史条目保留原编号（档案性质）
+
 ## v9.9.5 机制增补 | 2026-09-07（复核修复：4e06bbd/fe0cd41 变更补登 + SKILL 游离声称修正 + A2 写入方收敛）
 - **背景**：09-07 全盘复核（deliverables/2026-09-07-全盘复核报告.md）发现：①本日 4e06bbd（sync_check ⑧ 聚合门禁）与 fe0cd41（审校 P2 note 化 + sync_check ⑩）两机制 commit 未登 CHANGELOG（先例 6909431 应记，防权威版本轨迹断链）；②SKILL.md 行 61/150/235 三处游离声称漂移（186条规则编号 / 186=130+56 / 题材专项 hot 22 条），与实跑 187=131+56 / 23 不符，sync_check ①⑤ 前缀正则盲区未捕获（实证「全绿 ≠ 零漂移」）；③A2 双路径统一只收敛读取方，写入方残留。
 - **commit 补登**：
