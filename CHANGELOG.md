@@ -1,5 +1,14 @@
 # CHANGELOG — history-today-writer
 
+## v9.9.5 机制增补 | 2026-09-07（复核修复：4e06bbd/fe0cd41 变更补登 + SKILL 游离声称修正 + A2 写入方收敛）
+- **背景**：09-07 全盘复核（deliverables/2026-09-07-全盘复核报告.md）发现：①本日 4e06bbd（sync_check ⑧ 聚合门禁）与 fe0cd41（审校 P2 note 化 + sync_check ⑩）两机制 commit 未登 CHANGELOG（先例 6909431 应记，防权威版本轨迹断链）；②SKILL.md 行 61/150/235 三处游离声称漂移（186条规则编号 / 186=130+56 / 题材专项 hot 22 条），与实跑 187=131+56 / 23 不符，sync_check ①⑤ 前缀正则盲区未捕获（实证「全绿 ≠ 零漂移」）；③A2 双路径统一只收敛读取方，写入方残留。
+- **commit 补登**：
+  - `4e06bbd`（2026-09-07）：sync_check ⑧ 升级为聚合门禁（主记忆 3000 字符硬上限 + 权威 automation memory 路径 + 旧路径分裂检测；19 项不变；W0 记忆分片重构配套）
+  - `fe0cd41`（2026-09-07）：SKILL 审校协议 P2 note 化（防 critic 空转，Snorkel Self-Critique Paradox）+ sync_check ⑩ 元数据一致性（执行摘要要素 + 6b 残留 grep；19→20 项）
+- **同步修正**：SKILL.md 行 61（186→187 条规则编号）/ 行 150（186=130+56→187=131+56）/ 行 235（题材专项 hot 22→23）；SKILL.md Phase 5 补 automation memory 权威路径成文（`.workbuddy/memory/automations/automation-1778209807842/memory.md`，A2「写死唯一路径」处置落地，旧 `.workbuddy/automations/` 禁写）；feed-learning Phase 7.5 B4 补记路径同步改指权威路径（修 A2 写入方残留，防下次 L2 触发 ⑧ 分裂红灯）
+- **验证**：sync_check 实跑 20/20 全通过
+- **不改版本号**（非规则变更，维持 v9.9.5 / 187=131+56）
+
 ## 版本正名说明 | 2026-09-07（v9.8.14 → v9.9.4，恢复逢十进位约定）
 - **背景**：约定「版本号每级 0-9，patch 逢 10 进位」（实证：v9.7.9 → v9.8.0）。但 **v9.8.10 起偏离**（9.8.9+1 应为 9.9.0，实为 9.8.10 逐次 +1），v9.8.10~v9.8.14 五个版本均非法。根因见 MEMORY 运维笔记（约定未成文 + 规则文本只写"PATCH+1" + sync_check 无逢十闸 + 无复核层）。
 - **正名基准**：当前活跃版本 v9.8.14 → 其合法表示 **v9.9.4**（minor 8→9，patch 14-10=4）。本文件及 SKILL/rule_index/sync_check/feed-learning/DB prompt 的现行版本标识全部落到 v9.9.4。
