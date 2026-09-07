@@ -426,23 +426,39 @@ def check_prompt_structure() -> None:
 
 
 def check_memory_size() -> None:
-    """⑧ automation memory 体积上限检查（warn-only，2026-09-02 C 项）。
+    """⑧ 记忆体积与单一路径检查（2026-09-07 升级：主记忆硬门禁 + 权威路径 + 分裂检测）。
 
-    自动化运行前会全文读入 .workbuddy/automations/*/memory.md，体积过大会持续
-    推高每次运行的 token 成本。超限时打印 ⚠️ 提示人工归档（不判失败，避免
-    因渐进恶化指标直接红掉运行）；正常时记为通过项。
+    目标一（硬）：主记忆 MEMORY.md 注入上限 3000 字符，超限即 ❌（D2 直接硬，防"越压越大"日循环）。
+    目标二（warn 上限）：权威 automation memory 建议上限 20 KB / 1000 行。
+    目标三（分裂检测）：旧路径 .workbuddy/automations/.../memory.md 若再增长（超过归档说明文件体积），
+    说明有旧逻辑仍在写旧路径，双写分裂复发，即 ❌。
     """
-    p = Path("F:/WorkBuddy/history-today/.workbuddy/automations/automation-1778209807842/memory.md")
-    limit_kb = 20.0
-    if not p.exists():
-        print("   ⚠️ ⑧ automation memory 体积：文件缺失（路径可能已变更），请人工核对")
+    base = Path("F:/WorkBuddy/history-today")
+    mem = base / ".workbuddy/memory/MEMORY.md"
+    auth = base / ".workbuddy/memory/automations/automation-1778209807842/memory.md"
+    legacy = base / ".workbuddy/automations/automation-1778209807842/memory.md"
+    problems = []
+    if mem.exists():
+        chars = len(mem.read_text(encoding="utf-8", errors="replace"))
+        if chars > 3000:
+            problems.append(f"主记忆 MEMORY.md {chars} 字符 > 3000 硬上限")
+    else:
+        problems.append("主记忆 MEMORY.md 缺失")
+    if auth.exists():
+        kb = auth.stat().st_size / 1024
+        lines = auth.read_text(encoding="utf-8", errors="replace").count("\n") + 1
+        if kb > 20.0 or lines > 1000:
+            problems.append(f"automation memory {kb:.1f} KB / {lines} 行超建议上限")
+    else:
+        problems.append("权威 automation memory 缺失")
+    if legacy.exists():
+        if legacy.stat().st_size > 700:  # 归档说明文件约 500 字节，超过即疑分裂复发
+            problems.append("旧路径 automation memory 出现增长（双写分裂复发），请排查写入方")
+    if problems:
+        check(False, "⑧ 记忆体积与单一路径", "；".join(problems))
         return
-    kb = p.stat().st_size / 1024
-    if kb > limit_kb:
-        print(f"   ⚠️ ⑧ automation memory 体积：{kb:.1f} KB 超过 {limit_kb:.0f} KB 建议上限，"
-              f"请归档瘦身（参照 archive/memory_archive/ 迁移先例，2026-09-02）")
-        return
-    check(True, "⑧ automation memory 体积上限", f"{kb:.1f} KB（建议上限 {limit_kb:.0f} KB，warn-only）")
+    detail = f"主记忆 {chars if mem.exists() else '?'} 字符 / automation {kb:.1f} KB / 旧路径静态"
+    check(True, "⑧ 记忆体积与单一路径", detail)
 
 
 def main() -> int:
