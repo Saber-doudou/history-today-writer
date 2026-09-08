@@ -90,7 +90,7 @@ Phase 2.5: 标题复审（强制，不可跳过，与 L2 feed-learning Phase 2.5
     ↓
 Phase 3: Phase 2内置 — Humanizer + P0复检
     ↓
-Phase 3.5: 【加载 review_rules.md + review/prompts/】→ 6维度审校 → review_report.json（实际产物文件名：archive/daily/YYYY-MM-DD_review.json，含 p0/p1/p2 计数、pass、issues 数组、f19_check）
+Phase 3.5: 【加载 review_rules.md + review/prompts/】→ 6维度审校 → review_report.json（实际产物文件名：archive/daily/YYYY-MM-DD_review.json，含 p0/p1/p2 计数、pass、issues 数组、f19_check；P0/P1 修复被吸收后补 `fix_applied: true` 回流字段，P2 以 note 记录不强制修复）
     ↓
 Phase 3.6: 【判例预检 + Grep CASE_STUDIES.md（只grep命中关键词，禁止整读96K进上下文）】→ 领域专项检查
     ↓
@@ -104,7 +104,7 @@ Phase 3.7: 【人工审核检查点】→ 输出当前最佳版本 → 等待 Ma
   - Master 要求废弃 → 标记后跳过此选题
   - 超时无人确认（默认）→ 自动进入 Phase 4
     ↓
-Phase 4: 输出（全文 + 执行摘要）——执行摘要须含：候选事件对比评分 / 审校结果 P0/P1/P2 + 审校方式（独立 Reviewer 或自审标注）/ 迭代次数 / 版本号
+Phase 4: 输出（全文 + 执行摘要）——执行摘要须含：候选事件对比评分 / 审校结果 P0/P1/P2 + 审校方式（独立 Reviewer 或自审标注）/ 迭代次数 / 版本号 / 宿主状态 / 运行模型 / 终版字数（以实测计并注明汉字口径；防摘要自报与落盘文本不符）
     ↓
 Phase 5: 记忆更新（MEMORY.md 执行记录+质量仪表盘 + TOPICS.md 选题+复盘 + CASE_STUDIES.md 新案例时 + 当日日志 .workbuddy/memory/YYYY-MM-DD.md + 执行摘要写入权威 automation memory `.workbuddy/memory/automations/automation-1778209807842/memory.md`——唯一权威路径（2026-09-07 A2 统一），旧 `.workbuddy/automations/` 已废弃禁写，L3 侧由 l3_publish Phase 7b 同指此路径）
     ↓

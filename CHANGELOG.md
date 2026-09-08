@@ -1,5 +1,12 @@
 # CHANGELOG — history-today-writer
 
+## v10.0.1 机制增补 | 2026-09-08（学习驱动机制补强，非规则变更不改版本号；参照 09-07「v9.9.5 机制增补」先例）
+- **sync_check 项数 20 → 21**：新增 ⑪ 游离声称/版本漂移一致性检测——rule_index 尾注首段版本 / CHANGELOG 最新条目 / feed-learning 引用行的版本与规则数须等于期望；SKILL「索引：N条」「题材专项 hot N 条」== 实跑。历史注记叙述天然豁免（只查当前状态声称位）。触发实证：09-08 rule_index 尾注滞留 v10.0.0 而 20/20 全绿（Test Escalation：全绿仍漏网 → 升级考卷）
+- **规则数治理监管**：sync_check 输出 hot/上限（90）与总规则/上限（200）监管行（不 fail）；feed-learning Phase 4 新增步骤 0「规则数上限平衡自查」——hot ≥90 或总 ≥200 时新增 N 条须伴随 ≥N 条真实减法（方案 D1-A，防 Goodhart：上限做流程闸而非硬 fail）
+- **SKILL Phase 4 摘要要素补齐**：+ 宿主状态（⑩ 写入方契约成文，检测方 L452 早已 required）/ 运行模型 / 终版字数（实测口径）；Phase 3.5 review.json 增补 `fix_applied` 回流字段（note 级不强制重审）
+- **l3_publish.py B4 fallback 拆除**（复核 P2-2 落地）：config 缺 `automation_memory_path` 键时报错提示，不再回退旧路径（防 ⑧ 分裂红灯）
+- **修复游离声称**：rule_index.md 尾注补 v10.0.1 段（滞留 v10.0.0）；sync_check.py docstring/打印头刷新 v10.0.1/189=132+57
+
 ## v10.0.1 | 2026-09-08（意大利停战 L2：新增 Rule 132 不确定人数/损失量词限定 P1 + Forbidden #57 同字重复 P2；Rule 36 细化占领区力量分布表述避免“夹缝”误导；规则数 187→189=132+57，版本号 v10.0.0→v10.0.1；sync_check 20/20 全通过）
 
 ## v10.0.0 | 2026-09-07（彻底优化架构纪元：MINOR 逢十进 major）

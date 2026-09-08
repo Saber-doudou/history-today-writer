@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-sync_check.py — 一键核验 history-today-writer 技能文件一致性（v10.0.0）
+sync_check.py — 一键核验 history-today-writer 技能文件一致性（v10.0.1）
 
 核对项：
     ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
-     vs rule_index.md 索引行数 vs SKILL.md 声称数（187 = 131 Rule + 56 Forbidden）；
+     vs rule_index.md 索引行数 vs SKILL.md 声称数（189 = 132 Rule + 57 Forbidden）；
      另含 rule_index 小节标题声称（Rules/Forbidden N 条）与 SKILL.md 判例声称
      （= CASE_STUDIES 实际最大 CASE 编号）核验
-  ② Forbidden 数（55）
+  ② Forbidden 数（57）
   ③ 版本号：SKILL.md 末尾 Version 行须等于 EXPECT_VERSION（automation prompt 版本/计数一致性由 ⑦ 自动核验）
   ④ 文件路径可达性：topics×3、review/prompts×6、craft_optional.md、
      archive/cold_rules.md、review/CASE_STUDIES.md、review_rules.md、
@@ -22,6 +22,10 @@ sync_check.py — 一键核验 history-today-writer 技能文件一致性（v10.
      rule_heat.status 与 rule_index 温控列（去 * 归一化）须一致；rule_index 标 cold 的
      规则（幽灵编号/§5A 除外）正文须已在 archive；rule_index 标 hot 的规则正文须在 hot
      区。已知例外（F1-6 物理保留全文、P0+cold、疑似应 recovered）记 ⚠️ 不判失败。
+  ⑪ 游离声称/版本漂移一致性（2026-09-08 新增，防「升版漏改注记/游离声称」复发）：
+     rule_index.md 尾注首段版本 / CHANGELOG.md 最新条目 / feed-learning 引用行 的
+     当前版本号须 == EXPECT_VERSION；SKILL「索引：N条规则编号」== EXPECT_TOTAL；
+     SKILL「题材专项 hot N 条」== 实跑题材专项数。历史注记叙述天然豁免（只查当前状态声称位）。
 
 运行：在技能目录下执行  python scripts/sync_check.py
 依赖：仅 Python 标准库（os/re/json/pathlib），Windows 路径兼容。
@@ -41,6 +45,10 @@ EXPECT_RULES = 132       # R1-R132
 EXPECT_FORBIDDEN = 57    # F1-F57
 EXPECT_TOTAL = 189       # 132 + 57
 EXPECT_VERSION = "v10.0.1"  # SKILL.md 末尾 Version 行的期望版本号
+
+# 规则数治理上限（P1-1 2026-09-08，方案决策 D1-A：仅监管输出 + 入库前置强制平衡闸，非硬 fail）
+HOT_LIMIT = 90           # hot 规则上限（当前 83，留 7 余量）
+TOTAL_LIMIT = 200        # 总规则上限（沿用昨日方案 4.3）
 
 # 规则正文来源文件（规则编号并集由此统计）
 RULE_SOURCE_PATHS = [
@@ -476,6 +484,58 @@ def check_meta_schema() -> None:
     check(True, "⑩ 元数据一致性（摘要要素+编号残留）", "最近 L1 块要素齐全 / 无 6b 残留")
 
 
+def check_claim_drift(topics_actual: int) -> None:
+    """⑪ 游离声称/版本漂移检测（2026-09-08 新增，昨天复核 P1-1 建议落地 + Test Escalation）。
+
+    只查「当前状态声称位」——历史注记叙述（SKILL footer 累积 v9.x 段、CHANGELOG 旧条目、
+    rule_index 尾注「基于 v9.x」段）天然豁免，避免全文件扫描误伤历史文字：
+      A) rule_index.md 尾注首段 `*版本：vX` == EXPECT_VERSION（09-08 曾滞留 v10.0.0，20/20 全绿未抓）
+      B) CHANGELOG.md 最新 `## vX` 条目 == EXPECT_VERSION
+      C) feed-learning SKILL.md 引用行「N条规则（X Rule + Y Forbidden，当前 vX.Y）」== 期望
+         （跨技能引用滞留防再犯，07 ⑦ 不覆盖此文件）
+      D) SKILL.md「索引：N条规则编号」== EXPECT_TOTAL（昨日 P1-1 三处游离声称之一）
+      E) SKILL.md「题材专项 hot N 条」== 实跑题材专项 hot 数（昨日 P1-1 三处之一）
+    """
+    problems = []
+    # A rule_index 尾注首段版本
+    idx_text = read_text("rule_index.md")
+    m = re.search(r"\*版本：\s*(v[\d.]+)", idx_text)
+    if not m:
+        problems.append("rule_index.md 未找到「版本：」注记行")
+    elif m.group(1) != EXPECT_VERSION:
+        problems.append(f"rule_index 尾注版本 {m.group(1)} ≠ 期望 {EXPECT_VERSION}（升版漏改注记）")
+    # B CHANGELOG 最新条目
+    cl_text = read_text("CHANGELOG.md")
+    cm = re.search(r"^##\s*(v[\d.]+)", cl_text, re.MULTILINE)
+    if not cm:
+        problems.append("CHANGELOG.md 未找到「## vX」条目")
+    elif cm.group(1) != EXPECT_VERSION:
+        problems.append(f"CHANGELOG 最新条目 {cm.group(1)} ≠ 期望 {EXPECT_VERSION}")
+    # C feed-learning 跨技能引用行
+    fl = SKILL_DIR.parent / "history-today-feed-learning" / "SKILL.md"
+    if fl.exists():
+        fl_text = fl.read_text(encoding="utf-8", errors="replace")
+        refs = re.findall(r"(\d+)\s*条规则（\s*(\d+)\s*Rule\s*\+\s*(\d+)\s*Forbidden，当前\s*v([\d.]+)", fl_text)
+        for total_s, rules_s, fb_s, ver in refs:
+            if (int(total_s), int(rules_s), int(fb_s)) != (EXPECT_TOTAL, EXPECT_RULES, EXPECT_FORBIDDEN) or f"v{ver}" != EXPECT_VERSION:
+                problems.append(f"feed-learning 引用行 {total_s}条（{rules_s}+{fb_s}，当前 v{ver}）≠ 期望 {EXPECT_TOTAL}=({EXPECT_RULES}+{EXPECT_FORBIDDEN}，当前 {EXPECT_VERSION})")
+    # D SKILL「索引：N条规则编号」
+    skill_text = read_text("SKILL.md")
+    idx_claim = re.search(r"索引：(\d+)\s*条规则编号", skill_text)
+    if idx_claim and int(idx_claim.group(1)) != EXPECT_TOTAL:
+        problems.append(f"SKILL「索引：{idx_claim.group(1)}条规则编号」≠ 期望 {EXPECT_TOTAL}")
+    # E SKILL「题材专项 hot N 条」
+    bad_hot = [int(h) for h in re.findall(r"题材专项\s*hot\s*(\d+)\s*条", skill_text) if int(h) != topics_actual]
+    if bad_hot:
+        problems.append(f"SKILL「题材专项 hot {bad_hot} 条」≠ 实跑 {topics_actual}")
+    if problems:
+        check(False, "⑪ 游离声称/版本漂移一致性", "；".join(problems))
+        return
+    detail = (f"rule_index 尾注={EXPECT_VERSION} / CHANGELOG 最新={EXPECT_VERSION} / "
+              f"feed-learning 引用一致 / SKILL 索引={EXPECT_TOTAL} / 题材专项 hot={topics_actual}")
+    check(True, "⑪ 游离声称/版本漂移一致性", detail)
+
+
 def check_memory_size() -> None:
     """⑧ 记忆体积与单一路径检查（2026-09-07 升级：主记忆硬门禁 + 权威路径 + 分裂检测）。
 
@@ -514,7 +574,7 @@ def check_memory_size() -> None:
 
 def main() -> int:
     print("=" * 64)
-    print("history-today-writer sync_check（v10.0.0）")
+    print("history-today-writer sync_check（v10.0.1）")
     print(f"技能目录：{SKILL_DIR}")
     print("=" * 64)
 
@@ -711,6 +771,15 @@ def main() -> int:
         hot_ok = False
         hot_detail = f"SKILL.md 未找到「N条hot规则（core M + 题材专项 K）」声称模式"
     check(hot_ok, "⑤ SKILL.md hot 声称数", hot_detail)
+
+    # ---- ⑪ 游离声称/版本漂移一致性（2026-09-08 新增，Test Escalation：全绿仍漏网 → 升级考卷）----
+    check_claim_drift(topics_actual)
+
+    # ---- 规则数监管仪表（P1-1 2026-09-08：不 fail 的监管输出；超限时的强制减法是 L2 入库前置流程闸，
+    #      见 feed-learning SKILL Phase 4 平衡自查；此处仅让 hot/上限 每次 L1 都可见）----
+    hot_now = core_actual + topics_actual
+    print(f"📊 规则数监管：hot {hot_now}（core {core_actual} + 题材专项 {topics_actual}）/ 上限 {HOT_LIMIT}；"
+          f"总规则 {EXPECT_TOTAL} / 上限 {TOTAL_LIMIT} —— hot 或总规则达上限后，L2 新增规则须伴随合并/降级/删除（强制平衡）")
 
     # ---- ⑥ rule_heat ↔ rule_index ↔ 正文落点 三向一致性（v0.1 增补）----
     heat_text6 = read_text("review/rule_heat.json")
