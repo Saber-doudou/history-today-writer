@@ -37,10 +37,10 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 131       # R1-R131
-EXPECT_FORBIDDEN = 56    # F1-F56
-EXPECT_TOTAL = 187       # 131 + 56
-EXPECT_VERSION = "v10.0.0"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_RULES = 132       # R1-R132
+EXPECT_FORBIDDEN = 57    # F1-F57
+EXPECT_TOTAL = 189       # 132 + 57
+EXPECT_VERSION = "v10.0.1"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 规则正文来源文件（规则编号并集由此统计）
 RULE_SOURCE_PATHS = [
