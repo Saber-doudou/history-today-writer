@@ -5,10 +5,10 @@ sync_check.py — 一键核验 history-today-writer 技能文件一致性（v10.
 
 核对项：
     ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
-     vs rule_index.md 索引行数 vs SKILL.md 声称数（189 = 132 Rule + 57 Forbidden）；
+     vs rule_index.md 索引行数 vs SKILL.md 声称数（191 = 133 Rule + 58 Forbidden）；
      另含 rule_index 小节标题声称（Rules/Forbidden N 条）与 SKILL.md 判例声称
      （= CASE_STUDIES 实际最大 CASE 编号）核验
-  ② Forbidden 数（57）
+  ② Forbidden 数（58）
   ③ 版本号：SKILL.md 末尾 Version 行须等于 EXPECT_VERSION（automation prompt 版本/计数一致性由 ⑦ 自动核验）
   ④ 文件路径可达性：topics×3、review/prompts×6、craft_optional.md、
      archive/cold_rules.md、review/CASE_STUDIES.md、review_rules.md、
@@ -41,10 +41,10 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 132       # R1-R132
-EXPECT_FORBIDDEN = 57    # F1-F57
-EXPECT_TOTAL = 189       # 132 + 57
-EXPECT_VERSION = "v10.0.1"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_RULES = 133       # R1-R133
+EXPECT_FORBIDDEN = 58    # F1-F58
+EXPECT_TOTAL = 191       # 133 + 58
+EXPECT_VERSION = "v10.0.2"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 规则数治理上限（P1-1 2026-09-08，方案决策 D1-A：仅监管输出 + 入库前置强制平衡闸，非硬 fail）
 HOT_LIMIT = 90           # hot 规则上限（当前 83，留 7 余量）
