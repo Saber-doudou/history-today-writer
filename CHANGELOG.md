@@ -1,5 +1,11 @@
 # CHANGELOG — history-today-writer
 
+## v10.1.1 | 2026-09-10（IMA 收据留痕与一致性：193=135+58 不变，sync_check 22→23 项）
+- **根因**：IMA 收据按日期单文件存储（`{date}_ima_receipt.json`），同日二次备份（拆跑/补跑/发版再备份）会用新 note_id **覆盖**旧值；而 automation memory 的 B4 补记是「字段级补全、不覆盖已有值」（09-08 改），两者必然漂移，且当时无任何检查项覆盖。09-07 已有真实先例（v9.9.5 备份 note 7502644922812007 → 同日 v10.0.0 发版再备份 7502743761589154，靠人工另起「L3 二次备份」块记录）
+- **A 收据留痕**：`write_ima_receipt` 读出旧 `note_id` 与 `note_ids` 合并去重保序后写入 `note_ids` 数组（历史在前、本次在后）；`note_id` 仍为最新值（兼容既有消费方），本次无新 note_id 时沿用最近一次，不写空值。git_commit 三层保护（本次 commit → 仓库 HEAD → 旧值）不变
+- **B sync_check ⑬**：校验最近 10 条收据的 note_id 是否回记到 automation memory；基线 `AM_BASELINE_DATE=2026-09-07`（权威 automation memory 建立日，此前记录已归档，不做追溯）；按日聚合该日**所有**块（同日可能有「L3 收据补记」+「L3 二次备份」多块，09-07 先例），避免误报
+- **验证**：单测覆盖「首次/二次备份/无新 note_id」三场景（note_ids 累积、note_id 取最新、空值不覆盖）ALL PASS；sync_check ⑬ 首跑即识别出 5 条历史噪音（08-31 至 09-04 记录在归档文件）与 09-07 多块结构，修正判定后 ✅ 最近 4 条（09-07 至 09-10）均已回记
+
 ## v10.1.0 | 2026-09-10（记忆分片维护机制：193=135+58 不变，sync_check 21→22 项）
 - **根因**：`.workbuddy/memory/topics/*.md` 四个分片是 09-07 记忆治理时由 `restructure_memory.py` 从 MEMORY.md **一次性切出**的静态快照，脚本只管切出不管续写；L1/L2/L3 三个 SKILL、automation prompt、`l3_publish.py` 均无写入步骤（skills 目录 grep `exec_log` 零命中）→ 09-08 起 exec_log / publish_history 停更而无人察觉（09-10 L3 后审计发现；publish_history 缺 09-07 至 09-10 共 4 行，exec_log 缺 09-08 至 09-10 共 3 行）
 - **新增 `scripts/sync_topics.py`**（v1.0）：`--check` 比对权威源与分片表格行并打印建议行、`--sync` 按日期倒序幂等插入（已存在日期跳过，不覆盖人工行）。权威源口径：exec_log ← `{date}_v2.md` + `{date}_review.json`(P 值) + `memory/{date}.md`（选题/版本）；publish_history ← `{date}_ima_receipt.json`(note_id) + 日志 L3 段 `commit=`（收据未回改时以日志为准，已有 09-08 先例）

@@ -48,7 +48,11 @@ SKILL_DIR = Path(__file__).resolve().parent.parent
 EXPECT_RULES = 135       # R1-R135
 EXPECT_FORBIDDEN = 58    # F1-F58
 EXPECT_TOTAL = 193       # 135 + 58
-EXPECT_VERSION = "v10.1.0"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_VERSION = "v10.1.1"  # SKILL.md 末尾 Version 行的期望版本号
+
+# ⑬ 校验基线：权威 automation memory 于 2026-09-07 建立，此前记录已归档至
+# archive/automation-memory-A-precompress-2026-09-07.md，不做追溯校验
+AM_BASELINE_DATE = "2026-09-07"
 
 # 规则数治理上限（P1-1 2026-09-08，方案决策 D1-A：仅监管输出 + 入库前置强制平衡闸，非硬 fail）
 HOT_LIMIT = 90           # hot 规则上限（当前 86，留 4 余量）
@@ -617,6 +621,49 @@ def check_topics_freshness() -> None:
           "；".join(problems) or f"最近 {len(dates)} 篇定稿均已登记")
 
 
+def check_receipt_consistency() -> None:
+    """⑬ IMA 收据 ↔ automation memory 一致性（2026-09-10 新增）。
+
+    背景：收据按日期单文件存，同日二次备份会用新 note_id 覆盖旧值；而 automation memory
+    走「字段级补全、不覆盖已有值」，两者必然漂移且此前无检查项覆盖。
+    配合 write_ima_receipt 的 note_ids 留痕，本项拦截「最新 note_id 未回记到 automation memory」。
+    """
+    base = Path("F:/WorkBuddy/history-today")
+    art = base / "archive/daily"
+    am = base / ".workbuddy/memory/automations/automation-1778209807842/memory.md"
+    if not am.exists():
+        check(False, "⑬ IMA 收据↔automation memory 一致性", "权威 automation memory 缺失")
+        return
+    am_text = am.read_text(encoding="utf-8", errors="replace")
+    problems: list[str] = []
+    checked = 0
+    for p in sorted(art.glob("*_ima_receipt.json"))[-10:]:
+        m = re.match(r"(\d{4}-\d{2}-\d{2})_ima_receipt\.json$", p.name)
+        if not m:
+            continue
+        date = m.group(1)
+        if date < AM_BASELINE_DATE:
+            continue  # 权威 automation memory 建立于该日，此前记录在归档文件，不究
+        try:
+            d = json.loads(p.read_text(encoding="utf-8", errors="replace"))
+        except Exception:
+            problems.append(f"{date} 收据 JSON 解析失败")
+            continue
+        nid = str(d.get("note_id") or "")
+        if not nid:
+            continue
+        # 按日期取该日所有块（同日可能有「L3 收据补记」+「L3 二次备份」多个块，09-07 有先例）
+        day_blocks = [s for s in re.split(r"^## ", am_text, flags=re.M) if s.startswith(date)]
+        if not day_blocks:
+            problems.append(f"{date} automation memory 无该日记录（note_id={nid}）")
+            continue
+        checked += 1
+        if nid not in " ".join(day_blocks):
+            problems.append(f"{date} 收据 note_id {nid} 未回记到 automation memory（漂移）")
+    check(not problems, "⑬ IMA 收据↔automation memory 一致性",
+          "；".join(problems) or f"最近 {checked} 条收据 note_id 均已回记")
+
+
 def main() -> int:
     print("=" * 64)
     print("history-today-writer sync_check（v10.0.1）")
@@ -822,6 +869,9 @@ def main() -> int:
 
     # ---- ⑫ 记忆分片新鲜度（2026-09-10 新增：分片切出即冻结 → 硬校验 + 脚本维护）----
     check_topics_freshness()
+
+    # ---- ⑬ IMA 收据 ↔ automation memory 一致性（2026-09-10 新增：同日二次备份 note_id 覆盖）----
+    check_receipt_consistency()
 
     # ---- 规则数监管仪表（P1-1 2026-09-08：不 fail 的监管输出；超限时的强制减法是 L2 入库前置流程闸，
     #      见 feed-learning SKILL Phase 4 平衡自查；此处仅让 hot/上限 每次 L1 都可见）----
