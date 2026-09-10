@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-sync_check.py — 一键核验 history-today-writer 技能文件一致性（v10.0.3）
+sync_check.py — 一键核验 history-today-writer 技能文件一致性（v10.1.0）
 
 核对项：
     ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
@@ -22,6 +22,10 @@ sync_check.py — 一键核验 history-today-writer 技能文件一致性（v10.
      rule_heat.status 与 rule_index 温控列（去 * 归一化）须一致；rule_index 标 cold 的
      规则（幽灵编号/§5A 除外）正文须已在 archive；rule_index 标 hot 的规则正文须在 hot
      区。已知例外（F1-6 物理保留全文、P0+cold、疑似应 recovered）记 ⚠️ 不判失败。
+  ⑫ 记忆分片新鲜度（2026-09-10 新增，防「分片切出即冻结」复发）：
+     .workbuddy/memory/topics/exec_log.md 须覆盖最近 10 篇定稿日期；
+     topics/publish_history.md 须覆盖最近 10 篇中已产生 IMA 收据的日期。
+     缺行即 ❌（维护工具：F:/WorkBuddy/history-today/scripts/sync_topics.py --sync）。
   ⑪ 游离声称/版本漂移一致性（2026-09-08 新增，防「升版漏改注记/游离声称」复发）：
      rule_index.md 尾注首段版本 / CHANGELOG.md 最新条目 / feed-learning 引用行 的
      当前版本号须 == EXPECT_VERSION；SKILL「索引：N条规则编号」== EXPECT_TOTAL；
@@ -44,7 +48,7 @@ SKILL_DIR = Path(__file__).resolve().parent.parent
 EXPECT_RULES = 135       # R1-R135
 EXPECT_FORBIDDEN = 58    # F1-F58
 EXPECT_TOTAL = 193       # 135 + 58
-EXPECT_VERSION = "v10.0.3"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_VERSION = "v10.1.0"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 规则数治理上限（P1-1 2026-09-08，方案决策 D1-A：仅监管输出 + 入库前置强制平衡闸，非硬 fail）
 HOT_LIMIT = 90           # hot 规则上限（当前 86，留 4 余量）
@@ -572,6 +576,47 @@ def check_memory_size() -> None:
     check(True, "⑧ 记忆体积与单一路径", detail)
 
 
+def check_topics_freshness() -> None:
+    """⑫ 记忆分片新鲜度（2026-09-10 新增）。
+
+    根因：topics/*.md 是 09-07 记忆治理时从 MEMORY.md 一次性切出的静态快照，无写入方，
+    09-08 起 exec_log / publish_history 停更而无人察觉（09-10 审计发现）。
+    本项把「分片须跟上归档」变成硬校验，维护动作由 scripts/sync_topics.py --sync 执行。
+    """
+    base = Path("F:/WorkBuddy/history-today")
+    art = base / "archive/daily"
+    topics = base / ".workbuddy/memory/topics"
+
+    dates: list[str] = []
+    for p in art.glob("*_v2.md"):
+        m = re.match(r"(\d{4}-\d{2}-\d{2})_v2\.md$", p.name)
+        if m:
+            dates.append(m.group(1))
+    dates = sorted(dates, reverse=True)[:10]
+
+    rc_dates: set[str] = set()
+    for p in art.glob("*_ima_receipt.json"):
+        m = re.match(r"(\d{4}-\d{2}-\d{2})_ima_receipt\.json$", p.name)
+        if m:
+            rc_dates.add(m.group(1))
+
+    problems = []
+    for name, need in (("exec_log.md", set(dates)),
+                       ("publish_history.md", set(dates) & rc_dates)):
+        f = topics / name
+        if not f.exists():
+            problems.append(f"{name} 缺失")
+            continue
+        have = set(re.findall(r"^\|\s*(\d{4}-\d{2}-\d{2})\s*\|",
+                              f.read_text(encoding="utf-8", errors="replace"), re.M))
+        miss = sorted(need - have, reverse=True)
+        if miss:
+            problems.append(f"{name} 缺 {len(miss)} 行 {miss}（跑 scripts/sync_topics.py --sync）")
+
+    check(not problems, "⑫ 记忆分片新鲜度（exec_log / publish_history）",
+          "；".join(problems) or f"最近 {len(dates)} 篇定稿均已登记")
+
+
 def main() -> int:
     print("=" * 64)
     print("history-today-writer sync_check（v10.0.1）")
@@ -774,6 +819,9 @@ def main() -> int:
 
     # ---- ⑪ 游离声称/版本漂移一致性（2026-09-08 新增，Test Escalation：全绿仍漏网 → 升级考卷）----
     check_claim_drift(topics_actual)
+
+    # ---- ⑫ 记忆分片新鲜度（2026-09-10 新增：分片切出即冻结 → 硬校验 + 脚本维护）----
+    check_topics_freshness()
 
     # ---- 规则数监管仪表（P1-1 2026-09-08：不 fail 的监管输出；超限时的强制减法是 L2 入库前置流程闸，
     #      见 feed-learning SKILL Phase 4 平衡自查；此处仅让 hot/上限 每次 L1 都可见）----

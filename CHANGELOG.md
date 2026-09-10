@@ -1,5 +1,13 @@
 # CHANGELOG — history-today-writer
 
+## v10.1.0 | 2026-09-10（记忆分片维护机制：193=135+58 不变，sync_check 21→22 项）
+- **根因**：`.workbuddy/memory/topics/*.md` 四个分片是 09-07 记忆治理时由 `restructure_memory.py` 从 MEMORY.md **一次性切出**的静态快照，脚本只管切出不管续写；L1/L2/L3 三个 SKILL、automation prompt、`l3_publish.py` 均无写入步骤（skills 目录 grep `exec_log` 零命中）→ 09-08 起 exec_log / publish_history 停更而无人察觉（09-10 L3 后审计发现；publish_history 缺 09-07 至 09-10 共 4 行，exec_log 缺 09-08 至 09-10 共 3 行）
+- **新增 `scripts/sync_topics.py`**（v1.0）：`--check` 比对权威源与分片表格行并打印建议行、`--sync` 按日期倒序幂等插入（已存在日期跳过，不覆盖人工行）。权威源口径：exec_log ← `{date}_v2.md` + `{date}_review.json`(P 值) + `memory/{date}.md`（选题/版本）；publish_history ← `{date}_ima_receipt.json`(note_id) + 日志 L3 段 `commit=`（收据未回改时以日志为准，已有 09-08 先例）
+- **sync_check 新增 ⑫「记忆分片新鲜度」**：exec_log 须覆盖最近 10 篇定稿、publish_history 须覆盖其中已出收据的日期，缺行即 ❌ 并提示维护命令。检查项 21 → 22 项
+- **L3 接入**：`l3_publish.py` Phase 7b（收据 + automation memory 补记）之后自动调用 `sync_topics.py --sync`，失败仅警告不阻断
+- **已补数据**：publish_history 补 4 行（09-07 ff33216 / 09-08 c713d17 拆分跑 / 09-09 cb17a5c API 降级 / 09-10 c77dd30），exec_log 补 3 行（09-08 v10.0.1 / 09-09 v10.0.2 / 09-10 v10.0.3），均已人工润色去自动化标记
+- **不维护的分片**：version_history（权威 = 本 CHANGELOG.md，索引已注明）、ops_notes（人工排障沉淀，按需追加）
+
 ## v10.0.3 | 2026-09-10（欧佩克成立 L2：191→193=135+58，hot 84→86=core 63+题材专项 23）
 - **新增 Rule 134**（P1，制，hot，core）：会议/成立类事件须点齐牵头方与东道主。除主要发起人外须交代东道主/倡议方及其代表（巴格达会议伊拉克总理卡塞姆倡议、石油部长塔拉特·沙伊巴尼出席），参与方头衔须与史料吻合（佩雷斯·阿方索为委内瑞拉"矿产与碳氢化合物部长"而非"石油部长"）。判例：ds/ima 指出 v1 只写阿方索与塔里基，东道主伊拉克完全隐身，属以该地为舞台故事的结构性缺失
 - **新增 Rule 135**（P1，通，hot，core）：前因链须交代"首次未果再遭重击"递进。触发事件前若已有同性质前次冲击须补全（1959 年 2 月首次压价 → 开罗"马蒂协定"要求审核价格被无视 → 1960 年 8 月二次降价才引爆），禁用"终于坐不住了"等抽象词代替因果积累。判例：ds/ima/千问/豆包 4/4 一致指出 v1 只写 1960 年 8 月降价、因果链断裂
