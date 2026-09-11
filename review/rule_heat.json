@@ -788,13 +788,6 @@
       "demoted_at": "2026-08-06",
       "never_cool": false
     },
-    "forbidden_23": {
-      "last_triggered": null,
-      "count_30d": 0,
-      "status": "hot",
-      "demoted_at": null,
-      "never_cool": false
-    },
     "forbidden_24": {
       "last_triggered": "2026-06-15",
       "count_30d": 0,
@@ -980,15 +973,15 @@
     "rule_92": {
       "last_triggered": null,
       "count_30d": 0,
-      "status": "hot",
-      "demoted_at": null,
+      "status": "cold",
+      "demoted_at": "2026-09-11",
       "never_cool": false
     },
     "rule_93": {
       "last_triggered": null,
       "count_30d": 0,
-      "status": "hot",
-      "demoted_at": null,
+      "status": "cold",
+      "demoted_at": "2026-09-11",
       "never_cool": false
     },
     "rule_94": {
@@ -1036,15 +1029,15 @@
     "rule_100": {
       "last_triggered": null,
       "count_30d": 0,
-      "status": "hot",
-      "demoted_at": null,
+      "status": "cold",
+      "demoted_at": "2026-09-11",
       "never_cool": false
     },
     "rule_101": {
       "last_triggered": null,
       "count_30d": 0,
-      "status": "hot",
-      "demoted_at": null,
+      "status": "cold",
+      "demoted_at": "2026-09-11",
       "never_cool": false
     },
     "rule_102": {
@@ -1141,8 +1134,8 @@
     "forbidden_52": {
       "last_triggered": null,
       "count_30d": 0,
-      "status": "hot",
-      "demoted_at": null,
+      "status": "cold",
+      "demoted_at": "2026-09-11",
       "never_cool": false
     },
     "forbidden_53": {

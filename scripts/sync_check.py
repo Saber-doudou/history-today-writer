@@ -46,9 +46,9 @@ from pathlib import Path
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
 EXPECT_RULES = 136       # R1-R136
-EXPECT_FORBIDDEN = 56    # F1-F56（F49/F50 自指残留已并入 R94/R95，2026-09-11 Curator A 档）
-EXPECT_TOTAL = 192       # 136 + 56
-EXPECT_VERSION = "v10.1.3"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_FORBIDDEN = 55    # F1-F58 扣除已删空洞 23/49/50（F23 并入 R14，F49/F50 并入 R94/R95，Curator 棘轮 A/B 档）
+EXPECT_TOTAL = 191       # 136 + 55
+EXPECT_VERSION = "v10.1.4"  # SKILL.md 末尾 Version 行的期望版本号
 
 # ⑬ 校验基线：权威 automation memory 于 2026-09-07 建立，此前记录已归档至
 # archive/automation-memory-A-precompress-2026-09-07.md，不做追溯校验
@@ -783,7 +783,7 @@ def main() -> int:
     # KNOWN_FB_GAPS（2026-09-11 Curator 棘轮 A 档配套）：F49/F50 自指残留已删（约束并入 R94/R95），
     # 编号空洞不回填——新增 Forbidden 自 F59 续号，防历史编号歧义。原「编号连续 1..N」假设与
     # 空洞冲突（删中间编号后尾部编号必被判越界），故合法全集 = 1..KNOWN_FB_MAX 扣除已知空洞。
-    KNOWN_FB_GAPS = frozenset({49, 50})   # 已删除且不复用的 Forbidden 编号
+    KNOWN_FB_GAPS = frozenset({23, 49, 50})   # 已删除且不复用的 Forbidden 编号（F23→R14，F49/F50→R94/R95）
     KNOWN_FB_MAX = 58                     # 现存最大 Forbidden 编号（F58 现代名词时代错置）
     allowed_fb = set(range(1, KNOWN_FB_MAX + 1)) - KNOWN_FB_GAPS
     missing_fb = sorted(allowed_fb - forbid_nums)
