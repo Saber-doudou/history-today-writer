@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-09-10",
+  "last_updated": "2026-09-11",
   "heat_period_days": 30,
   "rules": {
     "rule_01": {
@@ -1350,6 +1350,13 @@
     },
     "rule_135": {
       "last_triggered": "2026-09-10",
+      "count_30d": 1,
+      "status": "hot",
+      "demoted_at": null,
+      "never_cool": false
+    },
+    "rule_136": {
+      "last_triggered": "2026-09-11",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,

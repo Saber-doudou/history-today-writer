@@ -45,17 +45,17 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 135       # R1-R135
+EXPECT_RULES = 136       # R1-R136
 EXPECT_FORBIDDEN = 58    # F1-F58
-EXPECT_TOTAL = 193       # 135 + 58
-EXPECT_VERSION = "v10.1.1"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_TOTAL = 194       # 136 + 58
+EXPECT_VERSION = "v10.1.2"  # SKILL.md 末尾 Version 行的期望版本号
 
 # ⑬ 校验基线：权威 automation memory 于 2026-09-07 建立，此前记录已归档至
 # archive/automation-memory-A-precompress-2026-09-07.md，不做追溯校验
 AM_BASELINE_DATE = "2026-09-07"
 
 # 规则数治理上限（P1-1 2026-09-08，方案决策 D1-A：仅监管输出 + 入库前置强制平衡闸，非硬 fail）
-HOT_LIMIT = 90           # hot 规则上限（当前 86，留 4 余量）
+HOT_LIMIT = 90           # hot 规则上限（当前 87，留 3 余量）
 TOTAL_LIMIT = 200        # 总规则上限（沿用昨日方案 4.3）
 
 # 规则正文来源文件（规则编号并集由此统计）
