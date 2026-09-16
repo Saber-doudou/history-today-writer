@@ -1368,6 +1368,13 @@
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
+    },
+    "rule_141": {
+      "last_triggered": "2026-09-16",
+      "count_30d": 1,
+      "status": "hot",
+      "demoted_at": null,
+      "never_cool": false
     }
   }
 }
