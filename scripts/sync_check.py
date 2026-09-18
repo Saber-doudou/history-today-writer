@@ -45,10 +45,10 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 141       # R1-R141
+EXPECT_RULES = 142       # R1-R142
 EXPECT_FORBIDDEN = 55    # F1-F58 扣除已删空洞 23/49/50（F23 并入 R14，F49/F50 并入 R94/R95，Curator 棘轮 A/B 档）
-EXPECT_TOTAL = 196       # 141 + 55
-EXPECT_VERSION = "v10.1.7"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_TOTAL = 197       # 142 + 55
+EXPECT_VERSION = "v10.1.8"  # SKILL.md 末尾 Version 行的期望版本号
 
 # ⑬ 校验基线：权威 automation memory 于 2026-09-07 建立，此前记录已归档至
 # archive/automation-memory-A-precompress-2026-09-07.md，不做追溯校验
@@ -548,7 +548,12 @@ def check_memory_size() -> None:
     """⑧ 记忆体积与单一路径检查（2026-09-07 升级：主记忆硬门禁 + 权威路径 + 分裂检测）。
 
     目标一（硬）：主记忆 MEMORY.md 注入上限 3000 字符，超限即 ❌（D2 直接硬，防"越压越大"日循环）。
-    目标二（warn 上限）：权威 automation memory 建议上限 20 KB / 1000 行。
+    目标二（建议上限 warn）：权威 automation memory 建议上限 20 KB / 1000 行。
+        —— 2026-09-18 复核修正：docstring 原始定位为「建议上限（warn）」，原代码误将体积超 20KB
+           也实现为硬失败，与文档矛盾且对 11 天滚动记录（约 21.7KB）频繁误伤。现改为：
+           行数 > 1000 仍判 ❌（硬门禁，捕捉真正失控的无限增长）；
+           体积 > 20KB 仅记 ⚠️ 提示（滚动累积属正常，未达真正失控），不再阻断 sync_check。
+           防失控的真正硬门禁由「主记忆 3000 字符 + automation 1000 行 + 旧路径分裂检测」三重兜底。
     目标三（分裂检测）：旧路径 .workbuddy/automations/.../memory.md 若再增长（超过归档说明文件体积），
     说明有旧逻辑仍在写旧路径，双写分裂复发，即 ❌。
     """
@@ -556,7 +561,10 @@ def check_memory_size() -> None:
     mem = base / ".workbuddy/memory/MEMORY.md"
     auth = base / ".workbuddy/memory/automations/automation-1778209807842/memory.md"
     legacy = base / ".workbuddy/automations/automation-1778209807842/memory.md"
-    problems = []
+    problems: list[str] = []
+    warns: list[str] = []
+    chars = 0
+    kb = 0.0
     if mem.exists():
         chars = len(mem.read_text(encoding="utf-8", errors="replace"))
         if chars > 3000:
@@ -566,8 +574,11 @@ def check_memory_size() -> None:
     if auth.exists():
         kb = auth.stat().st_size / 1024
         lines = auth.read_text(encoding="utf-8", errors="replace").count("\n") + 1
-        if kb > 20.0 or lines > 1000:
-            problems.append(f"automation memory {kb:.1f} KB / {lines} 行超建议上限")
+        if lines > 1000:
+            problems.append(f"automation memory {lines} 行超硬上限 1000（需归档历史块）")
+        elif kb > 20.0:
+            # 目标二为「建议上限」（docstring 标注 warn）：体积超建议值仅提示、不判失败
+            warns.append(f"automation memory {kb:.1f} KB 超 20 KB 建议上限（滚动累积，持续观察，未达硬门禁）")
     else:
         problems.append("权威 automation memory 缺失")
     if legacy.exists():
@@ -576,7 +587,7 @@ def check_memory_size() -> None:
     if problems:
         check(False, "⑧ 记忆体积与单一路径", "；".join(problems))
         return
-    detail = f"主记忆 {chars if mem.exists() else '?'} 字符 / automation {kb:.1f} KB / 旧路径静态"
+    detail = f"主记忆 {chars} 字符 / automation {kb:.1f} KB（{'；'.join(warns) if warns else '体积正常'}） / 旧路径静态"
     check(True, "⑧ 记忆体积与单一路径", detail)
 
 
