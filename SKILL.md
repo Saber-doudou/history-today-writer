@@ -90,7 +90,7 @@ Phase 2.5: 标题复审（强制，不可跳过，与 L2 feed-learning Phase 2.5
     ↓
 Phase 3: Phase 2内置 — Humanizer + P0复检
     ↓
-Phase 3.5: 【加载 review_rules.md + review/prompts/】→ 6维度审校 → review_report.json（实际产物文件名：archive/daily/YYYY-MM-DD_review.json，含 p0/p1/p2 计数、pass、issues 数组、f19_check；P0/P1 修复被吸收后补 `fix_applied: true` 回流字段，P2 以 note 记录不强制修复）
+Phase 3.5: 【加载 review_rules.md + review/prompts/】→ 6维度审校 → review_report.json（实际产物文件名：archive/daily/YYYY-MM-DD_review.json，字段名固定 `p0_count`/`p1_count`/`p2_count`（计数）、`pass`、`issues` 数组、`f19_check`，与 review/schema/review_output.json 一致；P0/P1 修复被吸收后补 `fix_applied: true` 回流字段，P2 以 note 记录不强制修复）
     ↓
 Phase 3.6: 【判例预检 + Grep CASE_STUDIES.md（只grep命中关键词，禁止整读96K进上下文）】→ 领域专项检查
     ↓

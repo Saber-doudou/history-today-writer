@@ -1,6 +1,10 @@
 # CHANGELOG — history-today-writer
 
 ## v10.1.9 | 2026-09-23（海王星发现 L2：新增 Rule 143 AI点评事实纠错须独立信源核验后采纳 P0 hot（四AI投喂学习中任一AI指v1/v2事实错误须独立检索权威信源逐处核验，不得直接采信AI断言；ds称70角秒放大3倍应为20角秒、ima称亚当斯履历无据两处误纠经独立核验推翻，数字/原表述保留；198=143+55，hot 89=core 67+题材专项 22；R139 标题设问须主体明确 P1 由 hot 降级 cold 释放 hot 位，正文迁 archive/cold_rules.md；归 CASE-79 判例）
+- **review.json 字段口径纠错（2026-09-23 补记，版本号不变）**：原文字描述写「含 p0/p1/p2 计数」，与权威 schema `review/schema/review_output.json`（required = `p0_count`/`p1_count`/`p2_count`/`total_issues`/`pass`）及 `review_scheduler.py`/`report.html` 实际口径不符。已将 automation prompt 第 3 节与 SKILL.md Phase 3.5 描述统一为 `p0_count`/`p1_count`/`p2_count`。
+  - **根因**：下游 `scripts/sync_topics.py::review_scores()` 按简写读裸键 `p0`，导致 `_count` 格式的 review.json 全部静默退化为 `?/?/?`（exec_log 该列长期显示 `?/?/?`，被误读为「待人工打分」）。
+  - **修复**：sync_topics.py 改双键兼容 `d.get(f"p{i}_count", d.get(f"p{i}", "?"))`（根本解，不依赖 Reviewer 写法稳定）；exec_log 回填 5 行（09-23=0/0/0、09-22=0/0/2、09-21=0/0/0、09-18=0/1/0、09-16=0/0/0）。
+  - **附带清理**：技能仓库死副本 `scripts/sync_topics.py`（09-18 误入、从未入 git）已删除；权威副本仅在工作空间 `F:/WorkBuddy/history-today/scripts/`。
 
 ## v10.1.8 | 2026-09-18（纽约时报创刊 L2：新增 Rule 142 概念时序准确 P1 hot core，197=142+55，hot 89=core 67+题材专项 22；归 CASE-77 判例）
 - 新增 Rule 142: 概念时序准确（P1 hot core，ds 1/4 指出 v1 标题/正文「定下『客观』二字」绝对化；现代新闻客观性为20世纪职业规范，非1851创刊即定；v2 改「留下最早的范本」并补「到20世纪才成型」句）
