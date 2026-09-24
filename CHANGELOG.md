@@ -1,5 +1,11 @@
 # CHANGELOG — history-today-writer
 
+## v10.2.0 | 2026-09-24（吉法尔蒸汽飞艇首飞 L2：新增 Rule 144 科技工程「首次X」叙事须补齐全弧 P1 cold，199=144+55，hot 89=core 67+题材专项 22 不变；归 CASE-80 判例）
+- 新增 Rule 144: 科技工程「首次/第一台」叙事须补齐全弧（P1 cold，科技工程专项）：当日事件须有可核实落点/终点（a）+ 前置研发节点（如专利/关键技术决策）（b）+ 后续成败（改进型失败/技术路线转移）（c）；禁止只写当日高光、漏落点与后续，使「首次」成孤立事件
+- 来源：2026-09-24 吉法尔蒸汽飞艇首飞 L2 四AI深度学习（4/4 共识 v1 缺特拉普落点/向西南方向偏差/漏 1851 专利与 1855 二艇坠毁；v2 已吸收）
+- 同步更新：archive/cold_rules.md（R144 正文）+ rule_index.md（索引+标题/小节/尾注版本）+ review_rules.md（9C 审校索引）+ SKILL.md（元数据+判例数）+ sync_check.py（EXPECT 值）+ feed-learning SKILL.md（引用行）
+- Phase 8 migrate_cold_rules：降级候选 0 / 候补 0 / 冲突 1（Rule139 cold 但近 9 天触发，疑似应 recovered，已报告 Master，不自动动作）/ 安全闸 5（F1-6 基础 Forbidden 已知例外）
+
 ## v10.1.9 | 2026-09-23（海王星发现 L2：新增 Rule 143 AI点评事实纠错须独立信源核验后采纳 P0 hot（四AI投喂学习中任一AI指v1/v2事实错误须独立检索权威信源逐处核验，不得直接采信AI断言；ds称70角秒放大3倍应为20角秒、ima称亚当斯履历无据两处误纠经独立核验推翻，数字/原表述保留；198=143+55，hot 89=core 67+题材专项 22；R139 标题设问须主体明确 P1 由 hot 降级 cold 释放 hot 位，正文迁 archive/cold_rules.md；归 CASE-79 判例）
 - **review.json 字段口径纠错（2026-09-23 补记，版本号不变）**：原文字描述写「含 p0/p1/p2 计数」，与权威 schema `review/schema/review_output.json`（required = `p0_count`/`p1_count`/`p2_count`/`total_issues`/`pass`）及 `review_scheduler.py`/`report.html` 实际口径不符。已将 automation prompt 第 3 节与 SKILL.md Phase 3.5 描述统一为 `p0_count`/`p1_count`/`p2_count`。
   - **根因**：下游 `scripts/sync_topics.py::review_scores()` 按简写读裸键 `p0`，导致 `_count` 格式的 review.json 全部静默退化为 `?/?/?`（exec_log 该列长期显示 `?/?/?`，被误读为「待人工打分」）。

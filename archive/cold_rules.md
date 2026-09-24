@@ -3,7 +3,7 @@
 > 依据 `writing_rules.md §5S` 温控系统：cold 规则连续 30 天未触发，写作阶段降级为「编号 + 1行摘要」（见 `rule_index.md`），详细正文不加载。
 > 本文件为 cold 规则完整正文存档，内容逐字保留自 `writing_rules.md` / `review_rules.md §9B`，**禁止改动规则语义与强制级别**。
 > 恢复机制：cold 规则被审校命中（`rule_ref` 出现）→ recovered → 恢复全量加载并更新 `review/rule_heat.json`。
-> 存档范围：**27 冷 Rule + 23 冷 Forbidden**（Forbidden #1/2/3/5/6 为基础 Forbidden，writing_core 保留全文，不重复存档；3.0 编号对齐修正后 forbidden_20/22 由 hot 修正为 cold，纳入本存档；2026-08-26 R26/R42/R55 + F11/F21/F23 六条 P0 回归 hot，正文已回 writing_core，本档对应条目保留作历史并标注）。
+> 存档范围：**28 冷 Rule + 23 冷 Forbidden**（Forbidden #1/2/3/5/6 为基础 Forbidden，writing_core 保留全文，不重复存档；3.0 编号对齐修正后 forbidden_20/22 由 hot 修正为 cold，纳入本存档；2026-08-26 R26/R42/R55 + F11/F21/F23 六条 P0 回归 hot，正文已回 writing_core，本档对应条目保留作历史并标注）。
 > 更新：2026-08-06（darwin step3.2）；2026-08-14（v9.7.8 同步：writing_core.md 中 26 条 cold Forbidden 已物理瘦身为占位，本档为完整正文唯一存放处，内容与 writing_core 原行逐字一致）。
 > 更新：2026-09-11（v10.1.4 Curator 棘轮 B 档：Rule 92/93/100/101 + Forbidden 编号 52 共 5 条 hot→cold 降级试点，demoted_at=2026-09-11、保护期 30 天，正文自 writing_core.md / topics/war_institution.md 逐字迁入本档；Forbidden 编号 23 同日永久合并删除——自指残留，约束由 Rule 14「因果链完整+内外因平衡」P0 hot 完整承载，历史条目见下表标注）。
 
@@ -441,4 +441,12 @@
 | rule_66 | 2026-07-03 | 0 | cold | 2026-08-06 |
 | rule_67 | 2026-07-06 | 0 | cold | 2026-08-06 |
 | rule_69 | 2026-07-07 | 0 | cold | 2026-08-06 |
+| rule_144 | 2026-09-24 | 0 | cold | 2026-09-24 |
+
+---
+
+### Rule 144. 科技工程「首次/第一台」叙事须补齐全弧（P1强制）
+科技工程类「人类首次 / 第一台」叙事须补齐关键史实节点形成完整故事弧——（a）当日事件可核实落点/终点；（b）前置研发节点（如专利、关键技术决策）；（c）后续成败（改进型失败 / 技术路线转移）。禁止只写当日高光、漏落点与后续，使「首次」成为孤立事件。
+- 判例来源：详见 CASE_STUDIES.md CASE-80（2026-09-24 吉法尔蒸汽飞艇首飞 L2 学习）
+- 入库：2026-09-24 吉法尔蒸汽飞艇首飞 L2（P1 cold，科技工程专项；4/4 共识 v1 缺特拉普落点/方向/后续；hot 89 不变，归 CASE-80 判例）
 

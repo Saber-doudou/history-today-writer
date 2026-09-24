@@ -45,10 +45,10 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 143       # R1-R143
+EXPECT_RULES = 144       # R1-R144
 EXPECT_FORBIDDEN = 55    # F1-F58 扣除已删空洞 23/49/50（F23 并入 R14，F49/F50 并入 R94/R95，Curator 棘轮 A/B 档）
-EXPECT_TOTAL = 198       # 143 + 55
-EXPECT_VERSION = "v10.1.9"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_TOTAL = 199       # 144 + 55
+EXPECT_VERSION = "v10.2.0"  # SKILL.md 末尾 Version 行的期望版本号
 
 # ⑬ 校验基线：权威 automation memory 于 2026-09-07 建立，此前记录已归档至
 # archive/automation-memory-A-precompress-2026-09-07.md，不做追溯校验
