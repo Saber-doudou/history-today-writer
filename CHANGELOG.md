@@ -1,5 +1,12 @@
 # CHANGELOG — history-today-writer
 
+## v10.2.1 | 2026-09-25（TAT-1 跨大西洋海底电话电缆 L2）
+- 新增 Rule 145「时间跨度类表述须锚定起算年份并与所列年份自洽」P1 hot core：ima+豆包 2/4 指出 v1 并列「1858年沉线 / 1866年已成平常事 / 整整九十年」起点不清（1858 起算实为 98 年，1866 起算才是 90 年），且跨越期内 1858 首缆失败未交代
+- 规则数 199→200（145 Rule + 55 Forbidden）；hot 89→90（core 68 + 题材专项 22）。⚠️ 本次入库后 hot 触顶 HOT_LIMIT=90、总数触顶 TOTAL_LIMIT=200，下次 L2 新增规则前须按 Phase 4 步骤 0 先执行等价减法（降级/合并/删除）
+- 规则细化（不新增编号）：R144 全弧补 (d)「突破前旧方案对照基线」（ima+千问+豆包 3/4 指出 v1 缺短波无线电对照；正文见 archive/cold_rules.md）
+- 下沉测试结论：冷战热线遗产项由 R144(c)「后续成败」覆盖 → 归 CASE-81 判例不入规则；AI「查无实证」指控由 R143 覆盖 → 不新增；v2 字数超限（932→797，三轮压缩）为机械类 → 改 feed-learning Phase 2 自检清单补上限，不入规则
+- 同步：rule_index（200 条 / Rules 145 条 / R145 行 / 尾注）、writing_core R145 正文、review_rules 审校表 R145 行、CASE-81 判例、sync_check EXPECT_RULES=145/EXPECT_TOTAL=200/EXPECT_VERSION=v10.2.1、feed-learning 引用行
+
 ## 记录（不改版本号）| 2026-09-27（F19 落点修正回搬：状态-物理位置一致性治理，规则数/语义/强制级别零变化）
 - F19「元信息外露」2026-08-31 recovered 时仅改状态标签未搬正文，正文滞留 archive/cold_rules.md 近 1 个月，落点声称（rule_index/rule_heat note「正文见 review_rules.md」）与物理位置不一致，migrate ④ 升温候选区持续挂起
 - 修正（与 08-26 F11/F21 回归先例同口径）：writing_core.md Forbidden #19 占位行恢复为完整正文（含 SKILL 强制脚注除外条款）；archive/cold_rules.md 表行保留作历史并注记回搬；rule_index.md 落点列 cold→core；rule_heat.json note 同步
