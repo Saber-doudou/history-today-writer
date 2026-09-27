@@ -1282,7 +1282,7 @@ Not every dimension needs to be used in every piece. **Changing even one dimensi
 16. ✗ **因果链倒置**（cold）→ 正文见 archive/cold_rules.md
 17. ✗ **"官方禁令"无档案支撑**（cold）→ 正文见 archive/cold_rules.md
 18. ✗ **关键技术决策遗漏**（cold）→ 正文见 archive/cold_rules.md
-19. ✗ **元信息外露**（cold）→ 正文见 archive/cold_rules.md
+19. ✗ **元信息外露**: 正文中出现"Word count""Domain"等元信息标签，应删除或移至注释区（SKILL 输出规范强制脚注 *字数：约N字 | 领域：…* 除外）
 20. ✗ **反间计/阴谋类题材要素缺失**（cold）→ 正文见 archive/cold_rules.md
 21. ✗ **虚构对话无出处**: 没有明确史料出处的对话，应删除或改为间接引语 → Rule 52
 22. ✗ **审判/处决场景完整性缺失**（cold）→ 正文见 archive/cold_rules.md

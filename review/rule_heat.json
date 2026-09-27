@@ -765,7 +765,7 @@
       "status": "recovered",
       "demoted_at": "2026-08-06",
       "never_cool": false,
-      "note": "SKILL 输出规范强制脚注(*字数/领域*)除外（B2 2026-08-31 恢复，正文见 review_rules.md）"
+      "note": "SKILL 输出规范强制脚注(*字数/领域*)除外（B2 2026-08-31 恢复；2026-09-27 正文回搬 writing_core.md Forbidden #19 行）"
     },
     "forbidden_20": {
       "last_triggered": "2026-06-11",
