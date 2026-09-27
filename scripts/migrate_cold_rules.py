@@ -7,6 +7,7 @@ migrate_cold_rules.py — 规则正文冷热迁移（v0.1，2026-08-26）
 - A 双闸：last_triggered 距今 ≥60 天（null 视为超期）+ demoted_at 距今 ≥30 天（保护期）
 - B 默认 --dry-run 仅报告；连续 7 个工作日 ① 区无新增候选后由 Master 确认转 --force
 - C 本期只做降级 + 对账 + 冲突报告；升温（recovered/hot → 回搬 hot 区）留接口 v0.2 不上线
+- 2026-09-27：③「疑似应 recovered」判定加 last_triggered > demoted_at 前置条件——触发早于降级日不报（R139 误报修正，Master 授权）
 
 安全闸 G1-G7（命中即跳过，先于状态判定执行）：
   G1 never_cool:true（rule_heat）  G2 §5A 基础 1-23  G3 基础 Forbidden F1-6
@@ -279,7 +280,12 @@ def classify(kind: str, n: int, heat: dict, idx: dict | None, act: dict | None) 
     if (idx or {}).get("level") == "P0" and status == "cold":
         conflicts.append("P0 却 cold（设计文档规定 P0 永不降级）")
     lt_d = parse_date(heat.get("last_triggered"))
-    if status == "cold" and lt_d and days_since(lt_d) < CONFLICT_REVIVE_DAYS:
+    demoted_d = parse_date(heat.get("demoted_at"))
+    # 2026-09-27 修正（Master 授权）：仅对「降级之后」发生的触发报疑似 recovered。
+    # 触发早于降级日（如 R139 触发09-15、降级09-23）属降级前的遗留证据，不构成
+    # 「cold 仍被使用」；同日触发/降级亦不报（当日时序不可辨，真触发次日即现）。
+    if (status == "cold" and lt_d and days_since(lt_d) < CONFLICT_REVIVE_DAYS
+            and (demoted_d is None or lt_d > demoted_d)):
         conflicts.append(f"cold 但近 {days_since(lt_d)} 天有触发（疑似应 recovered）")
     if status != (idx or {}).get("heat", "").rstrip("*"):
         conflicts.append(f"rule_heat({status}) ≠ rule_index 温控列({(idx or {}).get('heat')})")

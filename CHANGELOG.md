@@ -4,7 +4,8 @@
 - F19「元信息外露」2026-08-31 recovered 时仅改状态标签未搬正文，正文滞留 archive/cold_rules.md 近 1 个月，落点声称（rule_index/rule_heat note「正文见 review_rules.md」）与物理位置不一致，migrate ④ 升温候选区持续挂起
 - 修正（与 08-26 F11/F21 回归先例同口径）：writing_core.md Forbidden #19 占位行恢复为完整正文（含 SKILL 强制脚注除外条款）；archive/cold_rules.md 表行保留作历史并注记回搬；rule_index.md 落点列 cold→core；rule_heat.json note 同步
 - 验收：sync_check 23/23；migrate --dry-run 升温候选 0 条（F19 清除）；③ 区 1 条为 R139 已定性误报（触发 09-15 先于降级 09-23，10-15 前后自然消失）
-- 同日待办清单其余项：09-24 收据 note_id 回记 automation memory（⑬ 转绿）；主记忆瘦身 3140→2285 字符（⑧ 转绿）；09-25 缺 v2/收据定性为流程分支正常（L2 未触发）
+- migrate ③ 启发式修正（同日第二批，Master 授权）：`migrate_cold_rules.py` 「疑似应 recovered」判定加 `last_triggered > demoted_at` 前置条件——触发早于降级日不报（同日触发/降级亦不报，时序不可辨真触发次日即现）；R139 误报根除，--dry-run 四区 0/0/0/5，一致 163→164
+- 同日待办清单其余项：09-24 收据 note_id 回记 automation memory（⑬ 转绿）；主记忆瘦身 3140→2285 字符（⑧ 转绿）；09-25 缺 v2/收据定性为流程分支正常（L2 未触发）；automation memory B 档归档（09-07~09-10 共 13 块零损失迁 archive/automation-memory-B-precompress-2026-09-27.md，44.1→34.7 KB，保留线=⑬ 最近 10 收据日）
 
 ## v10.2.0 | 2026-09-24（吉法尔蒸汽飞艇首飞 L2：新增 Rule 144 科技工程「首次X」叙事须补齐全弧 P1 cold，199=144+55，hot 89=core 67+题材专项 22 不变；归 CASE-80 判例）
 - 新增 Rule 144: 科技工程「首次/第一台」叙事须补齐全弧（P1 cold，科技工程专项）：当日事件须有可核实落点/终点（a）+ 前置研发节点（如专利/关键技术决策）（b）+ 后续成败（改进型失败/技术路线转移）（c）；禁止只写当日高光、漏落点与后续，使「首次」成孤立事件
