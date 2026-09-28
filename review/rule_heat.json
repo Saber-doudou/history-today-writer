@@ -207,8 +207,8 @@
       "never_cool": false
     },
     "rule_30": {
-      "last_triggered": null,
-      "count_30d": 0,
+      "last_triggered": "2026-09-28",
+      "count_30d": 1,
       "status": "cold",
       "demoted_at": "2026-08-06",
       "never_cool": false
