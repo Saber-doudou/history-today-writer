@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-09-25",
+  "last_updated": "2026-09-29",
   "heat_period_days": 30,
   "rules": {
     "rule_01": {
@@ -211,7 +211,8 @@
       "count_30d": 1,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "note": "2026-09-28 Master 定：与 R144 场景重叠经 R144 侧交叉引用消解，保持 cold 不升温"
     },
     "rule_31": {
       "last_triggered": null,
@@ -1019,13 +1020,6 @@
       "demoted_at": null,
       "never_cool": false
     },
-    "rule_99": {
-      "last_triggered": null,
-      "count_30d": 0,
-      "status": "hot",
-      "demoted_at": null,
-      "never_cool": false
-    },
     "rule_100": {
       "last_triggered": null,
       "count_30d": 0,
@@ -1397,7 +1391,7 @@
       "status": "cold",
       "demoted_at": null,
       "never_cool": false,
-      "note": "2026-09-25 TAT-1 L2：细化补 (d) 突破前旧方案对照基线"
+      "note": "2026-09-25 TAT-1 L2：细化补 (d) 突破前旧方案对照基线；2026-09-28 Master 定：与 R30 场景重叠经本条交叉引用消解，保持 cold 不升温"
     },
     "rule_145": {
       "last_triggered": "2026-09-25",
@@ -1406,6 +1400,14 @@
       "demoted_at": null,
       "never_cool": false,
       "note": "2026-09-25 TAT-1 L2 新增：时间跨度须锚定起算年份；判例 CASE-81"
+    },
+    "rule_99": {
+      "last_triggered": "2026-09-29",
+      "count_30d": 1,
+      "status": "hot",
+      "demoted_at": null,
+      "never_cool": false,
+      "note": "2026-09-29 祁暄中文打字机专利 L2：R99 编号复用承载「纪念日主角须立住」（原 R99「行动代号缺失」内容退役，因规则库触顶须等价减法且避免越界编号，参照 v10.2.2 填实 R30 先例）；判例 CASE-83"
     }
   }
 }
