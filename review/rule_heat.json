@@ -228,13 +228,6 @@
       "demoted_at": "2026-08-06",
       "never_cool": false
     },
-    "rule_33": {
-      "last_triggered": null,
-      "count_30d": 0,
-      "status": "cold",
-      "demoted_at": "2026-08-06",
-      "never_cool": false
-    },
     "rule_34": {
       "last_triggered": null,
       "count_30d": 0,
@@ -380,13 +373,6 @@
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
-    },
-    "rule_55": {
-      "last_triggered": null,
-      "count_30d": 0,
-      "status": "hot",
-      "demoted_at": null,
       "never_cool": false
     },
     "rule_56": {
@@ -606,13 +592,6 @@
       "demoted_at": null,
       "never_cool": true
     },
-    "rule_87": {
-      "last_triggered": "2026-08-21",
-      "count_30d": 2,
-      "status": "hot",
-      "demoted_at": null,
-      "never_cool": true
-    },
     "rule_88": {
       "last_triggered": "2026-08-06",
       "count_30d": 1,
@@ -784,20 +763,6 @@
     },
     "forbidden_22": {
       "last_triggered": "2026-06-11",
-      "count_30d": 0,
-      "status": "cold",
-      "demoted_at": "2026-08-06",
-      "never_cool": false
-    },
-    "forbidden_24": {
-      "last_triggered": "2026-06-15",
-      "count_30d": 0,
-      "status": "cold",
-      "demoted_at": "2026-08-06",
-      "never_cool": false
-    },
-    "forbidden_25": {
-      "last_triggered": "2026-06-15",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
