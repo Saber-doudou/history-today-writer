@@ -45,17 +45,17 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 142       # R1-R145 扣除已合并空洞 33/55/87（33→并入 R118 过渡句、55→并入 R14 内外因平衡、87→并入 R56 具象类比；约束不丢，编号不复用不回填）
+EXPECT_RULES = 143       # R1-R146 扣除已合并空洞 33/55/87（33→并入 R118 过渡句、55→并入 R14 内外因平衡、87→并入 R56 具象类比；约束不丢，编号不复用不回填）
 EXPECT_FORBIDDEN = 53    # F1-F58 扣除已删空洞 23/49/50/24/25（23→R14、49/50→R94/R95、24→R56、25→5N.1；均约束已由他规则承载）
-EXPECT_TOTAL = 195       # 142 + 53
-EXPECT_VERSION = "v10.2.4"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_TOTAL = 196       # 143 + 53
+EXPECT_VERSION = "v10.2.5"  # SKILL.md 末尾 Version 行的期望版本号
 
 # Rules 侧已知空洞（对称于 KNOWN_FB_GAPS，2026-10-08 合并精简配套）：
 # 33/55/87 已合并入他规则，编号空洞不回填——新增 Rule 自 R146 续号，防历史编号歧义。
 # 原「编号连续 1..N」假设与空洞冲突（删中间编号后尾部编号 R145 必被判越界），
 # 故合法全集 = 1..RULE_MAX 扣除已知空洞（与 ② 的 Forbidden 处理同口径）。
 KNOWN_RULE_GAPS = frozenset({33, 55, 87})
-RULE_MAX = 145           # 现存最大 Rule 编号（R145）
+RULE_MAX = 146           # 现存最大 Rule 编号（R146，2026-10-09 万国邮政联盟 L2 新增）
 
 # ⑬ 校验基线：权威 automation memory 于 2026-09-07 建立，此前记录已归档至
 # archive/automation-memory-A-precompress-2026-09-07.md，不做追溯校验
