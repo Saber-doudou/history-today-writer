@@ -3,13 +3,13 @@
 > 依据 `writing_rules.md §5S` 温控系统：cold 规则连续 30 天未触发，写作阶段降级为「编号 + 1行摘要」（见 `rule_index.md`），详细正文不加载。
 > 本文件为 cold 规则完整正文存档，内容逐字保留自 `writing_rules.md` / `review_rules.md §9B`，**禁止改动规则语义与强制级别**。
 > 恢复机制：cold 规则被审校命中（`rule_ref` 出现）→ recovered → 恢复全量加载并更新 `review/rule_heat.json`。
-> 存档范围：**28 冷 Rule + 23 冷 Forbidden**（Forbidden #1/2/3/5/6 为基础 Forbidden，writing_core 保留全文，不重复存档；3.0 编号对齐修正后 forbidden_20/22 由 hot 修正为 cold，纳入本存档；2026-08-26 R26/R42 + F11/F21/F23 回归 hot（其中一条因果链 P0 后并入第14条规则、不再独立编号），正文已回 writing_core，本档对应条目保留作历史并标注）。
+> 存档范围：**29 冷 Rule + 23 冷 Forbidden**（Forbidden #1/2/3/5/6 为基础 Forbidden，writing_core 保留全文，不重复存档；3.0 编号对齐修正后 forbidden_20/22 由 hot 修正为 cold，纳入本存档；2026-08-26 R26/R42 + F11/F21/F23 回归 hot（其中一条因果链 P0 后并入第14条规则、不再独立编号），正文已回 writing_core，本档对应条目保留作历史并标注；2026-10-12 Rule 88 由 hot 降级 cold 腾位给 Rule 147，纳入本档 §1.20）。
 > 更新：2026-08-06（darwin step3.2）；2026-08-14（v9.7.8 同步：writing_core.md 中 26 条 cold Forbidden 已物理瘦身为占位，本档为完整正文唯一存放处，内容与 writing_core 原行逐字一致）。
 > 更新：2026-09-11（v10.1.4 Curator 棘轮 B 档：Rule 92/93/100/101 + Forbidden 编号 52 共 5 条 hot→cold 降级试点，demoted_at=2026-09-11、保护期 30 天，正文自 writing_core.md / topics/war_institution.md 逐字迁入本档；Forbidden 编号 23 同日永久合并删除——自指残留，约束由 Rule 14「因果链完整+内外因平衡」P0 hot 完整承载，历史条目见下表标注）。
 
 ---
 
-## 一、冷 Rules（27 条）
+## 一、冷 Rules（28 条）
 
 ### 1.1 幽灵编号 Rule 24-30（rule_heat 有键但无独立正文）
 
@@ -339,6 +339,16 @@
 - ❌ 机组姓名张冠李戴
 
 **判例来源**：2026-09-28 首次航空环球飞行 L2（4 AI 点评均质疑 v1「两架/三架矛盾」「补位来源不明」，经 Smithsonian/NASA/NYT/History.com/Museum of Flying/Key Aero 六源核验 v1 事实正确；差额为叙事清晰度，v2 开头即点明「完成的却从不是某一架孤独的座机」+ 路线与补位交代，获通过；归 CASE-82 判例，详见 review/CASE_STUDIES.md）
+
+### Rule 88: 重大决策须给反事实对照（P2 强制；2026-10-12 由 hot 降级 cold，等价减法腾 hot 位给 Rule 147）
+
+> **降级说明**：2026-10-12 世界第60亿人口日 L2 新增 Rule 147（象征性/推算类题材开篇点破本质，P1 hot），依容量纪律（hot 89/90 上限）须配等价减法；Rule 88 为 P2 低优先 hot，降级 cold 腾位。约束语义不变，仍计入总规则，触发时由审校表 Rule 88 行 recovered 升温。
+
+**规则原文（逐字自 writing_core.md 原 Rule 88 段）**：叙事涉及改变行业/国家/个人命运格局的重大决策（免费 vs 收费、开放 vs 封闭、留下 vs 放弃、改革 vs 维持）时——
+- **必须执行**：1. 用一句反事实推演（"如果走另一条路会怎样"）让决策的利害可感；2. 优先用同赛道真实存在的另一选择做对照（如 Gopher 收费 vs 万维网免费），比抽象推演更有力；3. 反事实句紧贴决策句，制造"差一点"的紧张感
+- **禁止行为**：❌ 只写"他选择了免费"而不交代"不免费会怎样"，决策分量悬空；❌ 反事实推演脱离史实（虚构不存在的对照物）
+- **允许**：✅ "如果万维网也走收费的路，它大概率会变成另一个 Gopher——精致，但小众"
+- **判例来源**：详见 CASE_STUDIES.md CASE-35
 
 ## 二、冷 Forbidden（23 条，正文逐字保留自 writing_rules.md Forbidden Patterns）
 
