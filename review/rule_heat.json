@@ -659,8 +659,8 @@
     "rule_50": {
       "last_triggered": "2026-08-06",
       "count_30d": 1,
-      "status": "hot",
-      "demoted_at": null,
+      "status": "cold",
+      "demoted_at": "2026-10-13",
       "never_cool": false
     },
     "rule_51": {

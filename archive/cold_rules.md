@@ -3,7 +3,7 @@
 > 依据 `writing_rules.md §5S` 温控系统：cold 规则连续 30 天未触发，写作阶段降级为「编号 + 1行摘要」（见 `rule_index.md`），详细正文不加载。
 > 本文件为 cold 规则完整正文存档，内容逐字保留自 `writing_rules.md` / `review_rules.md §9B`，**禁止改动规则语义与强制级别**。
 > 恢复机制：cold 规则被审校命中（`rule_ref` 出现）→ recovered → 恢复全量加载并更新 `review/rule_heat.json`。
-> 存档范围：**29 冷 Rule + 23 冷 Forbidden**（Forbidden #1/2/3/5/6 为基础 Forbidden，writing_core 保留全文，不重复存档；3.0 编号对齐修正后 forbidden_20/22 由 hot 修正为 cold，纳入本存档；2026-08-26 R26/R42 + F11/F21/F23 回归 hot（其中一条因果链 P0 后并入第14条规则、不再独立编号），正文已回 writing_core，本档对应条目保留作历史并标注；2026-10-12 Rule 88 由 hot 降级 cold 腾位给 Rule 147，纳入本档 §1.20）。
+> 存档范围：**29 冷 Rule + 23 冷 Forbidden**（Forbidden #1/2/3/5/6 为基础 Forbidden，writing_core 保留全文，不重复存档；3.0 编号对齐修正后 forbidden_20/22 由 hot 修正为 cold，纳入本存档；2026-08-26 R26/R42 + F11/F21/F23 回归 hot（其中一条因果链 P0 后并入第14条规则、不再独立编号），正文已回 writing_core，本档对应条目保留作历史并标注；2026-10-12 Rule 88 由 hot 降级 cold 腾位给 Rule 147，纳入本档 §1.20；2026-10-13 C2 双判据淘汰 Rule 50 降 cold，纳入本档 §1.21）。
 > 更新：2026-08-06（darwin step3.2）；2026-08-14（v9.7.8 同步：writing_core.md 中 26 条 cold Forbidden 已物理瘦身为占位，本档为完整正文唯一存放处，内容与 writing_core 原行逐字一致）。
 > 更新：2026-09-11（v10.1.4 Curator 棘轮 B 档：Rule 92/93/100/101 + Forbidden 编号 52 共 5 条 hot→cold 降级试点，demoted_at=2026-09-11、保护期 30 天，正文自 writing_core.md / topics/war_institution.md 逐字迁入本档；Forbidden 编号 23 同日永久合并删除——自指残留，约束由 Rule 14「因果链完整+内外因平衡」P0 hot 完整承载，历史条目见下表标注）。
 
@@ -391,6 +391,16 @@
 ## 三、cold 状态表（v9.7.8 由 writing_core §5S.3 位置迁移，内容零丢失）
 
 > 本表原位于 writing_core.md §5S.3，v9.7.8 迁入本档以缩减写作阶段加载体积；cold 判断以 rule_index.md 温控列为准。
+
+### Rule 50: 关键技术决策不可遗漏（P2强制；2026-10-13 C2 双判据淘汰降 cold）
+
+> **降级说明**：ledger 双口径零触发（review.json 271 issue + CHANGELOG 416 处规则引用，R50 均未出现）+ 一句话失败模式测试（防「技术选型遗漏」，仅轨道交通/标准制式类极窄题材触发，独立价值低于常驻成本）→ 降 cold。约束语义不变，仍计入总规则；审校命中时 recovered 回 hot。
+
+**规则原文（逐字自 topics/tech_engineering.md 原 Rule 50 段）**：
+当事件涉及影响深远的技术选型（轨距、制式、标准等）时，必须交代该决策及其长期意义。技术选型往往是事件最重要的历史遗产。
+- ❌ 唐胥铁路篇不提金达坚持标准轨距（这是中国铁路至今沿用1.435米轨距的起点）
+- ✅ "金达坚持采用1.435米国际标准轨距，而非当时日本正在铺设的窄轨"
+
 
 ### 5S.3 当前 cold/recovered 规则
 

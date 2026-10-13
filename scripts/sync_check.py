@@ -45,17 +45,17 @@ from pathlib import Path
 
 SKILL_DIR = Path(__file__).resolve().parent.parent
 
-EXPECT_RULES = 144       # R1-R147 扣除已合并空洞 33/55/87（33→并入 R118 过渡句、55→并入 R14 内外因平衡、87→并入 R56 具象类比；约束不丢，编号不复用不回填）
+EXPECT_RULES = 145       # R1-R148 扣除已合并空洞 33/55/87（33→并入 R118 过渡句、55→并入 R14 内外因平衡、87→并入 R56 具象类比；约束不丢，编号不复用不回填）；R148 新增于 2026-10-13 国际子午线会议 L2
 EXPECT_FORBIDDEN = 53    # F1-F58 扣除已删空洞 23/49/50/24/25（23→R14、49/50→R94/R95、24→R56、25→5N.1；均约束已由他规则承载）
-EXPECT_TOTAL = 197       # 144 + 53
-EXPECT_VERSION = "v10.2.6"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_TOTAL = 198       # 145 + 53
+EXPECT_VERSION = "v10.3.1"  # SKILL.md 末尾 Version 行的期望版本号
 
 # Rules 侧已知空洞（对称于 KNOWN_FB_GAPS，2026-10-08 合并精简配套）：
 # 33/55/87 已合并入他规则，编号空洞不回填——新增 Rule 自 R146 续号，防历史编号歧义。
 # 原「编号连续 1..N」假设与空洞冲突（删中间编号后尾部编号 R145 必被判越界），
 # 故合法全集 = 1..RULE_MAX 扣除已知空洞（与 ② 的 Forbidden 处理同口径）。
 KNOWN_RULE_GAPS = frozenset({33, 55, 87})
-RULE_MAX = 147           # 现存最大 Rule 编号（R147，2026-10-12 世界第60亿人口日 L2 新增）
+RULE_MAX = 148           # 现存最大 Rule 编号（R148，2026-10-13 国际子午线会议 L2 新增）
 
 # ⑬ 校验基线：权威 automation memory 于 2026-09-07 建立，此前记录已归档至
 # archive/automation-memory-A-precompress-2026-09-07.md，不做追溯校验
@@ -416,6 +416,57 @@ def check_automation_prompt() -> None:
     check(ver_ok and count_ok and not stale, "⑦ automation prompt 版本与规则数一致性", detail)
 
 
+def check_skill_size() -> None:
+    """⑭ 技能文件体积门禁（2026-10-13 瘦身治理 A3 新增，替代人工核对）。
+
+    背景：SKILL.md 曾有单行 6,726 字符版本流水脚注（占全文件 45.5%），行数口径无法拦截
+    （251 行 < 300 行却体积 27.9KB）。改用字节/单行字符口径，专治「单行巨石」与文件膨胀。
+
+    三子口径（阈值均按 2026-10-13 实测留余量，防误伤；C3 精简后可收紧）：
+        1. SKILL.md ≤ 18,000 字节（实测 16,183；A0 脚注外置后 15,665，A1 接入查重说明 +518）
+        2. 任意单行 ≤ 500 字符（实测最长 412）—— 专治版本流水脚注类单行巨石
+        3. 规则正文文件 ≤ 120,000 字节（实测最大 writing_core 109,825，余量约 10KB，超限应拆分）
+           判例库 CASE_STUDIES.md 单列 ≤ 200,000 字节（实测 156,061；其「只 Grep 禁整读」纪律由 SKILL.md 约束）
+    """
+    problems: list[str] = []
+    details: list[str] = []
+
+    skill_md = SKILL_DIR / "SKILL.md"
+    if skill_md.exists():
+        size = skill_md.stat().st_size
+        details.append(f"SKILL.md {size}B")
+        if size > 18000:
+            problems.append(f"SKILL.md {size}B 超 18,000 字节上限")
+        longest = max(len(l) for l in skill_md.read_text(encoding='utf-8', errors='replace').splitlines())
+        details.append(f"最长行 {longest} 字符")
+        if longest > 500:
+            problems.append(f"SKILL.md 最长行 {longest} 字符超 500（单行巨石，应外置）")
+    else:
+        problems.append("SKILL.md 缺失")
+
+    rule_files = ["writing_core.md", "review_rules.md", "rule_index.md",
+                  "craft_optional.md", "fact_checklist.md", "topic_rules.md",
+                  "archive/cold_rules.md",
+                  "topics/war_institution.md", "topics/tech_engineering.md",
+                  "topics/nature_disaster.md"]
+    for rel in rule_files:
+        pth = SKILL_DIR / rel
+        if pth.exists() and pth.stat().st_size > 120000:
+            problems.append(f"{rel} {pth.stat().st_size}B 超 120,000 字节上限（应拆分）")
+
+    case_file = SKILL_DIR / "review" / "CASE_STUDIES.md"
+    if case_file.exists():
+        csize = case_file.stat().st_size
+        details.append(f"CASE_STUDIES {csize}B")
+        if csize > 200000:
+            problems.append(f"CASE_STUDIES.md {csize}B 超 200,000 字节上限")
+
+    if problems:
+        check(False, "⑭ 技能文件体积门禁", "；".join(problems))
+    else:
+        check(True, "⑭ 技能文件体积门禁", " / ".join(details) + "（阈值内）")
+
+
 def check_prompt_structure() -> None:
     """⑨ automation prompt 结构核验（引用式，防双源漂移，2026-09-06 新增）。
 
@@ -555,12 +606,14 @@ def check_memory_size() -> None:
     """⑧ 记忆体积与单一路径检查（2026-09-07 升级：主记忆硬门禁 + 权威路径 + 分裂检测）。
 
     目标一（硬）：主记忆 MEMORY.md 注入上限 3000 字符，超限即 ❌（D2 直接硬，防"越压越大"日循环）。
-    目标二（建议上限 warn）：权威 automation memory 建议上限 20 KB / 1000 行。
-        —— 2026-09-18 复核修正：docstring 原始定位为「建议上限（warn）」，原代码误将体积超 20KB
-           也实现为硬失败，与文档矛盾且对 11 天滚动记录（约 21.7KB）频繁误伤。现改为：
-           行数 > 1000 仍判 ❌（硬门禁，捕捉真正失控的无限增长）；
-           体积 > 20KB 仅记 ⚠️ 提示（滚动累积属正常，未达真正失控），不再阻断 sync_check。
-           防失控的真正硬门禁由「主记忆 3000 字符 + automation 1000 行 + 旧路径分裂检测」三重兜底。
+    目标二（分档上限）：权威 automation memory 分 40KB / 48KB / 1000 行三档。
+        —— 2026-09-18 复核修正：20KB 曾误设为硬失败，对滚动记录频繁误伤，降为提示线。
+        —— 2026-10-13 瘦身治理（A2）：执行 C 归档（09-11 至 09-15 共 9 块迁
+           archive/automation-memory-C-precompress-2026-10-13.md），现役保留线 = ⑬ 最近 10
+           收据日（至 09-17）+ 38 块滚动窗口，实测 46.1KB / 38 块（块均约 1.2KB）。
+           硬上限取 48KB：留 2KB 余量防误伤（40KB 会令现役立即超限，重蹈 09-18 覆辙），
+           超限即 ❌ 必须归档才能继续，根治单调增长；40-48KB 记 ⚠️ 提示滚动观察；
+           行数 > 1000 仍判 ❌（保留，捕捉真正失控的无限增长）。
     目标三（分裂检测）：旧路径 .workbuddy/automations/.../memory.md 若再增长（超过归档说明文件体积），
     说明有旧逻辑仍在写旧路径，双写分裂复发，即 ❌。
     """
@@ -583,9 +636,11 @@ def check_memory_size() -> None:
         lines = auth.read_text(encoding="utf-8", errors="replace").count("\n") + 1
         if lines > 1000:
             problems.append(f"automation memory {lines} 行超硬上限 1000（需归档历史块）")
-        elif kb > 20.0:
-            # 目标二为「建议上限」（docstring 标注 warn）：体积超建议值仅提示、不判失败
-            warns.append(f"automation memory {kb:.1f} KB 超 20 KB 建议上限（滚动累积，持续观察，未达硬门禁）")
+        elif kb > 48.0:
+            # 2026-10-13 A2：48KB 硬上限（块均约 1.2KB × 38 块 + 2KB 余量），超限必须归档
+            problems.append(f"automation memory {kb:.1f} KB 超 48 KB 硬上限（需执行 C 式归档：保留 ⑬ 最近 10 收据日 + 滚动窗口，旧块迁 archive/）")
+        elif kb > 40.0:
+            warns.append(f"automation memory {kb:.1f} KB 超 40 KB 提示线（滚动累积，持续观察，未达 48KB 硬门禁）")
     else:
         problems.append("权威 automation memory 缺失")
     if legacy.exists():
@@ -838,6 +893,9 @@ def main() -> int:
 
     # ---- ⑧ automation memory 体积上限（warn-only，2026-09-02 C 项：防运行前读入成本膨胀）----
     check_memory_size()
+
+    # ---- ⑭ 技能文件体积门禁（2026-10-13 瘦身治理 A3：字节/单行口径，防单行巨石与文件膨胀复发）----
+    check_skill_size()
 
     # ---- ⑨ automation prompt 结构（引用式无阶段副本，2026-09-06 新增：防 SKILL 与 prompt 双源漂移复发）----
     check_prompt_structure()
