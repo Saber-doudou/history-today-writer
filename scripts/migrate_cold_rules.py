@@ -8,6 +8,7 @@ migrate_cold_rules.py — 规则正文冷热迁移（v0.1，2026-08-26）
 - B 默认 --dry-run 仅报告；连续 7 个工作日 ① 区无新增候选后由 Master 确认转 --force
 - C 本期只做降级 + 对账 + 冲突报告；升温（recovered/hot → 回搬 hot 区）留接口 v0.2 不上线
 - 2026-09-27：③「疑似应 recovered」判定加 last_triggered > demoted_at 前置条件——触发早于降级日不报（R139 误报修正，Master 授权）
+- 2026-10-14：③ 增加 stay_cold 裁决豁免——Master 人工判定「保持 cold 不升温」的规则（rule_heat 置 stay_cold:true）不再报疑似 recovered（R30/R144 悬案闭环，Master 授权）
 
 安全闸 G1-G7（命中即跳过，先于状态判定执行）：
   G1 never_cool:true（rule_heat）  G2 §5A 基础 1-23  G3 基础 Forbidden F1-6
@@ -284,8 +285,12 @@ def classify(kind: str, n: int, heat: dict, idx: dict | None, act: dict | None) 
     # 2026-09-27 修正（Master 授权）：仅对「降级之后」发生的触发报疑似 recovered。
     # 触发早于降级日（如 R139 触发09-15、降级09-23）属降级前的遗留证据，不构成
     # 「cold 仍被使用」；同日触发/降级亦不报（当日时序不可辨，真触发次日即现）。
+    # 2026-10-14 新增（Master 授权）：stay_cold 裁决豁免。
+    # Master 已人工判定「保持 cold 不升温」的规则（rule_heat note 含裁决记录），
+    # 近期触发不构成「疑似应 recovered」，不再重复告警（悬案 R30/R144 闭环）。
     if (status == "cold" and lt_d and days_since(lt_d) < CONFLICT_REVIVE_DAYS
-            and (demoted_d is None or lt_d > demoted_d)):
+            and (demoted_d is None or lt_d > demoted_d)
+            and not heat.get("stay_cold")):
         conflicts.append(f"cold 但近 {days_since(lt_d)} 天有触发（疑似应 recovered）")
     if status != (idx or {}).get("heat", "").rstrip("*"):
         conflicts.append(f"rule_heat({status}) ≠ rule_index 温控列({(idx or {}).get('heat')})")

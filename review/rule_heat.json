@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-12",
+  "last_updated": "2026-10-14",
   "heat_period_days": 30,
   "rules": {
     "rule_01": {
@@ -95,8 +95,8 @@
       "never_cool": true
     },
     "forbidden_07": {
-      "last_triggered": "2026-08-21",
-      "count_30d": 3,
+      "last_triggered": "2026-10-14",
+      "count_30d": 4,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true
@@ -130,8 +130,8 @@
       "never_cool": false
     },
     "rule_10": {
-      "last_triggered": "2026-08-06",
-      "count_30d": 2,
+      "last_triggered": "2026-10-14",
+      "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true
@@ -172,8 +172,8 @@
       "never_cool": false
     },
     "rule_13": {
-      "last_triggered": "2026-08-21",
-      "count_30d": 20,
+      "last_triggered": "2026-10-14",
+      "count_30d": 21,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true
@@ -186,8 +186,8 @@
       "never_cool": false
     },
     "rule_14": {
-      "last_triggered": "2026-09-15",
-      "count_30d": 1,
+      "last_triggered": "2026-10-14",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true
@@ -214,8 +214,8 @@
       "never_cool": false
     },
     "rule_16": {
-      "last_triggered": "2026-08-21",
-      "count_30d": 1,
+      "last_triggered": "2026-10-14",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true
@@ -256,8 +256,8 @@
       "never_cool": false
     },
     "rule_19": {
-      "last_triggered": "2026-08-21",
-      "count_30d": 2,
+      "last_triggered": "2026-10-14",
+      "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true
@@ -299,8 +299,8 @@
       "never_cool": false
     },
     "rule_22": {
-      "last_triggered": "2026-08-21",
-      "count_30d": 2,
+      "last_triggered": "2026-10-14",
+      "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true
@@ -395,7 +395,8 @@
       "status": "cold",
       "demoted_at": "2026-08-06",
       "never_cool": false,
-      "note": "2026-09-28 Master 定：与 R144 场景重叠经 R144 侧交叉引用消解，保持 cold 不升温"
+      "note": "2026-09-28 Master 定：与 R144 场景重叠经 R144 侧交叉引用消解，保持 cold 不升温",
+      "stay_cold": true
     },
     "forbidden_30": {
       "last_triggered": "2026-07-02",
@@ -482,8 +483,8 @@
       "never_cool": false
     },
     "rule_37": {
-      "last_triggered": "2026-08-28",
-      "count_30d": 11,
+      "last_triggered": "2026-10-14",
+      "count_30d": 12,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -496,8 +497,8 @@
       "never_cool": false
     },
     "rule_38": {
-      "last_triggered": "2026-09-10",
-      "count_30d": 6,
+      "last_triggered": "2026-10-14",
+      "count_30d": 7,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -552,8 +553,8 @@
       "never_cool": false
     },
     "rule_42": {
-      "last_triggered": null,
-      "count_30d": 0,
+      "last_triggered": "2026-10-14",
+      "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -685,10 +686,10 @@
       "never_cool": false
     },
     "forbidden_52": {
-      "last_triggered": null,
-      "count_30d": 0,
-      "status": "cold",
-      "demoted_at": "2026-09-11",
+      "last_triggered": "2026-10-14",
+      "count_30d": 1,
+      "status": "hot",
+      "demoted_at": null,
       "never_cool": false
     },
     "rule_53": {
@@ -755,8 +756,8 @@
       "never_cool": false
     },
     "rule_58": {
-      "last_triggered": "2026-08-06",
-      "count_30d": 1,
+      "last_triggered": "2026-10-14",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -797,8 +798,8 @@
       "never_cool": false
     },
     "rule_63": {
-      "last_triggered": "2026-08-06",
-      "count_30d": 1,
+      "last_triggered": "2026-10-14",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -853,8 +854,8 @@
       "never_cool": true
     },
     "rule_71": {
-      "last_triggered": "2026-09-15",
-      "count_30d": 1,
+      "last_triggered": "2026-10-14",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -916,8 +917,8 @@
       "never_cool": false
     },
     "rule_80": {
-      "last_triggered": "2026-08-21",
-      "count_30d": 3,
+      "last_triggered": "2026-10-14",
+      "count_30d": 4,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -1106,8 +1107,8 @@
       "never_cool": false
     },
     "rule_108": {
-      "last_triggered": null,
-      "count_30d": 0,
+      "last_triggered": "2026-10-14",
+      "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -1127,8 +1128,8 @@
       "never_cool": false
     },
     "rule_111": {
-      "last_triggered": null,
-      "count_30d": 0,
+      "last_triggered": "2026-10-14",
+      "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -1281,8 +1282,8 @@
       "never_cool": true
     },
     "rule_133": {
-      "last_triggered": "2026-09-15",
-      "count_30d": 3,
+      "last_triggered": "2026-10-14",
+      "count_30d": 4,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true
@@ -1351,8 +1352,8 @@
       "never_cool": false
     },
     "rule_143": {
-      "last_triggered": "2026-09-25",
-      "count_30d": 2,
+      "last_triggered": "2026-10-14",
+      "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
@@ -1364,7 +1365,8 @@
       "status": "cold",
       "demoted_at": null,
       "never_cool": false,
-      "note": "2026-09-25 TAT-1 L2：细化补 (d) 突破前旧方案对照基线；2026-09-28 Master 定：与 R30 场景重叠经本条交叉引用消解，保持 cold 不升温"
+      "note": "2026-09-25 TAT-1 L2：细化补 (d) 突破前旧方案对照基线；2026-09-28 Master 定：与 R30 场景重叠经本条交叉引用消解，保持 cold 不升温",
+      "stay_cold": true
     },
     "rule_145": {
       "last_triggered": "2026-09-25",

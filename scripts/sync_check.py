@@ -48,7 +48,7 @@ SKILL_DIR = Path(__file__).resolve().parent.parent
 EXPECT_RULES = 145       # R1-R148 扣除已合并空洞 33/55/87（33→并入 R118 过渡句、55→并入 R14 内外因平衡、87→并入 R56 具象类比；约束不丢，编号不复用不回填）；R148 新增于 2026-10-13 国际子午线会议 L2
 EXPECT_FORBIDDEN = 53    # F1-F58 扣除已删空洞 23/49/50/24/25（23→R14、49/50→R94/R95、24→R56、25→5N.1；均约束已由他规则承载）
 EXPECT_TOTAL = 198       # 145 + 53
-EXPECT_VERSION = "v10.3.1"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_VERSION = "v10.3.2"  # SKILL.md 末尾 Version 行的期望版本号
 
 # Rules 侧已知空洞（对称于 KNOWN_FB_GAPS，2026-10-08 合并精简配套）：
 # 33/55/87 已合并入他规则，编号空洞不回填——新增 Rule 自 R146 续号，防历史编号歧义。
