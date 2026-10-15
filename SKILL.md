@@ -58,10 +58,10 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | 阶段 | 加载文件 | 内容 | 字符数 |
 |------|---------|------|-----------|
 | **Phase 1 选题** | `topic_rules.md` | 事件价值矩阵评分 + 选题淘汰测试 | ~1.9K |
-| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 89条hot规则（core 69 + 题材专项 20，sync_check ⑤ 实跑口径）+ 温控表；索引：198条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~85K + 索引18K + 题材8-16K（+按需12K+4K） |
+| **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 90条hot规则（core 70 + 题材专项 20，sync_check ⑤ 实跑口径）+ 温控表；索引：199条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~85K + 索引18K + 题材8-16K（+按需12K+4K） |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-77 四AI共性模式（+R111 等 hot 引用，编号见 rule_index）+ 审校子系统 + 标点规范 | ~43K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~47K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 88条案例（续号至88；只Grep命中关键词，禁止整读进上下文） | ~131K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 89条案例（续号至89；只Grep命中关键词，禁止整读进上下文） | ~131K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
@@ -142,7 +142,7 @@ YYYY年M月D日 · [国家/城市]
 - **标题格式**：`# On This Day | [核心意象/双关语]`
 - **副标题**：具体日期 + 地点
 - **结尾**：意象回扣 + 价值升华双段（R8），**禁加** 字数/领域 元信息脚注（F19 已恢复禁止，正文不得输出）
-- 写完后必须运行 `scripts/sync_check.py` 核验（24 项门禁：规则数 198=145+53、版本号五处一致、文件路径可达、hot 规则正文完整性、prompt 一致性 ⑦⑨、记忆体积 ⑧⑭、元数据 ⑩⑪、分片新鲜度 ⑫、IMA 收据 ⑬）
+- 写完后必须运行 `scripts/sync_check.py` 核验（24 项门禁：规则数 199=146+53、版本号五处一致、文件路径可达、hot 规则正文完整性、prompt 一致性 ⑦⑨、记忆体积 ⑧⑭、元数据 ⑩⑪、分片新鲜度 ⑫、IMA 收据 ⑬）
 
 ---
 
@@ -203,7 +203,7 @@ reviewer → orchestrator：
 ## 规则温控月报
 | 指标 | 值 |
 |------|-----|
-| 总规则数 | 198 (145条规则+53条禁止) |
+| 总规则数 | 199 (146条规则+53条禁止) |
 | hot 规则 | [n] |
 | cold 规则 | [n] |
 | recovered 规则 | [n] |
@@ -221,15 +221,15 @@ reviewer → orchestrator：
 |------|------|------|
 | 主索引 | `SKILL.md` | 本文件——核心哲学+模块索引+执行流程 |
 | 选题规则 | `topic_rules.md` | 评分矩阵+淘汰测试 |
-| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+89条hot规则（core 69 + 题材专项 20，sync_check ⑤ 实跑口径）+基础/hot禁止模式+温控表（v9.7.8瘦身：26条cold Forbidden正文与cold状态表已迁 archive） |
-| 规则索引 | `rule_index.md` | 198条规则编号+摘要+温控+文件定位 |
+| 写作核心 | `writing_core.md` | 叙事结构+6维工具包+90条hot规则（core 70 + 题材专项 20，sync_check ⑤ 实跑口径）+基础/hot禁止模式+温控表（v9.7.8瘦身：26条cold Forbidden正文与cold状态表已迁 archive） |
+| 规则索引 | `rule_index.md` | 199条规则编号+摘要+温控+文件定位 |
 | 题材专项 | `topics/nature_disaster.md` `topics/war_institution.md` `topics/tech_engineering.md` | 按题材加载 1 个（题材专项 hot 20 条，sync_check ⑤ 口径） |
 | 非强制技法 | `craft_optional.md` | 参悟/心理/命运/节奏词/四AI/镜像/开篇密度/日期（按需Read） |
 | 事实核查清单 | `fact_checklist.md` | 写作侧事实核查（P0/P1/P2 逐项：核查项→怎么做→通过标准→失败动作，按需Read） |
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden）+ cold 状态表（v9.7.8 迁入） |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-77（四AI共性）+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
-| 判例库 | `review/CASE_STUDIES.md` | 88条案例（续号至88） |
+| 判例库 | `review/CASE_STUDIES.md` | 89条案例（续号至89） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题人类可读视图（LLM 不再整读） |
 | 查重脚本 | `scripts/check_topic.py` | Phase 1 选题查重（三源索引+退出码0/1/2，--self-test 全量回归） |
 | 选题索引 | `archive/daily/选题索引.md` | 纯选题两列视图（运行日期\|选题名），Phase 5b 从 TOPICS.md 选题复盘块重建 |
@@ -238,6 +238,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v10.3.2 | 2026-10-14 | 逐版变更流水已完整收录于 CHANGELOG.md（含 v10.1.6 至 v10.2.6 全量逐版记录），本文件不再重复，版本纪律与逢十进位规则见 MEMORY.md 运维速记*
+*Version: v10.3.3 | 2026-10-15 | 逐版变更流水已完整收录于 CHANGELOG.md（含 v10.1.6 至 v10.2.6 全量逐版记录），本文件不再重复，版本纪律与逢十进位规则见 MEMORY.md 运维速记*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。
