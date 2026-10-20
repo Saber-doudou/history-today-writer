@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-19",
+  "last_updated": "2026-10-20",
   "heat_period_days": 30,
   "rules": {
     "rule_01": {
@@ -88,8 +88,8 @@
       "never_cool": true
     },
     "rule_13": {
-      "last_triggered": "2026-10-14",
-      "count_30d": 21,
+      "last_triggered": "2026-10-20",
+      "count_30d": 22,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true
@@ -286,8 +286,8 @@
       "never_cool": false
     },
     "rule_42": {
-      "last_triggered": "2026-10-14",
-      "count_30d": 1,
+      "last_triggered": "2026-10-20",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -356,8 +356,8 @@
       "never_cool": false
     },
     "rule_52": {
-      "last_triggered": "2026-08-21",
-      "count_30d": 5,
+      "last_triggered": "2026-10-20",
+      "count_30d": 6,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -384,8 +384,8 @@
       "never_cool": false
     },
     "rule_57": {
-      "last_triggered": "2026-08-06",
-      "count_30d": 1,
+      "last_triggered": "2026-10-20",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -812,8 +812,8 @@
       "never_cool": false
     },
     "rule_119": {
-      "last_triggered": "2026-08-27",
-      "count_30d": 1,
+      "last_triggered": "2026-10-20",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false
@@ -980,8 +980,8 @@
       "never_cool": false
     },
     "rule_143": {
-      "last_triggered": "2026-10-15",
-      "count_30d": 4,
+      "last_triggered": "2026-10-20",
+      "count_30d": 5,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
