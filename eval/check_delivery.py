@@ -43,12 +43,16 @@ def main() -> int:
     })
 
     rc, head_sha, _ = git("rev-parse", "HEAD")
-    rc2, subject, _ = git("log", "-1", "--format=%s", "HEAD")
+    rc2, subjects, _ = git("log", "-30", "--format=%s", "HEAD")
     skill_text = (ROOT / "SKILL.md").read_text(encoding="utf-8")
     m_skill = re.search(r"\*Version:\s*(v\d+\.\d+\.\d+)", skill_text)
     skill_ver = m_skill.group(1) if m_skill else ""
-    m_head = re.match(r"(v\d+\.\d+\.\d+):", subject)
-    head_ver = m_head.group(1) if m_head else ""
+    head_ver = ""
+    for line in subjects.splitlines():
+        m_head = re.match(r"(v\d+\.\d+\.\d+):", line.strip())
+        if m_head:
+            head_ver = m_head.group(1)
+            break
     checks.append({
         "id": "version",
         "ok": bool(skill_ver) and skill_ver == head_ver,
