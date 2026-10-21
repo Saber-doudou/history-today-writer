@@ -3,7 +3,6 @@
   "frozen_at": "2026-10-22T00:25:00+08:00",
   "skill_version": "v10.3.7",
   "git_head": "9303988417d84505f1385c1a18f9c4925dd75426",
-  "remote_main_sha": "9303988417d84505f1385c1a18f9c4925dd75426",
   "remote_verified_via": "GitHub API get_commit(main)",
   "notes": "D0 基线冻结。token 数为记录值/估算值，字符数为本次实测。unknown 表示项目未埋点，不估算。",
   "context": {
@@ -43,7 +42,12 @@
     "avg_p1_over_counted_sample": 0.21875,
     "avg_p2_over_counted_sample": 1.0,
     "self_review_recent": 4,
-    "self_review_dates": ["2026-10-09", "2026-10-15", "2026-10-16", "2026-10-19"],
+    "self_review_dates": [
+      "2026-10-09",
+      "2026-10-15",
+      "2026-10-16",
+      "2026-10-19"
+    ],
     "self_review_all_passed": true,
     "self_review_errors_found_by_l2": 4,
     "recent7_l1_runs": 7,
@@ -110,5 +114,8 @@
     "per_run_token_actual",
     "per_run_latency_actual",
     "reviewer_model_id_for_most_reviews"
-  ]
+  ],
+  "remote_main_sha_at_freeze": "9303988417d84505f1385c1a18f9c4925dd75426",
+  "baseline_assets_commit": "a1f21b7",
+  "baseline_assets_note": "基线内容冻结于 9303988（v10.3.7），eval 资产提交于 a1f21b7；后续 OU 以本文件为对照，不随 git HEAD 漂移"
 }
