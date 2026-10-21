@@ -1,3 +1,3 @@
 ﻿timestamp	unit	commit	metric	before	after	status	eval_mode	note
 2026-10-22T00:13	D1-delivery	9303988	git_dirty_files	8	0	keep	full_test	v10.3.7 commit 于 00:13:57 创建（本会话外），远端 main 经 GitHub API 核验为 9303988
-2026-10-22T00:25	D0-baseline	pending	baseline_files	0	4	keep	dry_run	baseline_20261022.json / l2_errors_2026Q4.json / golden_set.json / README.md
+2026-10-22T00:25	D0-baseline	ee9fbc4	baseline_files	0	4	keep	dry_run	baseline_20261022.json / l2_errors_2026Q4.json / golden_set.json / README.md
