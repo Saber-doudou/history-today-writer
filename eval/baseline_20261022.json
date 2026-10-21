@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0",
+  "frozen_at": "2026-10-22T00:25:00+08:00",
+  "skill_version": "v10.3.7",
+  "git_head": "9303988417d84505f1385c1a18f9c4925dd75426",
+  "remote_main_sha": "9303988417d84505f1385c1a18f9c4925dd75426",
+  "remote_verified_via": "GitHub API get_commit(main)",
+  "notes": "D0 基线冻结。token 数为记录值/估算值，字符数为本次实测。unknown 表示项目未埋点，不估算。",
+  "context": {
+    "l1_context_tokens_est": 95000,
+    "l1_context_tokens_source": "docs/工作流瘦身执行报告_v1.0_20261013.md（记录值，非本次逐次实测）",
+    "phase2_load_chars": 90353,
+    "phase2_components_chars": {
+      "writing_core": 55236,
+      "rule_index": 20591,
+      "topic_specialty_tech": 5261,
+      "SKILL": 9265
+    },
+    "phase35_load_chars": 59919,
+    "phase35_components_chars": {
+      "review_rules": 26355,
+      "review_prompts_total": 24299,
+      "SKILL": 9265
+    },
+    "l2_context_tokens_est": 130000,
+    "l2_context_tokens_source": "同执行报告（记录值）"
+  },
+  "review_quality": {
+    "review_json_total": 97,
+    "with_p0p1p2_counts": 32,
+    "with_pass_field": 39,
+    "pass_true": 39,
+    "pass_false": 0,
+    "invalid_json": 5,
+    "invalid_json_files": [
+      "2026-06-04_review.json",
+      "2026-06-18_review.json",
+      "2026-06-26_review.json",
+      "2026-07-02_review.json",
+      "2026-07-03_review.json"
+    ],
+    "avg_p0_over_counted_sample": 0.0,
+    "avg_p1_over_counted_sample": 0.21875,
+    "avg_p2_over_counted_sample": 1.0,
+    "self_review_recent": 4,
+    "self_review_dates": ["2026-10-09", "2026-10-15", "2026-10-16", "2026-10-19"],
+    "self_review_all_passed": true,
+    "self_review_errors_found_by_l2": 4,
+    "recent7_l1_runs": 7,
+    "recent7_independent": 4,
+    "recent7_degraded": 3,
+    "recent7_degradation_rate": 0.4286,
+    "review_json_mode_field_recorded": 5,
+    "review_json_with_reviewer_model": 5
+  },
+  "rules": {
+    "total": 199,
+    "rules": 146,
+    "forbidden": 53,
+    "hot": 90,
+    "hot_limit": 90,
+    "total_limit": 200,
+    "distinct_rules_referenced_in_reviews": 60,
+    "top_n_rules_covering_80pct": 23,
+    "hot_rules_zero_trigger": 17,
+    "hot_rules_denominator": 113,
+    "heat_drift_entries": 128,
+    "heat_drift_measured_has_heat_missing": 41,
+    "heat_drift_heat_has_measured_zero": 24,
+    "top_rule_refs": {
+      "R13": 35,
+      "R37": 19,
+      "F20": 17,
+      "R8": 14,
+      "R11": 13
+    }
+  },
+  "delivery": {
+    "git_dirty_files": 0,
+    "head_version": "v10.3.7",
+    "head_subject_version": "v10.3.7",
+    "remote_match": true,
+    "sync_check": "24/24",
+    "sync_check_seconds": 0.6
+  },
+  "assets": {
+    "archive_daily_files": 374,
+    "articles_md": 232,
+    "articles_v2": 91,
+    "review_json": 97,
+    "ima_receipts": 31,
+    "changelog_bytes": 171192,
+    "case_studies_bytes": 178903,
+    "automation_memory_kb": 46.3,
+    "feeding_dirs": 110,
+    "feeding_size_mb": 5.9
+  },
+  "l2": {
+    "window": "2026-10-08 to 2026-10-21",
+    "cycles": 10,
+    "normalized_factual_issues_total": 50,
+    "avg_factual_issues_per_article": 5.0,
+    "declared_p0_total": 6,
+    "declared_p1_total": 16,
+    "human_minutes": "unknown",
+    "human_minutes_note": "未埋点，历史估算 30 至 60 分钟，不作为基线数值"
+  },
+  "unknowns": [
+    "l2_human_minutes",
+    "per_run_token_actual",
+    "per_run_latency_actual",
+    "reviewer_model_id_for_most_reviews"
+  ]
+}

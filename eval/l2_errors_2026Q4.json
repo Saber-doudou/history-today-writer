@@ -1,0 +1,169 @@
+{
+  "schema_version": "1.0",
+  "window": "2026-10-08 to 2026-10-21",
+  "purpose": "近 10 期 L2 学习总结的事实纠错清单。作为 P0 逃逸率的分母与金标准集的弱标签。L2 分级口径不统一，故同时保留 declared 与 normalized 两列。",
+  "counts": {
+    "cycles": 10,
+    "normalized_factual_issues_total": 50,
+    "avg_factual_issues_per_article": 5.0,
+    "declared_p0_total": 6,
+    "declared_p1_total": 16,
+    "normalized_non_p0_total": 44,
+    "cycles_with_self_review": 4
+  },
+  "cases": [
+    {
+      "date": "2026-10-08",
+      "title": "微波炉专利",
+      "review_mode": "independent",
+      "p0_declared": 0,
+      "p1_declared": 0,
+      "normalized_factual_count": 1,
+      "examples": [
+        "磁控管归属夸大：v1 写 Spencer 主持研制腔体磁控管，实为 Randall & Boot 1940 发明、Spencer 主持量产"
+      ],
+      "source": "投喂素材/20261008/学习总结.md",
+      "grading_note": "原文未分级，计入 normalized_factual_count"
+    },
+    {
+      "date": "2026-10-09",
+      "title": "万国邮政联盟成立",
+      "review_mode": "self_review",
+      "review_mode_note": "独立 Reviewer 遇 429 熔断，降级 Orchestrator 自审；review.json 未记录该字段",
+      "p0_declared": 1,
+      "p1_declared": 3,
+      "normalized_factual_count": 4,
+      "examples": [
+        "人名译错：海因里希·施泰因应为海因里希·冯·斯特凡（4/4 共识）",
+        "职务表述模糊：德意志邮政总长应为德意志帝国邮政总长",
+        "签署国数：二十多个应为二十二个",
+        "缺中国参与节点：1914 加入、1972 恢复席位"
+      ],
+      "source": "投喂素材/20261009/学习总结.md"
+    },
+    {
+      "date": "2026-10-12",
+      "title": "世界 60 亿人口日",
+      "review_mode": "independent",
+      "p0_declared": 0,
+      "p1_declared": 0,
+      "normalized_factual_count": 6,
+      "examples": [
+        "婴儿体重 3.5 公斤应为 3.6 公斤",
+        "「当年 2 月定名」单源隐患，v2 删去月份",
+        "安南抱起婴儿、颁象征证书的画面缺失",
+        "阿德南后续人生缺失，象征与真实人生张力不足"
+      ],
+      "source": "投喂素材/20261012/学习总结.md",
+      "grading_note": "原文未分级，计入 normalized_factual_count"
+    },
+    {
+      "date": "2026-10-13",
+      "title": "国际子午线会议",
+      "review_mode": "round1_independent + round2_self_after_429",
+      "p0_declared": 1,
+      "p1_declared": 1,
+      "normalized_factual_count": 2,
+      "examples": [
+        "表决事实错位：第一项动议被二十一国反对压倒，实为 Resolution I 一致通过，22-1-2 属 Resolution II",
+        "地理走向失真：纵贯英法，实为只擦过英格兰东南、纵穿法国"
+      ],
+      "source": "投喂素材/20261013/学习总结.md"
+    },
+    {
+      "date": "2026-10-14",
+      "title": "X-1 首破音障",
+      "review_mode": "independent",
+      "p0_declared": 2,
+      "p1_declared": 5,
+      "normalized_factual_count": 7,
+      "examples": [
+        "军种错位：陆军航空队上尉应为空军上尉（1947-09-18 已独立成军）",
+        "身份误标：试飞员里德利应为项目飞行工程师",
+        "投放高度 25,000 英尺应为 20,000 英尺",
+        "升降舵失效时间线混同"
+      ],
+      "source": "投喂素材/20261014/学习总结.md"
+    },
+    {
+      "date": "2026-10-15",
+      "title": "武汉长江大桥",
+      "review_mode": "self_review",
+      "review_mode_note": "独立 Reviewer 遇 429 熔断；review.json 未记录该字段",
+      "p0_declared": 0,
+      "p1_declared": 4,
+      "normalized_factual_count": 4,
+      "examples": [
+        "首创归属笼统化：抹掉苏联专家组组长西林的首倡",
+        "通车日现场整段缺席",
+        "京广铁路合称时点错：10-15 应为 1957-11-11",
+        "轮渡停运时点错：应为 1958 年"
+      ],
+      "source": "投喂素材/20261015/学习总结.md"
+    },
+    {
+      "date": "2026-10-16",
+      "title": "乙醚麻醉首演",
+      "review_mode": "self_review",
+      "p0_declared": 0,
+      "p1_declared": 0,
+      "normalized_factual_count": 8,
+      "examples": [
+        "沃伦名言当年目击记录查无实据",
+        "给上百个拔牙病人练手无据",
+        "考尔顿身份错置",
+        "第一例乙醚麻醉优先权绝对化"
+      ],
+      "source": "投喂素材/20261016/学习总结.md",
+      "grading_note": "原文未分级，计入 normalized_factual_count"
+    },
+    {
+      "date": "2026-10-19",
+      "title": "黑色星期一",
+      "review_mode": "self_review",
+      "p0_declared": 2,
+      "p1_declared": 3,
+      "normalized_factual_count": 5,
+      "examples": [
+        "成交量差 100 倍：六千零四十万股应为六亿多股",
+        "日经时点错置：14.9% 为次日跌幅",
+        "回购时点错：约 650 家为随后一周",
+        "纪录缺口径：按百分比才成立"
+      ],
+      "source": "投喂素材/20261019/学习总结.md"
+    },
+    {
+      "date": "2026-10-20",
+      "title": "悉尼歌剧院落成",
+      "review_mode": "independent",
+      "p0_declared": 0,
+      "p1_declared": 0,
+      "normalized_factual_count": 4,
+      "examples": [
+        "双曲面术语错：应为自由曲面或同一球面切出",
+        "沙里宁国籍错：芬兰籍应为芬兰裔美国",
+        "壳片数 10 应为 14",
+        "结尾引语场景错配"
+      ],
+      "source": "投喂素材/20261020/学习总结.md",
+      "grading_note": "原文未分级，计入 normalized_factual_count"
+    },
+    {
+      "date": "2026-10-21",
+      "title": "爱迪生首亮白炽灯",
+      "review_mode": "independent",
+      "p0_declared": 0,
+      "p1_declared": 0,
+      "normalized_factual_count": 9,
+      "examples": [
+        "材料试验规模缩水：上百种应为约 1600 种",
+        "竹丝 1200 小时缺失，逻辑断链",
+        "「火苗悬在真空里」物理比喻失准",
+        "斯旺时间线算错",
+        "13.5/14.5/45 小时口径分歧未交代"
+      ],
+      "source": "投喂素材/20261021/学习总结.md",
+      "grading_note": "原文未分级，计入 normalized_factual_count"
+    }
+  ]
+}

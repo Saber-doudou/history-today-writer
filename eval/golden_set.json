@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-10-22T00:25:00+08:00",
+  "status": "candidate_pending_annotation",
+  "selection_rule": "有 L2 学习总结、题材分布均衡、事实错误已核验；不选政治敏感题材。",
+  "target_size": 20,
+  "domains": {
+    "tech_engineering": 6,
+    "science_medicine": 5,
+    "institution_politics": 4,
+    "finance_disaster": 1,
+    "media_culture": 2,
+    "exploration": 2
+  },
+  "cases": [
+    {"date": "2026-10-21", "title": "爱迪生首亮白炽灯", "domain": "tech_engineering", "article": "archive/daily/2026-10-21_v2.md", "l2": "投喂素材/20261021/学习总结.md", "review_mode": "independent", "known_issues": 9, "annotation": "pending"},
+    {"date": "2026-10-20", "title": "悉尼歌剧院落成", "domain": "tech_engineering", "article": "archive/daily/2026-10-20_v2.md", "l2": "投喂素材/20261020/学习总结.md", "review_mode": "independent", "known_issues": 4, "annotation": "pending"},
+    {"date": "2026-10-15", "title": "武汉长江大桥", "domain": "tech_engineering", "article": "archive/daily/2026-10-15_v2.md", "l2": "投喂素材/20261015/学习总结.md", "review_mode": "self_review", "known_issues": 4, "annotation": "pending"},
+    {"date": "2026-10-14", "title": "X-1 首破音障", "domain": "tech_engineering", "article": "archive/daily/2026-10-14_v2.md", "l2": "投喂素材/20261014/学习总结.md", "review_mode": "independent", "known_issues": 7, "annotation": "pending"},
+    {"date": "2026-10-08", "title": "微波炉专利", "domain": "tech_engineering", "article": "archive/daily/2026-10-08_v2.md", "l2": "投喂素材/20261008/学习总结.md", "review_mode": "independent", "known_issues": 1, "annotation": "pending"},
+    {"date": "2026-09-29", "title": "中文打字机专利", "domain": "tech_engineering", "article": "archive/daily/2026-09-29_v2.md", "l2": "投喂素材/20260929/学习总结.md", "review_mode": "independent", "known_issues": 1, "annotation": "pending"},
+    {"date": "2026-10-16", "title": "乙醚麻醉首演", "domain": "science_medicine", "article": "archive/daily/2026-10-16_v2.md", "l2": "投喂素材/20261016/学习总结.md", "review_mode": "self_review", "known_issues": 8, "annotation": "pending"},
+    {"date": "2026-10-13", "title": "国际子午线会议", "domain": "science_medicine", "article": "archive/daily/2026-10-13_v2.md", "l2": "投喂素材/20261013/学习总结.md", "review_mode": "mixed", "known_issues": 2, "annotation": "pending"},
+    {"date": "2026-09-23", "title": "海王星发现", "domain": "science_medicine", "article": "archive/daily/2026-09-23_v2.md", "l2": "投喂素材/20260923/学习总结.md", "review_mode": "unknown", "known_issues": 0, "annotation": "pending"},
+    {"date": "2026-09-16", "title": "南极臭氧洞", "domain": "science_medicine", "article": "archive/daily/2026-09-16_v2.md", "l2": "投喂素材/20260916/学习总结.md", "review_mode": "unknown", "known_issues": 0, "annotation": "pending"},
+    {"date": "2026-09-15", "title": "青霉素量产", "domain": "science_medicine", "article": "archive/daily/2026-09-15_v2.md", "l2": "投喂素材/20260915/学习总结.md", "review_mode": "unknown", "known_issues": 0, "annotation": "pending"},
+    {"date": "2026-10-09", "title": "万国邮政联盟成立", "domain": "institution_politics", "article": "archive/daily/2026-10-09_v2.md", "l2": "投喂素材/20261009/学习总结.md", "review_mode": "self_review", "known_issues": 4, "annotation": "pending"},
+    {"date": "2026-09-17", "title": "美国宪法", "domain": "institution_politics", "article": "archive/daily/2026-09-17_v2.md", "l2": "投喂素材/20260917/学习总结.md", "review_mode": "unknown", "known_issues": 0, "annotation": "pending"},
+    {"date": "2026-09-10", "title": "欧佩克成立", "domain": "institution_politics", "article": "archive/daily/2026-09-10_v2.md", "l2": "投喂素材/20260910/学习总结.md", "review_mode": "unknown", "known_issues": 0, "annotation": "pending"},
+    {"date": "2026-09-08", "title": "意大利停战", "domain": "institution_politics", "article": "archive/daily/2026-09-08_v2.md", "l2": "投喂素材/20260908/学习总结.md", "review_mode": "unknown", "known_issues": 0, "annotation": "pending"},
+    {"date": "2026-10-19", "title": "黑色星期一", "domain": "finance_disaster", "article": "archive/daily/2026-10-19_v2.md", "l2": "投喂素材/20261019/学习总结.md", "review_mode": "self_review", "known_issues": 5, "annotation": "pending"},
+    {"date": "2026-09-18", "title": "纽约时报创刊", "domain": "media_culture", "article": "archive/daily/2026-09-18_v2.md", "l2": "投喂素材/20260918/学习总结.md", "review_mode": "unknown", "known_issues": 0, "annotation": "pending"},
+    {"date": "2026-09-09", "title": "美国国名由来", "domain": "media_culture", "article": "archive/daily/2026-09-09_v2.md", "l2": "投喂素材/20260909/学习总结.md", "review_mode": "unknown", "known_issues": 0, "annotation": "pending"},
+    {"date": "2026-10-12", "title": "世界 60 亿人口日", "domain": "exploration", "article": "archive/daily/2026-10-12_v2.md", "l2": "投喂素材/20261012/学习总结.md", "review_mode": "independent", "known_issues": 6, "annotation": "pending"},
+    {"date": "2026-09-28", "title": "首次航空环球飞行", "domain": "exploration", "article": "archive/daily/2026-09-28_v2.md", "l2": "投喂素材/20260928/学习总结.md", "review_mode": "unknown", "known_issues": 0, "annotation": "pending"}
+  ],
+  "annotation_protocol": {
+    "fields": ["p0", "p1", "evidence_url", "verdict"],
+    "verdict_values": ["confirmed", "rejected", "uncertain"],
+    "rules": [
+      "只标注有独立来源可证的错误",
+      "存疑项标 uncertain，不计入 recall 分母",
+      "L2 结论只作线索，不作为最终判定"
+    ]
+  }
+}
