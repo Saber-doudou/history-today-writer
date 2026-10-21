@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-20",
+  "last_updated": "2026-10-21",
   "heat_period_days": 30,
   "rules": {
     "rule_01": {
@@ -123,8 +123,8 @@
       "never_cool": true
     },
     "rule_18": {
-      "last_triggered": "2026-10-16",
-      "count_30d": 1,
+      "last_triggered": "2026-10-21",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true
@@ -475,8 +475,8 @@
       "never_cool": false
     },
     "rule_70": {
-      "last_triggered": "2026-10-19",
-      "count_30d": 1,
+      "last_triggered": "2026-10-21",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true
@@ -997,8 +997,8 @@
       "stay_cold": true
     },
     "rule_145": {
-      "last_triggered": "2026-09-25",
-      "count_30d": 1,
+      "last_triggered": "2026-10-21",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
