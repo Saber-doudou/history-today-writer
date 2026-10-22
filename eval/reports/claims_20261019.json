@@ -1,0 +1,80 @@
+{
+  "tokens_measured": 8,
+  "matched": 0,
+  "unmatched": 8,
+  "coverage": 0.0,
+  "pass": false,
+  "unmatched_tokens": [
+    {
+      "text": "22.6%",
+      "value": 22.6,
+      "unit": "%",
+      "pos": 160,
+      "kind": "percent",
+      "snippet": "738.74点，比上周五低了508.32点，跌幅22.6%，五分之一还多。六个半小时里，六亿多股换手，约为"
+    },
+    {
+      "text": "六亿多股",
+      "value": 600000000.0,
+      "unit": "股",
+      "pos": 180,
+      "kind": "measured",
+      "snippet": "点，跌幅22.6%，五分之一还多。六个半小时里，六亿多股换手，约为平日的好几倍，约五千亿美元的市值一天蒸"
+    },
+    {
+      "text": "五千亿美元",
+      "value": 500000000000.0,
+      "unit": "美元",
+      "pos": 197,
+      "kind": "measured",
+      "snippet": "六个半小时里，六亿多股换手，约为平日的好几倍，约五千亿美元的市值一天蒸发。按百分比算，这至今仍是道指史上最"
+    },
+    {
+      "text": "4.6%",
+      "value": 4.6,
+      "unit": "%",
+      "pos": 382,
+      "kind": "percent",
+      "snippet": "。而崩盘前那个星期五，市场已连跌三天，单日又跌掉4.6%，还撞上期权与期货同日到期的\"三巫日\"；周末，财"
+    },
+    {
+      "text": "二十亿美元",
+      "value": 2000000000.0,
+      "unit": "美元",
+      "pos": 657,
+      "kind": "measured",
+      "snippet": "算，当天仅三家大型组合保险机构，就机械性抛售了近二十亿美元的期货。\n\n恐慌顺着时差往西传。中国香港股市跌掉"
+    },
+    {
+      "text": "33.3%",
+      "value": 33.3,
+      "unit": "%",
+      "pos": 716,
+      "kind": "percent",
+      "snippet": "交所索性停市四天，谁知10月26日复市当天再暴跌33.3%，创下全球股市史上最大的单日跌幅；东京日经次日也"
+    },
+    {
+      "text": "万亿美元",
+      "value": 0.0,
+      "unit": "美元",
+      "pos": 775,
+      "kind": "measured",
+      "snippet": "；伦敦也应声倒地。全球股市的累计损失，据估算超过万亿美元。\n\n周一傍晚，格林斯潘在达拉斯得知了收盘的数字"
+    },
+    {
+      "text": "5.9%",
+      "value": 5.9,
+      "unit": "%",
+      "pos": 907,
+      "kind": "percent",
+      "snippet": "一周，六百多家上市公司宣布回购自家股票，道指反弹5.9%，大萧条没有重演。\n\n可道指爬回1987年8月的"
+    }
+  ],
+  "single_source_claims": [],
+  "dates_unverified": 3,
+  "details": [],
+  "article": "F:\\WorkBuddy\\history-today\\archive\\daily\\2026-10-19_v2.md",
+  "claims_file": "F:\\WorkBuddy\\history-today\\archive\\daily\\topic_result_2026-10-19.json",
+  "claims_count": 0,
+  "min_coverage": 0.9
+}

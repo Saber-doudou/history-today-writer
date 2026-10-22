@@ -10,6 +10,12 @@
 | `l2_errors_2026Q4.json` | 近 10 期 L2 事实纠错清单，作为「P0 逃逸率」的分母与金标准弱标签 |
 | `golden_set.json` | 金标准集 20 篇候选，题材均衡，后续人工标注 P0/P1 |
 | `results_system.tsv` | 每个 OU 的 before/after 与 keep/revert 记录（D1 起追加） |
+| `check_delivery.py` | 交付链三检：工作区、版本号、远端一致性 |
+| `snapshot.py` | 技能目录与日更目录双 zip 快照，manifest 含 sha256 |
+| `validate_review.py` | review.json 契约校验（JSON Schema 子集，stdlib） |
+| `verify_claims.py` | 正文数字与 claims 账本对账，输出覆盖率与未匹配项 |
+| `tests/` | unittest，覆盖契约校验与 claims 解析 |
+| `reports/` | 一次性测量报告（契约合规、claims 基线、自测输出） |
 
 ## 纪律
 

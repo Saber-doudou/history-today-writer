@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Topic Result with Claims",
+  "version": "2.0",
+  "description": "选题阶段的事实账本。claims 是正文数字/日期/人名的唯一来源。",
+  "type": "object",
+  "required": ["date", "selected_event", "claims"],
+  "properties": {
+    "date": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+    "selected_event": {
+      "type": "object",
+      "required": ["event"],
+      "properties": {
+        "event": {"type": "string", "minLength": 1},
+        "domain": {"type": "string"},
+        "subdomain": {"type": "string"}
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/claim"}
+    },
+    "scoring": {"type": "object"},
+    "elimination_tests": {"type": "object"},
+    "candidates_considered": {"type": "array"},
+    "dedup": {"type": "string"},
+    "political_sensitivity": {"type": "string"}
+  },
+  "definitions": {
+    "claim": {
+      "type": "object",
+      "required": ["id", "claim", "value", "class", "sources", "status"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^C\\d+$"},
+        "claim": {"type": "string", "minLength": 1},
+        "value": {"type": "string", "minLength": 1},
+        "display": {"type": "string"},
+        "unit": {"type": "string"},
+        "class": {"type": "string", "enum": ["P0", "P1", "P2"]},
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["url", "title", "retrieved_at"],
+            "properties": {
+              "url": {"type": "string", "pattern": "^https?://"},
+              "title": {"type": "string", "minLength": 1},
+              "retrieved_at": {"type": "string"},
+              "quote": {"type": "string"}
+            }
+          }
+        },
+        "cross_check": {"type": "integer", "minimum": 0},
+        "status": {"type": "string", "enum": ["verified", "single_source", "unverified"]}
+      }
+    }
+  }
+}

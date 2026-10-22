@@ -1,0 +1,68 @@
+{
+  "self_test": true,
+  "ok_case": {
+    "tokens_measured": 3,
+    "matched": 3,
+    "unmatched": 0,
+    "coverage": 1.0,
+    "pass": true,
+    "unmatched_tokens": [],
+    "single_source_claims": [],
+    "dates_unverified": 0,
+    "details": [
+      {
+        "text": "六亿多股",
+        "value": 600000000.0,
+        "unit": "股",
+        "pos": 2,
+        "kind": "measured",
+        "claim_id": "C1"
+      },
+      {
+        "text": "22.6%",
+        "value": 22.6,
+        "unit": "%",
+        "pos": 9,
+        "kind": "percent",
+        "claim_id": "C2"
+      },
+      {
+        "text": "13.5小时",
+        "value": 13.5,
+        "unit": "小时",
+        "pos": 17,
+        "kind": "measured",
+        "claim_id": "C3"
+      }
+    ]
+  },
+  "bad_case": {
+    "tokens_measured": 2,
+    "matched": 1,
+    "unmatched": 1,
+    "coverage": 0.5,
+    "pass": false,
+    "unmatched_tokens": [
+      {
+        "text": "六千零四十万股",
+        "value": 60400000.0,
+        "unit": "股",
+        "pos": 2,
+        "kind": "measured",
+        "snippet": "成交六千零四十万股，跌幅22.6%。"
+      }
+    ],
+    "single_source_claims": [],
+    "dates_unverified": 0,
+    "details": [
+      {
+        "text": "22.6%",
+        "value": 22.6,
+        "unit": "%",
+        "pos": 12,
+        "kind": "percent",
+        "claim_id": "C2"
+      }
+    ]
+  }
+}
