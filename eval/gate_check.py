@@ -137,7 +137,9 @@ def check(article_path: Path, cfg: dict, core_image: str = "", claims_path: Path
         f"异常日期：{bad_dates[:5] or '无'}")
 
     win = cfg.get("quote_attribution_window", 30)
-    quotes = re.findall(r"“([^”]{2,80})”", body) + re.findall(r'"([^"\n]{2,80})"', body)
+    raw_quotes = re.findall(r"“([^”]{2,80})”", body) + re.findall(r'"([^"]{2,80})"', body)
+    # 只检「像话语」的引语：长度 >= 12 且含句读或人称；术语/单词/铭文不算
+    quotes = [q for q in raw_quotes if len(q) >= 12 and re.search(r"[，。！？；：]|[我你他她它]", q)]
     unattributed = 0
     for q in quotes:
         pos = body.find(q)
@@ -145,7 +147,7 @@ def check(article_path: Path, cfg: dict, core_image: str = "", claims_path: Path
         if not re.search(r"(说|道|写道|回忆|据|称|问|答|表示|指出|记载)", window):
             unattributed += 1
     add("A11", "warn" if unattributed else "pass",
-        f"引语 {len(quotes)} 处，疑似无出处 {unattributed} 处")
+        f"长引语 {len(quotes)} 处（原引号 {len(raw_quotes)} 处），疑似无出处 {unattributed} 处")
 
     add("A12", "skip", cfg["deferred_checks"]["A12"])
 

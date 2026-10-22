@@ -61,6 +61,18 @@ class TestGateCheck(unittest.TestCase):
         a5 = [c for c in r["checks"] if c["id"] == "A5"][0]
         self.assertEqual(a5["status"], "pass", a5)
 
+    def test_a11_term_quotes_not_counted(self):
+        text = valid_text(BODY + '这家技术叫"静电复印术"，取自"干"与"书写"。')
+        r = gc.check(make(text), CFG)
+        a11 = [c for c in r["checks"] if c["id"] == "A11"][0]
+        self.assertEqual(a11["status"], "pass", a11)
+
+    def test_a11_long_quote_without_attribution(self):
+        text = valid_text(BODY + '"这是一句足够长的话，没有任何来源。"')
+        r = gc.check(make(text), CFG)
+        a11 = [c for c in r["checks"] if c["id"] == "A11"][0]
+        self.assertEqual(a11["status"], "warn", a11)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

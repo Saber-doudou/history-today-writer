@@ -8,3 +8,6 @@ timestamp	unit	commit	metric	before	after	status	eval_mode	note
 2026-10-22T10:20	D7a-gate	79f1284	gate_recent10_pass	0	0.8	keep	dry_run	8/10；10-09 A5 开头无日期，10-19 A1 正文841>800；A11 warn 6
 2026-10-22T10:20	D7a-gate	79f1284	unit_tests	18	25	keep	full_test	25/25（契约10 + claims 8 + 门禁7）
 2026-10-22T11:35	v10.3.8-integration	a11cb61	shadow_phase	0	1	keep	full_test	Phase 3.8 接入 SKILL+prompt；sync_check 24/24；v1 10-21 gate pass(A11 warn)；validator 报缺 date（shadow 不阻断）；tag v10.3.8 已推
+2026-10-22T23:59	O-1-observe	cc73bb5	gate_pass	true	true	keep	full_test	10-22 v1 660字，gate pass；A11 误报 2 处（术语/铭文引号）
+2026-10-22T23:59	O-1-observe	cc73bb5	contract_strict	0	1.0	keep	full_test	review.json 首次含 date/independence=cross_family/reviewer_model=reasoning
+2026-10-22T23:59	O-1b-a11	cc73bb5	gate_a11_warnings	2	0	keep	full_test	A11 只检长引语（>=12字且含句读/人称）；10-22/10-21 均 0 warn；27 tests
