@@ -61,7 +61,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 90条hot规则（core 70 + 题材专项 20，sync_check ⑤ 实跑口径）+ 温控表；索引：199条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~85K + 索引18K + 题材8-16K（+按需12K+4K） |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-77 四AI共性模式（+R111 等 hot 引用，编号见 rule_index）+ 审校子系统 + 标点规范 | ~43K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~47K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 96条案例（续号至96；只Grep命中关键词，禁止整读进上下文） | ~131K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 98条案例（续号至98；只Grep命中关键词，禁止整读进上下文） | ~131K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
@@ -235,7 +235,7 @@ reviewer → orchestrator：
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden）+ cold 状态表（v9.7.8 迁入） |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-77（四AI共性）+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
-| 判例库 | `review/CASE_STUDIES.md` | 96条案例（续号至96） |
+| 判例库 | `review/CASE_STUDIES.md` | 98条案例（续号至98） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题人类可读视图（LLM 不再整读） |
 | 查重脚本 | `scripts/check_topic.py` | Phase 1 选题查重（三源索引+退出码0/1/2，--self-test 全量回归） |
 | 选题索引 | `archive/daily/选题索引.md` | 纯选题两列视图（运行日期\|选题名），Phase 5b 从 TOPICS.md 选题复盘块重建 |
@@ -244,6 +244,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v10.3.8 | 2026-10-22 | P0 并网 shadow：eval/gate_check + validate_review + verify_claims 接入 Phase 3.8，失败仅告警不阻断；规则 199=146+53 不变，hot 90/90 不变；逐版变更流水见 CHANGELOG.md*
+*Version: v10.3.9 | 2026-10-22 | 卡尔逊静电复印术 L2：零新增编号走「细化+判例」路径（R70 多源分歧显式化复现应用——哈罗依德授权年份 1947 主流口径与 PrinterArchive「1946年12月首约」分歧一句带过；914「1959 亮相/1960 商用」演示与商用口径模糊化处理）；CASE-96 计数 2→3（职业身份标签三现：专利书记员→P.R.马洛利专利部/专利律师）；CASE-97 入库（标题主打意象与史实成功发生地错位——厨房=劝离的失败阶段，美容院后屋=真正诞生地）；CASE-98 入库（拒绝名单混入非同类项——美国陆军通信兵）；规则 199=146+53 不变，hot 90/90 不变；v2 文章 727 字；逐版变更流水见 CHANGELOG.md*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。
