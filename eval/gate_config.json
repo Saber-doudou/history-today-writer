@@ -1,0 +1,25 @@
+{
+  "version": "1.0",
+  "word_count": {
+    "min": 500,
+    "max": 800,
+    "count": "body_hanzi",
+    "note": "正文汉字数，排除标题与副标题；与 L2 的 500-800 口径对齐"
+  },
+  "forbidden_phrases": [
+    "综上所述",
+    "众所周知",
+    "不得不说",
+    "值得一提的是",
+    "让我们",
+    "在这个意义上",
+    "可以说"
+  ],
+  "quote_attribution_window": 30,
+  "sensitive_terms": [],
+  "deferred_checks": {
+    "A6": "核心意象次数需要 --core-image 参数；未提供时 skip",
+    "A9": "人名/地名实体识别需词典，v0.2 接入",
+    "A12": "政治敏感类比无法用词表可靠判定，保留人工审校"
+  }
+}

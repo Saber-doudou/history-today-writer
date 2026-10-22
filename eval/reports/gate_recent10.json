@@ -1,0 +1,745 @@
+{
+  "total": 10,
+  "pass": 8,
+  "fail": 2,
+  "results": [
+    {
+      "article": "F:\\WorkBuddy\\history-today\\archive\\daily\\2026-10-08_v2.md",
+      "date": "2026-10-08",
+      "pass": true,
+      "p0_fail": [],
+      "warnings": [],
+      "checks": [
+        {
+          "id": "A1",
+          "status": "pass",
+          "detail": "正文汉字 719（要求 500 至 800）"
+        },
+        {
+          "id": "A2",
+          "status": "pass",
+          "detail": "双破折号 0 处"
+        },
+        {
+          "id": "A3",
+          "status": "pass",
+          "detail": "结尾无 F19 脚注"
+        },
+        {
+          "id": "A4",
+          "status": "pass",
+          "detail": "标题：# On This Day | 口袋里的糖化了：一个不在蓝图里诞生的发明"
+        },
+        {
+          "id": "A5",
+          "status": "pass",
+          "detail": "开头含日期与地点：1945年10月8日 · 美国马萨诸塞州 · 雷神公司递交微波炉专利"
+        },
+        {
+          "id": "A6",
+          "status": "skip",
+          "detail": "核心意象次数需要 --core-image 参数；未提供时 skip"
+        },
+        {
+          "id": "A7",
+          "status": "pass",
+          "detail": "禁用短语：无"
+        },
+        {
+          "id": "A8",
+          "status": "skip",
+          "detail": "claims 账本不存在"
+        },
+        {
+          "id": "A9",
+          "status": "skip",
+          "detail": "人名/地名实体识别需词典，v0.2 接入"
+        },
+        {
+          "id": "A10",
+          "status": "pass",
+          "detail": "异常日期：无"
+        },
+        {
+          "id": "A11",
+          "status": "pass",
+          "detail": "引语 0 处，疑似无出处 0 处"
+        },
+        {
+          "id": "A12",
+          "status": "skip",
+          "detail": "政治敏感类比无法用词表可靠判定，保留人工审校"
+        }
+      ]
+    },
+    {
+      "article": "F:\\WorkBuddy\\history-today\\archive\\daily\\2026-10-09_v2.md",
+      "date": "2026-10-09",
+      "pass": false,
+      "p0_fail": [
+        {
+          "id": "A5",
+          "status": "fail",
+          "detail": "开头无日期：在1874年之前，寄一封信出国，是个比过海关还麻烦的活儿。每个国家都有自己的邮政系统、自己的邮资、自己的邮票，一封信要路"
+        }
+      ],
+      "warnings": [],
+      "checks": [
+        {
+          "id": "A1",
+          "status": "pass",
+          "detail": "正文汉字 617（要求 500 至 800）"
+        },
+        {
+          "id": "A2",
+          "status": "pass",
+          "detail": "双破折号 0 处"
+        },
+        {
+          "id": "A3",
+          "status": "pass",
+          "detail": "结尾无 F19 脚注"
+        },
+        {
+          "id": "A4",
+          "status": "pass",
+          "detail": "标题：# On This Day | 寄一封信出国，凭什么要一路买好几国的邮票？"
+        },
+        {
+          "id": "A5",
+          "status": "fail",
+          "detail": "开头无日期：在1874年之前，寄一封信出国，是个比过海关还麻烦的活儿。每个国家都有自己的邮政系统、自己的邮资、自己的邮票，一封信要路"
+        },
+        {
+          "id": "A6",
+          "status": "skip",
+          "detail": "核心意象次数需要 --core-image 参数；未提供时 skip"
+        },
+        {
+          "id": "A7",
+          "status": "pass",
+          "detail": "禁用短语：无"
+        },
+        {
+          "id": "A8",
+          "status": "skip",
+          "detail": "claims 账本不存在"
+        },
+        {
+          "id": "A9",
+          "status": "skip",
+          "detail": "人名/地名实体识别需词典，v0.2 接入"
+        },
+        {
+          "id": "A10",
+          "status": "pass",
+          "detail": "异常日期：无"
+        },
+        {
+          "id": "A11",
+          "status": "pass",
+          "detail": "引语 0 处，疑似无出处 0 处"
+        },
+        {
+          "id": "A12",
+          "status": "skip",
+          "detail": "政治敏感类比无法用词表可靠判定，保留人工审校"
+        }
+      ]
+    },
+    {
+      "article": "F:\\WorkBuddy\\history-today\\archive\\daily\\2026-10-12_v2.md",
+      "date": "2026-10-12",
+      "pass": true,
+      "p0_fail": [],
+      "warnings": [
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 6 处，疑似无出处 3 处"
+        }
+      ],
+      "checks": [
+        {
+          "id": "A1",
+          "status": "pass",
+          "detail": "正文汉字 659（要求 500 至 800）"
+        },
+        {
+          "id": "A2",
+          "status": "pass",
+          "detail": "双破折号 0 处"
+        },
+        {
+          "id": "A3",
+          "status": "pass",
+          "detail": "结尾无 F19 脚注"
+        },
+        {
+          "id": "A4",
+          "status": "pass",
+          "detail": "标题：# On This Day | 地球上的第60亿个人，是怎么被\"找\"出来的？"
+        },
+        {
+          "id": "A5",
+          "status": "pass",
+          "detail": "开头含日期与地点：1999年10月12日凌晨0时2分，萨拉热窝一家医院里，一个重约3.6公斤的男婴降生。联合国把他指定为地球上的第60亿位"
+        },
+        {
+          "id": "A6",
+          "status": "skip",
+          "detail": "核心意象次数需要 --core-image 参数；未提供时 skip"
+        },
+        {
+          "id": "A7",
+          "status": "pass",
+          "detail": "禁用短语：无"
+        },
+        {
+          "id": "A8",
+          "status": "skip",
+          "detail": "claims 账本不存在"
+        },
+        {
+          "id": "A9",
+          "status": "skip",
+          "detail": "人名/地名实体识别需词典，v0.2 接入"
+        },
+        {
+          "id": "A10",
+          "status": "pass",
+          "detail": "异常日期：无"
+        },
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 6 处，疑似无出处 3 处"
+        },
+        {
+          "id": "A12",
+          "status": "skip",
+          "detail": "政治敏感类比无法用词表可靠判定，保留人工审校"
+        }
+      ]
+    },
+    {
+      "article": "F:\\WorkBuddy\\history-today\\archive\\daily\\2026-10-13_v2.md",
+      "date": "2026-10-13",
+      "pass": true,
+      "p0_fail": [],
+      "warnings": [],
+      "checks": [
+        {
+          "id": "A1",
+          "status": "pass",
+          "detail": "正文汉字 795（要求 500 至 800）"
+        },
+        {
+          "id": "A2",
+          "status": "pass",
+          "detail": "双破折号 0 处"
+        },
+        {
+          "id": "A3",
+          "status": "pass",
+          "detail": "结尾无 F19 脚注"
+        },
+        {
+          "id": "A4",
+          "status": "pass",
+          "detail": "标题：# On This Day | 地图上的0°，是被一票一票投出来的"
+        },
+        {
+          "id": "A5",
+          "status": "pass",
+          "detail": "开头含日期与地点：1884年10月13日 · 美国华盛顿"
+        },
+        {
+          "id": "A6",
+          "status": "skip",
+          "detail": "核心意象次数需要 --core-image 参数；未提供时 skip"
+        },
+        {
+          "id": "A7",
+          "status": "pass",
+          "detail": "禁用短语：无"
+        },
+        {
+          "id": "A8",
+          "status": "skip",
+          "detail": "claims 账本不存在"
+        },
+        {
+          "id": "A9",
+          "status": "skip",
+          "detail": "人名/地名实体识别需词典，v0.2 接入"
+        },
+        {
+          "id": "A10",
+          "status": "pass",
+          "detail": "异常日期：无"
+        },
+        {
+          "id": "A11",
+          "status": "pass",
+          "detail": "引语 0 处，疑似无出处 0 处"
+        },
+        {
+          "id": "A12",
+          "status": "skip",
+          "detail": "政治敏感类比无法用词表可靠判定，保留人工审校"
+        }
+      ]
+    },
+    {
+      "article": "F:\\WorkBuddy\\history-today\\archive\\daily\\2026-10-14_v2.md",
+      "date": "2026-10-14",
+      "pass": true,
+      "p0_fail": [],
+      "warnings": [
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 3 处，疑似无出处 2 处"
+        }
+      ],
+      "checks": [
+        {
+          "id": "A1",
+          "status": "pass",
+          "detail": "正文汉字 762（要求 500 至 800）"
+        },
+        {
+          "id": "A2",
+          "status": "pass",
+          "detail": "双破折号 0 处"
+        },
+        {
+          "id": "A3",
+          "status": "pass",
+          "detail": "结尾无 F19 脚注"
+        },
+        {
+          "id": "A4",
+          "status": "pass",
+          "detail": "标题：# On This Day | 第一架在平飞中追上声音的飞机，为什么是从轰炸机里"
+        },
+        {
+          "id": "A5",
+          "status": "pass",
+          "detail": "开头含日期与地点：1947年10月14日 · 美国加州莫哈韦沙漠上空"
+        },
+        {
+          "id": "A6",
+          "status": "skip",
+          "detail": "核心意象次数需要 --core-image 参数；未提供时 skip"
+        },
+        {
+          "id": "A7",
+          "status": "pass",
+          "detail": "禁用短语：无"
+        },
+        {
+          "id": "A8",
+          "status": "skip",
+          "detail": "claims 账本不存在"
+        },
+        {
+          "id": "A9",
+          "status": "skip",
+          "detail": "人名/地名实体识别需词典，v0.2 接入"
+        },
+        {
+          "id": "A10",
+          "status": "pass",
+          "detail": "异常日期：无"
+        },
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 3 处，疑似无出处 2 处"
+        },
+        {
+          "id": "A12",
+          "status": "skip",
+          "detail": "政治敏感类比无法用词表可靠判定，保留人工审校"
+        }
+      ]
+    },
+    {
+      "article": "F:\\WorkBuddy\\history-today\\archive\\daily\\2026-10-15_v2.md",
+      "date": "2026-10-15",
+      "pass": true,
+      "p0_fail": [],
+      "warnings": [
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 4 处，疑似无出处 4 处"
+        }
+      ],
+      "checks": [
+        {
+          "id": "A1",
+          "status": "pass",
+          "detail": "正文汉字 771（要求 500 至 800）"
+        },
+        {
+          "id": "A2",
+          "status": "pass",
+          "detail": "双破折号 0 处"
+        },
+        {
+          "id": "A3",
+          "status": "pass",
+          "detail": "结尾无 F19 脚注"
+        },
+        {
+          "id": "A4",
+          "status": "pass",
+          "detail": "标题：# On This Day | 一列从北京开往广州的火车，为什么要在长江边被拆散"
+        },
+        {
+          "id": "A5",
+          "status": "pass",
+          "detail": "开头含日期与地点：1957年10月15日 · 武汉"
+        },
+        {
+          "id": "A6",
+          "status": "skip",
+          "detail": "核心意象次数需要 --core-image 参数；未提供时 skip"
+        },
+        {
+          "id": "A7",
+          "status": "pass",
+          "detail": "禁用短语：无"
+        },
+        {
+          "id": "A8",
+          "status": "skip",
+          "detail": "claims 账本不存在"
+        },
+        {
+          "id": "A9",
+          "status": "skip",
+          "detail": "人名/地名实体识别需词典，v0.2 接入"
+        },
+        {
+          "id": "A10",
+          "status": "pass",
+          "detail": "异常日期：无"
+        },
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 4 处，疑似无出处 4 处"
+        },
+        {
+          "id": "A12",
+          "status": "skip",
+          "detail": "政治敏感类比无法用词表可靠判定，保留人工审校"
+        }
+      ]
+    },
+    {
+      "article": "F:\\WorkBuddy\\history-today\\archive\\daily\\2026-10-16_v2.md",
+      "date": "2026-10-16",
+      "pass": true,
+      "p0_fail": [],
+      "warnings": [
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 7 处，疑似无出处 5 处"
+        }
+      ],
+      "checks": [
+        {
+          "id": "A1",
+          "status": "pass",
+          "detail": "正文汉字 754（要求 500 至 800）"
+        },
+        {
+          "id": "A2",
+          "status": "pass",
+          "detail": "双破折号 0 处"
+        },
+        {
+          "id": "A3",
+          "status": "pass",
+          "detail": "结尾无 F19 脚注"
+        },
+        {
+          "id": "A4",
+          "status": "pass",
+          "detail": "标题：# On This Day | 两分钟截一条腿的年代，谁让病人睡着了？"
+        },
+        {
+          "id": "A5",
+          "status": "pass",
+          "detail": "开头含日期与地点：10月16日一早，波士顿麻省总医院的圆顶手术厅坐满了人，多半是来看笑话的。台上是个二十岁的印刷工，等着切掉脖子上的血管瘤"
+        },
+        {
+          "id": "A6",
+          "status": "skip",
+          "detail": "核心意象次数需要 --core-image 参数；未提供时 skip"
+        },
+        {
+          "id": "A7",
+          "status": "pass",
+          "detail": "禁用短语：无"
+        },
+        {
+          "id": "A8",
+          "status": "skip",
+          "detail": "claims 账本不存在"
+        },
+        {
+          "id": "A9",
+          "status": "skip",
+          "detail": "人名/地名实体识别需词典，v0.2 接入"
+        },
+        {
+          "id": "A10",
+          "status": "pass",
+          "detail": "异常日期：无"
+        },
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 7 处，疑似无出处 5 处"
+        },
+        {
+          "id": "A12",
+          "status": "skip",
+          "detail": "政治敏感类比无法用词表可靠判定，保留人工审校"
+        }
+      ]
+    },
+    {
+      "article": "F:\\WorkBuddy\\history-today\\archive\\daily\\2026-10-19_v2.md",
+      "date": "2026-10-19",
+      "pass": false,
+      "p0_fail": [
+        {
+          "id": "A1",
+          "status": "fail",
+          "detail": "正文汉字 841（要求 500 至 800）"
+        }
+      ],
+      "warnings": [
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 4 处，疑似无出处 3 处"
+        }
+      ],
+      "checks": [
+        {
+          "id": "A1",
+          "status": "fail",
+          "detail": "正文汉字 841（要求 500 至 800）"
+        },
+        {
+          "id": "A2",
+          "status": "pass",
+          "detail": "双破折号 0 处"
+        },
+        {
+          "id": "A3",
+          "status": "pass",
+          "detail": "结尾无 F19 脚注"
+        },
+        {
+          "id": "A4",
+          "status": "pass",
+          "detail": "标题：# On This Day | 没有战争，没有银行倒闭，股市凭什么一天跌掉五分之"
+        },
+        {
+          "id": "A5",
+          "status": "pass",
+          "detail": "开头含日期与地点：1987年10月19日 · 美国纽约"
+        },
+        {
+          "id": "A6",
+          "status": "skip",
+          "detail": "核心意象次数需要 --core-image 参数；未提供时 skip"
+        },
+        {
+          "id": "A7",
+          "status": "pass",
+          "detail": "禁用短语：无"
+        },
+        {
+          "id": "A8",
+          "status": "skip",
+          "detail": "claims 账本不存在"
+        },
+        {
+          "id": "A9",
+          "status": "skip",
+          "detail": "人名/地名实体识别需词典，v0.2 接入"
+        },
+        {
+          "id": "A10",
+          "status": "pass",
+          "detail": "异常日期：无"
+        },
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 4 处，疑似无出处 3 处"
+        },
+        {
+          "id": "A12",
+          "status": "skip",
+          "detail": "政治敏感类比无法用词表可靠判定，保留人工审校"
+        }
+      ]
+    },
+    {
+      "article": "F:\\WorkBuddy\\history-today\\archive\\daily\\2026-10-20_v2.md",
+      "date": "2026-10-20",
+      "pass": true,
+      "p0_fail": [],
+      "warnings": [],
+      "checks": [
+        {
+          "id": "A1",
+          "status": "pass",
+          "detail": "正文汉字 681（要求 500 至 800）"
+        },
+        {
+          "id": "A2",
+          "status": "pass",
+          "detail": "双破折号 0 处"
+        },
+        {
+          "id": "A3",
+          "status": "pass",
+          "detail": "结尾无 F19 脚注"
+        },
+        {
+          "id": "A4",
+          "status": "pass",
+          "detail": "标题：# On This Day | 悉尼歌剧院落成典礼那天，它的设计师为什么不在场？"
+        },
+        {
+          "id": "A5",
+          "status": "pass",
+          "detail": "开头含日期与地点：1973年10月20日，悉尼港边风很大。伊丽莎白二世女王按住被吹乱的裙摆与讲稿，对着人海说：人的精神有时要扬起风帆，去创"
+        },
+        {
+          "id": "A6",
+          "status": "skip",
+          "detail": "核心意象次数需要 --core-image 参数；未提供时 skip"
+        },
+        {
+          "id": "A7",
+          "status": "pass",
+          "detail": "禁用短语：无"
+        },
+        {
+          "id": "A8",
+          "status": "skip",
+          "detail": "claims 账本不存在"
+        },
+        {
+          "id": "A9",
+          "status": "skip",
+          "detail": "人名/地名实体识别需词典，v0.2 接入"
+        },
+        {
+          "id": "A10",
+          "status": "pass",
+          "detail": "异常日期：无"
+        },
+        {
+          "id": "A11",
+          "status": "pass",
+          "detail": "引语 0 处，疑似无出处 0 处"
+        },
+        {
+          "id": "A12",
+          "status": "skip",
+          "detail": "政治敏感类比无法用词表可靠判定，保留人工审校"
+        }
+      ]
+    },
+    {
+      "article": "F:\\WorkBuddy\\history-today\\archive\\daily\\2026-10-21_v2.md",
+      "date": "2026-10-21",
+      "pass": true,
+      "p0_fail": [],
+      "warnings": [
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 5 处，疑似无出处 3 处"
+        }
+      ],
+      "checks": [
+        {
+          "id": "A1",
+          "status": "pass",
+          "detail": "正文汉字 754（要求 500 至 800）"
+        },
+        {
+          "id": "A2",
+          "status": "pass",
+          "detail": "双破折号 0 处"
+        },
+        {
+          "id": "A3",
+          "status": "pass",
+          "detail": "结尾无 F19 脚注"
+        },
+        {
+          "id": "A4",
+          "status": "pass",
+          "detail": "标题：# On This Day | 只亮了十三个半小时，为什么算爱迪生\"发明\"了电灯"
+        },
+        {
+          "id": "A5",
+          "status": "pass",
+          "detail": "开头含日期与地点：1879年10月21日傍晚，新泽西门洛帕克的实验室里，一盏玻璃灯亮了起来。光很弱，带着昏红，像将熄未熄的炭。它只亮了十三"
+        },
+        {
+          "id": "A6",
+          "status": "skip",
+          "detail": "核心意象次数需要 --core-image 参数；未提供时 skip"
+        },
+        {
+          "id": "A7",
+          "status": "pass",
+          "detail": "禁用短语：无"
+        },
+        {
+          "id": "A8",
+          "status": "skip",
+          "detail": "claims 账本不存在"
+        },
+        {
+          "id": "A9",
+          "status": "skip",
+          "detail": "人名/地名实体识别需词典，v0.2 接入"
+        },
+        {
+          "id": "A10",
+          "status": "pass",
+          "detail": "异常日期：无"
+        },
+        {
+          "id": "A11",
+          "status": "warn",
+          "detail": "引语 5 处，疑似无出处 3 处"
+        },
+        {
+          "id": "A12",
+          "status": "skip",
+          "detail": "政治敏感类比无法用词表可靠判定，保留人工审校"
+        }
+      ]
+    }
+  ]
+}
