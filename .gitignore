@@ -4,3 +4,6 @@ review/migration_state.json
 # Python 缓存
 __pycache__/
 *.pyc
+
+# 本地回滚备份（含 automation prompt 快照，不入库）
+eval/backups/
