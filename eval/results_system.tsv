@@ -3,3 +3,5 @@ timestamp	unit	commit	metric	before	after	status	eval_mode	note
 2026-10-22T00:25	D0-baseline	ee9fbc4	baseline_files	0	4	keep	dry_run	baseline_20261022.json / l2_errors_2026Q4.json / golden_set.json / README.md
 2026-10-22T00:26	D1-delivery	3c02539	delivery_gate	false	true	keep	full_test	check_delivery: dirty=0, version=v10.3.7, remote=3c02539
 2026-10-22T00:27	D1-delivery	3c02539	snapshot_files	0	2	keep	full_test	archive/backups/20261022/ skill+daily, sha256 已记录
+2026-10-22T10:10	D2a-contract	9da336b	review_schema_compliance	0	0.0928	keep	dry_run	首次测量 9/97；最近10份 4/10；date缺71/计数缺60/pass缺53
+2026-10-22T10:10	D2a-contract	9da336b	validator_tests	0	10	keep	full_test	10/10 unittest pass
