@@ -1,5 +1,18 @@
 # CHANGELOG — history-today-writer
 
+## v10.3.8 | 2026-10-22（P0 并网 shadow：三项确定性自检接入 Phase 3.8，规则 199=146+53 不变，hot 90/90 不变）
+
+- **背景**：10-22 审查确认质量门不可证伪（39/39 pass=true；4 次自审降级全部被次日 L2 找出 P0/P1）。本轮不新增规则，只把「可机械判断」的检查从提示词里拿出来，先以 shadow 模式接入 L1，积累证据后再收紧。
+- **新增 Phase 3.8（交付前自检，shadow）**：审校通过后、Phase 3.7 人工检查点前，依次运行三件确定性工具，结果写入执行摘要；失败只告警，不阻断、不改文（观察期至 2026-11-05）。
+  - `eval/gate_check.py`：9 项硬门禁（字数、双破折号、F19、标题、开头日期地点、禁用短语、claims 对账、日期自洽、引语出处 warn）；A6/A9/A12 显式 skip。
+  - `eval/validate_review.py`：review.json 核心契约校验（date / p0-p2 / pass / issues）。
+  - `eval/verify_claims.py`：正文计量数字与 claims 账本对账；claims 缺失时 skip。
+- **新增契约**：`review/schema/review_output.v2.json`（核心必填 + independence/reviewer_model 推荐）、`review/schema/topic_result.v2.json`（claims 账本）；旧 review schema 标 deprecated，v10.3.8 仅保留路径兼容。
+- **首次基线**：97 份归档 review.json 仅 9 份（9.3%）过核心契约；最近 10 篇门禁 8 过 2 败（10-09 开头无日期、10-19 正文 841 字超 800）；10-19 claims 覆盖率 0（现有 topic_result 无 claims 数组）。
+- **净变化**：Rules 146 / Forbidden 53 / 总数 199 不变；hot 90/90 不变；零新增编号。
+- **同步**：SKILL（Phase 3.8+版本）/CHANGELOG/rule_index 尾注/sync_check EXPECT_VERSION/feed-learning 引用行/automation prompt（v10.3.8，3 处）/eval 五件套与 25 个单测。
+- **回滚**：`git revert` 本提交即可回到 v10.3.7；automation prompt 备份见 `eval/backups/automation_prompt_v10.3.7.txt`（本地不入库）。
+
 ## v10.3.7 | 2026-10-21（爱迪生首亮白炽灯 L2：R70/R18 双细化 + 五判例计数更新，199=146+53 不变，hot 90/90 维持）
 
 - **R70 细化（编号不增）**：绝对纪录须加时代/赛事/统计口径限定——必须执行补「同一关键数字多源记载有分歧时（如白炽灯首亮时长 13.5/14.5/45 小时三说并存），须显式交代'记述不一'，禁择一沉默让读者误以为唯一口径」。触发场景：ds 点评「常见研究引用的门洛帕克记录是 14.5 小时不是 13.5 小时，若用 13.5 应注明出处」+ 3/4 故事版本触及 45 小时/14.5 小时口径；v2 改「后来的记述里，这个数字还有十四乃至四十五小时的说法」

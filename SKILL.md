@@ -90,12 +90,18 @@ Phase 2.5: 标题复审（强制，不可跳过，与 L2 feed-learning Phase 2.5
     ↓
 Phase 3: Phase 2内置 — Humanizer + P0复检
     ↓
-Phase 3.5: 【加载 review_rules.md + review/prompts/】→ 6维度审校 → review_report.json（实际产物文件名：archive/daily/YYYY-MM-DD_review.json，字段名固定 `p0_count`/`p1_count`/`p2_count`（计数）、`pass`、`issues` 数组、`f19_check`，与 review/schema/review_output.json 一致；P0/P1 修复被吸收后补 `fix_applied: true` 回流字段，P2 以 note 记录不强制修复）
+Phase 3.5: 【加载 review_rules.md + review/prompts/】→ 6维度审校 → review_report.json（实际产物文件名：archive/daily/YYYY-MM-DD_review.json，字段名固定 `date`/`p0_count`/`p1_count`/`p2_count`（计数）、`pass`、`issues` 数组、`f19_check`，推荐 `independence`/`reviewer_model`，与 review/schema/review_output.v2.json 一致；P0/P1 修复被吸收后补 `fix_applied: true` 回流字段，P2 以 note 记录不强制修复）
     ↓
 Phase 3.6: 【判例预检 + Grep CASE_STUDIES.md（只grep命中关键词，禁止整读96K进上下文）】→ 领域专项检查
     ↓
-  若 P0=0 且 P1≤1 → Phase 3.7
+  若 P0=0 且 P1≤1 → Phase 3.8
   否则 → 回到 Phase 2（最多2轮）
+    ↓
+Phase 3.8: 【交付前自检 shadow，v10.3.8 新增】→ 运行三项确定性检查并写入执行摘要；失败只告警，不阻断、不改文（观察期至 2026-11-05）
+    - 在技能目录运行 `python eval/gate_check.py --article F:/WorkBuddy/history-today/archive/daily/{YYYY-MM-DD}.md`（字数/双破折号/F19/标题/开头日期地点/禁用短语/日期自洽；A6/A9/A12 暂 skip）
+    - 在技能目录运行 `python eval/validate_review.py --last 1`（review.json 核心字段：date/p0-p2/pass/issues）
+    - 若 `F:/WorkBuddy/history-today/archive/daily/topic_result_{YYYY-MM-DD}.json` 含 `claims`：在技能目录运行 `python eval/verify_claims.py --article F:/WorkBuddy/history-today/archive/daily/{YYYY-MM-DD}.md --claims F:/WorkBuddy/history-today/archive/daily/topic_result_{YYYY-MM-DD}.json`
+    - 执行摘要追加「交付自检」段：gate pass/fail + 失败项 ID + 契约合规 + claims 覆盖率（无 claims 记 skip）
     ↓
 Phase 3.7: 【人工审核检查点】→ 输出当前最佳版本 → 等待 Master 确认
     ↓
@@ -238,6 +244,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v10.3.7 | 2026-10-21 | 逐版变更流水已完整收录于 CHANGELOG.md（含 v10.1.6 至 v10.2.6 全量逐版记录），本文件不再重复，版本纪律与逢十进位规则见 MEMORY.md 运维速记*
+*Version: v10.3.8 | 2026-10-22 | P0 并网 shadow：eval/gate_check + validate_review + verify_claims 接入 Phase 3.8，失败仅告警不阻断；规则 199=146+53 不变，hot 90/90 不变；逐版变更流水见 CHANGELOG.md*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。
