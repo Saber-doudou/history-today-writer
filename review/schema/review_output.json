@@ -2,6 +2,9 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "History Article Review Output",
   "description": "历史文章审校输出格式规范 v1.0",
+  "deprecated": true,
+  "deprecated_note": "2026-10-22 起由 review_output.v2.json 取代；本文件仅为 sync_check 路径兼容保留，v10.3.8 移除",
+  "superseded_by": "review_output.v2.json",
   "type": "object",
   "required": ["article_id", "title", "review_timestamp", "summary", "issues"],
   "properties": {

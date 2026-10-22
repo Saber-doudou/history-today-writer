@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "History Article Review Output",
+  "version": "2.0",
+  "description": "review.json 的唯一契约。核心字段必填；independence / reviewer_model 为推荐字段，--strict 模式下必填。",
+  "type": "object",
+  "required": ["date", "p0_count", "p1_count", "p2_count", "pass", "issues"],
+  "properties": {
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "independence": {
+      "type": "string",
+      "enum": ["cross_family", "same_family", "self_review", "mixed"]
+    },
+    "reviewer_model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "p0_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "p1_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "p2_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "pass": {
+      "type": "boolean"
+    },
+    "issues": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/issue"}
+    },
+    "f19_check": {
+      "type": "string"
+    },
+    "fix_applied": {
+      "type": "boolean"
+    },
+    "notes": {
+      "type": ["string", "array"]
+    }
+  },
+  "definitions": {
+    "issue": {
+      "type": "object",
+      "required": ["id", "category", "severity", "location", "current", "suggested", "reason"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "category": {
+          "type": "string",
+          "enum": ["language", "fact_accuracy", "narrative_logic", "terminology", "structure", "expression"]
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["p0", "p1", "p2"]
+        },
+        "location": {
+          "type": "string",
+          "pattern": "^P\\d+(-P\\d+)?$"
+        },
+        "current": {
+          "type": "string"
+        },
+        "suggested": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "rule_ref": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

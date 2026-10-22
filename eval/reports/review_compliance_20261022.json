@@ -1,0 +1,1318 @@
+{
+  "schema": "review_output.v2.json",
+  "mode": "core",
+  "total": 97,
+  "pass": 9,
+  "fail": 88,
+  "compliance_rate": 0.0928,
+  "missing_fields": {
+    "date": 71,
+    "p0_count": 60,
+    "p1_count": 60,
+    "p2_count": 60,
+    "pass": 53,
+    "suggested": 44,
+    "category": 40,
+    "current": 40,
+    "reason": 40,
+    "severity": 32,
+    "id": 25,
+    "location": 16,
+    "issues": 2
+  },
+  "results": [
+    {
+      "file": "2026-06-01_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-06-02_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-06-03_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].location: 字符串 'P末段' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].location: 字符串 'P末段' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-06-04_review.json",
+      "ok": false,
+      "errors": [
+        "invalid_json: Expecting ',' delimiter: line 31 column 36 (char 740)"
+      ]
+    },
+    {
+      "file": "2026-06-05_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[1].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-06-08_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-06-09_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].category: 值 '标点符号' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[0].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].category: 值 '标点符号' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[2].category: 值 '标点符号' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[3].category: 值 '史实准确' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']"
+      ]
+    },
+    {
+      "file": "2026-06-10_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-06-11_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-06-12_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[1].location: 字符串 'P1, P3, P14' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[5].location: 字符串 'P10, P11' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[6].location: 字符串 'P5, P9, P11' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[7].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-06-15_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[1].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-06-16_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[2].location: 字符串 'P1,P3,P5,P6' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[4].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[5].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-06-17_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[1].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[6].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[7].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[8].location: 字符串 'P13, P15' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-06-18_review.json",
+      "ok": false,
+      "errors": [
+        "invalid_json: Expecting ',' delimiter: line 17 column 45 (char 364)"
+      ]
+    },
+    {
+      "file": "2026-06-19_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-06-22_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[4].location: 字符串 '标题' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-06-23_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-06-24_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-06-25_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[1].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-06-26_review.json",
+      "ok": false,
+      "errors": [
+        "invalid_json: Expecting ',' delimiter: line 17 column 61 (char 376)"
+      ]
+    },
+    {
+      "file": "2026-06-29_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-06-30_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count"
+      ]
+    },
+    {
+      "file": "2026-07-01_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-07-02_review.json",
+      "ok": false,
+      "errors": [
+        "invalid_json: Expecting ',' delimiter: line 23 column 34 (char 578)"
+      ]
+    },
+    {
+      "file": "2026-07-03_review.json",
+      "ok": false,
+      "errors": [
+        "invalid_json: Expecting ',' delimiter: line 31 column 24 (char 819)"
+      ]
+    },
+    {
+      "file": "2026-07-06_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].category: 值 '叙事逻辑' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[0].location: 字符串 'P7 / P29' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].category: 值 '语言组织' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']"
+      ]
+    },
+    {
+      "file": "2026-07-07_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[1].location: 字符串 'P1/P7' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].location: 字符串 'P1/P11/P13' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3].location: 字符串 'P13/P15' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-08_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].category: 值 '史实准确' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[0].location: 字符串 'P21（\"谈判桌上…微型蒸汽机车\"段）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].category: 值 '史实准确' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[1].location: 字符串 'P7（开篇\"它们不挂一张帆\"）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].category: 值 '叙事逻辑' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[2].location: 字符串 'P9 与 P15' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3].category: 值 '叙事逻辑' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[3].location: 字符串 'P15（条约段）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[4].category: 值 '结构规范' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[4].location: 字符串 '标题' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-09_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-07-10_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-07-13_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].location: 字符串 '文末元信息行' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].location: 字符串 'P3、P4、P8' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].location: 字符串 'P1 与 P9' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-14_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].category: 值 '史实准确' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[0].location: 字符串 'P3（开篇段）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].category: 值 '结构规范' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[1].location: 字符串 '文末元信息行（P25）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].category: 值 '表达润色' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[2].location: 字符串 'P21（结尾段）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3].category: 值 '表达润色' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']"
+      ]
+    },
+    {
+      "file": "2026-07-15_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-07-16_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].location: 字符串 'P4（line 9）与 P7（line 15）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].location: 字符串 '全文末行（line 19）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].location: 字符串 'P6（line 13）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3].location: 字符串 'P7（line 15）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[4].location: 字符串 'P6（line 13）' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-17_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].location: 字符串 '标题' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].location: 字符串 'P29(页脚)' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3].location: 字符串 'P25(结尾)' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-20_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[4].location: 字符串 'P-footer' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[5].location: 字符串 'P5、P7' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-21_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[3].location: 字符串 'P6 / P9' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-22_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-07-23_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].location: 字符串 'P7, P15' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[7].location: 字符串 'P3, P7, P11, P15, P19' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-24_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].category: 值 '语言组织' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[0].location: 字符串 '全文（P5/P7/P9/P11/P13）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].category: 值 '结构规范' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[1].location: 字符串 'P15（结尾段）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].category: 值 '表达润色' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[2].location: 字符串 'P7 与 P15' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3].category: 值 '术语一致' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[4].category: 值 '表达润色' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[4].location: 字符串 'P15（结尾）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[5].category: 值 '表达润色' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']"
+      ]
+    },
+    {
+      "file": "2026-07-27_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].location: 字符串 'P1（第5行：也许就能从里面提出一种谁也没真正抓到过的东西）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].location: 字符串 'P6（第15行：他说过一句话：\"胰岛素不属于我，它属于世界。\"）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].location: 字符串 '文末第25行' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3].location: 字符串 'P1（第5行“多伦多大学一间闷热的小实验室里”）与 P7（第19行“那间闷热的小实验室早已不在”）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[4].location: 字符串 'P4（第11行：班廷变卖私物凑经费）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[5].location: 字符串 'P5（第13行：1922年1月……针管扎进手臂，几天后，他尿里的糖和酮消失了）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[6].location: 字符串 'P1（开篇，第5行）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[7].location: 字符串 'P7（第19行：一百年过去）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[8].location: 字符串 '结尾 P8（第21行）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[9].location: 字符串 'P1 / P8（班廷状态描写）' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-28_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].location: 字符串 '文末页脚' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-29_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].location: 字符串 '第6自然段（提奥·梵高段落）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].location: 字符串 '文末 footer' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].location: 字符串 '结尾段（乔安娜·邦格段落）' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-30_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].category: 值 'core_image' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[0].location: 字符串 '正文P3 与 正文P6' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].category: 值 'forbidden_pattern' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[1].location: 字符串 '文末 footer（P19）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].category: 值 'show_dont_tell' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[2].location: 字符串 '正文P6（结尾段）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3].category: 值 'disaster_causal' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[3].location: 字符串 '正文P3' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[4].category: 值 'exclusive_term' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[4].location: 字符串 '正文P4' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-07-31_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 issues"
+      ]
+    },
+    {
+      "file": "2026-08-03_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].location: 字符串 'P5（line 13）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].location: 字符串 'P5（line 13）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].location: 字符串 'P3（line 9）与 P5（line 13）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3].location: 字符串 'P1（line 5）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[4].location: 字符串 'P5（line 13）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[5].location: 字符串 '末行（line 19）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[6].location: 字符串 'P6（line 15）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[7].location: 字符串 '标题（line 1）' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-04_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-08-05_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-08-06_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-08-07_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[1].location: 字符串 '文末（P9）' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-10_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-08-11_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].location: 字符串 'P3（容闳段）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1].location: 字符串 'P4（招人段）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].location: 字符串 'P8（文末注脚）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3].location: 字符串 'P7（legacy段）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[4].location: 字符串 'P1（开篇段）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[5].location: 字符串 'P2（清廷段）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[6].location: 字符串 'P6（抵美段）' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-12_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[2].location: 字符串 'P1 / P5' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[4].location: 字符串 'P11（文末元信息行）' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-13_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].category: 值 '史实准确' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[1].category: 值 '语言组织' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[2].category: 值 '语言组织' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[3].category: 值 '语言组织' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[4].category: 值 '史实准确' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[5].category: 值 '结构规范' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']",
+        "$.issues[5].location: 字符串 '文末' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-14_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[0].category: 值 'structure/meta_info' 不在枚举 ['language', 'fact_accuracy', 'narrative_logic', 'terminology', 'structure', 'expression']"
+      ]
+    },
+    {
+      "file": "2026-08-17_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-08-18_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$: 缺少必填字段 issues"
+      ]
+    },
+    {
+      "file": "2026-08-19_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[4].location: 字符串 'Title / P6' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[6].location: 字符串 'Title' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-20_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass",
+        "$.issues[1].location: 字符串 'P19（页脚）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2].location: 字符串 'P9, P13' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-21_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[0].location: 字符串 '标题 + 第3段 + 第5段 + 结尾' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1]: 缺少必填字段 category",
+        "$.issues[1]: 缺少必填字段 severity",
+        "$.issues[1]: 缺少必填字段 current",
+        "$.issues[1]: 缺少必填字段 suggested",
+        "$.issues[1]: 缺少必填字段 reason",
+        "$.issues[1].location: 字符串 '第2段' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2]: 缺少必填字段 category",
+        "$.issues[2]: 缺少必填字段 severity",
+        "$.issues[2]: 缺少必填字段 current",
+        "$.issues[2]: 缺少必填字段 suggested",
+        "$.issues[2]: 缺少必填字段 reason",
+        "$.issues[2].location: 字符串 '第1-2段' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3]: 缺少必填字段 category",
+        "$.issues[3]: 缺少必填字段 severity",
+        "$.issues[3]: 缺少必填字段 current",
+        "$.issues[3]: 缺少必填字段 suggested",
+        "$.issues[3]: 缺少必填字段 reason",
+        "$.issues[3].location: 字符串 '文末' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[4]: 缺少必填字段 category",
+        "$.issues[4]: 缺少必填字段 severity",
+        "$.issues[4]: 缺少必填字段 current",
+        "$.issues[4]: 缺少必填字段 suggested",
+        "$.issues[4]: 缺少必填字段 reason",
+        "$.issues[4].location: 字符串 '结尾' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-24_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$.issues[0]: 缺少必填字段 id",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[0].location: 字符串 'P13：\"直到1748年，一个农民在葡萄园下翻出了庞贝的痕迹\"' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1]: 缺少必填字段 id",
+        "$.issues[1]: 缺少必填字段 category",
+        "$.issues[1]: 缺少必填字段 severity",
+        "$.issues[1]: 缺少必填字段 current",
+        "$.issues[1]: 缺少必填字段 suggested",
+        "$.issues[1]: 缺少必填字段 reason",
+        "$.issues[1].location: 字符串 'P15（结尾段，单一段落）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2]: 缺少必填字段 id",
+        "$.issues[2]: 缺少必填字段 category",
+        "$.issues[2]: 缺少必填字段 severity",
+        "$.issues[2]: 缺少必填字段 current",
+        "$.issues[2]: 缺少必填字段 suggested",
+        "$.issues[2]: 缺少必填字段 reason",
+        "$.issues[2].location: 字符串 'P9：\"船到了斯塔比埃，他踏上海岸不久，就被有毒的气体放倒，再没起来。\"' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3]: 缺少必填字段 id",
+        "$.issues[3]: 缺少必填字段 category",
+        "$.issues[3]: 缺少必填字段 severity",
+        "$.issues[3]: 缺少必填字段 current",
+        "$.issues[3]: 缺少必填字段 suggested",
+        "$.issues[3]: 缺少必填字段 reason",
+        "$.issues[3].location: 字符串 '标题\"定格在火山灰里的那一天\" 与 P13\"定格了一个人最后的样子\"' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-25_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[0].id: 类型应为 integer，实际 str",
+        "$.issues[0].location: 字符串 \"第13段（'他的家人则侥幸躲过报复'）\" 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1]: 缺少必填字段 category",
+        "$.issues[1]: 缺少必填字段 severity",
+        "$.issues[1]: 缺少必填字段 current",
+        "$.issues[1]: 缺少必填字段 suggested",
+        "$.issues[1]: 缺少必填字段 reason",
+        "$.issues[1].id: 类型应为 integer，实际 str",
+        "$.issues[1].location: 字符串 \"第11段（'肖尔蒂茨先在默里斯酒店签下投降书'）\" 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-26_review.json",
+      "ok": false,
+      "errors": [
+        "$.issues[0]: 缺少必填字段 id",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[0].location: 字符串 '文末 footer（line 21）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1]: 缺少必填字段 id",
+        "$.issues[1]: 缺少必填字段 category",
+        "$.issues[1]: 缺少必填字段 severity",
+        "$.issues[1]: 缺少必填字段 current",
+        "$.issues[1]: 缺少必填字段 suggested",
+        "$.issues[1]: 缺少必填字段 reason",
+        "$.issues[1].location: 字符串 '第15行：「纽约的消防队甚至接到过报警电话，以为远处起了大火……」' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2]: 缺少必填字段 id",
+        "$.issues[2]: 缺少必填字段 category",
+        "$.issues[2]: 缺少必填字段 severity",
+        "$.issues[2]: 缺少必填字段 current",
+        "$.issues[2]: 缺少必填字段 suggested",
+        "$.issues[2]: 缺少必填字段 reason",
+        "$.issues[2].location: 字符串 '第9行：「这是人类有仪器记录以来，听到过的最大一声响。」' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-27_review.json",
+      "ok": false,
+      "errors": [
+        "$.issues[0]: 缺少必填字段 id",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[0].location: 字符串 '第1段、第7段、第8段' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1]: 缺少必填字段 id",
+        "$.issues[1]: 缺少必填字段 category",
+        "$.issues[1]: 缺少必填字段 severity",
+        "$.issues[1]: 缺少必填字段 current",
+        "$.issues[1]: 缺少必填字段 suggested",
+        "$.issues[1]: 缺少必填字段 reason",
+        "$.issues[1].location: 字符串 '第4段' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-08-28_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$.issues[0]: 类型应为 object，实际 str",
+        "$.issues[1]: 类型应为 object，实际 str",
+        "$.issues[2]: 类型应为 object，实际 str",
+        "$.issues[3]: 类型应为 object，实际 str",
+        "$.issues[4]: 类型应为 object，实际 str",
+        "$.issues[5]: 类型应为 object，实际 str"
+      ]
+    },
+    {
+      "file": "2026-08-31_review.json",
+      "ok": false,
+      "errors": [
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[0].id: 类型应为 integer，实际 str",
+        "$.issues[0].location: 字符串 '第6段（结尾）' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1]: 缺少必填字段 category",
+        "$.issues[1]: 缺少必填字段 severity",
+        "$.issues[1]: 缺少必填字段 current",
+        "$.issues[1]: 缺少必填字段 suggested",
+        "$.issues[1]: 缺少必填字段 reason",
+        "$.issues[1].id: 类型应为 integer，实际 str",
+        "$.issues[1].location: 字符串 '标题、第1段、第2段' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2]: 缺少必填字段 category",
+        "$.issues[2]: 缺少必填字段 severity",
+        "$.issues[2]: 缺少必填字段 current",
+        "$.issues[2]: 缺少必填字段 suggested",
+        "$.issues[2]: 缺少必填字段 reason",
+        "$.issues[2].id: 类型应为 integer，实际 str",
+        "$.issues[2].location: 字符串 '文末脚注' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-09-01_review.json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "2026-09-02_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[0].id: 类型应为 integer，实际 str",
+        "$.issues[0].severity: 值 'P1' 不在枚举 ['p0', 'p1', 'p2']",
+        "$.issues[0].location: 字符串 '第5段（末段）' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-09-03_review.json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "2026-09-04_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count"
+      ]
+    },
+    {
+      "file": "2026-09-07_review.json",
+      "ok": false,
+      "errors": [
+        "$.issues[0]: 缺少必填字段 id",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 location",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.f19_check: 类型应为 string，实际 dict"
+      ]
+    },
+    {
+      "file": "2026-09-08_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$.issues[0]: 缺少必填字段 id",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 location",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason"
+      ]
+    },
+    {
+      "file": "2026-09-09_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count"
+      ]
+    },
+    {
+      "file": "2026-09-10_review.json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "2026-09-11_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date"
+      ]
+    },
+    {
+      "file": "2026-09-14_review.json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "2026-09-15_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count"
+      ]
+    },
+    {
+      "file": "2026-09-16_review.json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "2026-09-17_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count"
+      ]
+    },
+    {
+      "file": "2026-09-18_review.json",
+      "ok": false,
+      "errors": [
+        "$.issues[0]: 缺少必填字段 id",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 location",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[0].severity: 值 'P1' 不在枚举 ['p0', 'p1', 'p2']"
+      ]
+    },
+    {
+      "file": "2026-09-21_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date"
+      ]
+    },
+    {
+      "file": "2026-09-22_review.json",
+      "ok": false,
+      "errors": [
+        "$.issues[0]: 缺少必填字段 id",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 location",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[1]: 缺少必填字段 id",
+        "$.issues[1]: 缺少必填字段 category",
+        "$.issues[1]: 缺少必填字段 severity",
+        "$.issues[1]: 缺少必填字段 location",
+        "$.issues[1]: 缺少必填字段 current",
+        "$.issues[1]: 缺少必填字段 suggested",
+        "$.issues[1]: 缺少必填字段 reason"
+      ]
+    },
+    {
+      "file": "2026-09-23_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$.f19_check: 类型应为 string，实际 bool"
+      ]
+    },
+    {
+      "file": "2026-09-24_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date"
+      ]
+    },
+    {
+      "file": "2026-09-25_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$.issues[0]: 缺少必填字段 id",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 location",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason"
+      ]
+    },
+    {
+      "file": "2026-09-28_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$.issues[0]: 缺少必填字段 id",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 location",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason"
+      ]
+    },
+    {
+      "file": "2026-09-29_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date"
+      ]
+    },
+    {
+      "file": "2026-10-08_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$.issues[0]: 缺少必填字段 id",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 location",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[1]: 缺少必填字段 id",
+        "$.issues[1]: 缺少必填字段 category",
+        "$.issues[1]: 缺少必填字段 severity",
+        "$.issues[1]: 缺少必填字段 location",
+        "$.issues[1]: 缺少必填字段 current",
+        "$.issues[1]: 缺少必填字段 suggested",
+        "$.issues[1]: 缺少必填字段 reason",
+        "$.issues[2]: 缺少必填字段 id",
+        "$.issues[2]: 缺少必填字段 category",
+        "$.issues[2]: 缺少必填字段 severity",
+        "$.issues[2]: 缺少必填字段 location",
+        "$.issues[2]: 缺少必填字段 current",
+        "$.issues[2]: 缺少必填字段 suggested",
+        "$.issues[2]: 缺少必填字段 reason"
+      ]
+    },
+    {
+      "file": "2026-10-09_review.json",
+      "ok": false,
+      "errors": [
+        "$.issues[0]: 缺少必填字段 id",
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 location",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[0].severity: 值 'fixed' 不在枚举 ['p0', 'p1', 'p2']",
+        "$.issues[1]: 缺少必填字段 id",
+        "$.issues[1]: 缺少必填字段 category",
+        "$.issues[1]: 缺少必填字段 location",
+        "$.issues[1]: 缺少必填字段 current",
+        "$.issues[1]: 缺少必填字段 suggested",
+        "$.issues[1]: 缺少必填字段 reason",
+        "$.issues[1].severity: 值 'fixed' 不在枚举 ['p0', 'p1', 'p2']",
+        "$.issues[2]: 缺少必填字段 id",
+        "$.issues[2]: 缺少必填字段 category",
+        "$.issues[2]: 缺少必填字段 location",
+        "$.issues[2]: 缺少必填字段 current",
+        "$.issues[2]: 缺少必填字段 suggested",
+        "$.issues[2]: 缺少必填字段 reason",
+        "$.issues[2].severity: 值 'fixed' 不在枚举 ['p0', 'p1', 'p2']",
+        "$.issues[3]: 缺少必填字段 id",
+        "$.issues[3]: 缺少必填字段 category",
+        "$.issues[3]: 缺少必填字段 location",
+        "$.issues[3]: 缺少必填字段 current",
+        "$.issues[3]: 缺少必填字段 suggested",
+        "$.issues[3]: 缺少必填字段 reason",
+        "$.issues[3].severity: 值 'fixed' 不在枚举 ['p0', 'p1', 'p2']",
+        "$.issues[4]: 缺少必填字段 id",
+        "$.issues[4]: 缺少必填字段 category",
+        "$.issues[4]: 缺少必填字段 location",
+        "$.issues[4]: 缺少必填字段 current",
+        "$.issues[4]: 缺少必填字段 suggested",
+        "$.issues[4]: 缺少必填字段 reason",
+        "$.issues[4].severity: 值 'fixed' 不在枚举 ['p0', 'p1', 'p2']",
+        "$.issues[5]: 缺少必填字段 id",
+        "$.issues[5]: 缺少必填字段 category",
+        "$.issues[5]: 缺少必填字段 location",
+        "$.issues[5]: 缺少必填字段 current",
+        "$.issues[5]: 缺少必填字段 suggested",
+        "$.issues[5]: 缺少必填字段 reason",
+        "$.issues[5].severity: 值 'note' 不在枚举 ['p0', 'p1', 'p2']"
+      ]
+    },
+    {
+      "file": "2026-10-12_review.json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "2026-10-13_review.json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "2026-10-14_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[1]: 缺少必填字段 suggested",
+        "$.issues[2]: 缺少必填字段 suggested",
+        "$.issues[3]: 缺少必填字段 suggested"
+      ]
+    },
+    {
+      "file": "2026-10-15_review.json",
+      "ok": false,
+      "errors": [
+        "$.issues[0]: 缺少必填字段 category",
+        "$.issues[0]: 缺少必填字段 severity",
+        "$.issues[0]: 缺少必填字段 current",
+        "$.issues[0]: 缺少必填字段 suggested",
+        "$.issues[0]: 缺少必填字段 reason",
+        "$.issues[0].location: 字符串 '第2段' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[1]: 缺少必填字段 category",
+        "$.issues[1]: 缺少必填字段 severity",
+        "$.issues[1]: 缺少必填字段 current",
+        "$.issues[1]: 缺少必填字段 suggested",
+        "$.issues[1]: 缺少必填字段 reason",
+        "$.issues[1].location: 字符串 '第3段' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[2]: 缺少必填字段 category",
+        "$.issues[2]: 缺少必填字段 severity",
+        "$.issues[2]: 缺少必填字段 current",
+        "$.issues[2]: 缺少必填字段 suggested",
+        "$.issues[2]: 缺少必填字段 reason",
+        "$.issues[2].location: 字符串 '第4段' 不匹配 ^P\\d+(-P\\d+)?$",
+        "$.issues[3]: 缺少必填字段 category",
+        "$.issues[3]: 缺少必填字段 severity",
+        "$.issues[3]: 缺少必填字段 current",
+        "$.issues[3]: 缺少必填字段 suggested",
+        "$.issues[3]: 缺少必填字段 reason",
+        "$.issues[3].location: 字符串 '全文' 不匹配 ^P\\d+(-P\\d+)?$"
+      ]
+    },
+    {
+      "file": "2026-10-16_review.json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "2026-10-19_review.json",
+      "ok": true,
+      "errors": []
+    },
+    {
+      "file": "2026-10-20_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date",
+        "$: 缺少必填字段 p0_count",
+        "$: 缺少必填字段 p1_count",
+        "$: 缺少必填字段 p2_count",
+        "$: 缺少必填字段 pass"
+      ]
+    },
+    {
+      "file": "2026-10-21_review.json",
+      "ok": false,
+      "errors": [
+        "$: 缺少必填字段 date"
+      ]
+    }
+  ]
+}
