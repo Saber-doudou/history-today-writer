@@ -5,3 +5,5 @@ timestamp	unit	commit	metric	before	after	status	eval_mode	note
 2026-10-22T00:27	D1-delivery	3c02539	snapshot_files	0	2	keep	full_test	archive/backups/20261022/ skill+daily, sha256 已记录
 2026-10-22T10:10	D2a-contract	9da336b	review_schema_compliance	0	0.0928	keep	dry_run	首次测量 9/97；最近10份 4/10；date缺71/计数缺60/pass缺53
 2026-10-22T10:10	D2a-contract	9da336b	validator_tests	0	10	keep	full_test	10/10 unittest pass
+2026-10-22T10:20	D7a-gate	79f1284	gate_recent10_pass	0	0.8	keep	dry_run	8/10；10-09 A5 开头无日期，10-19 A1 正文841>800；A11 warn 6
+2026-10-22T10:20	D7a-gate	79f1284	unit_tests	18	25	keep	full_test	25/25（契约10 + claims 8 + 门禁7）
