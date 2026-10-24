@@ -11,3 +11,7 @@ timestamp	unit	commit	metric	before	after	status	eval_mode	note
 2026-10-22T23:59	O-1-observe	cc73bb5	gate_pass	true	true	keep	full_test	10-22 v1 660字，gate pass；A11 误报 2 处（术语/铭文引号）
 2026-10-22T23:59	O-1-observe	cc73bb5	contract_strict	0	1.0	keep	full_test	review.json 首次含 date/independence=cross_family/reviewer_model=reasoning
 2026-10-22T23:59	O-1b-a11	cc73bb5	gate_a11_warnings	2	0	keep	full_test	A11 只检长引语（>=12字且含句读/人称）；10-22/10-21 均 0 warn；27 tests
+2026-10-24T17:40	D6-heat	4b4bf3a	actionable_heat_diff	128	33	keep	full_test	heat_lag 26 + heat_missing 7；heat-only 88 expected；旧128为混算
+2026-10-24T17:40	D6-heat	4b4bf3a	zero_trigger_hot	17	6	keep	full_test	ledger 补读 rule_ref/rule_id，L1 引用覆盖率修复
+2026-10-24T17:40	D6-heat	4b4bf3a	conflict_candidates	0	1	keep	full_test	Rule62 cold 但近16天有触发（疑似 recovered），待裁决
+2026-10-24T17:40	D6-heat	4b4bf3a	unit_tests	27	33	keep	full_test	33/33（新增 6 个 last_activity 测试）
