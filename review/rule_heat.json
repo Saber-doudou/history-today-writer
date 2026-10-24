@@ -120,14 +120,15 @@
       "source": "ledger"
     },
     "rule_13": {
-      "last_triggered": "2026-10-22",
-      "count_30d": 23,
+      "last_triggered": "2026-10-24",
+      "count_30d": 24,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true,
       "last_issue": "2026-10-23",
       "issue_count_30d": 5,
-      "source": "manual+ledger"
+      "source": "manual+ledger",
+      "note": "2026-10-23 iPod L2：开场氛围「沸腾」改「反响并不热烈」（4/4+外部源）；三代/商店/Windows 三节点时间链拆开；结尾删乔布斯去世"
     },
     "rule_14": {
       "last_triggered": "2026-10-14",
@@ -645,14 +646,15 @@
       "issue_count_30d": 0
     },
     "rule_70": {
-      "last_triggered": "2026-10-22",
-      "count_30d": 3,
+      "last_triggered": "2026-10-24",
+      "count_30d": 4,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true,
       "last_issue": "2026-07-14",
       "issue_count_30d": 0,
-      "source": "manual+ledger"
+      "source": "manual+ledger",
+      "note": "2026-10-23 iPod L2：多源口径分歧裁决——官方营销口径（体积两成/CD十秒）vs AI 独立口径质疑，以官方新闻稿为准保留；千万台里程碑时点多源核验（2004-12-16）"
     },
     "rule_71": {
       "last_triggered": "2026-10-14",
@@ -1284,14 +1286,15 @@
       "issue_count_30d": 0
     },
     "rule_141": {
-      "last_triggered": "2026-09-16",
-      "count_30d": 1,
+      "last_triggered": "2026-10-24",
+      "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
       "last_issue": "2026-10-09",
       "issue_count_30d": 1,
-      "source": "manual+ledger"
+      "source": "manual+ledger",
+      "note": "2026-10-23 iPod L2：原标题「没人看好」与 v1「沸腾」矛盾，修正冷场后咬合；Phase 2.5 三候选对比保留原题"
     },
     "rule_142": {
       "last_triggered": "2026-09-18",
@@ -1303,12 +1306,12 @@
       "issue_count_30d": 0
     },
     "rule_143": {
-      "last_triggered": "2026-10-20",
-      "count_30d": 5,
+      "last_triggered": "2026-10-24",
+      "count_30d": 6,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
-      "note": "2026-09-25 TAT-1 L2：ds+ima 称 v1「588通≈短波时代全年近三成」查无实证，独立核验 Wikipedia（1927年无线电跨洋电话年约2000通）证实 588/2000≈29%，v1 正确，AI 误判",
+      "note": "2026-10-23 iPod L2：R143 判例来源追加三实例——千问「2004年底破千万是硬伤」被 iLounge/Cult of Mac/Post-Bulletin 多源证伪（第1000万台 2004-12-16 售出）；ima/千问对「体积两成」「CD十秒」质疑被苹果官方新闻稿证伪；纠错侧正向应用+AI 误判不反向改错",
       "last_issue": "2026-10-09",
       "issue_count_30d": 1,
       "source": "manual+ledger"

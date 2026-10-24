@@ -1,5 +1,17 @@
 # CHANGELOG — history-today-writer
 
+## v10.4.0 | 2026-10-24（苹果发布第一代 iPod L2：R143 判例来源追加+CASE-91 计数+CASE-99 入库，199=146+53 不变，hot 90/90 不变）
+
+- **背景**：10-23 L1 苹果发布第一代 iPod（2001）v1 759 汉字经四AI投喂（ds/ima/千问/豆包 4/4 齐备，故事+点评各 4 份）学习。hot 90/90、总 199/200 双触顶，同 v10.3.4 起走「细化+判例」路径，零新增编号。版本号逢十进位：v10.3.9+1=v10.4.0（patch 9 满进 minor）。
+- **事实修正（v2 已兑现，关键项多源核验）**：① 开场氛围 4/4+外部源——「台下先是一片沸腾」改为「台下的反响并不热烈」（史实：MacRumors 档案「mixed response」、BI 20 周年回顾「greeted with a yawn」，质疑集中在 399 美元高价/Mac-only/产品意义；且 v1 前热后冷与后文「小众玩具」自相矛盾）；② 时间链拆开——v1 把「三代 iPod 双平台发布（2003-04-28 官方口径）、商店首发仅 Mac、iTunes for Windows（2003-10）」三节点压成一语，v2 补「这年秋天，iTunes登陆Windows，硬件、软件和商店才接上同一条路」；③ 结尾年表压缩（删「乔布斯 2011 年去世」，4/4 共识），收束改「当年装歌的那个口袋，如今装着一部手机」；④ 数字体例统一为阿拉伯数字（豆包 P2 建议，与近 10 篇惯例一致）。
+- **R143 判例来源追加（编号不增）**：AI 误判三现——① 千问称 v1「2004年底破一千万」为硬伤（称 2005 年 9 月才对），多源核验（iLounge 记乔布斯 2005-01 Macworld keynote 原话：第 1000 万台 iPod 于 2004-12-16 售出；Cult of Mac/Post-Bulletin/eWeek 互证）证实 v1 正确、AI 误判，默认保留不反向改错（同篇 ima 将「2004 年破千万」列入优点称「均有据可查」——经核验属实，本例为赞扬侧正确采信，不构成 CASE-92 复现）；② ima/千问 2/4 质疑「体积只有同类两成」「一张 CD 传完不到十秒」属推断宜删——苹果 2001-10-23 官方新闻稿两处均为官方原话（「only 20 percent of the volume of today's hard drive-based players」「download an entire CD into iPod in under 10 seconds」），质疑被官方口径证伪。共性：AI 误判集中于官方营销口径 vs 独立实测口径混淆（重量 vs 体积）与里程碑时点误记。
+- **CASE-91 计数 2→3**：时点子类复现（三代iPod/商店/iTunes for Windows 三节点压成一语）。
+- **CASE-99 入库**：开场现场反应与史实相左——「沸腾」写反方向（4/4 故事版互证+MacRumors/BI 外部核验，v2 改「反响并不热烈」）。
+- **v2 吸收（非事实类）**：「机器没做完」锚点（软件没收尾、样机预装二十张唱片——CNET 撰稿人目击证实 Apple 给媒体样机预装 20 张专辑并附实体 CD）；每人一个动作（鲁宾斯坦从东芝带回 1.8 英寸硬盘、席勒的滚轮——Yahoo/MacRumors 证实）；距 9·11 六周的时代空气；市政厅场地（MacRumors 证实）。
+- **标题（Phase 2.5 三候选对比）**：保留原标题「一台没人看好的播放器，怎么把唱片店装进了口袋？」——修正冷场后「没人看好」与正文完全咬合（v1 原标题与「沸腾」正文自相矛盾），豆包/ds 双认可；ima《无人鼓掌的那天下午》、千问《口袋里的一家唱片店》落选理由记录于学习总结。
+- **v2 文章**：archive/daily/2026-10-23_v2.md（724 汉字；gate_check 全过：双破折号 0/F19 无/标题/开头日期地点/禁用短语/异常日期）。
+- **同步**：rule_index（尾注 v10.4.0）/SKILL（v10.4.0+判例 99）/sync_check（EXPECT_VERSION v10.4.0）/CHANGELOG/feed-learning 引用行（v10.4.0）+自身 v1.23/automation prompt（DB v10.3.9→v10.4.0 共 4 处，备份 eval/backups/automation_prompt_v10.3.9.txt）/CASE_STUDIES（CASE-91/99+R143 判例来源）/rule_heat（R143/R13/R70/R141 触发）/学习总结/automation memory B4 补记。
+
 ## 记录（不改版本号）| 2026-10-24（D6 温控口径修复：ledger 补读 rule_ref + heat 增 last_issue，不覆盖 last_triggered）
 
 - **ledger 补读字段**：`scripts/rule_ledger.py` 的 `load_review_refs` 原先只读 `issue["rule"]`，漏掉现行 `rule_ref`（244 处引用），导致 L1 触发被严重低估。改为按 `rule_ref` / `rule` / `rule_id` 依次合并；零触发 hot Rule 从 17 降到 6。
