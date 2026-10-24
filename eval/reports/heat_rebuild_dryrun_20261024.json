@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-24",
+  "review_json_files": 99,
+  "broken_json": [
+    "2026-06-04_review.json",
+    "2026-06-18_review.json",
+    "2026-06-26_review.json",
+    "2026-07-02_review.json",
+    "2026-07-03_review.json"
+  ],
+  "issues_total": 282,
+  "rules_with_issue": 60,
+  "heat_lag": 26,
+  "heat_missing": 7,
+  "heat_only_expected": 88,
+  "same_or_heat_ahead": 27,
+  "heat_lag_examples": [
+    {
+      "key": "rule_02",
+      "last_issue": "2026-08-19",
+      "last_triggered": "2026-08-06"
+    },
+    {
+      "key": "rule_08",
+      "last_issue": "2026-09-02",
+      "last_triggered": "2026-08-28"
+    },
+    {
+      "key": "rule_11",
+      "last_issue": "2026-09-07",
+      "last_triggered": "2026-08-06"
+    },
+    {
+      "key": "rule_13",
+      "last_issue": "2026-10-23",
+      "last_triggered": "2026-10-22"
+    },
+    {
+      "key": "rule_16",
+      "last_issue": "2026-10-15",
+      "last_triggered": "2026-10-14"
+    },
+    {
+      "key": "rule_20",
+      "last_issue": "2026-10-15",
+      "last_triggered": "2026-07-17"
+    },
+    {
+      "key": "rule_22",
+      "last_issue": "2026-10-15",
+      "last_triggered": "2026-10-14"
+    },
+    {
+      "key": "rule_26",
+      "last_issue": "2026-08-24",
+      "last_triggered": "2026-06-01"
+    },
+    {
+      "key": "rule_39",
+      "last_issue": "2026-08-26",
+      "last_triggered": "2026-07-27"
+    },
+    {
+      "key": "rule_40",
+      "last_issue": "2026-08-26",
+      "last_triggered": "2026-08-03"
+    }
+  ],
+  "heat_missing_examples": [
+    "rule_03",
+    "rule_09",
+    "rule_12",
+    "rule_32",
+    "rule_34",
+    "rule_35",
+    "forbidden_01"
+  ],
+  "applied": false
+}

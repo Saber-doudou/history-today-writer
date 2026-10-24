@@ -1,5 +1,14 @@
 # CHANGELOG — history-today-writer
 
+## 记录（不改版本号）| 2026-10-24（D6 温控口径修复：ledger 补读 rule_ref + heat 增 last_issue，不覆盖 last_triggered）
+
+- **ledger 补读字段**：`scripts/rule_ledger.py` 的 `load_review_refs` 原先只读 `issue["rule"]`，漏掉现行 `rule_ref`（244 处引用），导致 L1 触发被严重低估。改为按 `rule_ref` / `rule` / `rule_id` 依次合并；零触发 hot Rule 从 17 降到 6。
+- **heat 增派生字段**：`review/rule_heat.json` 为每条规则增加 `last_issue`（L1 缺陷引用日期）与 `issue_count_30d`，保留 `last_triggered`（L2 规则应用日期）不覆盖；备份 `review/rule_heat.json.bak-20261024`。
+- **迁移判据**：`scripts/migrate_cold_rules.py` 的最近活动改为 `max(last_triggered, last_issue)`，避免「仍有缺陷触发、但 L2 未更新日期」的规则被误降 cold。
+- **口径分离**：不再用单一「128 漂移」混算。新口径为 heat 滞后 26 / heat 缺记录 7 / heat-only（预期，预防型规则）88。actionable 差异 33 条，不是 128 条。
+- **新发现**：dry-run 报 Rule62 cold 但近 16 天有触发（疑似应 recovered），列冲突待 Master 裁决；本次不自动升温。
+- **净变化**：规则 199=146+53、hot 90/90 均不变；SKILL 版本仍 v10.3.9；33 个单测全过（新增 6 个 last_activity 测试）。
+
 ## v10.3.9 | 2026-10-22（卡尔逊静电复印术 L2：细化+判例路径零新增编号，规则 199=146+53 不变，hot 90/90 不变）
 
 - **背景**：10-22 L1 卡尔逊静电复印术（1938）v1 660 字经四AI投喂（ds/ima/千问/豆包 4/4 齐备，故事+点评各 4 份）学习。hot 90/90、总 199/200 双触顶，同 v10.3.4/v10.3.6/v10.3.7 走「细化+判例」路径，零新增编号。

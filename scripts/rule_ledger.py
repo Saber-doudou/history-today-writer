@@ -100,8 +100,11 @@ def load_review_refs(since: str | None) -> tuple[dict, list[str], int]:
             continue
         for issue in data.get("issues", []) or []:
             total_issues += 1
-            # 兼容两种历史形态：dict（含 rule 字段）与纯字符串
-            rule_text = issue.get("rule", "") if isinstance(issue, dict) else str(issue)
+            # 兼容历史形态：rule_ref（现行）/ rule / rule_id（旧版）/ 纯字符串
+            if isinstance(issue, dict):
+                rule_text = " ".join(str(issue.get(k, "")) for k in ("rule_ref", "rule", "rule_id"))
+            else:
+                rule_text = str(issue)
             for rid in extract_rule_ids(str(rule_text)):
                 refs.setdefault(rid, []).append(date)
     return refs, broken, total_issues
@@ -146,13 +149,15 @@ def main() -> int:
         h = heat.get(rid, {})
         status = h.get("status", "?")
         last_heat = h.get("last_triggered")
+        last_issue = h.get("last_issue")  # D6：L1 缺陷口径；last_triggered 是 L2 应用口径
         drift = ""
-        if last_measured and last_heat and last_measured != last_heat:
-            drift = f"⚠️漂移(heat={last_heat})"
-        elif last_measured and not last_heat:
+        if last_issue and last_heat:
+            if last_issue > last_heat:
+                drift = f"⚠️heat滞后(last_issue={last_issue})"
+        elif last_issue and not last_heat:
             drift = "⚠️heat缺记录"
-        elif last_heat and not last_measured:
-            drift = "⚠️heat独有(实测0)"  # A1 新增：heat 声称有触发但实测零引用（R50 降级前即此形态）
+        elif last_heat:
+            drift = "heat-only(预期)"  # 预防型规则：无缺陷引用不等于未使用
         rows.append((measured, rid, status, last_measured or "-", last_heat or "-", drift))
 
     rows.sort(key=lambda r: -r[0])
@@ -168,9 +173,11 @@ def main() -> int:
           f"（C2 候选第一判据；第二判据=一句话失败模式测试，人工复核后降 cold；Forbidden 已按口径纪律排除，与 --zero-only 同口径）")
     print(f"[ledger] 口径注：分母 {hot_rule_total} = 索引温控列自称 hot 的 Rule 全量（含 §5A 表格基础规则）；"
           f"sync_check ⑤ 的 88 为排除 §5A 23 条后的口径，两者差即 §5A，非账实不符")
-    drift_count = sum(1 for r in rows if r[5])
-    heat_only = sum(1 for r in rows if 'heat独有' in r[5])
-    print(f"[ledger] 声称漂移条目 {drift_count} 个（三类形态：实测与heat不一致 / 实测有heat缺 {drift_count - heat_only - sum(1 for r in rows if '漂移(heat' in r[5])} / heat有实测零 {heat_only}）")
+    heat_lag = sum(1 for r in rows if 'heat滞后' in r[5])
+    heat_missing = sum(1 for r in rows if 'heat缺记录' in r[5])
+    heat_only = sum(1 for r in rows if 'heat-only' in r[5])
+    print(f"[ledger] 温控差异：heat滞后 {heat_lag} / heat缺记录 {heat_missing} / heat-only(预期) {heat_only}")
+    print(f"[ledger] 口径：last_triggered=L2 规则应用日期；last_issue=L1 review.json 缺陷引用日期；两者语义不同，heat-only 不代表死规则")
     return 0
 
 

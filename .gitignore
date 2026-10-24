@@ -7,3 +7,6 @@ __pycache__/
 
 # 本地回滚备份（含 automation prompt 快照，不入库）
 eval/backups/
+
+# 温控重建备份（一次性，不入库）
+review/rule_heat.json.bak-*

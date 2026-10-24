@@ -4,7 +4,7 @@
 migrate_cold_rules.py — 规则正文冷热迁移（v0.1，2026-08-26）
 
 依据 docs/rule-cold-migration-plan.md（定稿 v1.1）：
-- A 双闸：last_triggered 距今 ≥60 天（null 视为超期）+ demoted_at 距今 ≥30 天（保护期）
+- A 双闸：max(last_triggered, last_issue) 距今 ≥60 天（null 视为超期）+ demoted_at 距今 ≥30 天（保护期）
 - B 默认 --dry-run 仅报告；连续 7 个工作日 ① 区无新增候选后由 Master 确认转 --force
 - C 本期只做降级 + 对账 + 冲突报告；升温（recovered/hot → 回搬 hot 区）留接口 v0.2 不上线
 - 2026-09-27：③「疑似应 recovered」判定加 last_triggered > demoted_at 前置条件——触发早于降级日不报（R139 误报修正，Master 授权）
@@ -83,6 +83,16 @@ def parse_date(s: str | None) -> date | None:
         return datetime.strptime(s.strip(), "%Y-%m-%d").date()
     except ValueError:
         return None
+
+
+def last_activity(heat: dict) -> date | None:
+    """最近活动日期 = max(L2 规则应用 last_triggered, L1 缺陷 last_issue)。
+
+    2026-10-24 D6：避免「仍有缺陷触发、但 L2 未更新日期」的规则被误降 cold。
+    """
+    ds = [parse_date(heat.get("last_triggered")), parse_date(heat.get("last_issue"))]
+    ds = [d for d in ds if d]
+    return max(ds) if ds else None
 
 
 # ============================================================
@@ -268,6 +278,7 @@ def classify(kind: str, n: int, heat: dict, idx: dict | None, act: dict | None) 
         "level": (idx or {}).get("level", "—"),
         "heat_col": (idx or {}).get("heat", "?"),
         "last_triggered": heat.get("last_triggered"),
+        "last_issue": heat.get("last_issue"),
         "demoted_at": heat.get("demoted_at"),
     }
 
@@ -280,7 +291,7 @@ def classify(kind: str, n: int, heat: dict, idx: dict | None, act: dict | None) 
     conflicts = []
     if (idx or {}).get("level") == "P0" and status == "cold":
         conflicts.append("P0 却 cold（设计文档规定 P0 永不降级）")
-    lt_d = parse_date(heat.get("last_triggered"))
+    lt_d = last_activity(heat)
     demoted_d = parse_date(heat.get("demoted_at"))
     # 2026-09-27 修正（Master 授权）：仅对「降级之后」发生的触发报疑似 recovered。
     # 触发早于降级日（如 R139 触发09-15、降级09-23）属降级前的遗留证据，不构成

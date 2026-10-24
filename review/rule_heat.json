@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-22",
+  "last_updated": "2026-10-24",
   "heat_period_days": 30,
   "rules": {
     "rule_01": {
@@ -8,203 +8,276 @@
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_02": {
       "last_triggered": "2026-08-06",
       "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-08-19",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_03": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-06-03",
+      "issue_count_30d": 0,
+      "source": "ledger"
     },
     "rule_04": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_05": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_06": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_07": {
       "last_triggered": "2026-08-03",
       "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-08-03",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_08": {
       "last_triggered": "2026-08-28",
       "count_30d": 8,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-09-02",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_09": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-10-08",
+      "issue_count_30d": 1,
+      "source": "ledger"
     },
     "rule_10": {
       "last_triggered": "2026-10-14",
       "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-10-14",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "rule_11": {
       "last_triggered": "2026-08-06",
       "count_30d": 5,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-09-07",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_12": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-06-10",
+      "issue_count_30d": 0,
+      "source": "ledger"
     },
     "rule_13": {
       "last_triggered": "2026-10-22",
       "count_30d": 23,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-10-23",
+      "issue_count_30d": 5,
+      "source": "manual+ledger"
     },
     "rule_14": {
       "last_triggered": "2026-10-14",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-08-06",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_15": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_16": {
       "last_triggered": "2026-10-14",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-10-15",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "rule_17": {
       "last_triggered": "2026-06-10",
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_18": {
       "last_triggered": "2026-10-21",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_19": {
       "last_triggered": "2026-10-14",
       "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-10-09",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "rule_20": {
       "last_triggered": "2026-07-17",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-10-15",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "rule_21": {
       "last_triggered": "2026-06-23",
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_22": {
       "last_triggered": "2026-10-14",
       "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-10-15",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "rule_23": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_24": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_25": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_26": {
       "last_triggered": "2026-06-01",
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-24",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_27": {
       "last_triggered": "2026-06-01",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_28": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_29": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_30": {
       "last_triggered": "2026-09-28",
@@ -213,462 +286,620 @@
       "demoted_at": "2026-08-06",
       "never_cool": false,
       "note": "2026-09-28 Master 定：与 R144 场景重叠经 R144 侧交叉引用消解，保持 cold 不升温",
-      "stay_cold": true
+      "stay_cold": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_31": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_32": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-06-17",
+      "issue_count_30d": 0,
+      "source": "ledger"
     },
     "rule_34": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-06-17",
+      "issue_count_30d": 0,
+      "source": "ledger"
     },
     "rule_35": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-06-19",
+      "issue_count_30d": 0,
+      "source": "ledger"
     },
     "rule_36": {
       "last_triggered": "2026-09-08",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-07-21",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_37": {
       "last_triggered": "2026-10-14",
       "count_30d": 12,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-10-09",
+      "issue_count_30d": 2,
+      "source": "manual+ledger"
     },
     "rule_38": {
       "last_triggered": "2026-10-14",
       "count_30d": 7,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-28",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_39": {
       "last_triggered": "2026-07-27",
       "count_30d": 4,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-26",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_40": {
       "last_triggered": "2026-08-03",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-26",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_41": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_42": {
       "last_triggered": "2026-10-20",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_43": {
       "last_triggered": "2026-08-06",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-12",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_44": {
       "last_triggered": "2026-08-06",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-19",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_45": {
       "last_triggered": "2026-06-08",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_46": {
       "last_triggered": "2026-08-06",
       "count_30d": 5,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-06",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_47": {
       "last_triggered": "2026-06-08",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_48": {
       "last_triggered": "2026-08-06",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-06",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_49": {
       "last_triggered": "2026-06-09",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_50": {
       "last_triggered": "2026-08-06",
       "count_30d": 1,
       "status": "cold",
       "demoted_at": "2026-10-13",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-06",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_51": {
       "last_triggered": "2026-06-11",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_52": {
       "last_triggered": "2026-10-22",
       "count_30d": 7,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-11",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_53": {
       "last_triggered": "2026-07-10",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-07-10",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_54": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_56": {
       "last_triggered": "2026-07-27",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-10-14",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "rule_57": {
       "last_triggered": "2026-10-20",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-07",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_58": {
       "last_triggered": "2026-10-14",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-06",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_59": {
       "last_triggered": "2026-06-22",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_60": {
       "last_triggered": "2026-06-24",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_61": {
       "last_triggered": "2026-06-24",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_62": {
       "last_triggered": "2026-06-26",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-10-08",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "rule_63": {
       "last_triggered": "2026-10-14",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-06",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_64": {
       "last_triggered": "2026-06-30",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_65": {
       "last_triggered": "2026-07-02",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_66": {
       "last_triggered": "2026-07-03",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_67": {
       "last_triggered": "2026-07-06",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_68": {
       "last_triggered": "2026-08-06",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-08-06",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_69": {
       "last_triggered": "2026-07-07",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_70": {
       "last_triggered": "2026-10-22",
       "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-07-14",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_71": {
       "last_triggered": "2026-10-14",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-20",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_72": {
       "last_triggered": "2026-07-09",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_73": {
       "last_triggered": "2026-07-10",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-28",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_74": {
       "last_triggered": "2026-07-14",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_75": {
       "last_triggered": "2026-07-15",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_76": {
       "last_triggered": "2026-07-24",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_77": {
       "last_triggered": "2026-07-22",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-09-22",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_78": {
       "last_triggered": "2026-07-23",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_79": {
       "last_triggered": "2026-08-21",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_80": {
       "last_triggered": "2026-10-14",
       "count_30d": 4,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-28",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_81": {
       "last_triggered": "2026-08-05",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_82": {
       "last_triggered": "2026-08-03",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_83": {
       "last_triggered": "2026-08-03",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_84": {
       "last_triggered": "2026-08-03",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_85": {
       "last_triggered": "2026-08-04",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_86": {
       "last_triggered": "2026-08-05",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_88": {
       "last_triggered": "2026-08-06",
       "count_30d": 1,
       "status": "cold",
       "demoted_at": "2026-10-12",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_89": {
       "last_triggered": "2026-08-07",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_90": {
       "last_triggered": "2026-08-07",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_91": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_92": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-09-11",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_93": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-09-11",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_94": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_95": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_96": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_97": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_98": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_99": {
       "last_triggered": "2026-09-29",
@@ -676,308 +907,400 @@
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
-      "note": "2026-09-29 祁暄中文打字机专利 L2：R99 编号复用承载「纪念日主角须立住」（原 R99「行动代号缺失」内容退役，因规则库触顶须等价减法且避免越界编号，参照 v10.2.2 填实 R30 先例）；判例 CASE-83"
+      "note": "2026-09-29 祁暄中文打字机专利 L2：R99 编号复用承载「纪念日主角须立住」（原 R99「行动代号缺失」内容退役，因规则库触顶须等价减法且避免越界编号，参照 v10.2.2 填实 R30 先例）；判例 CASE-83",
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_100": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-09-11",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_101": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-09-11",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_102": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_103": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_104": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_105": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_106": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_107": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_108": {
       "last_triggered": "2026-10-14",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_109": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_110": {
       "last_triggered": "2026-10-15",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_111": {
       "last_triggered": "2026-10-14",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-09-18",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_112": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_113": {
       "last_triggered": "2026-08-21",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_114": {
       "last_triggered": "2026-08-24",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_115": {
       "last_triggered": "2026-08-25",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-09-22",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "rule_116": {
       "last_triggered": "2026-08-25",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_117": {
       "last_triggered": "2026-08-26",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-10-08",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "rule_118": {
       "last_triggered": "2026-10-16",
       "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_119": {
       "last_triggered": "2026-10-20",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_120": {
       "last_triggered": "2026-08-31",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_121": {
       "last_triggered": "2026-08-31",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_122": {
       "last_triggered": "2026-08-31",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_123": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_124": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_125": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_126": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_127": {
       "last_triggered": "2026-09-02",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_128": {
       "last_triggered": "2026-09-03",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_129": {
       "last_triggered": "2026-09-03",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_130": {
       "last_triggered": "2026-09-14",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_131": {
       "last_triggered": "2026-09-07",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_132": {
       "last_triggered": "2026-09-08",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_133": {
       "last_triggered": "2026-10-14",
       "count_30d": 4,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_134": {
       "last_triggered": "2026-09-10",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_135": {
       "last_triggered": "2026-09-10",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_136": {
       "last_triggered": "2026-09-11",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_137": {
       "last_triggered": "2026-09-14",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_138": {
       "last_triggered": "2026-09-14",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_139": {
       "last_triggered": "2026-09-15",
       "count_30d": 1,
       "status": "cold",
       "demoted_at": "2026-09-23",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_140": {
       "last_triggered": "2026-09-15",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_141": {
       "last_triggered": "2026-09-16",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-10-09",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "rule_142": {
       "last_triggered": "2026-09-18",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_143": {
       "last_triggered": "2026-10-20",
@@ -985,7 +1308,10 @@
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
-      "note": "2026-09-25 TAT-1 L2：ds+ima 称 v1「588通≈短波时代全年近三成」查无实证，独立核验 Wikipedia（1927年无线电跨洋电话年约2000通）证实 588/2000≈29%，v1 正确，AI 误判"
+      "note": "2026-09-25 TAT-1 L2：ds+ima 称 v1「588通≈短波时代全年近三成」查无实证，独立核验 Wikipedia（1927年无线电跨洋电话年约2000通）证实 588/2000≈29%，v1 正确，AI 误判",
+      "last_issue": "2026-10-09",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "rule_144": {
       "last_triggered": "2026-09-25",
@@ -994,7 +1320,9 @@
       "demoted_at": null,
       "never_cool": false,
       "note": "2026-09-25 TAT-1 L2：细化补 (d) 突破前旧方案对照基线；2026-09-28 Master 定：与 R30 场景重叠经本条交叉引用消解，保持 cold 不升温",
-      "stay_cold": true
+      "stay_cold": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_145": {
       "last_triggered": "2026-10-21",
@@ -1002,161 +1330,212 @@
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
-      "note": "2026-09-25 TAT-1 L2 新增：时间跨度须锚定起算年份；判例 CASE-81"
+      "note": "2026-09-25 TAT-1 L2 新增：时间跨度须锚定起算年份；判例 CASE-81",
+      "last_issue": "2026-10-15",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "rule_146": {
       "last_triggered": "2026-10-09",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_147": {
       "last_triggered": "2026-10-12",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_148": {
       "last_triggered": "2026-10-13",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "rule_149": {
       "last_triggered": "2026-10-15",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_01": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-11",
+      "issue_count_30d": 0,
+      "source": "ledger"
     },
     "forbidden_02": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_03": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_04": {
       "last_triggered": "2026-08-06",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-06",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "forbidden_05": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_06": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_07": {
       "last_triggered": "2026-10-14",
       "count_30d": 4,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": "2026-10-15",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "forbidden_08": {
       "last_triggered": "2026-07-10",
       "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-07-10",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "forbidden_09": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_10": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_11": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_12": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_13": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_14": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_15": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_16": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_17": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_18": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_19": {
       "last_triggered": "2026-08-31",
@@ -1164,245 +1543,326 @@
       "status": "recovered",
       "demoted_at": "2026-08-06",
       "never_cool": false,
-      "note": "SKILL 输出规范强制脚注(*字数/领域*)除外（B2 2026-08-31 恢复；2026-09-27 正文回搬 writing_core.md Forbidden #19 行）"
+      "note": "SKILL 输出规范强制脚注(*字数/领域*)除外（B2 2026-08-31 恢复；2026-09-27 正文回搬 writing_core.md Forbidden #19 行）",
+      "last_issue": "2026-08-31",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "forbidden_20": {
       "last_triggered": "2026-06-11",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-06",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "forbidden_21": {
       "last_triggered": "2026-06-11",
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-20",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "forbidden_22": {
       "last_triggered": "2026-06-11",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-03",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "forbidden_26": {
       "last_triggered": "2026-07-17",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-07-17",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "forbidden_27": {
       "last_triggered": "2026-06-26",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_28": {
       "last_triggered": "2026-06-26",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_29": {
       "last_triggered": "2026-07-23",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-07-23",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "forbidden_30": {
       "last_triggered": "2026-07-02",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_31": {
       "last_triggered": "2026-07-03",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_32": {
       "last_triggered": "2026-07-03",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_33": {
       "last_triggered": "2026-07-06",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_34": {
       "last_triggered": "2026-07-07",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_35": {
       "last_triggered": "2026-07-07",
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_36": {
       "last_triggered": "2026-07-09",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_37": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "cold",
       "demoted_at": "2026-08-06",
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_38": {
       "last_triggered": "2026-07-15",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_39": {
       "last_triggered": "2026-07-24",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_40": {
       "last_triggered": "2026-07-22",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_41": {
       "last_triggered": "2026-08-21",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_42": {
       "last_triggered": "2026-07-23",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-10-23",
+      "issue_count_30d": 1,
+      "source": "manual+ledger"
     },
     "forbidden_43": {
       "last_triggered": "2026-07-24",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_44": {
       "last_triggered": "2026-07-27",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_45": {
       "last_triggered": "2026-07-28",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_46": {
       "last_triggered": "2026-07-30",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_47": {
       "last_triggered": "2026-09-10",
       "count_30d": 2,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_48": {
       "last_triggered": "2026-08-04",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-08-28",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "forbidden_51": {
       "last_triggered": null,
       "count_30d": 0,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": true
+      "never_cool": true,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_52": {
       "last_triggered": "2026-10-14",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_53": {
       "last_triggered": "2026-08-21",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_54": {
       "last_triggered": "2026-08-27",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_55": {
       "last_triggered": "2026-09-02",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_56": {
       "last_triggered": "2026-09-05",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": "2026-09-07",
+      "issue_count_30d": 0,
+      "source": "manual+ledger"
     },
     "forbidden_57": {
       "last_triggered": "2026-09-08",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     },
     "forbidden_58": {
       "last_triggered": "2026-09-09",
       "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
-      "never_cool": false
+      "never_cool": false,
+      "last_issue": null,
+      "issue_count_30d": 0
     }
-  }
+  },
+  "ledger_derived_at": "2026-10-24T17:27:04",
+  "ledger_source_note": "last_issue/issue_count_30d 来自 review.json；last_triggered 保留 L2 应用口径"
 }
