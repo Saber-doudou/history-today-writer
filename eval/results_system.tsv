@@ -15,3 +15,5 @@ timestamp	unit	commit	metric	before	after	status	eval_mode	note
 2026-10-24T17:40	D6-heat	4b4bf3a	zero_trigger_hot	17	6	keep	full_test	ledger 补读 rule_ref/rule_id，L1 引用覆盖率修复
 2026-10-24T17:40	D6-heat	4b4bf3a	conflict_candidates	0	1	keep	full_test	Rule62 cold 但近16天有触发（疑似 recovered），待裁决
 2026-10-24T17:40	D6-heat	4b4bf3a	unit_tests	27	33	keep	full_test	33/33（新增 6 个 last_activity 测试）
+2026-10-26T23:50	O-1-observe	d338d73	contract_strict	0	1.0	keep	full_test	10-26 689字；gate pass；independence=self_review（429 熔断第1样本）；claims skip
+2026-10-26T23:50	O-1c-l3receipt	d338d73	receipt_note_id_format	dict_string	raw_id	keep	full_test	l3_publish 增 _as_id；⑬ 23/24→24/24；39 tests
