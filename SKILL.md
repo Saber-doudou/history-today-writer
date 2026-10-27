@@ -61,7 +61,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 90条hot规则（core 70 + 题材专项 20，sync_check ⑤ 实跑口径）+ 温控表；索引：199条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~85K + 索引18K + 题材8-16K（+按需12K+4K） |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-77 四AI共性模式（+R111 等 hot 引用，编号见 rule_index）+ 审校子系统 + 标点规范 | ~43K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~47K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 99条案例（续号至99；只Grep命中关键词，禁止整读进上下文） | ~131K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 100条案例（续号至100；只Grep命中关键词，禁止整读进上下文） | ~131K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
@@ -235,7 +235,7 @@ reviewer → orchestrator：
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden）+ cold 状态表（v9.7.8 迁入） |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-77（四AI共性）+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
-| 判例库 | `review/CASE_STUDIES.md` | 99条案例（续号至99） |
+| 判例库 | `review/CASE_STUDIES.md` | 100条案例（续号至100） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题人类可读视图（LLM 不再整读） |
 | 查重脚本 | `scripts/check_topic.py` | Phase 1 选题查重（三源索引+退出码0/1/2，--self-test 全量回归） |
 | 选题索引 | `archive/daily/选题索引.md` | 纯选题两列视图（运行日期\|选题名），Phase 5b 从 TOPICS.md 选题复盘块重建 |
@@ -244,6 +244,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v10.4.0 | 2026-10-24 | 苹果发布第一代 iPod（2001）L2：零新增编号走「细化+判例」路径（R143 判例来源追加本轮三实例——纠错侧正向应用：千问「2004年底破千万是硬伤」质疑经 iLounge/Cult of Mac/Post-Bulletin 多源证伪（第1000万台于2004-12-16售出），ima/千问对「体积两成」「CD十秒」的质疑被苹果官方新闻稿证伪，均守「AI误判默认保留v1」不反向改错；CASE-91 计数 2→3（时点子类：三代iPod/商店/iTunes for Windows 三节点压成一语，v2 拆开补「这年秋天iTunes登陆Windows」）；CASE-99 入库（开场现场反应与史实相左——「沸腾」写反方向，4/4 故事版互证+MacRumors/BI 外部核验，v2 改「反响并不热烈」）；规则 199=146+53 不变，hot 90/90 不变；v2 文章 724 字；逐版变更流水见 CHANGELOG.md*
+*Version: v10.4.1 | 2026-10-27 | 杜邦宣布尼龙命名（1938）L2：零新增编号走「细化+判例」路径（R130 细化补「标题设问承诺的因果答案须正文兑现」——由『具象钩子』扩为『设问承诺』，v1 标题『为什么在发明人离世后才被命名』正文从未回答『命名为何拖到那时』，4/4 点题不扣题，编号不增）；CASE-100 入库（事件发生地与所在地混同——v1 落款把杜邦总部『特拉华州威尔明顿』当成 1938 命名宣布现场，实为纽约《先驱论坛报》论坛全国电台讲话，3/4 故事版互证+千问点破+ACS 地标档案权威源；R13 核心事实子类）；199=146+53 不变，hot 90/90 不变；v2 文章 697 字；逐版变更流水见 CHANGELOG.md*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。

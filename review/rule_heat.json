@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-24",
+  "last_updated": "2026-10-27",
   "heat_period_days": 30,
   "rules": {
     "rule_01": {
@@ -120,15 +120,15 @@
       "source": "ledger"
     },
     "rule_13": {
-      "last_triggered": "2026-10-24",
-      "count_30d": 24,
+      "last_triggered": "2026-10-27",
+      "count_30d": 25,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true,
       "last_issue": "2026-10-23",
       "issue_count_30d": 5,
       "source": "manual+ledger",
-      "note": "2026-10-23 iPod L2：开场氛围「沸腾」改「反响并不热烈」（4/4+外部源）；三代/商店/Windows 三节点时间链拆开；结尾删乔布斯去世"
+      "note": "2026-10-27 尼龙命名 L2：地点错位（威尔明顿→纽约）+ 命名因果/死讯细节/投入2700万/牙刷毛/销量口径校正（ACS+NYT+多源）；CASE-100 入库"
     },
     "rule_14": {
       "last_triggered": "2026-10-14",
