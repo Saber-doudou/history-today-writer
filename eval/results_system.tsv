@@ -20,3 +20,39 @@ timestamp	unit	commit	metric	before	after	status	eval_mode	note
 2026-10-27T23:00	O-1-observe	5ae7db3	contract_strict	0	1.0	keep	full_test	10-27 gate pass；cross_family；P2=4；claims skip
 2026-10-27T23:00	O-1c-receipt	5ae7db3	receipt_format	raw_id	raw_id	keep	full_test	10-26 _as_id 修复生产生效；note_id 7520789184131540
 2026-10-29T00:15	O-1-observe	e7f18ba	contract_strict	0	1.0	keep	full_test	10-28 gate pass；cross_family；P2=1；claims skip；L3 Phase6 日志异常但 remote 一致
+2026-10-29T23:59
+O-1-observe
+c9cb49a
+contract_strict
+0
+1.0
+keep
+full_test
+10-29 gate pass（623字）；cross_family；P0/P1/P2=0；claims skip
+2026-10-29T23:59
+O-1-gate
+c9cb49a
+A4_first_prod_catch
+0
+1
+keep
+full_test
+A4 首例生产拦截：标题 On ThisDay 缺空格→修正复验 pass
+2026-10-29T23:59
+O-1-mem
+c9cb49a
+memory_size
+3150/49227B
+2932/47709B
+keep
+full_test
+MEMORY 压 3 行明细；automation memory 删重复头部 1892B；⑧ 回绿
+2026-10-29T23:59
+O-1-sync
+c9cb49a
+sync_check
+22/24
+24/24
+keep
+full_test
+补 exec_log 10-29 行 + ⑧ 两项修复
