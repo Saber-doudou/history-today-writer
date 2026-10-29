@@ -56,3 +56,12 @@ sync_check
 keep
 full_test
 补 exec_log 10-29 行 + ⑧ 两项修复
+2026-10-29T23:55
+O-1-observe
+b9cefc4
+l2_finalize
+v10.4.2
+v10.4.3(未提交)
+hold
+full_test
+L2 并发升版：文件全绿 24/24 但未 commit，日志/MEMORY/exec_log/learning_log 缺 L2 段；入池 B-22
