@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-27",
+  "last_updated": "2026-10-29",
   "heat_period_days": 30,
   "rules": {
     "rule_01": {
@@ -120,15 +120,15 @@
       "source": "ledger"
     },
     "rule_13": {
-      "last_triggered": "2026-10-27",
-      "count_30d": 25,
+      "last_triggered": "2026-10-29",
+      "count_30d": 26,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true,
       "last_issue": "2026-10-23",
       "issue_count_30d": 5,
       "source": "manual+ledger",
-      "note": "2026-10-27 尼龙命名 L2：地点错位（威尔明顿→纽约）+ 命名因果/死讯细节/投入2700万/牙刷毛/销量口径校正（ACS+NYT+多源）；CASE-100 入库"
+      "note": "2026-10-29 阿帕网 L2：CASE-102 科技起源叙事史实错位复合瑕疵（故障归因错置/分组交换归属张冠李戴/防核起源神话当立项初衷），三类同挂 R13 umbrella"
     },
     "rule_14": {
       "last_triggered": "2026-10-14",
@@ -244,14 +244,15 @@
       "issue_count_30d": 0
     },
     "rule_26": {
-      "last_triggered": "2026-06-01",
-      "count_30d": 0,
+      "last_triggered": "2026-10-29",
+      "count_30d": 1,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
       "last_issue": "2026-08-24",
       "issue_count_30d": 0,
-      "source": "manual+ledger"
+      "source": "manual+ledger",
+      "note": "2026-10-29 阿帕网 L2：AI「缓冲区溢出」经核二级源且二级源互歧，按未核实不入正文不写死"
     },
     "rule_27": {
       "last_triggered": "2026-06-01",
@@ -646,15 +647,15 @@
       "issue_count_30d": 0
     },
     "rule_70": {
-      "last_triggered": "2026-10-24",
-      "count_30d": 4,
+      "last_triggered": "2026-10-29",
+      "count_30d": 5,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true,
       "last_issue": "2026-07-14",
       "issue_count_30d": 0,
       "source": "manual+ledger",
-      "note": "2026-10-23 iPod L2：多源口径分歧裁决——官方营销口径（体积两成/CD十秒）vs AI 独立口径质疑，以官方新闻稿为准保留；千万台里程碑时点多源核验（2004-12-16）"
+      "note": "2026-10-29 阿帕网 L2：距离口径五百多公里→三百五十英里一级源；缓冲区溢出二级源互歧不择一沉默"
     },
     "rule_71": {
       "last_triggered": "2026-10-14",
@@ -1306,12 +1307,12 @@
       "issue_count_30d": 0
     },
     "rule_143": {
-      "last_triggered": "2026-10-24",
-      "count_30d": 6,
+      "last_triggered": "2026-10-29",
+      "count_30d": 7,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
-      "note": "2026-10-23 iPod L2：R143 判例来源追加三实例——千问「2004年底破千万是硬伤」被 iLounge/Cult of Mac/Post-Bulletin 多源证伪（第1000万台 2004-12-16 售出）；ima/千问对「体积两成」「CD十秒」质疑被苹果官方新闻稿证伪；纠错侧正向应用+AI 误判不反向改错",
+      "note": "2026-10-29 阿帕网 L2：AI「缓冲区溢出」独立核验为 Duvall 2019 BBC 二级说法、二级源对崩在第几字母互歧，不反向照搬",
       "last_issue": "2026-10-09",
       "issue_count_30d": 1,
       "source": "manual+ledger"
@@ -1328,12 +1329,12 @@
       "issue_count_30d": 0
     },
     "rule_145": {
-      "last_triggered": "2026-10-21",
-      "count_30d": 2,
+      "last_triggered": "2026-10-29",
+      "count_30d": 3,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
-      "note": "2026-09-25 TAT-1 L2 新增：时间跨度须锚定起算年份；判例 CASE-81",
+      "note": "2026-10-29 阿帕网 L2：TCP/IP 时间锚点+UCSB 11月/犹他 12月分写（B-20）",
       "last_issue": "2026-10-15",
       "issue_count_30d": 1,
       "source": "manual+ledger"

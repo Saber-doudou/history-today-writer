@@ -61,7 +61,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 | **Phase 2-3 写作** | `writing_core.md` + `rule_index.md` +（按题材）`topics/` 1 个 +（按需）`craft_optional.md` +（按需）`fact_checklist.md` | 核心：叙事结构 + 6维工具包 + 写作标准 + 90条hot规则（core 70 + 题材专项 20，sync_check ⑤ 实跑口径）+ 温控表；索引：199条规则编号+摘要；题材专项×3；非强制技法；写作侧事实核查清单 | 核心~85K + 索引18K + 题材8-16K（+按需12K+4K） |
 | Phase 3.5 审校 | `review_rules.md` | P0/P1/P2审校表 + 元规则 + 反馈日志 + Rule 31-77 四AI共性模式（+R111 等 hot 引用，编号见 rule_index）+ 审校子系统 + 标点规范 | ~43K |
 | **Phase 3.5 审校** | `review/prompts/` | 6维度深度审校Prompt模板 | ~47K |
-| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 101条案例（续号至101；只Grep命中关键词，禁止整读进上下文） | ~133K |
+| **Phase 3.6 判例** | `review/CASE_STUDIES.md` | 102条案例（续号至102；只Grep命中关键词，禁止整读进上下文） | ~135K |
 
 **模块化设计原则**：
 - Orchestrator 写作阶段不加载 review_rules.md —— 避免"知道考纲做题"
@@ -235,7 +235,7 @@ reviewer → orchestrator：
 | 冷规则存档 | `archive/cold_rules.md` | 冷规则正文（29 Rule + 26 Forbidden）+ cold 状态表（v9.7.8 迁入） |
 | 审校规则 | `review_rules.md` | 审校表+元规则+Rule 31-77（四AI共性）+审校子系统 |
 | 审校Prompt | `review/prompts/0*.md` | 6维度深度审校模板 |
-| 判例库 | `review/CASE_STUDIES.md` | 101条案例（续号至101） |
+| 判例库 | `review/CASE_STUDIES.md` | 102条案例（续号至102） |
 | 选题历史 | `archive/daily/TOPICS.md` | 已写选题人类可读视图（LLM 不再整读） |
 | 查重脚本 | `scripts/check_topic.py` | Phase 1 选题查重（三源索引+退出码0/1/2，--self-test 全量回归） |
 | 选题索引 | `archive/daily/选题索引.md` | 纯选题两列视图（运行日期\|选题名），Phase 5b 从 TOPICS.md 选题复盘块重建 |
@@ -244,6 +244,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v10.4.2 | 2026-10-28 | 雷诺光学剧场首映动画（1892）L2：零新增编号走「细化+判例」路径（CASE-101 入库——物类术语跨类借代，v1 全文 4 处把雷诺「手绘透明画片＋打孔柔带」误称「胶片」（摄影感光词），3/4 点评+FranceArchives 权威源；R13 P0 材质子类同挂 R13，与 CASE-100 地点子类并列）；v2 改「柔韧长带/手绘透明画片」彻底禁用「胶片」+沉河1913/去世1918拆段+伊夫里疗养院+活动视镜+钟表匠父/水彩母铺垫+拒绝摄影术殉道叙事+分层背景合成遗产（赛璐珞前身）+UNESCO2015名录；Phase 2.5 重拟标题「比电影早三年，一台拒绝了摄影术的机器」；199=146+53 不变，hot 90/90 不变；v2 646 字；逐版变更流水见 CHANGELOG.md*
+*Version: v10.4.3 | 2026-10-29 | 阿帕网首次主机间传输（1969）L2：零新增编号走「细化+判例」路径——CASE-102 入库（科技起源叙事史实错位复合瑕疵：故障归因错置 SRI 应急程序 bug 误作网络不稳/我方黑屏、分组交换归属张冠李戴 Baran/Davies 各自独立提出·Kleinrock 贡献数学理论、防核起源神话当立项初衷实为省钱共享算力，三类同挂 R13 umbrella 与 CASE-100/101 并列，R26/R70/R143/R145 编号不增复现应用）；v2 归因收敛 SRI 应急程序+归属翻转+动机翻转+高级研究计划局译名+三百五十英里一级源+删无出处引语，AI「缓冲区溢出」经核二级源且二级源互歧故不写死；Phase 2.5 标题「LO：互联网的第一句话，是一个没发完的 bug」；199=146+53、hot 90/90 不变；v2 正文汉字 739（gate A1 口径；全文正则 754）；基于 v10.4.2（2026-10-28 雷诺 CASE-101）；逐版见 CHANGELOG.md*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。
