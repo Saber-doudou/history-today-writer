@@ -217,6 +217,8 @@ def main() -> int:
     missing = Counter()
     by_family = Counter()
     raw_only = []
+    self_review_pass = []
+    self_review_samples = 0
 
     for p in files:
         family = route_schema(p)
@@ -249,6 +251,13 @@ def main() -> int:
             rec["warnings"].extend(f"归一化已吸收：{c}" for c in changes)
             raw_only.append(p.name)
         rec["warnings"].extend(count_mismatch(norm))
+        # D2b（2026-10-30，B-10）：自审不得单独判过。样本不足前只告警，不阻断；
+        # 待 self_review 样本累计 ≥3 次后升级为 error（见待办池 B-10）。
+        if isinstance(norm, dict) and norm.get("independence") == "self_review":
+            self_review_samples += 1
+            if norm.get("pass") is True:
+                rec["warnings"].append("self_review 却判 pass=true（D2b：自审不得单独判过，当前仅告警）")
+                self_review_pass.append(p.name)
         for e in errs:
             m = re.search(r"缺少必填字段 (\w+)", e)
             if m:
@@ -267,6 +276,8 @@ def main() -> int:
         "compliance_rate": round(passed / len(results), 4) if results else 0,
         "raw_compliance_rate": round(raw_passed / len(results), 4) if results else 0,
         "raw_only_fail": raw_only,
+        "self_review_pass": self_review_pass,
+        "self_review_samples": self_review_samples,
         "missing_fields": dict(missing.most_common()),
         "results": results,
     }

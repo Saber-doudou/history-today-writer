@@ -77,6 +77,27 @@ def main() -> int:
         "error": err[:120] if err else "",
     })
 
+    # 阶段断点（B-14 轻量版，2026-10-30）：不写自报状态的 run_state 文件，直接从产物反推
+    # 「停在哪一步」——自报会撒谎，产物不会。缺后续阶段属正常（按时间推进），故只作提示。
+    daily = Path("F:/WorkBuddy/history-today/archive/daily")
+    dates = sorted({m.group(1) for p in daily.glob("????-??-??*.md")
+                    if (m := re.match(r"(\d{4}-\d{2}-\d{2})", p.name))}, reverse=True)
+    if dates:
+        d = dates[0]
+        steps = [("L1 文章", daily / f"{d}.md"),
+                 ("审校", daily / f"{d}_review.json"),
+                 ("L2 定稿", daily / f"{d}_v2.md"),
+                 ("复检", daily / f"{d}_v2_review.json"),
+                 ("L3 收据", daily / f"{d}_ima_receipt.json")]
+        got = [n for n, f in steps if f.is_file()]
+        miss = [n for n, f in steps if not f.is_file()]
+        checks.append({
+            "id": "stage",
+            "ok": steps[0][1].is_file(),
+            "warn_only": True,
+            "detail": f"{d}｜已完成 {'+'.join(got) or '无'}｜未完成 {'+'.join(miss) or '无'}",
+        })
+
     hard_fail = [c for c in checks if not c["ok"] and not c.get("warn_only")]
     warn = [c for c in checks if not c["ok"] and c.get("warn_only")]
     result = {

@@ -132,6 +132,17 @@ def main() -> int:
     print(f"[ledger] 实测 issue 总数: {total_issues}（L1 review 口径）；CHANGELOG 规则引用 {cl_total} 处（L2 口径）；"
           f"合并后实测触发规则数: {len(refs)}")
 
+    # B-10（2026-10-30）：审校独立性分布——self_review 样本累计到 3 个即可把 D2b 升级为硬判
+    indep: dict[str, int] = {}
+    for f in DAILY_DIR.glob("*_review.json"):
+        try:
+            v = json.loads(f.read_text(encoding="utf-8")).get("independence", "缺失")
+        except Exception:
+            continue
+        indep[str(v)] = indep.get(str(v), 0) + 1
+    top = sorted(indep.items(), key=lambda x: -x[1])
+    print("[ledger] 审校独立性分布: " + " / ".join(f"{k} {n}" for k, n in top))
+
     if args.zero_only:
         # Forbidden 零触发语义反转（防线起效），默认排除，仅 Rule 进候选
         zero_hot = [rid for rid, h in heat.items()

@@ -18,10 +18,16 @@ CFG = json.loads((ROOT / "eval" / "gate_config.json").read_text(encoding="utf-8"
 BODY = "灯" * 600
 
 
-def make(text: str) -> Path:
+def make(text: str, companions: bool = True) -> Path:
     d = tempfile.mkdtemp()
     p = Path(d) / "2026-10-22_v2.md"
     p.write_text(text, encoding="utf-8")
+    if companions:
+        # M1（B-13）：v2 阶段要求复检件同目录存在
+        (Path(d) / "2026-10-22_v2_review.json").write_text(
+            json.dumps({"date": "2026-10-22", "p0_count": 0, "p1_count": 0,
+                        "p2_count": 0, "pass": True, "issues": []}, ensure_ascii=False),
+            encoding="utf-8")
     return p
 
 
@@ -72,6 +78,31 @@ class TestGateCheck(unittest.TestCase):
         r = gc.check(make(text), CFG)
         a11 = [c for c in r["checks"] if c["id"] == "A11"][0]
         self.assertEqual(a11["status"], "warn", a11)
+
+
+class TestArtifacts(unittest.TestCase):
+    """M1-M3 产物齐备性（B-13，2026-10-30）。"""
+
+    def test_m1_missing_recheck(self):
+        r = gc.check(make(valid_text(), companions=False), CFG)
+        self.assertTrue(any(f["id"] == "M1" for f in r["p0_fail"]), r["p0_fail"])
+
+    def test_m2_date_mismatch(self):
+        p = make(valid_text())
+        (p.parent / "2026-10-22_review.json").write_text(
+            json.dumps({"date": "2026-10-21"}, ensure_ascii=False), encoding="utf-8")
+        r = gc.check(p, CFG)
+        self.assertTrue(any(f["id"] == "M2" for f in r["p0_fail"]), r["p0_fail"])
+
+    def test_m3_warn_when_v2_without_recheck(self):
+        d = Path(tempfile.mkdtemp())
+        p = d / "2026-10-22.md"
+        p.write_text(valid_text(), encoding="utf-8")
+        (d / "2026-10-22_review.json").write_text(
+            json.dumps({"date": "2026-10-22"}, ensure_ascii=False), encoding="utf-8")
+        (d / "2026-10-22_v2.md").write_text(valid_text(), encoding="utf-8")
+        r = gc.check(p, CFG)
+        self.assertTrue(any(w["id"] == "M3" for w in r["warnings"]), r["warnings"])
 
 
 if __name__ == "__main__":

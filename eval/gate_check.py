@@ -151,6 +151,39 @@ def check(article_path: Path, cfg: dict, core_image: str = "", claims_path: Path
 
     add("A12", "skip", cfg["deferred_checks"]["A12"])
 
+    # ── 产物齐备性（M1-M3，2026-10-30，B-13）──
+    # 补的是「内容检查全过、但产物本身缺件/错配」这一类洞：
+    #   M1 本阶段应存在的审校件是否落盘   M2 review.date 是否等于文章日期
+    #   M3 v2 与 v2_review 是否成对（2026-10-30 起的新约定，历史篇不追溯，故只 warn）
+    art_dir = article_path.parent
+    is_v2 = bool(re.search(r"_v\d+(?:\.\d+)*\.md$", article_path.name))
+    review_f = art_dir / f"{article_date}_review.json"
+    v2_f = art_dir / f"{article_date}_v2.md"
+    v2_review_f = art_dir / f"{article_date}_v2_review.json"
+
+    if not article_date:
+        add("M1", "skip", "文件名无日期，跳过产物检查")
+        add("M2", "skip", "同上")
+        add("M3", "skip", "同上")
+    else:
+        need = v2_review_f if is_v2 else review_f
+        add("M1", "pass" if need.is_file() else "fail",
+            f"{need.name} {'存在' if need.is_file() else '缺失'}")
+        if review_f.is_file():
+            try:
+                rdate = json.loads(review_f.read_text(encoding="utf-8")).get("date")
+                add("M2", "pass" if rdate == article_date else "fail",
+                    f"review.date={rdate}，文章 date={article_date}")
+            except Exception as e:
+                add("M2", "fail", f"review 不可解析: {str(e)[:60]}")
+        else:
+            add("M2", "skip", "review.json 不存在")
+        if v2_f.is_file():
+            add("M3", "pass" if v2_review_f.is_file() else "warn",
+                f"v2 存在；{'复检件齐备' if v2_review_f.is_file() else '缺 ' + v2_review_f.name}")
+        else:
+            add("M3", "skip", "尚未生成 v2 定稿")
+
     fail = [c for c in checks if c["status"] == "fail"]
     warn = [c for c in checks if c["status"] == "warn"]
     return {

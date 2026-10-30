@@ -11,8 +11,12 @@
 - **B-07 投喂素材季度归档**：早于 2026-08-31 的 78 个目录打包为 `archive/backups/投喂素材_20260831前.zip`（694 文件，CRC 全过），原目录移入 `archive/投喂素材_归档_20260831前/`（不删除，可回溯）。活跃目录 118 → 40，体积 6.3MB → 2.2MB。
 - **B-03 heat 缺记录标注**：7 条只有 `last_issue` 无 `last_triggered` 的规则标 `trigger_state: unknown` + `trigger_note`，不伪造日期。
 - **B-02 双口径定案**：`last_triggered`=L2 应用、`last_issue`=L1 缺陷，不同源、**不回填**；「滞后 23 条」是并存常态，只报告不修。口径写入 `topics/ops_notes.md`。
-- **B-01 未动**：Rule62 升 hot 需等价减法（hot 90/90 满员），先降哪条属内容裁决，留 Master 定夺。
-- **测试**：62 → 65（新增收据 `kb_idempotent`/`git_pending` 三例）。`python -m unittest discover -s eval/tests` 全过；`sync_check` 24/24。
+- **B-13 产物齐备性（M1-M3）**：`eval/gate_check.py` 新增三项——M1 本阶段审校件是否落盘（L1 查 `{date}_review.json`，v2 查 `{date}_v2_review.json`，缺失即 fail）；M2 `review.date` 与文章日期一致（不一致 fail）；M3 v2 与 v2_review 成对（新约定不追溯历史，缺失只 warn）。补的是「正文全过但产物缺件/错配」这一类此前完全无检的洞。
+- **B-10 自审禁判 pass（告警级）**：`validate_review.py` 对 `independence=self_review` 且 `pass=true` 的文件出告警并计入 `self_review_pass`，同时输出 `self_review_samples`；`rule_ledger.py` 增「审校独立性分布」一行。现测：样本 1（10-26），已告警。待样本 ≥3 升级为 error。
+- **B-01 判例固化（不升 hot）**：CASE-103 入库「技术优势归属错位——把量产/改进写成研制发明」（2026-10-08 磁控管案例，Randall/Boot 1940 发明 vs 斯宾塞量产 17→2600/日，R62+R13+R143）。判例数 102→103，SKILL 两处声称同步。**不升 hot 的理由**：Rule62 近 4 个月仅 10-08 触发 1 次，而 hot 90/90 满员，用一次失错换掉一条在岗规则不划算；若 30 天内同类再犯 ≥2 次，届时升 hot 并降 R6。
+- **B-14 阶段断点（轻量版）**：不引入状态机，也不写自报状态的 run_state 文件（自报会撒谎），改由 `check_delivery.py` 从产物反推——`stage` 项直接输出「2026-10-30｜已完成 L1 文章+审校+L2 定稿+复检+L3 收据｜未完成 无」。
+- **⚠️ 容量预警**：CASE_STUDIES.md 现 **199,681 B / 200,000 B 上限**，仅余 319 字节。下一条判例写入前必须先做压缩或外迁，否则 sync_check ⑭ 必挂。
+- **测试**：62 → 68（收据 `kb_idempotent`/`git_pending` 三例 + 产物 M1-M3 三例）。`python -m unittest discover -s eval/tests` 全过；`sync_check` 24/24。
 
 ## v10.4.4 | 2026-10-30（质量门禁与审校契约整改：审校产物分族 + 命名硬失败 + 归一化，199=146+53 不变，hot 90/90 不变）
 
