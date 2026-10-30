@@ -12,7 +12,7 @@
     },
     "independence": {
       "type": "string",
-      "enum": ["cross_family", "same_family", "self_review", "mixed"]
+      "enum": ["cross_family", "same_family", "independent_subprocess", "self_review", "mixed"]
     },
     "reviewer_model": {
       "type": "string",

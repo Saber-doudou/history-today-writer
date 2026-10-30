@@ -29,3 +29,7 @@ timestamp	unit	commit	metric	before	after	status	eval_mode	note
 2026-10-30T22:40	O-1-gate	4b2f72a	A1_range	626	627	keep	full_test	10-30 初稿/改写后 v2 双 pass；改写后 627 字
 2026-10-30T22:40	O-1-naming	4b2f72a	final_name_convention	_v2	-v2	hold	full_test	命名偏离致 exec_log 缺 10-30、⑫ 假阴性；入池 B-25
 2026-10-30T22:40	O-1-close	4b2f72a	backlog_closed	0	3	keep	full_test	B-20/B-22/B-23 结案；B-26 由 22:35 改写化解
+2026-10-30T23:05	O-2-b24	v10.4.4	recheck_contract	0.6667	1.0	keep	full_test	产物分族 review_output.v2 + 新增 review_recheck.v1；归一化吸收写法漂移，raw 0.6667 / normalized 1.0
+2026-10-30T23:05	O-2-b25	v10.4.4	artifact_naming_violations	9	0	keep	full_test	⑫ 增产物命名硬失败；全盘扫出 9 件偏离并改名；假文件测试确认 ❌ 生效
+2026-10-30T23:05	O-2-b04	v10.4.4	invalid_review_jsons	5	0	keep	full_test	5 份非法 JSON 迁 archive/legacy/review_invalid/，不修不删，附 README
+2026-10-30T23:05	O-2-tests	v10.4.4	unit_tests	39	62	keep	full_test	新增 TestRouting/TestNormalize/TestRecheckSchema/TestCountMismatch + test_artifact_naming 七例

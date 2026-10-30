@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "History Article Re-check Output (v2 draft)",
+  "version": "1.0",
+  "description": "v2 改后复检产物 {date}_v2_review.json 的契约。语义：审校者对照 v1 审校意见复检修订稿，输出残留问题清单。与 review_output.v2 的差别：issue 以维度+严重级+规则+原文+改法组织，不要求 id/location（复检看的是残留项，不是逐条工单）。设计遵循「加字段/加枚举值兼容，加必填破坏」，不收口 additionalProperties。",
+  "type": "object",
+  "required": ["date", "p0_count", "p1_count", "p2_count", "pass", "issues"],
+  "properties": {
+    "date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "independence": {
+      "type": "string",
+      "enum": ["cross_family", "same_family", "independent_subprocess", "self_review", "mixed"]
+    },
+    "reviewer_model": {
+      "type": "string",
+      "minLength": 1
+    },
+    "p0_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "p1_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "p2_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "pass": {
+      "type": "boolean"
+    },
+    "issues": {
+      "type": "array",
+      "items": {"$ref": "#/definitions/recheck_issue"}
+    },
+    "f19_check": {
+      "type": "string"
+    },
+    "fix_applied": {
+      "type": "boolean"
+    },
+    "fix_note": {
+      "type": "string"
+    },
+    "notes": {
+      "type": ["string", "array"]
+    }
+  },
+  "definitions": {
+    "recheck_issue": {
+      "type": "object",
+      "required": ["dimension", "severity", "rule", "desc", "fix"],
+      "properties": {
+        "dimension": {
+          "type": "string",
+          "minLength": 1
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["p0", "p1", "p2"]
+        },
+        "rule": {
+          "type": "string"
+        },
+        "desc": {
+          "type": "string"
+        },
+        "fix": {
+          "type": "string"
+        },
+        "rule_ref": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
