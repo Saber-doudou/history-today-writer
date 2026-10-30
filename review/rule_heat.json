@@ -30,7 +30,9 @@
       "never_cool": true,
       "last_issue": "2026-06-03",
       "issue_count_30d": 0,
-      "source": "ledger"
+      "source": "ledger",
+      "trigger_state": "unknown",
+      "trigger_note": "仅见 L1 缺陷记录（last_issue），无 L2 应用记录；按 unknown 留观察"
     },
     "rule_04": {
       "last_triggered": null,
@@ -87,7 +89,9 @@
       "never_cool": true,
       "last_issue": "2026-10-08",
       "issue_count_30d": 1,
-      "source": "ledger"
+      "source": "ledger",
+      "trigger_state": "unknown",
+      "trigger_note": "仅见 L1 缺陷记录（last_issue），无 L2 应用记录；按 unknown 留观察"
     },
     "rule_10": {
       "last_triggered": "2026-10-14",
@@ -117,7 +121,9 @@
       "never_cool": true,
       "last_issue": "2026-06-10",
       "issue_count_30d": 0,
-      "source": "ledger"
+      "source": "ledger",
+      "trigger_state": "unknown",
+      "trigger_note": "仅见 L1 缺陷记录（last_issue），无 L2 应用记录；按 unknown 留观察"
     },
     "rule_13": {
       "last_triggered": "2026-10-29",
@@ -309,7 +315,9 @@
       "never_cool": false,
       "last_issue": "2026-06-17",
       "issue_count_30d": 0,
-      "source": "ledger"
+      "source": "ledger",
+      "trigger_state": "unknown",
+      "trigger_note": "仅见 L1 缺陷记录（last_issue），无 L2 应用记录；按 unknown 留观察"
     },
     "rule_34": {
       "last_triggered": null,
@@ -319,7 +327,9 @@
       "never_cool": false,
       "last_issue": "2026-06-17",
       "issue_count_30d": 0,
-      "source": "ledger"
+      "source": "ledger",
+      "trigger_state": "unknown",
+      "trigger_note": "仅见 L1 缺陷记录（last_issue），无 L2 应用记录；按 unknown 留观察"
     },
     "rule_35": {
       "last_triggered": null,
@@ -329,7 +339,9 @@
       "never_cool": false,
       "last_issue": "2026-06-19",
       "issue_count_30d": 0,
-      "source": "ledger"
+      "source": "ledger",
+      "trigger_state": "unknown",
+      "trigger_note": "仅见 L1 缺陷记录（last_issue），无 L2 应用记录；按 unknown 留观察"
     },
     "rule_36": {
       "last_triggered": "2026-09-08",
@@ -1383,7 +1395,9 @@
       "never_cool": false,
       "last_issue": "2026-08-11",
       "issue_count_30d": 0,
-      "source": "ledger"
+      "source": "ledger",
+      "trigger_state": "unknown",
+      "trigger_note": "仅见 L1 缺陷记录（last_issue），无 L2 应用记录；按 unknown 留观察"
     },
     "forbidden_02": {
       "last_triggered": null,

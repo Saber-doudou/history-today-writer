@@ -1,5 +1,19 @@
 # CHANGELOG — history-today-writer
 
+## 记录（不改版本号）| 2026-10-30 待办池清账（B-02/B-03/B-06/B-07/B-16/B-18/B-19）
+
+> 只动工具与数据，不动规则与正文；规则数 199=146+53、hot 90/90、版本号 v10.4.4 均不变。
+
+- **B-19 KB 幂等可自证**：`l3_publish.phase5` 在同名文件被跳过时，先尝试用 `check_repeated_names` 回填已有 `media_id`，并置 `KB_STATE.idempotent`；收据新增 `kb_idempotent: true`。此前幂等跳过会让 `kb_media_id` 为空，事后分不清「没传」还是「传过被跳过」。
+- **B-18 git 失败可自证**：`phase6` 推送失败时置 `GIT_STATE.pending`，收据新增 `git_pending: true` 与 `git_error`（含 `[network]/[conflict]/[other]` 分类）；失败信息带分类前缀，日志可据以分辨是哪一轮、哪种错。
+- **B-16 快照覆盖工作空间脚本**：`eval/snapshot.py` 新增 `workspace_scripts.zip`（`F:/WorkBuddy/history-today/scripts/` 的 6 个脚本），manifest 增 `scripts_files/bytes/sha256`。权威仍在工作空间（不复制进仓库，避免双源），只做快照冗余。实跑：skill 63 / daily 402 / scripts 6 文件。
+- **B-06 automation memory 归档 J**：10-16 共 3 块迁 `archive/automation-memory-J-precompress-2026-10-30.md`（零损失），现役 42.8KB（40KB 提示线上、48KB 硬线内）。**踩坑记录**：首次把 10-19 也归档，导致 ⑬ 找不到最近 10 收据日之一的 10-19 记录 → 已回滚，归档线必须落在「最近 10 收据日」之外。
+- **B-07 投喂素材季度归档**：早于 2026-08-31 的 78 个目录打包为 `archive/backups/投喂素材_20260831前.zip`（694 文件，CRC 全过），原目录移入 `archive/投喂素材_归档_20260831前/`（不删除，可回溯）。活跃目录 118 → 40，体积 6.3MB → 2.2MB。
+- **B-03 heat 缺记录标注**：7 条只有 `last_issue` 无 `last_triggered` 的规则标 `trigger_state: unknown` + `trigger_note`，不伪造日期。
+- **B-02 双口径定案**：`last_triggered`=L2 应用、`last_issue`=L1 缺陷，不同源、**不回填**；「滞后 23 条」是并存常态，只报告不修。口径写入 `topics/ops_notes.md`。
+- **B-01 未动**：Rule62 升 hot 需等价减法（hot 90/90 满员），先降哪条属内容裁决，留 Master 定夺。
+- **测试**：62 → 65（新增收据 `kb_idempotent`/`git_pending` 三例）。`python -m unittest discover -s eval/tests` 全过；`sync_check` 24/24。
+
 ## v10.4.4 | 2026-10-30（质量门禁与审校契约整改：审校产物分族 + 命名硬失败 + 归一化，199=146+53 不变，hot 90/90 不变）
 
 - **背景**：10-30 日检暴露两处门禁缺陷。B-24：`2026-10-30-v2_review.json` 是「v2 改后复检」产物，却被拿 L1 审校契约去套——`independence=independent-subprocess` 不在枚举、`issues` 用 `dimension/severity/rule/desc/fix` 旧结构，`--strict` 合规率从 1.0 掉到 0.667。B-25：定稿写成 `2026-10-30-v2.md`（连字符），而 `sync_topics` 与 sync_check ⑫ 都按 `{date}_v2.md` 扫描，该日定稿对门禁「隐身」——exec_log 缺行不报、⑫ 反判 24/24 假绿。
