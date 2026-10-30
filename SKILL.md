@@ -90,7 +90,7 @@ Phase 2.5: 标题复审（强制，不可跳过，与 L2 feed-learning Phase 2.5
     ↓
 Phase 3: Phase 2内置 — Humanizer + P0复检
     ↓
-Phase 3.5: 【加载 review_rules.md + review/prompts/】→ 6维度审校 → review_report.json（实际产物文件名：archive/daily/YYYY-MM-DD_review.json，字段名固定 `date`/`p0_count`/`p1_count`/`p2_count`（计数）、`pass`、`issues` 数组、`f19_check`，推荐 `independence`/`reviewer_model`，与 review/schema/review_output.v2.json 一致；P0/P1 修复被吸收后补 `fix_applied: true` 回流字段，P2 以 note 记录不强制修复）
+Phase 3.5: 【加载 review_rules.md + review/prompts/】→ 6维度审校 → review_report.json（实际产物文件名：archive/daily/YYYY-MM-DD_review.json，字段名固定 `date`/`p0_count`/`p1_count`/`p2_count`（计数）、`pass`、`issues` 数组、`f19_check`，推荐 `independence`/`reviewer_model`，与 review/schema/review_output.v2.json 一致；P0/P1 修复被吸收后补 `fix_applied: true` 回流字段，P2 以 note 记录不强制修复）。**v2 改后复检产物**命名 `archive/daily/YYYY-MM-DD_v2_review.json`（连字符不算数，sync_check ⑫ 直接报错），契约 `review/schema/review_recheck.v1.json`；L1 审校用 `review_output.v2.json`
     ↓
 Phase 3.6: 【判例预检 + Grep CASE_STUDIES.md（只grep命中关键词，禁止整读96K进上下文）】→ 领域专项检查
     ↓
@@ -244,6 +244,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v10.4.3 | 2026-10-29 | 阿帕网首次主机间传输（1969）L2：零新增编号走「细化+判例」路径——CASE-102 入库（科技起源叙事史实错位复合瑕疵：故障归因错置 SRI 应急程序 bug 误作网络不稳/我方黑屏、分组交换归属张冠李戴 Baran/Davies 各自独立提出·Kleinrock 贡献数学理论、防核起源神话当立项初衷实为省钱共享算力，三类同挂 R13 umbrella 与 CASE-100/101 并列，R26/R70/R143/R145 编号不增复现应用）；v2 归因收敛 SRI 应急程序+归属翻转+动机翻转+高级研究计划局译名+三百五十英里一级源+删无出处引语，AI「缓冲区溢出」经核二级源且二级源互歧故不写死；Phase 2.5 标题「LO：互联网的第一句话，是一个没发完的 bug」；199=146+53、hot 90/90 不变；v2 正文汉字 739（gate A1 口径；全文正则 754）；基于 v10.4.2（2026-10-28 雷诺 CASE-101）；逐版见 CHANGELOG.md*
+*Version: v10.4.4 | 2026-10-30 | 质量门禁与审校契约整改（B-24/B-25）：审校产物分族——{date}_review.json 用 review_output.v2，{date}_v2_review.json 用新增 review_recheck.v1（issue 按 dimension/severity/rule/desc/fix，不要求 id）；independence 枚举增 independent_subprocess（兼容加法）；validate_review 按名路由+归一化，输出 raw/normalized 双口径；sync_check ⑫ 增产物命名硬失败（*-v2.md 即 ❌，防扫不到的假绿）；sync_topics 入库宽容认 -v2；B-04 五份非法 review 迁 archive/legacy/；测试 39→62；199=146+53、hot 90/90 不变；基于 v10.4.3；逐版见 CHANGELOG.md*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。

@@ -48,7 +48,7 @@ SKILL_DIR = Path(__file__).resolve().parent.parent
 EXPECT_RULES = 146       # R1-R149 扣除已合并空洞 33/55/87（33→并入 R118 过渡句、55→并入 R14 内外因平衡、87→并入 R56 具象类比；约束不丢，编号不复用不回填）；R148 新增于 2026-10-13 国际子午线会议 L2；R149 新增于 2026-10-15 武汉长江大桥 L2
 EXPECT_FORBIDDEN = 53    # F1-F58 扣除已删空洞 23/49/50/24/25（23→R14、49/50→R94/R95、24→R56、25→5N.1；均约束已由他规则承载）
 EXPECT_TOTAL = 199       # 146 + 53
-EXPECT_VERSION = "v10.4.3"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_VERSION = "v10.4.4"  # SKILL.md 末尾 Version 行的期望版本号
 
 # Rules 侧已知空洞（对称于 KNOWN_FB_GAPS，2026-10-08 合并精简配套）：
 # 33/55/87 已合并入他规则，编号空洞不回填——新增 Rule 自 R146 续号，防历史编号歧义。
@@ -653,6 +653,32 @@ def check_memory_size() -> None:
     check(True, "⑧ 记忆体积与单一路径", detail)
 
 
+NONCANONICAL_ARTIFACT = re.compile(
+    r"^(\d{4}-\d{2}-\d{2})-(v\d+(?:\.\d+)*)(.*\.(?:md|json))$"
+)
+
+
+def find_noncanonical_artifacts(art_dir: Path) -> list[tuple[str, str]]:
+    """定稿/产物命名合规检查（2026-10-30 新增，B-25）。
+
+    命名即契约：`sync_topics` 与 ⑫ 都按 `{date}_v2.md` 扫描，一旦写成
+    `{date}-v2.md`，该日定稿对门禁「隐身」——缺行不报、反判通过（假绿）。
+    「扫不到」比「扫到错的」更危险，所以命名偏离一律硬失败。
+
+    返回 [(实际文件名, 规范文件名)]。
+    """
+    bad: list[tuple[str, str]] = []
+    if not art_dir.exists():
+        return bad
+    for p in sorted(art_dir.iterdir()):
+        if not p.is_file():
+            continue
+        m = NONCANONICAL_ARTIFACT.match(p.name)
+        if m:
+            bad.append((p.name, f"{m.group(1)}_{m.group(2)}{m.group(3)}"))
+    return bad
+
+
 def check_topics_freshness() -> None:
     """⑫ 记忆分片新鲜度（2026-09-10 新增）。
 
@@ -665,10 +691,11 @@ def check_topics_freshness() -> None:
     topics = base / ".workbuddy/memory/topics"
 
     dates: list[str] = []
-    for p in art.glob("*_v2.md"):
-        m = re.match(r"(\d{4}-\d{2}-\d{2})_v2\.md$", p.name)
-        if m:
-            dates.append(m.group(1))
+    for pat in ("*_v2.md", "*-v2.md"):
+        for p in art.glob(pat):
+            m = re.match(r"(\d{4}-\d{2}-\d{2})[-_]v2\.md$", p.name)
+            if m:
+                dates.append(m.group(1))
     dates = sorted(dates, reverse=True)[:10]
 
     rc_dates: set[str] = set()
@@ -678,6 +705,11 @@ def check_topics_freshness() -> None:
             rc_dates.add(m.group(1))
 
     problems = []
+    bad_names = find_noncanonical_artifacts(art)
+    if bad_names:
+        pairs = "；".join(f"{n} → {e}" for n, e in bad_names[:5])
+        more = f"（另有 {len(bad_names) - 5} 件）" if len(bad_names) > 5 else ""
+        problems.append(f"产物命名偏离 {len(bad_names)} 件：{pairs}{more}（命名即契约，改名后复跑）")
     for name, need in (("exec_log.md", set(dates)),
                        ("publish_history.md", set(dates) & rc_dates)):
         f = topics / name
@@ -690,8 +722,8 @@ def check_topics_freshness() -> None:
         if miss:
             problems.append(f"{name} 缺 {len(miss)} 行 {miss}（跑 scripts/sync_topics.py --sync）")
 
-    check(not problems, "⑫ 记忆分片新鲜度（exec_log / publish_history）",
-          "；".join(problems) or f"最近 {len(dates)} 篇定稿均已登记")
+    check(not problems, "⑫ 记忆分片新鲜度 + 产物命名（exec_log / publish_history）",
+          "；".join(problems) or f"最近 {len(dates)} 篇定稿均已登记，命名合规")
 
 
 def check_receipt_consistency() -> None:

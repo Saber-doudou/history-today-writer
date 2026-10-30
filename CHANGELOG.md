@@ -1,5 +1,21 @@
 # CHANGELOG — history-today-writer
 
+## v10.4.4 | 2026-10-30（质量门禁与审校契约整改：审校产物分族 + 命名硬失败 + 归一化，199=146+53 不变，hot 90/90 不变）
+
+- **背景**：10-30 日检暴露两处门禁缺陷。B-24：`2026-10-30-v2_review.json` 是「v2 改后复检」产物，却被拿 L1 审校契约去套——`independence=independent-subprocess` 不在枚举、`issues` 用 `dimension/severity/rule/desc/fix` 旧结构，`--strict` 合规率从 1.0 掉到 0.667。B-25：定稿写成 `2026-10-30-v2.md`（连字符），而 `sync_topics` 与 sync_check ⑫ 都按 `{date}_v2.md` 扫描，该日定稿对门禁「隐身」——exec_log 缺行不报、⑫ 反判 24/24 假绿。
+- **外部依据（2026-10 检索）**：① 确定性检查才进阻断闸，judge 分数会在阈值附近漂移，应放 advisory lane；② schema 当版本化契约演进，加枚举值/加可选字段兼容，加必填破坏；③ `additionalProperties: false` 是演进之敌，靠必填收口；④ 先归一化再校验（防腐层），避免把写法差异误判成契约失败；⑤ 退出码分区，不靠 grep stdout；⑥ 「扫不到」比「扫到错的」更危险（门禁假绿）。详见 `docs/质量门禁与审校契约整改_v1.0_20261030.md`。
+- **新增 `review/schema/review_recheck.v1.json`**：v2 复检专用契约。required=`date/p0_count/p1_count/p2_count/pass/issues`；issue 必填 `dimension/severity/rule/desc/fix`，**不要求** `id/location`（复检看残留项，不是逐条工单）。语义差异硬套会逼模型编字段，故分族而非合并。
+- **`review_output.v2.json` 兼容加法**：`independence` 枚举增 `independent_subprocess`（原 `independent-subprocess` 为写法漂移）。不动必填、不收口 additionalProperties，旧 99 份产物不受影响。
+- **`eval/validate_review.py` 重写（按名路由 + 归一化 + 双口径）**：`{date}_v2_review.json` → recheck 契约，`{date}_review.json` → v2 契约；内置等价归一（连字符/空格→下划线、severity 大小写→小写、independence 别名），只做等价变换不猜字段；输出 `routed` 分族计数、`compliance_rate`（归一化后）与 `raw_compliance_rate` 两套，raw 违规进 `warnings` 并列入 `raw_only_fail`；新增 `count_mismatch` 提示（计数与 issues 列表对账，只警告不阻断，历史文件口径不一）；新增 `--no-normalize`。退出码 0/1/2 分区。
+- **`scripts/sync_check.py` ⑫ 升级为「新鲜度 + 产物命名」**：新增 `find_noncanonical_artifacts()`，扫到 `{date}-vN.md` / `{date}-vN_*.json` 即 ❌ 并给出规范名（命名即契约）；定稿识别同时兼容 `_v2` 与 `-v2`，避免「因为改名就不检查」。
+- **`scripts/sync_topics.py` 入库宽容**：`article_dates()` 同时认两种写法（入库宽容、门禁严格），保证记录不因命名漂移而静默丢失。
+- **数据整改**：全盘扫出 **9 件**命名偏离并改名到规范形态（2026-05-19_v2、2026-05-21_v1/v2、2026-05-22_v2、2026-05-28_v1、2026-06-03_v2、2026-06-10_v2、2026-10-30_v2、2026-10-30_v2_review），内容一字未动；`sync_topics --sync` 补 exec_log 10-30 行（此前因命名隐身而缺失）。
+- **B-04 结案**：5 份非法 review.json（2026-06-04/06-18/06-26/07-02/07-03，字符串内中文引号未转义导致解析失败）迁 `archive/legacy/review_invalid/` 并附 README，原件不修不删，`--all` 不再产生 `invalid_json` 噪声。
+- **测试**：39 → **62**（新增 `TestRouting`/`TestNormalize`/`TestRecheckSchema`/`TestCountMismatch` 与 `test_artifact_naming.py` 七例）。`python -m unittest discover -s eval/tests` 全过。
+- **验收**：`validate_review --last 3 --strict` → 3/3，normalized 1.0、raw 0.6667（raw_only_fail 明确列出 10-30 复检件）；`sync_check` 24/24；⑫ 由 23/24 的命名 ❌ 修回绿。
+- **边界**：不把 judge 的 `pass` 接入阻断闸（样本太薄，违反「确定性才阻断」）；不改 L1 审校产物结构；不追溯回填历史契约（B-05 既定口径）。
+- **版本链**：v10.4.3（2026-10-29 阿帕网 CASE-102）→ v10.4.4；规则数 199=146+53、hot 90/90 均不变，本轮零新增编号。
+
 ## v10.4.3 | 2026-10-29（阿帕网首次主机间传输 L2：CASE-102 入库「科技起源叙事史实错位复合瑕疵」，199=146+53 不变，hot 90/90 不变）
 
 - **背景**：10-29 L1 阿帕网首次主机间联网传输（1969）v1 623 汉字经四AI投喂（ds/ima/千问/豆包 4/4 齐备，故事+点评各 4 份）学习。hot 90/90、总 199/200 双触顶，同 v10.4.0/v10.4.1/v10.4.2 走「细化+判例」路径，零新增编号。版本号 v10.4.2→v10.4.3（patch+1 未逢十）。
