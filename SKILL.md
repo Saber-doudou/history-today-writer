@@ -244,6 +244,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v10.4.4 | 2026-10-30 | 质量门禁与审校契约整改（B-24/B-25）：审校产物分族——{date}_review.json 用 review_output.v2，{date}_v2_review.json 用新增 review_recheck.v1（issue 按 dimension/severity/rule/desc/fix，不要求 id）；independence 枚举增 independent_subprocess（兼容加法）；validate_review 按名路由+归一化，输出 raw/normalized 双口径；sync_check ⑫ 增产物命名硬失败（*-v2.md 即 ❌，防扫不到的假绿）；sync_topics 入库宽容认 -v2；B-04 五份非法 review 迁 archive/legacy/；测试 39→62；199=146+53、hot 90/90 不变；基于 v10.4.3；逐版见 CHANGELOG.md*
+*Version: v10.4.5 | 2026-11-02（莫里斯蠕虫 L2：R143 细化，AI一致性≠事实正确护栏、前置覆盖 R42；199 不变）| 质量门禁与审校契约整改（B-24/B-25）：审校产物分族——{date}_review.json 用 review_output.v2，{date}_v2_review.json 用新增 review_recheck.v1（issue 按 dimension/severity/rule/desc/fix，不要求 id）；independence 枚举增 independent_subprocess（兼容加法）；validate_review 按名路由+归一化，输出 raw/normalized 双口径；sync_check ⑫ 增产物命名硬失败（*-v2.md 即 ❌，防扫不到的假绿）；sync_topics 入库宽容认 -v2；B-04 五份非法 review 迁 archive/legacy/；测试 39→62；199=146+53、hot 90/90 不变；基于 v10.4.3；逐版见 CHANGELOG.md*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。

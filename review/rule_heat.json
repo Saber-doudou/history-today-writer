@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-10-29",
+  "last_updated": "2026-11-02",
   "heat_period_days": 30,
   "rules": {
     "rule_01": {
@@ -1319,12 +1319,12 @@
       "issue_count_30d": 0
     },
     "rule_143": {
-      "last_triggered": "2026-10-29",
-      "count_30d": 7,
+      "last_triggered": "2026-11-02",
+      "count_30d": 8,
       "status": "hot",
       "demoted_at": null,
       "never_cool": false,
-      "note": "2026-10-29 阿帕网 L2：AI「缓冲区溢出」独立核验为 Duvall 2019 BBC 二级说法、二级源对崩在第几字母互歧，不反向照搬",
+      "note": "2026-10-29 阿帕网 L2：AI「缓冲区溢出」独立核验为 Duvall 2019 BBC 二级说法、二级源对崩在第几字母互歧，不反向照搬；2026-11-02 莫里斯蠕虫 L2：千问ima 2/4故事版误写「波士顿科学博物馆」、ima点评版建议改回，v1 经 L1 Reviewer 双源核验「计算机历史博物馆」正确，L2 守正未盲从；本例未达R42四AI一致阈值但印证R143前置护栏（AI一致性≠事实正确）",
       "last_issue": "2026-10-09",
       "issue_count_30d": 1,
       "source": "manual+ledger"
