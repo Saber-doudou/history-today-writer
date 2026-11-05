@@ -244,6 +244,6 @@ reviewer → orchestrator：
 
 ---
 
-*Version: v10.4.6 | 2026-11-04（图坦卡蒙 L2 细化 F53：纳入人物无据心理/动作杜撰，零新增编号；199=146+53、hot 90/90 不变；基于 v10.4.5）| 质量门禁/审校契约整改详见 CHANGELOG v10.4.4；B-04 非法 review 迁 archive/legacy/；sync_topics 入库宽容认 -v2；测试 39→62；逐版见 CHANGELOG.md*
+*Version: v10.4.7 | 2026-11-05（OHA L2 细化 R13：戏剧化演绎历史关系须核史实，零新增编号；199=146+53、hot 90/90 不变；基于 v10.4.6）| 质量门禁/审校契约整改详见 CHANGELOG v10.4.4；B-04 非法 review 迁 archive/legacy/；sync_topics 入库宽容认 -v2；测试 39→62；逐版见 CHANGELOG.md*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。

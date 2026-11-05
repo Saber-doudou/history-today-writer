@@ -195,7 +195,7 @@ Not every dimension needs to be used in every piece. **Changing even one dimensi
 | 10 | **Formal address** | Full name + formal title at first appearance | "一位八岁的小男孩詹姆斯·菲普斯" |
 | 11 | **Show Don't Tell** | NEVER use summary adjectives for character state；禁止使用"他非常愤怒/绝望/害怕"等状态形容词，必须用具体动作/生理反应替代 | ❌ "他非常愤怒" → ✅ "他攥紧拳头，指节发白" |
 | 12 | **LOCK kernel check** | Verify: Lead / Objective / Confrontation / Knock-out | — |
-| 13 | **80/20 Fact-Fiction ratio** | Core facts 100% accurate. Artistic liberty restricted to: psychological interior, dialogue completion, sensory environment. **Never fabricate core historical facts.** | ✅ 揣摩内心活动 / ❌ 虚构中途降落加油 |
+| 13 | **80/20 Fact-Fiction ratio（核心事实100%准确）** | 核心事实100%准确，艺术加工仅限心理/对话/感官。**禁虚构核心史实**。戏剧化演绎历史关系（「吃闭门羹」「被拒之门外」「硬碰」等暗示特定互动/竞合的修辞）须有史料支撑；未核实改中性表述，不得把未证实竞合写成具象拒斥。 | ✅ 揣摩内心活动 / ❌ 虚构中途降落加油 |
 | 14 | **因果链完整性与内外因平衡** | ①冲突→转折→结局 三段必须有明确因果连接词或逻辑过渡。禁止"障碍罗列→直接成功"式跳跃；②外部阴谋+内部弱点，缺一不可，禁止只写外因忽略内因 | ❌ "遇到困难…他最终成功了" → ✅ "困难X迫使他做了Y，这反而让他Z" |
 | 15 | **句式去重** | 全文扫描，同一句式（如"不仅…更是…"、"不是…而是…"）最多出现 1 次 | ❌ 两处"不仅是…更是…" → 第二处换为其他句式 |
 | 16 | **禁止泛化断言** | 结尾不得使用"任何地方""一切""永远""所有"等绝对化表述，必须用具体意象收束 | ❌ "人类从此相信任何地方都能到达" → ✅ "汽车证明了大陆是可以被穿越的" |

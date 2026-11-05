@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-11-03",
+  "last_updated": "2026-11-05",
   "heat_period_days": 30,
   "rules": {
     "rule_01": {
@@ -126,15 +126,16 @@
       "trigger_note": "仅见 L1 缺陷记录（last_issue），无 L2 应用记录；按 unknown 留观察"
     },
     "rule_13": {
-      "last_triggered": "2026-10-29",
-      "count_30d": 26,
+      "last_triggered": "2026-11-05",
+      "count_30d": 27,
       "status": "hot",
       "demoted_at": null,
       "never_cool": true,
       "last_issue": "2026-10-23",
       "issue_count_30d": 5,
       "source": "manual+ledger",
-      "note": "2026-10-29 阿帕网 L2：CASE-102 科技起源叙事史实错位复合瑕疵（故障归因错置/分组交换归属张冠李戴/防核起源神话当立项初衷），三类同挂 R13 umbrella"
+      "note": "2026-10-29 阿帕网 L2：CASE-102 科技起源叙事史实错位复合瑕疵（故障归因错置/分组交换归属张冠李戴/防核起源神话当立项初衷），三类同挂 R13 umbrella；2026-11-05 OHA L2：细化扩展「戏剧化演绎历史关系须核史实」子类（v1「在苹果那扇门外吃了闭门羹」4/4 点破为未核实竞合关系具象化，v2 改中性表述）",
+      "last_updated": "2026-11-05"
     },
     "rule_14": {
       "last_triggered": "2026-10-14",
