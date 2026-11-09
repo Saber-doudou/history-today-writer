@@ -1,5 +1,19 @@
 # CHANGELOG — history-today-writer
 
+## 记录（不改版本号）| 2026-11-10 阻断级缺陷修复 8 项（审查报告逐条验证后落地）
+
+> 只动工具与门禁，不动规则与正文；规则数 199=146+53、hot 90/90、版本号 v10.4.7 均不变。
+> 回归：`sync_check` 24/24、`unittest` 68/68、`check_topic --self-test` 0 误杀 0 漏放、`l3_publish --dry-run` exit 0。
+
+- **① rule_index 表格脏行（4 处）**：`R32||R34`、`R54||R56`、`R86||R88`、`F22||F26` 四行把两条规则塞进同一行，Markdown 渲染错列、LLM 读到破碎规则。**注意：这 4 条被并入的规则本来就有独立行**（L45/L66/L97/L186，逐字比对一致），所以正确修法是删重复段而非拆行——拆行会让 ① 行数 146→150 直接失败。同批给 ① 加「表格列数必须为 7 个分隔符」校验（并入既有 ① 检查项，总数仍 24），防同类复发。
+- **② claims 契约两套口径**：`verify_claims.load_claims` 只读顶层 `claims`，导致同一份 11-09 产物在 `gate_check` 判 A8=skip、直接跑脚本判 fail。新增 `probe_claims()` 区分 `absent/null/not_list/empty/ok` 五种状态，`gate_check` A8 按状态判：缺键或 null 即 fail，空数组但 `fact_check.key_facts` 有已核事实也 fail，只有真空账本才 skip。**未伪造数据**：`key_facts` 是无来源/无状态字段的扁平字典，机械转 claims 等于编造，故 11-09（8 条已核事实未入账）、11-06（claims=null）如实判 fail，留作欠账。
+- **③ v2 复检件缺失**：10-11 月 23 篇 v2 仅 2 篇有 `_v2_review.json`（10-30、11-03）。⑫ 增「v2 必配 v2_review」硬校验，自 2026-11-10 起强制、历史 21 篇不追溯（复检无法回填）。已负向测试：造一份 11-10 空 v2 即报 `v2 缺复检件 1 篇`，删文件后回绿。
+- **④ `--force` 空实现**：原分支只打印「v0.1 搬运实现尚未启用」，不搬运、不写 .bak、不跑 sync_check，而 docstring / SKILL Phase 5c / feed-learning Phase 8 都宣称可执行。改为**显式拒绝**：先拒绝再读盘，`exit 2`；三处声称同步改为「已停用」。同时 `--dry-run` 不再写 `migration_state.json`（旧实现与自身「不落盘」矛盾）。**修正审查报告一处**：现存 state 文件内容为 `mode=dry-run / actions=[]`，未出现「mode=force + demote 假执行痕迹」，该子项仅属代码路径风险、无实盘证据。
+- **⑤ DB 时间戳单位错**：`write_db` 写 `int(datetime.now().timestamp())`（10 位秒），而 DB 实测 32 行 `updated_at` 全为 13 位毫秒。改为 `int(time.time()*1000)`。**数据无需清洗**：已扫描全表，无 10 位脏值。
+- **⑥ `git pull` 无超时**：只有 push 带 `timeout`，注释本身写着「超时必须捕获，09-08 首跑卡死」。pull 补 `timeout=timeout` + `TimeoutExpired` 归入 network 重试分支。
+- **⑦ 一次性脚本可静默覆盖记忆**：`assemble_memory.py`（模块级覆盖 MEMORY.md，正文写死 v9.9.5/规则 187）、`restructure_memory.py`（覆盖 topics 四分片）均无 `__main__` 保护。移入 `archive/one-shot-scripts-2026-09-07/` + README，加「无 `--apply` 即 exit 2」执行闸 + 写前 `.bak-<时间戳>` 备份。实测两脚本 exit 2，`MEMORY.md` md5 前后一致。
+- **⑧ 文档接口脱节 + L2 切片漏采**：`sync_topics.py` docstring 声明 `--check` 但 argparse 未定义（实跑 exit 2），已补；`cmd_delta` 与 `rule_ledger` 只认 `## vX | 日期`，而 CHANGELOG 顶部是 `## 记录（不改版本号）| 日期`，致 10-30 与 11-09 两段治理记录不进 L2 切片、ledger 还把其引用日期记为 `?`。两处正则改为兼容该标题，并顺手把硬编码 `2026-` 放开为四位年（防 2027 静默漏采）。实测 `--check` exit 0、delta 输出已含两条记录。
+
 ## 记录（不改版本号）| 2026-11-09 MEMORY.md 体积治理（⑧ 复发根治 + automation memory 归档 N）
 
 > 只动记忆与文档记载，不动规则与正文；规则数 199=146+53、hot 90/90、版本号 v10.4.7 均不变。

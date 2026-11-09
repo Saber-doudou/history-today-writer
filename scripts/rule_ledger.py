@@ -73,7 +73,9 @@ def load_changelog_refs(since: str | None) -> dict[str, list[str]]:
         return refs
     cur_date = "?"
     for line in CHANGELOG.read_text(encoding='utf-8').splitlines():
-        m = re.match(r'^##\s+v[\d.]+\s*\|\s*(2026-\d{2}-\d{2})', line)
+        # 2026-11-10 修：认 `## 记录（不改版本号）| 日期`，否则该类治理记录被记成 "?"，
+        # 既漏采规则引用、又会在 max() 时被当成最新日期污染温控统计；年份放开四位。
+        m = re.match(r'^##\s+(?:v[\d.]+|记录（不改版本号）)\s*\|\s*(\d{4}-\d{2}-\d{2})', line)
         if m:
             cur_date = m.group(1)
             continue

@@ -114,13 +114,27 @@ def check(article_path: Path, cfg: dict, core_image: str = "", claims_path: Path
     add("A7", "pass" if not hits else "fail", f"禁用短语：{hits or '无'}")
 
     if claims_path and claims_path.is_file():
-        claims = vc.load_claims(claims_path)
-        if claims:
+        claims, cstate = vc.probe_claims(claims_path)
+        # 2026-11-10 起按状态分支，不再一律 skip：键缺失/null 是违约（fail），
+        # 空数组但 key_facts 有已核事实是「核实了没入账」（fail），
+        # 真正的空账本（无 key_facts）才 skip。此前全部 skip，等于给违约放行。
+        if cstate in ("absent", "null", "not_list", "not_object"):
+            add("A8", "fail", f"claims 契约违约：状态={cstate}（顶层 claims 缺失/为空值/类型错）")
+        elif claims:
             r = vc.verify(text, claims, 0.9)
             add("A8", "pass" if r["pass"] else "fail",
                 f"覆盖率 {r['coverage']:.2%}，未匹配 {r['unmatched']} 项")
         else:
-            add("A8", "skip", "claims 数组为空")
+            try:
+                raw = json.loads(claims_path.read_text(encoding="utf-8"))
+                kf = raw.get("fact_check", {}).get("key_facts") if isinstance(raw, dict) else None
+                n_kf = len(kf) if isinstance(kf, (dict, list)) else 0
+            except Exception:
+                n_kf = 0
+            if n_kf:
+                add("A8", "fail", f"claims 为空，但 fact_check.key_facts 有 {n_kf} 条已核事实未入账")
+            else:
+                add("A8", "skip", "claims 为空且无 key_facts（合法空账本）")
     else:
         add("A8", "skip", "claims 账本不存在")
 

@@ -696,7 +696,8 @@ def check_topics_freshness() -> None:
             m = re.match(r"(\d{4}-\d{2}-\d{2})[-_]v2\.md$", p.name)
             if m:
                 dates.append(m.group(1))
-    dates = sorted(dates, reverse=True)[:10]
+    all_v2 = sorted(set(dates), reverse=True)
+    dates = all_v2[:10]
 
     rc_dates: set[str] = set()
     for p in art.glob("*_ima_receipt.json"):
@@ -722,8 +723,21 @@ def check_topics_freshness() -> None:
         if miss:
             problems.append(f"{name} 缺 {len(miss)} 行 {miss}（跑 scripts/sync_topics.py --sync）")
 
+    # v2 必配复检件（2026-11-10 新增）：v2 落盘后必须有同日期 `_v2_review.json`。
+    # 背景：10-11 月 23 篇 v2 中仅 2 篇有复检件（10-30、11-03），而 gate_check M3 只 warn、
+    # ⑫ 原先只查命名偏离，导致「有定稿无复检」可以一路绿灯跑完。
+    # 历史欠账不追溯（复检无法回填），只对 V2_REVIEW_SINCE 起的新日期硬判。
+    v2_review_since = "2026-11-10"
+    miss_review = [d for d in all_v2
+                   if d >= v2_review_since and not (art / f"{d}_v2_review.json").exists()]
+    if miss_review:
+        problems.append(
+            f"v2 缺复检件 {len(miss_review)} 篇 {miss_review[:5]}"
+            f"（{v2_review_since} 起强制，Phase 4 须落盘 {{date}}_v2_review.json）"
+        )
+
     check(not problems, "⑫ 记忆分片新鲜度 + 产物命名（exec_log / publish_history）",
-          "；".join(problems) or f"最近 {len(dates)} 篇定稿均已登记，命名合规")
+          "；".join(problems) or f"最近 {len(dates)} 篇定稿均已登记，命名合规，v2 复检件齐备")
 
 
 def check_receipt_consistency() -> None:
@@ -803,10 +817,18 @@ def main() -> int:
     index_text = read_text("rule_index.md")
     idx_rules = count_index_rows(index_text, "## Rules")
     idx_forbidden = count_index_rows(index_text, "## Forbidden")
+    # rule_index 表格列数完整性（2026-11-10 新增）：`||` 会把第二条规则塞进同一行，
+    # 渲染错列、LLM 读到破碎规则；而按行首编号计数的 ① 照样全绿，属结构性漏检。
+    # 已知实例：R32||R34 / R54||R56 / R86||R88 / F22||F26 四行重复粘贴（已删重复段）。
+    bad_cols = []
+    for ln in index_text.splitlines():
+        if re.match(r"^\|\s*(R|F)\d+\s*\|", ln) and ln.count("|") != 8:
+            bad_cols.append(f"{ln[:12].strip()}（|{ln.count('|')}个）")
     check(
-        idx_rules == EXPECT_RULES,
+        idx_rules == EXPECT_RULES and not bad_cols,
         "① rule_index Rules 索引行数",
-        f"{idx_rules} 行（期望 {EXPECT_RULES}）",
+        f"{idx_rules} 行（期望 {EXPECT_RULES}）"
+        + (f"；⚠️ 表格列数异常 {len(bad_cols)} 行: {bad_cols[:4]}" if bad_cols else "；列数 7 正常"),
     )
     check(
         idx_forbidden == EXPECT_FORBIDDEN,

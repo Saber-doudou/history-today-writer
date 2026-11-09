@@ -152,8 +152,42 @@ def extract_tokens(article: str) -> tuple[list[Token], list[Token]]:
 
 
 def load_claims(path: Path) -> list[dict]:
+    """claims 账本解析（2026-11-10 统一口径）：顶层 claims 优先，兼容历史 fact_check.claims。
+
+    旧实现只读顶层 `data["claims"]`，于是 2026-11-09 这种把空数组塞进
+    `fact_check.claims` 的产物被两个调用方判成相反结论：gate_check A8 读顶层得 []
+    判 skip，而直接跑本脚本按「无 claims」判 fail。同一份数据两个门禁结论互斥，
+    等于都没在管。两处共用本函数后口径唯一。
+    """
     data = json.loads(path.read_text(encoding="utf-8"))
-    return data.get("claims", []) if isinstance(data, dict) else []
+    if not isinstance(data, dict):
+        return []
+    c = data.get("claims")
+    if c is None and isinstance(data.get("fact_check"), dict):
+        c = data["fact_check"].get("claims")
+    return c if isinstance(c, list) else []
+
+
+def probe_claims(path: Path) -> tuple[list[dict], str]:
+    """返回 (claims, 状态)，状态区分「没这个键」和「有键但为空」。
+
+    区分二者是必要的：键缺失/null 说明产出方没按契约写（应 fail），
+    空数组说明写了但确实没有可核事实（可 skip）。旧实现一律返回 []，
+    两种情形被压成同一种，既放过了违约也误伤了合法空账本。
+    """
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        return [], "not_object"
+    raw = data.get("claims", ...)
+    if raw is ... and isinstance(data.get("fact_check"), dict):
+        raw = data["fact_check"].get("claims", ...)
+    if raw is ...:
+        return [], "absent"
+    if raw is None:
+        return [], "null"
+    if not isinstance(raw, list):
+        return [], "not_list"
+    return raw, ("ok" if raw else "empty")
 
 
 def claim_values(c: dict) -> list[float]:

@@ -116,7 +116,7 @@ Phase 5: 记忆更新（MEMORY.md「最近执行」**只写 1 行索引**（日�
     ↓
 Phase 5b: 选题索引重建（2026-08-26 新增）→ 写 archive/daily/选题索引.md（纯选题两列：运行日期 | 选题名；数据源 = TOPICS.md 全部「选题复盘」块标题；按运行日期倒序；每次运行重建，保证与 TOPICS.md 一致、无重复行；文件头注明仅收录有结构化选题记录的日期，更早无选题记录的旧文不纳入）
     ↓
-Phase 5c: 冷热迁移对账（2026-08-26 新增，v0.1）→ 在技能目录运行 `python scripts/migrate_cold_rules.py --dry-run`（默认仅报告不搬运；出现 ① 建议降级候选或 ③ 新增冲突项 → 记录并提示 Master；`--force` 由 Master 明确指示后手动执行）。规则正文冷热迁移方案见 docs/rule-cold-migration-plan.md（定稿 v1.1）；L2 学习侧对应 feed-learning Phase 8
+Phase 5c: 冷热迁移对账（2026-08-26 新增，v0.1）→ 在技能目录运行 `python scripts/migrate_cold_rules.py --dry-run`（默认仅报告不搬运；出现 ① 建议降级候选或 ③ 新增冲突项 → 记录并提示 Master；`--force` 已于 2026-11-10 停用——搬运实现未启用，传入即 exit 2 显式拒绝，只保留 `--dry-run` 对账）。规则正文冷热迁移方案见 docs/rule-cold-migration-plan.md（定稿 v1.1）；L2 学习侧对应 feed-learning Phase 8
     ↓
 Phase 6: 投喂素材准备（创建 投喂素材/YYYYMMDD/ + 8个空txt：ds.txt / ds点评优化.txt / ima.txt / ima点评优化.txt / 千问.txt / 千问点评优化.txt / 豆包.txt / 豆包点评优化.txt）→ 四AI学习用
 ```

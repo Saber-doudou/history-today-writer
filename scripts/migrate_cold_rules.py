@@ -17,11 +17,11 @@ migrate_cold_rules.py — 规则正文冷热迁移（v0.1，2026-08-26）
 用法：
   python scripts/migrate_cold_rules.py --dry-run          # 四区对账报告，不落盘
   python scripts/migrate_cold_rules.py --dry-run --report # 同上并落盘 review/migration_reconcile_YYYY-MM-DD.md
-  python scripts/migrate_cold_rules.py --force            # 实际搬运 + .bak 快照 + sync_check 校验
+  python scripts/migrate_cold_rules.py --force            # 已停用：搬运实现未启用，传入即 exit 2 拒绝
 
 输出：
-  review/migration_state.json            每次运行（结构化状态：date/mode/actions/checks/errors）
   review/migration_reconcile_YYYY-MM-DD.md  --report 时（md 对账报告，给人看）
+  ※ review/migration_state.json 仅在真搬运落地后才写；当前 --force 停用，故不产生（2026-11-10）
 
 回滚：cp <file>.bak <file> 或 git checkout -- <file>
 """
@@ -360,8 +360,18 @@ def main() -> int:
     ap = argparse.ArgumentParser(description="规则正文冷热迁移（对账 + 降级搬运）")
     ap.add_argument("--dry-run", action="store_true", help="仅报告，不落盘不动盘")
     ap.add_argument("--report", action="store_true", help="配合 --dry-run，落盘 md 对账报告")
-    ap.add_argument("--force", action="store_true", help="实际搬运（写前 .bak 快照 + sync_check 校验）")
+    ap.add_argument("--force", action="store_true",
+                    help="已停用：搬运实现未启用，传入即显式拒绝（2026-11-10 定案）")
     args = ap.parse_args()
+
+    # 2026-11-10 定案：--force 的实现从未落地（原分支只打印「尚未启用」，不搬运、不写 .bak、
+    # 不跑 sync_check），而 docstring / SKILL Phase 5c / feed-learning Phase 8 都宣称可执行，
+    # 且会在 state 里写 mode=force，制造「已执行」假象。与其留一个会说谎的开关，不如显式拒绝：
+    # 先拒绝、再读盘，连状态文件都不碰。
+    if args.force:
+        print("❌ --force 已停用：冷热搬运实现未启用（v0.1 仅做四区对账）。", file=sys.stderr)
+        print("   请改用 --dry-run 出对账报告，是否搬运由 Master 人工决定。", file=sys.stderr)
+        return 2
 
     print("=" * 64)
     print("migrate_cold_rules v0.1（定稿 plan v1.1）")
@@ -439,22 +449,26 @@ def main() -> int:
     if zones["missing"]:
         out(f"- ⚠️ 正文缺失异常：{', '.join(r['key'] for r in zones['missing'])}")
 
-    # ---- migration_state.json（每次运行）----
-    state = {
-        "date": date.today().isoformat(),
-        "mode": "force" if args.force else "dry-run",
-        "actions": [f"{r['key']}: demote" for r in zones["candidate"]],
-        "checks": {"sync_check": "not_run" if args.dry_run else "pending"},
-        "errors": [],
-        "summary": {k: len(v) for k, v in zones.items()},
-    }
+    # ---- migration_state.json ----
+    # 2026-11-10 起：仅「真搬运」才落盘该审计状态；--dry-run 与默认对账都不写，
+    # 与 docstring「不落盘」保持一致。当前 --force 已停用，故本文件不再产生。
+    # （旧实现每次运行都写，且 --force 被拒前会记 mode=force + actions=[demote]，属假执行痕迹。）
     state_path = SKILL_DIR / "review" / "migration_state.json"
-    try:
-        state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
-        out("")
-        out(f"- 运行状态已落盘：{state_path}")
-    except OSError as e:
-        out(f"- ⚠️ 状态落盘失败：{e}")
+    if args.force:  # 目前不可达：上面已 return 2；保留分支供将来真搬运落地时复用
+        state = {
+            "date": date.today().isoformat(),
+            "mode": "force",
+            "actions": [f"{r['key']}: demote" for r in zones["candidate"]],
+            "checks": {"sync_check": "pending"},
+            "errors": [],
+            "summary": {k: len(v) for k, v in zones.items()},
+        }
+        try:
+            state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2), encoding="utf-8")
+            out("")
+            out(f"- 运行状态已落盘：{state_path}")
+        except OSError as e:
+            out(f"- ⚠️ 状态落盘失败：{e}")
 
     # ---- report 落盘 ----
     if args.report:
@@ -465,16 +479,7 @@ def main() -> int:
         except OSError as e:
             out(f"- ⚠️ 报告落盘失败：{e}")
 
-    # ---- force 分支（本期实现但首跑不触发；候选区为空时天然幂等）----
-    if args.force:
-        if zones["candidate"]:
-            out("")
-            out("⚠️ --force 检测到候选，但 v0.1 搬运实现尚未启用（待 Master 确认 ① 区候选后启用）。")
-            out("   本次仅报告，未动盘。")
-        else:
-            out("")
-            out("✅ --force 无候选，幂等零写入（符合预期：当前全部 cold 在保护期内）。")
-
+    # ---- force 分支已于 2026-11-10 移除（见 main 入口的显式拒绝）----
     print("-" * 64)
     ok_count = sum(1 for r in zones.values() if r)
     print(f"汇总：四区候选 {len(zones['candidate'])} / 候补 {len(zones['pending'])} / 冲突 {len(zones['conflict'])} / 拦截 {len(zones['gate'])}；一致 {len(zones['consistent'])}")
