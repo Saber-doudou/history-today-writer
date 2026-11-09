@@ -112,7 +112,7 @@ Phase 3.7: 【人工审核检查点】→ 输出当前最佳版本 → 等待 Ma
     ↓
 Phase 4: 输出（全文 + 执行摘要）——执行摘要须含：候选事件对比评分 / 审校结果 P0/P1/P2 + 审校方式（独立 Reviewer 或自审标注）/ 迭代次数 / 版本号 / 宿主状态 / 运行模型 / 终版字数（以实测计并注明汉字口径；防摘要自报与落盘文本不符）
     ↓
-Phase 5: 记忆更新（MEMORY.md 执行记录+质量仪表盘 + TOPICS.md 选题+复盘 + CASE_STUDIES.md 新案例时 + 当日日志 .workbuddy/memory/YYYY-MM-DD.md + 执行摘要写入权威 automation memory `.workbuddy/memory/automations/automation-1778209807842/memory.md`——唯一权威路径（2026-09-07 A2 统一），旧 `.workbuddy/automations/` 已废弃禁写，L3 侧由 l3_publish Phase 7b 同指此路径）
+Phase 5: 记忆更新（MEMORY.md「最近执行」**只写 1 行索引**（日期+选题+版本+质量+规则净增+L3 见 publish_history），禁内嵌仪表盘（3000 字符硬门禁，sync_check ⑧ 把关）+ TOPICS.md 选题+复盘 + CASE_STUDIES.md 新案例时 + 当日日志 .workbuddy/memory/YYYY-MM-DD.md + 执行摘要写入权威 automation memory `.workbuddy/memory/automations/automation-1778209807842/memory.md`——唯一权威路径（2026-09-07 A2 统一），旧 `.workbuddy/automations/` 已废弃禁写，L3 侧由 l3_publish Phase 7b 同指此路径）
     ↓
 Phase 5b: 选题索引重建（2026-08-26 新增）→ 写 archive/daily/选题索引.md（纯选题两列：运行日期 | 选题名；数据源 = TOPICS.md 全部「选题复盘」块标题；按运行日期倒序；每次运行重建，保证与 TOPICS.md 一致、无重复行；文件头注明仅收录有结构化选题记录的日期，更早无选题记录的旧文不纳入）
     ↓
@@ -193,31 +193,15 @@ reviewer → orchestrator：
 
 ---
 
-## 📊 质量仪表盘（每次执行后更新 MEMORY.md）
+## 📊 质量指标（不落盘到主记忆）
 
-```yaml
-## 质量趋势（最近10篇）
-| 指标 | 值 | 趋势 |
-|------|-----|------|
-| 平均P0数 | [n] | [↑→↓] |
-| 平均P1数 | [n] | [↑→↓] |
-| 平均P2数 | [n] | [↑→↓] |
-| 首版通过率 | [n]% | [↑→↓] |
-| 平均修改轮次 | [n] | [↑→↓] |
-  | 规则触发Top3 | Rule[n](n次), Rule[n](n次), Rule[n](n次) | - |
+MEMORY.md 受 sync_check ⑧ 硬门禁 3000 字符约束，**禁止内嵌质量趋势表 / 温控月报**（趋势表与月报模板已于 2026-11-09 移除：主记忆从未有对应章节，无任何消费方）。
 
-## 规则温控月报
-| 指标 | 值 |
-|------|-----|
-| 总规则数 | 199 (146条规则+53条禁止) |
-| hot 规则 | [n] |
-| cold 规则 | [n] |
-| recovered 规则 | [n] |
-| 本月升温数 | [n] |
-| 本月降级数 | [n] |
-```
+规则规模声称行（**sync_check ① 机器读取，格式不可改、行不可删**）：
 
-| 温控数据 | `review/rule_heat.json` | 全量规则触发记录，机器可读 |
+总规则数 | 199（146 Rule + 53 Forbidden）｜hot 90/90
+
+质量与温控数据以机器可读源为准：`review/rule_heat.json`（全量规则触发记录，含 `last_triggered`/`last_issue`/`count`）+ `rule_index.md` 温控列；趋势与 Top3 触发按需现算，不写回 MEMORY.md。
 
 ---
 
