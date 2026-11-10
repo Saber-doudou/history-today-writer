@@ -110,7 +110,7 @@ Phase 3.7: 【人工审核检查点】→ 输出当前最佳版本 → 等待 Ma
   - Master 要求废弃 → 标记后跳过此选题
   - 超时无人确认（默认）→ 自动进入 Phase 4
     ↓
-Phase 4: 输出（全文 + 执行摘要）——执行摘要须含：候选事件对比评分 / 审校结果 P0/P1/P2 + 审校方式（独立 Reviewer 或自审标注）/ 迭代次数 / 版本号 / 宿主状态 / 运行模型 / 终版字数（以实测计并注明汉字口径；防摘要自报与落盘文本不符）
+Phase 4: 输出（全文 + 执行摘要）——输出前硬性自检：`archive/daily/topic_result_{YYYY-MM-DD}.json` 必须已由 Phase 1 落盘（缺失即 sync_check ⑫ 红灯，阻断 L3），执行摘要须含：候选事件对比评分 / 审校结果 P0/P1/P2 + 审校方式（独立 Reviewer 或自审标注）/ 迭代次数 / 版本号 / 宿主状态 / 运行模型 / 终版字数（以实测计并注明汉字口径；防摘要自报与落盘文本不符）
     ↓
 Phase 5: 记忆更新（MEMORY.md「最近执行」**只写 1 行索引**（日期+选题+版本+质量+规则净增+L3 见 publish_history），禁内嵌仪表盘（3000 字符硬门禁，sync_check ⑧ 把关）+ TOPICS.md 选题+复盘 + CASE_STUDIES.md 新案例时 + 当日日志 .workbuddy/memory/YYYY-MM-DD.md + 执行摘要写入权威 automation memory `.workbuddy/memory/automations/automation-1778209807842/memory.md`——唯一权威路径（2026-09-07 A2 统一），旧 `.workbuddy/automations/` 已废弃禁写，L3 侧由 l3_publish Phase 7b 同指此路径）
     ↓
@@ -228,6 +228,6 @@ MEMORY.md 受 sync_check ⑧ 硬门禁 3000 字符约束，**禁止内嵌质量�
 
 ---
 
-*Version: v10.5.0 | 2026-11-10（门禁机制改造 8 项，详见 CHANGELOG v10.5.0；199=146+53、hot 90/90 不变；基于 v10.4.7）| 质量门禁/审校契约整改详见 CHANGELOG v10.4.4；B-04 非法 review 迁 archive/legacy/；sync_topics 入库宽容认 -v2；测试 39→62；逐版见 CHANGELOG.md*
+*Version: v10.6.0 | 2026-11-11（第三轮复审 M1-M4：⑫ 账本硬闸/单一源容错/快照链路/版本归位，详见 CHANGELOG v10.6.0；199=146+53、hot 90/90 不变；基于 v10.5.0）| 质量门禁/审校契约整改详见 CHANGELOG v10.4.4；B-04 非法 review 迁 archive/legacy/；sync_topics 入库宽容认 -v2；测试 39→62；逐版见 CHANGELOG.md*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。

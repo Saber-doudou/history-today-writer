@@ -5,15 +5,16 @@
 > **新产物无豁免**：清单只对列出的具体日期/对象生效，一律不做日期范围通配。
 
 **最后更新**：2026-11-11
-**批准人**：Master
-**关联版本**：v10.5.0 门禁机制改造 8 项（其中 ② claims 契约、③ v2 复检件为本清单的成因）
+**批准状态（逐条）**：G-01、G-02 已获 Master 批准（2026-11-10 D2 决策「不补」）；**G-03 待批**（2026-11-11 登记，等 Master 一句「批/不批」——批则此行改为「G-01/G-02/G-03 均已批准」，不批则 G-03 撤出本文件、转为独立待批提案）
+**关联版本**：v10.5.0 门禁机制改造 8 项（成因）→ v10.6.0 第三轮复审 M1-M4（⑫ 账本硬闸等）
 
 ---
 
-## 一、A8 claims 契约（gate_check，Phase 3.8 shadow）
+## 一、A8 claims 契约（gate_check Phase 3.8 shadow + sync_check ⑫ 硬闸）
 
 判定逻辑：`probe_claims()` 区分 `absent / null / not_list / empty / ok` 五态。
-缺键、`null`、类型错、或「claims 为空但 `fact_check.key_facts` 有已核事实」均判 **fail**。只有真空账本判 skip。
+缺键、`null`、类型错、或「claims 为空但 `fact_check.key_facts` 有已核事实」均判 **fail**。真空账本判 skip。
+**生效日（claims_since=2026-11-10，单一源）后缺账本文件本身也判 fail**（A8=gate_check 层、⑫ 硬闸=sync_check 层，双红灯；2026-11-11 修 N1+M1）。
 
 ### G-01｜2026-11-09｜claims 缺失，key_facts 有 8 条
 
@@ -57,7 +58,7 @@
 - **新产物**：自 2026-11-10 起，任何 v2 缺 `_v2_review.json` 一律 `fail` 且 ⑫ 报 `v2 缺复检件 N 篇`，无豁免。已负向测试：造 2026-11-11 空 v2 即 `M1=fail`。
 - **2026-11-10 修正的两处不一致**（原状态会导致误判）：
   1. M1 原先**没有日期阈值**，对历史篇逐篇 `fail`，而 ⑫ 放过历史 → 同一契约两套时间线，`gate_check --recent N` 恒全红、新信号被噪音淹没。
-  2. `gate_check --recent` 原先**不传 claims 路径**，A8 一律走「账本不存在 → skip」，汇总恒为假绿（实测 11-09、11-06 明明 `A8=fail`，`--recent 3` 却报 `pass 3 / fail 0`）。现已与 `--article` 同口径自动关联同目录 `topic_result_{date}.json`，`--recent 3` 如实报 `pass 1 / fail 2`。
+  2. `gate_check --recent` 原先**不传 claims 路径**，A8 一律走「账本不存在 → skip」，汇总恒为假绿（实测 11-09、11-06 明明 `A8=fail`，`--recent 3` 却报 `pass 3 / fail 0`）。现已与 `--article` 同口径自动关联同目录 `topic_result_{date}.json`。当前实跑 `--recent 3` = `pass 0 / fail 3`：11-10 缺账本（G-03，本条新增后的新红灯）、11-09（G-01）、11-06（G-02）——三条红灯与登记一一对应，属「留红登记」而非缺陷归零。
 
 ---
 

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-sync_check.py — 一键核验 history-today-writer 技能文件一致性（v10.1.0）
+sync_check.py — 一键核验 history-today-writer 技能文件一致性（版本随 SKILL.md，见 EXPECT_VERSION）
 
 核对项：
     ① 规则数：writing_core.md + topics/* + archive/cold_rules.md 的规则编号并集
-     vs rule_index.md 索引行数 vs SKILL.md 声称数（193 = 135 Rule + 58 Forbidden）；
+     vs rule_index.md 索引行数 vs SKILL.md 声称数（199 = 146 Rule + 53 Forbidden，以 EXPECT_* 为准）；
      另含 rule_index 小节标题声称（Rules/Forbidden N 条）与 SKILL.md 判例声称
      （= CASE_STUDIES 实际最大 CASE 编号）核验
   ② Forbidden 数（58）
@@ -48,7 +48,7 @@ SKILL_DIR = Path(__file__).resolve().parent.parent
 EXPECT_RULES = 146       # R1-R149 扣除已合并空洞 33/55/87（33→并入 R118 过渡句、55→并入 R14 内外因平衡、87→并入 R56 具象类比；约束不丢，编号不复用不回填）；R148 新增于 2026-10-13 国际子午线会议 L2；R149 新增于 2026-10-15 武汉长江大桥 L2
 EXPECT_FORBIDDEN = 53    # F1-F58 扣除已删空洞 23/49/50/24/25（23→R14、49/50→R94/R95、24→R56、25→5N.1；均约束已由他规则承载）
 EXPECT_TOTAL = 199       # 146 + 53
-EXPECT_VERSION = "v10.5.0"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_VERSION = "v10.6.0"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 契约生效日单一事实源（2026-11-11 修 N4）。gate_check.py 同读此文件，
 # ⑪-F 校验该文件存在、键值合法、且两脚本仍在引用——防有人改回各自硬编码。
@@ -765,6 +765,18 @@ def check_topics_freshness() -> None:
             f"（{v2_review_since} 起强制，Phase 4 须落盘 {{date}}_v2_review.json）"
         )
 
+    # 账本落盘硬闸（2026-11-11 第三轮 M1）：N1 只让 gate_check 报红，但 A8 归属
+    # Phase 3.8 shadow（失败只告警不阻断），Phase 1「强制落盘」只是 SKILL 文本，
+    # 无机器硬闸——账本不落盘文章照发。现在 ⑫ 对生效日后的最新 v2 缺账本直接红，
+    # 与 v2 复检件同一条机器链路，L1 漏落盘会在 L2/L3 的 sync_check 处被拦住。
+    claims_since = CONTRACT_DATES["claims_since"]
+    latest_v2 = all_v2[0] if all_v2 else ""
+    if latest_v2 and latest_v2 >= claims_since and not (art / f"topic_result_{latest_v2}.json").is_file():
+        problems.append(
+            f"最新定稿 {latest_v2} 缺事实账本 topic_result_{latest_v2}.json"
+            f"（{claims_since} 起强制，Phase 1 选题时须同步落盘，契约 review/schema/topic_result.v2.json）"
+        )
+
     check(not problems, "⑫ 记忆分片新鲜度 + 产物命名（exec_log / publish_history）",
           "；".join(problems) or f"最近 {len(dates)} 篇定稿均已登记，命名合规，v2 复检件齐备")
 
@@ -822,7 +834,7 @@ def check_receipt_consistency() -> None:
 
 def main() -> int:
     print("=" * 64)
-    print("history-today-writer sync_check（v10.0.1）")
+    print(f"history-today-writer sync_check（{EXPECT_VERSION}）")
     print(f"技能目录：{SKILL_DIR}")
     print("=" * 64)
 

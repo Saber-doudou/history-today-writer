@@ -46,7 +46,27 @@ DATE_ISO = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
 # 背景：2026-11-10 曾在 sync_check.v2_review_since 与 gate_check.V2_REVIEW_SINCE
 # 各写死一份 "2026-11-10"，靠注释要求人肉同步；任何一处改动都会让同一契约出现
 # 两套时间线（一处放过、一处报红）。现由 sync_check ⑪-F 校验本文件被两处引用。
-CONTRACT = json.loads((HERE / "contract_dates.json").read_text(encoding="utf-8"))
+# 容错（2026-11-11 修第三轮 M3）：此前是裸 json.loads，该文件损坏/缺键/被删时
+# import 阶段即抛异常，A8/M1/全部 gate 检查崩溃而 sync_check 可能仍绿。
+# 现与 sync_check 同款降级：读取失败或缺键 → 哨兵日期「永不强制」，
+# 由 ⑪-F 的键值合法性校验报红，不崩门禁也不静默沿用旧阈值。
+def _load_contract() -> dict:
+    path = HERE / "contract_dates.json"
+    try:
+        d = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001 — 损坏/缺失/编码错统一降级
+        return {"v2_review_since": "9999-12-31", "claims_since": "9999-12-31",
+                "_load_error": f"{path.name} 读取失败"}
+    out = dict(d)
+    for k in ("v2_review_since", "claims_since"):
+        v = out.get(k)
+        if not (isinstance(v, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", v or "")):
+            out[k] = "9999-12-31"
+            out["_load_error"] = f"{k}={v!r} 非法，已降级为永不强制"
+    return out
+
+
+CONTRACT = _load_contract()
 V2_REVIEW_SINCE = CONTRACT["v2_review_since"]
 # 事实账本（topic_result_{date}.json）强制落盘生效日。此前账本缺失一律 skip，
 # 造成激励倒挂：不写账本放行、写了账本反被五态严判（2026-11-11 修 N1）。
