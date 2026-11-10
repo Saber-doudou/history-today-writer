@@ -42,6 +42,10 @@ HANZI = re.compile(r"[\u4e00-\u9fff]")
 DATE_CN = re.compile(r"(\d{4})年(\d{1,2})月(\d{1,2})日")
 DATE_ISO = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
 
+# v2 复检件强制生效日。与 sync_check.py 的 v2_review_since 必须保持一致——
+# 同一份契约不能有两套时间线，否则一处放过、一处报红（2026-11-10 修正）。
+V2_REVIEW_SINCE = "2026-11-10"
+
 
 def parse_article(text: str) -> tuple[str, str, str]:
     lines = text.splitlines()
@@ -181,8 +185,16 @@ def check(article_path: Path, cfg: dict, core_image: str = "", claims_path: Path
         add("M3", "skip", "同上")
     else:
         need = v2_review_f if is_v2 else review_f
-        add("M1", "pass" if need.is_file() else "fail",
-            f"{need.name} {'存在' if need.is_file() else '缺失'}")
+        # 2026-11-10 修：M1 原先无日期阈值，导致「v2 复检件」这一份契约有两套
+        # 时间线——sync_check ⑫ 自 V2_REVIEW_SINCE 起强制、历史放过，而 M1 逐篇
+        # 报 fail，使 `gate_check --recent N` 对历史篇永远全红、新信号被噪音淹没。
+        # 现与 ⑫ 同口径：件存在即 pass；缺件且早于强制日 → skip；强制日及之后缺件 → fail。
+        if need.is_file():
+            add("M1", "pass", f"{need.name} 存在")
+        elif is_v2 and article_date < V2_REVIEW_SINCE:
+            add("M1", "skip", f"{need.name} 缺失，但 {article_date} 早于强制日 {V2_REVIEW_SINCE}（历史不追溯）")
+        else:
+            add("M1", "fail", f"{need.name} 缺失")
         if review_f.is_file():
             try:
                 rdate = json.loads(review_f.read_text(encoding="utf-8")).get("date")
@@ -241,7 +253,16 @@ def main() -> int:
 
     if args.recent:
         files = sorted(DAILY.glob("*_v2.md"))[-args.recent:]
-        results = [check(p, cfg) for p in files]
+        # 2026-11-10 修：原为 `check(p, cfg)` 直呼，不传 claims，A8 一律走「账本不存在
+        # → skip」，导致 `--recent` 的汇总恒为假绿（实测 11-09、11-06 明明 A8=fail，
+        # --recent 却报 pass 3/fail 0）。现与 --article 分支同口径：按文件名自动关联
+        # 同目录的 topic_result_{date}.json。
+        results = []
+        for p in files:
+            m = re.search(r"(\d{4}-\d{2}-\d{2})", p.name)
+            cand = p.parent / f"topic_result_{m.group(1)}.json" if m else None
+            cl = cand if (cand and cand.is_file()) else None
+            results.append(check(p, cfg, claims_path=cl))
         summary = {
             "total": len(results),
             "pass": sum(1 for r in results if r["pass"]),

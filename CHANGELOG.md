@@ -23,6 +23,13 @@
 - **小修（收尾自查，未占决策带宽）**：① `learning_log.md` 中 11-09 条目写「未触发 L3（无 IMA 备份/git）」为失效断言，据 `2026-11-09_ima_receipt.json`（`note_id=7525476637620034`、`commit=f0458e1`、`backup_time=2026-11-09T16:52:46`）回改；② `eval/__init__.py` + `eval/tests/__init__.py` 补齐，`python -m unittest discover -s eval/tests -t .` 恢复可用（此前报 `Start directory is not importable`）；首次 discover 耗时 63s 属冷启动（pyc 编译/磁盘缓存），复跑 0.19s，非缺陷。
 - **自查否决两项（原以为要改，核实后不改）**：① `sync_topics.cmd_delta` 的 `since` 比较保留 `>=`——改成 `>` 会漏掉 11-09 深夜补记的治理记录（`记录 | 2026-11-09` 写在 learning_log 该章节之后），重复采集成本仅为标题级切片，宁可多采不可漏；② ② 区问题按占位识别修，不改「已 cold 排除」逻辑（见 ⑨）。
 
+### v10.5.0 送审前自查追加（⑩ ⑪，均已修）
+
+- **⑩ `gate_check` M1 无日期阈值——同一份契约两套时间线**：`sync_check ⑫` 自 `v2_review_since=2026-11-10` 起强制、历史放过，而 M1 对任何 v2 缺 `_v2_review.json` 一律 `fail`，不认日期。后果：`gate_check --recent 3` 对历史篇恒全红，新信号被噪音淹没；且我在 `KNOWN_GAPS` 里按 ⑫ 口径写「21 篇不作为豁免登记」，漏掉了 M1 这条路径，属自相矛盾的描述。修：新增模块常量 `V2_REVIEW_SINCE = "2026-11-10"`（注释要求与 `sync_check.v2_review_since` 保持一致），M1 改为「件存在 pass / 缺件且早于强制日 skip / 强制日及之后缺件 fail」。负向测试：造 `2026-11-11` 空 v2 → `M1=fail`，证明阈值不是无脑放过。
+- **⑪ `gate_check --recent` 恒为假绿**：该分支原为 `check(p, cfg)` 直呼，**不传 claims 路径**，A8 全部走「账本不存在 → skip」。实测 11-09、11-06 用 `--article` 逐篇查均 `A8=fail`，`--recent 3` 却报 `pass 3 / fail 0`。修：按文件名自动关联同目录 `topic_result_{date}.json`，与 `--article` 分支同口径。修后 `--recent 3` 如实报 `pass 1 / fail 2`，与逐篇一致。此条属审查报告「校验器自身的假绿」同类，但原报告只点了 ⑦⑨（DB 不可读时只 print 不 check），未发现本项。
+- **测试同步**：`test_gate_check.make()` 增 `date` 参数（默认 2026-10-22，不影响既有用例）；`test_m1_missing_recheck` 改用强制日当天；新增 `test_m1_historical_missing_recheck_skipped` 覆盖历史 skip 口径。单测 68 → **69**。
+- **认知修正**：`gate_check --recent N` 此前被当作「整体回归入口」，但它只是一次批量调用，逐篇判定与 `--article` 必须同源。凡新增检查项，两条调用路径都要过一遍，否则绿灯不代表通过。
+
 ## 记录（不改版本号）| 2026-11-09 MEMORY.md 体积治理（⑧ 复发根治 + automation memory 归档 N）
 
 > 只动记忆与文档记载，不动规则与正文；规则数 199=146+53、hot 90/90、版本号 v10.4.7 均不变。

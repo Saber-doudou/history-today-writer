@@ -18,14 +18,14 @@ CFG = json.loads((ROOT / "eval" / "gate_config.json").read_text(encoding="utf-8"
 BODY = "灯" * 600
 
 
-def make(text: str, companions: bool = True) -> Path:
+def make(text: str, companions: bool = True, date: str = "2026-10-22") -> Path:
     d = tempfile.mkdtemp()
-    p = Path(d) / "2026-10-22_v2.md"
+    p = Path(d) / f"{date}_v2.md"
     p.write_text(text, encoding="utf-8")
     if companions:
         # M1（B-13）：v2 阶段要求复检件同目录存在
-        (Path(d) / "2026-10-22_v2_review.json").write_text(
-            json.dumps({"date": "2026-10-22", "p0_count": 0, "p1_count": 0,
+        (Path(d) / f"{date}_v2_review.json").write_text(
+            json.dumps({"date": date, "p0_count": 0, "p1_count": 0,
                         "p2_count": 0, "pass": True, "issues": []}, ensure_ascii=False),
             encoding="utf-8")
     return p
@@ -84,8 +84,16 @@ class TestArtifacts(unittest.TestCase):
     """M1-M3 产物齐备性（B-13，2026-10-30）。"""
 
     def test_m1_missing_recheck(self):
-        r = gc.check(make(valid_text(), companions=False), CFG)
+        # 契约自 2026-11-10 起强制，故用强制日当天验证「缺件必须 fail」
+        r = gc.check(make(valid_text(), companions=False, date="2026-11-10"), CFG)
         self.assertTrue(any(f["id"] == "M1" for f in r["p0_fail"]), r["p0_fail"])
+
+    def test_m1_historical_missing_recheck_skipped(self):
+        # 早于强制日的历史缺件不追溯：skip 而非 fail（2026-11-10 与 sync_check ⑫ 同口径）
+        r = gc.check(make(valid_text(), companions=False, date="2026-10-22"), CFG)
+        self.assertFalse(any(f["id"] == "M1" for f in r["p0_fail"]), r["p0_fail"])
+        m1 = [c for c in r["checks"] if c["id"] == "M1"]
+        self.assertEqual(m1[0]["status"], "skip", m1)
 
     def test_m2_date_mismatch(self):
         p = make(valid_text())
