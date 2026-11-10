@@ -150,8 +150,25 @@ RULE_HEAD_RE = re.compile(r"^(#{1,6})\s*Rule\s*(\d{1,3})\s*[:.．、]", re.IGNOR
 FORBIDDEN_LINE_RE = re.compile(r"^(\d{1,2})\.\s*✗")
 
 
+def _is_cold_placeholder(body: str) -> bool:
+    """Rule 块是否为 cold 占位：标题行之后第一个非空行是「> **cold 占位 …」引用块。
+
+    2026-11-10 修：原 scan_rule_blocks 不识别占位，导致已降级的规则被当成
+    hot 正文。实例：Rule50（status=cold、正文已迁 archive/cold_rules.md，
+    hot 区只留 §1.21 的占位说明）被判 loc=hot，于是落进 migrate ② 区，
+    报成「未满阈值候补、预计 2026-11-12 达标」——对着一条早已降级的规则
+    提示降级。Forbidden 侧一直有 cold_placeholder 判定，Rule 侧此前缺失。
+    """
+    for ln in body.splitlines()[1:]:
+        s = ln.strip()
+        if not s or s == "---":
+            continue
+        return s.startswith(">") and "cold 占位" in s
+    return False
+
+
 def scan_rule_blocks(text: str, rel: str) -> dict:
-    """扫描 Rule 多行块 → {n: {file, body(含标题行), title}}"""
+    """扫描 Rule 多行块 → {n: {file, body(含标题行), title, cold_placeholder}}"""
     out: dict = {}
     lines = text.splitlines()
     i = 0
@@ -167,11 +184,13 @@ def scan_rule_blocks(text: str, rel: str) -> dict:
                 if hm and len(hm.group(1)) <= level:
                     break
                 j += 1
+            body = "\n".join(lines[start:j])
             out[n] = {
                 "file": rel,
-                "body": "\n".join(lines[start:j]),
+                "body": body,
                 "title": m.group(0).rstrip(":").strip(),
                 "line_start": start,
+                "cold_placeholder": _is_cold_placeholder(body),
             }
             i = j
         else:
@@ -209,12 +228,17 @@ def scan_all() -> dict:
     落点优先级：hot 区真实正文（非占位）> cold 区（archive 块/表格行）> hot 区占位。
     """
     actual: dict = {}
-    # Rule 块（hot 源文件；archive 内 Rule 块 → cold）
+    # Rule 块（hot 源文件；archive 内 Rule 块 → cold；hot 区 cold 占位 → placeholder）
     for rel in HOT_SOURCES + [COLD_SOURCE]:
         text = read_text(rel)
         for n, blk in scan_rule_blocks(text, rel).items():
+            if blk.get("cold_placeholder") and rel in HOT_SOURCES:
+                actual.setdefault(("rule", n), {"loc": "placeholder", "file": rel, "body": blk["body"],
+                                                "title": blk["title"], "cold_placeholder": True})
+                continue
             loc = "hot" if rel in HOT_SOURCES else "cold"
-            actual.setdefault(("rule", n), {"loc": loc, "file": rel, "body": blk["body"], "title": blk["title"]})
+            actual.setdefault(("rule", n), {"loc": loc, "file": rel, "body": blk["body"],
+                                            "title": blk["title"], "cold_placeholder": False})
     # Forbidden 行：hot 源文件真实正文（非占位）→ hot；占位 → placeholder（不构成 hot 正文）
     for rel in HOT_SOURCES:
         text = read_text(rel)

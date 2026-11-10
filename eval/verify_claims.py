@@ -174,6 +174,14 @@ def probe_claims(path: Path) -> tuple[list[dict], str]:
     区分二者是必要的：键缺失/null 说明产出方没按契约写（应 fail），
     空数组说明写了但确实没有可核事实（可 skip）。旧实现一律返回 []，
     两种情形被压成同一种，既放过了违约也误伤了合法空账本。
+
+    ⚠️ `fact_check.key_facts` 不是 claims 的替代品，**不得机械转换**。
+    它是 L1 阶段的扁平键值对，无来源字段、无核实状态；且实测含已被 L2
+    证伪的旧数据（2026-11-09 产物第 8 条 aftermath 写「1968 年成立北美
+    电力可靠性公司」，实为 National Electric Reliability Council 理事会，
+    Corporation 系 2006 年才改）。把 key_facts 转成 claims，等价于把事实
+    草稿包装成已核对账本，比留着红灯更糟。判定依据与豁免记录见
+    review/KNOWN_GAPS.md。
     """
     data = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(data, dict):

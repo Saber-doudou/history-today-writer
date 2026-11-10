@@ -1,8 +1,9 @@
 # CHANGELOG — history-today-writer
 
-## 记录（不改版本号）| 2026-11-10 阻断级缺陷修复 8 项（审查报告逐条验证后落地）
+## v10.5.0 | 2026-11-10（门禁机制改造 8 项：阻断级缺陷全修；规则数 199=146+53、hot 90/90 不变；基于 v10.4.7）
 
-> 只动工具与门禁，不动规则与正文；规则数 199=146+53、hot 90/90、版本号 v10.4.7 均不变。
+> **本次主动升 MINOR（v10.4.7 → v10.5.0），推翻初判的「记录（不改版本号）」**。初判依据「只动工具不动规则」，但对照规范「MINOR=结构性变化/机制改造集」，本次实为四处门禁机制变更：claims 契约由单态扩为五态、⑫ 新增「v2 必配复检件」硬校验、① 新增表格列数校验、`--force` 语义由「假可用」改为「显式拒绝」。v10.4.7 已被 11-05 至 11-09 连续五天的 L2 复用，继续沿用会让「这个版本的门禁长什么样」不可考。Master 2026-11-10 裁决升号。
+> 规则与正文未动：规则数 199=146+53、hot 90/90、总 199/200 均不变。
 > 回归：`sync_check` 24/24、`unittest` 68/68、`check_topic --self-test` 0 误杀 0 漏放、`l3_publish --dry-run` exit 0。
 
 - **① rule_index 表格脏行（4 处）**：`R32||R34`、`R54||R56`、`R86||R88`、`F22||F26` 四行把两条规则塞进同一行，Markdown 渲染错列、LLM 读到破碎规则。**注意：这 4 条被并入的规则本来就有独立行**（L45/L66/L97/L186，逐字比对一致），所以正确修法是删重复段而非拆行——拆行会让 ① 行数 146→150 直接失败。同批给 ① 加「表格列数必须为 7 个分隔符」校验（并入既有 ① 检查项，总数仍 24），防同类复发。
@@ -12,7 +13,15 @@
 - **⑤ DB 时间戳单位错**：`write_db` 写 `int(datetime.now().timestamp())`（10 位秒），而 DB 实测 32 行 `updated_at` 全为 13 位毫秒。改为 `int(time.time()*1000)`。**数据无需清洗**：已扫描全表，无 10 位脏值。
 - **⑥ `git pull` 无超时**：只有 push 带 `timeout`，注释本身写着「超时必须捕获，09-08 首跑卡死」。pull 补 `timeout=timeout` + `TimeoutExpired` 归入 network 重试分支。
 - **⑦ 一次性脚本可静默覆盖记忆**：`assemble_memory.py`（模块级覆盖 MEMORY.md，正文写死 v9.9.5/规则 187）、`restructure_memory.py`（覆盖 topics 四分片）均无 `__main__` 保护。移入 `archive/one-shot-scripts-2026-09-07/` + README，加「无 `--apply` 即 exit 2」执行闸 + 写前 `.bak-<时间戳>` 备份。实测两脚本 exit 2，`MEMORY.md` md5 前后一致。
-- **⑧ 文档接口脱节 + L2 切片漏采**：`sync_topics.py` docstring 声明 `--check` 但 argparse 未定义（实跑 exit 2），已补；`cmd_delta` 与 `rule_ledger` 只认 `## vX | 日期`，而 CHANGELOG 顶部是 `## 记录（不改版本号）| 日期`，致 10-30 与 11-09 两段治理记录不进 L2 切片、ledger 还把其引用日期记为 `?`。两处正则改为兼容该标题，并顺手把硬编码 `2026-` 放开为四位年（防 2027 静默漏采）。实测 `--check` exit 0、delta 输出已含两条记录。
+- **⑧ 文档接口脱节 + L2 切片漏采**：`sync_topics.py` docstring 声明 `--check` 但 argparse 未定义（实跑 exit 2），已补；`cmd_delta` 与 `rule_ledger` 只认 `## vX | 日期`，而 CHANGELOG 当时顶部两条是 `## 记录（不改版本号）| 日期`（10-30、11-09 两段治理记录），致这两段不进 L2 切片、ledger 还把其引用日期记为 `?`。两处正则改为兼容该标题，并顺手把硬编码 `2026-` 放开为四位年（防 2027 静默漏采）。实测 `--check` exit 0、delta 输出已含两条记录。
+
+### v10.5.0 同日配套（Master 决策 D2 / D3 + 收尾自查）
+
+- **⑨（新发现，审查报告未列）migrate ② 区误把已降级规则报成降级候补**：`scan_rule_blocks` 不识别 Rule 的「cold 占位」，而 `scan_all` 用 `setdefault` 且先扫 hot 源，导致 Rule50（`status=cold`、`demoted_at=2026-10-13`、正文已迁 `archive/cold_rules.md §1.21`、hot 区只留一行占位说明）被判 `loc=hot`，落进 ② 区报「预计 2026-11-12 达标」。Forbidden 侧一直有 `cold_placeholder` 判定，Rule 侧此前缺失。新增 `_is_cold_placeholder()`（判定：标题后首个非空行是含「cold 占位」的引用块），② 区由 1 条归零，四区变为 候选 0 / 候补 0 / 冲突 0 / 拦截 5、一致 165。**注意**：先前把此现象描述为「② 区未排除已 cold 规则」不准确，真因是占位未识别；`docs/HOT_TO_COLD_SOP.md` 与 feed-learning Phase 8 的措辞已按真因更正。
+- **D2 已知红灯清单（不补历史欠账）**：新建 `review/KNOWN_GAPS.md`，登记 G-01（2026-11-09 `claims` 缺失，`key_facts` 8 条为无来源扁平键值对且第 8 条 `aftermath` 写「NERC 公司」已被当日 L2 证伪为「理事会」）、G-02（2026-11-06 `claims=null`），均**维持 A8=fail**、不补。10 月 21 篇 v2 缺复检件**不作为豁免登记**（⑫ 本就不追溯，登记反而夸大漏洞）。同时在 `verify_claims.probe_claims()` docstring 固死「`key_facts` 不得机械转 claims」及反例，防复发。
+- **D3 降级手工 SOP**：新建 `docs/HOT_TO_COLD_SOP.md`（hot 数口径 = 正文条数、双闸前置检查、六步操作、checkpoint 回滚、六个已知坑），feed-learning Phase 8 挂引用。依据 Master 决策 D3-A：`--force` 保持停用，后续确有连续降级需求再做脚本化（B 案）。
+- **小修（收尾自查，未占决策带宽）**：① `learning_log.md` 中 11-09 条目写「未触发 L3（无 IMA 备份/git）」为失效断言，据 `2026-11-09_ima_receipt.json`（`note_id=7525476637620034`、`commit=f0458e1`、`backup_time=2026-11-09T16:52:46`）回改；② `eval/__init__.py` + `eval/tests/__init__.py` 补齐，`python -m unittest discover -s eval/tests -t .` 恢复可用（此前报 `Start directory is not importable`）；首次 discover 耗时 63s 属冷启动（pyc 编译/磁盘缓存），复跑 0.19s，非缺陷。
+- **自查否决两项（原以为要改，核实后不改）**：① `sync_topics.cmd_delta` 的 `since` 比较保留 `>=`——改成 `>` 会漏掉 11-09 深夜补记的治理记录（`记录 | 2026-11-09` 写在 learning_log 该章节之后），重复采集成本仅为标题级切片，宁可多采不可漏；② ② 区问题按占位识别修，不改「已 cold 排除」逻辑（见 ⑨）。
 
 ## 记录（不改版本号）| 2026-11-09 MEMORY.md 体积治理（⑧ 复发根治 + automation memory 归档 N）
 
