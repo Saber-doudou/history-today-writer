@@ -8,7 +8,7 @@ sync_check.py — 一键核验 history-today-writer 技能文件一致性（版�
      vs rule_index.md 索引行数 vs SKILL.md 声称数（199 = 146 Rule + 53 Forbidden，以 EXPECT_* 为准）；
      另含 rule_index 小节标题声称（Rules/Forbidden N 条）与 SKILL.md 判例声称
      （= CASE_STUDIES 实际最大 CASE 编号）核验
-  ② Forbidden 数（58）
+  ② Forbidden 数（以 EXPECT_FORBIDDEN 为准，当前 53）
   ③ 版本号：SKILL.md 末尾 Version 行须等于 EXPECT_VERSION（automation prompt 版本/计数一致性由 ⑦ 自动核验）
   ④ 文件路径可达性：topics×3、review/prompts×6、craft_optional.md、
      archive/cold_rules.md、review/CASE_STUDIES.md、review_rules.md、
@@ -619,6 +619,12 @@ def check_claim_drift(topics_actual: int) -> None:
         for f in ("scripts/sync_check.py", "eval/gate_check.py"):
             if "contract_dates.json" not in read_text(f):
                 problems.append(f"{f} 未引用 contract_dates.json（疑改回硬编码，双源漂移）")
+        # 降级语义一致性（2026-11-11 第四轮复审）：两脚本都必须保留「读取失败→
+        # 哨兵日期永不强制」的降级路径，防一侧改回裸 json.loads 让门禁崩 import。
+        for f in ("scripts/sync_check.py", "eval/gate_check.py"):
+            t = read_text(f)
+            if "9999-12-31" not in t or "_load_error" not in t:
+                problems.append(f"{f} 缺哨兵降级语义（9999-12-31/_load_error），容错可能被移除")
     if problems:
         check(False, "⑪ 游离声称/版本漂移一致性", "；".join(problems))
         return
@@ -767,14 +773,21 @@ def check_topics_freshness() -> None:
 
     # 账本落盘硬闸（2026-11-11 第三轮 M1）：N1 只让 gate_check 报红，但 A8 归属
     # Phase 3.8 shadow（失败只告警不阻断），Phase 1「强制落盘」只是 SKILL 文本，
-    # 无机器硬闸——账本不落盘文章照发。现在 ⑫ 对生效日后的最新 v2 缺账本直接红，
+    # 无机器硬闸——账本不落盘文章照发。现在 ⑫ 对生效日后所有 v2 缺账本直接红，
     # 与 v2 复检件同一条机器链路，L1 漏落盘会在 L2/L3 的 sync_check 处被拦住。
+    # 2026-11-11 第四轮复审：原只查 all_v2[0]（最新一篇），新定稿一出，旧缺口
+    # 就从 ⑫ 消失，与 KNOWN_GAPS「11-10 永久留红」承诺矛盾。现扫全部
+    # >= claims_since 的 v2；已登记 KNOWN_GAPS 的日期（G-01/G-02/G-03 等）
+    # 仍会出现在 problems 里，属「登记留红」的既定代价，不算新缺陷。
     claims_since = CONTRACT_DATES["claims_since"]
-    latest_v2 = all_v2[0] if all_v2 else ""
-    if latest_v2 and latest_v2 >= claims_since and not (art / f"topic_result_{latest_v2}.json").is_file():
+    miss_ledger = [d for d in all_v2
+                   if d >= claims_since and not (art / f"topic_result_{d}.json").is_file()]
+    if miss_ledger:
         problems.append(
-            f"最新定稿 {latest_v2} 缺事实账本 topic_result_{latest_v2}.json"
-            f"（{claims_since} 起强制，Phase 1 选题时须同步落盘，契约 review/schema/topic_result.v2.json）"
+            f"缺事实账本 {len(miss_ledger)} 篇 "
+            + "、".join(f"{d}(topic_result_{d}.json)" for d in miss_ledger[:5])
+            + f"（{claims_since} 起强制，Phase 1 选题时须同步落盘，契约 review/schema/topic_result.v2.json；"
+              f"已登记 KNOWN_GAPS 的日期属登记留红，不因登记而消失）"
         )
 
     check(not problems, "⑫ 记忆分片新鲜度 + 产物命名（exec_log / publish_history）",
