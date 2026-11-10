@@ -79,7 +79,7 @@ A structured narrative writing skill for "On This Day" historical micro-articles
 ```
 Phase 0: 防重跑检查（archive/daily/YYYY-MM-DD.md）
     ↓
-Phase 1: 【加载 topic_rules.md】→ 选题+搜索 → topic_result.json（事件价值矩阵≥18 + 选题淘汰测试，矩阵/测试口径见 topic_rules.md；WebSearch ≤2 次；查重跑 `python scripts/check_topic.py --angle "{选题名}"`（机械校验，替代整读 TOPICS.md：退出码 0=通过 / 1=重复需换候选（角度区提示：确认写作角度不同可人工放行）/ 2=参数错误；脚本三源索引=TOPICS.md 表格+复盘块+全部日更文章216篇，覆盖率100%，历史回归硬误杀0/漏放0，口径漂移时跑 `--self-test` 复验）；标注题材域 natural_disaster / war_institution / tech_engineering，无则跳过；搜索失败 → TOPICS.md 待写列表 fallback）
+Phase 1: 【加载 topic_rules.md】→ 选题+搜索 → topic_result_{YYYY-MM-DD}.json（必落盘 archive/daily/，契约 review/schema/topic_result.v2.json，含 claims 事实账本；事件价值矩阵≥18 + 选题淘汰测试，矩阵/测试口径见 topic_rules.md；WebSearch ≤2 次；查重跑 `python scripts/check_topic.py --angle "{选题名}"`（机械校验，替代整读 TOPICS.md：退出码 0=通过 / 1=重复需换候选（角度区提示：确认写作角度不同可人工放行）/ 2=参数错误；脚本三源索引=TOPICS.md 表格+复盘块+全部日更文章（篇数见 `--self-test`），硬误杀 0/漏放 0，口径漂移复验）；标注题材域 natural_disaster / war_institution / tech_engineering，无则跳过；搜索失败 → TOPICS.md 待写列表 fallback）
     ↓
 Phase 2: 【加载 writing_core.md + rule_index.md】→ 写作+自检 → draft.md（⚠️ 写作阶段不加载审校侧规则文件，保持「不知道考纲」隔离；按 core 写 500-800 字推荐 600，Humanizer 去 AI 味 + Forbidden 逐条自检 → 写入 archive/daily/YYYY-MM-DD.md）
     ↓
@@ -97,11 +97,11 @@ Phase 3.6: 【判例预检 + Grep CASE_STUDIES.md（只grep命中关键词，禁
   若 P0=0 且 P1≤1 → Phase 3.8
   否则 → 回到 Phase 2（最多2轮）
     ↓
-Phase 3.8: 【交付前自检 shadow，v10.3.8 新增】→ 运行三项确定性检查并写入执行摘要；失败只告警，不阻断、不改文（观察期至 2026-11-05）
+Phase 3.8: 【交付前自检，v10.3.8 新增】→ 运行三项确定性检查并写入执行摘要；失败只告警，不阻断、不改文（观察期已于 2026-11-05 结束，现为常规自检）
     - 在技能目录运行 `python eval/gate_check.py --article F:/WorkBuddy/history-today/archive/daily/{YYYY-MM-DD}.md`（字数/双破折号/F19/标题/开头日期地点/禁用短语/日期自洽；A6/A9/A12 暂 skip）
     - 在技能目录运行 `python eval/validate_review.py --last 1`（review.json 核心字段：date/p0-p2/pass/issues）
-    - 若 `F:/WorkBuddy/history-today/archive/daily/topic_result_{YYYY-MM-DD}.json` 含 `claims`：在技能目录运行 `python eval/verify_claims.py --article F:/WorkBuddy/history-today/archive/daily/{YYYY-MM-DD}.md --claims F:/WorkBuddy/history-today/archive/daily/topic_result_{YYYY-MM-DD}.json`
-    - 执行摘要追加「交付自检」段：gate pass/fail + 失败项 ID + 契约合规 + claims 覆盖率（无 claims 记 skip）
+    - 账本必已由 Phase 1 落盘，直接运行 `python eval/verify_claims.py --article F:/WorkBuddy/history-today/archive/daily/{YYYY-MM-DD}.md --claims F:/WorkBuddy/history-today/archive/daily/topic_result_{YYYY-MM-DD}.json`
+    - 执行摘要追加「交付自检」段：gate pass/fail + 失败项 ID + 契约合规 + claims 覆盖率（账本缺失即 A8 fail）
     ↓
 Phase 3.7: 【人工审核检查点】→ 输出当前最佳版本 → 等待 Master 确认
     ↓

@@ -40,6 +40,27 @@ class TestGateCheck(unittest.TestCase):
         r = gc.check(make(valid_text()), CFG)
         self.assertTrue(r["pass"], r["p0_fail"])
 
+    # ── A8 账本阈值（2026-11-11 修 N1 激励倒挂）──
+    def test_a8_missing_ledger_after_since_fails(self):
+        """强制日及之后缺账本 = 违约。此前一律 skip，导致不写账本反而放行。"""
+        r = gc.check(make(valid_text(), date="2026-11-10"), CFG)
+        self.assertTrue(any(f["id"] == "A8" for f in r["p0_fail"]), r["p0_fail"])
+
+    def test_a8_missing_ledger_before_since_skips(self):
+        """早于强制日缺账本仍 skip，不追溯历史。"""
+        r = gc.check(make(valid_text(), date="2026-10-22"), CFG)
+        a8 = [c for c in r["checks"] if c["id"] == "A8"]
+        self.assertEqual(a8[0]["status"], "skip", a8)
+
+    def test_a8_null_claims_fails(self):
+        """账本存在但 claims=null 属契约违约，与「缺文件」是两种红灯。"""
+        p = make(valid_text(), date="2026-11-10")
+        ledger = p.parent / f"{p.name[:10]}_ledger.json"
+        ledger.write_text(json.dumps({"date": "2026-11-10", "claims": None},
+                                     ensure_ascii=False), encoding="utf-8")
+        r = gc.check(p, CFG, claims_path=ledger)
+        self.assertTrue(any(f["id"] == "A8" for f in r["p0_fail"]), r["p0_fail"])
+
     def test_double_dash(self):
         r = gc.check(make(valid_text(BODY + "——")), CFG)
         self.assertTrue(any(f["id"] == "A2" for f in r["p0_fail"]))

@@ -50,6 +50,18 @@ EXPECT_FORBIDDEN = 53    # F1-F58 扣除已删空洞 23/49/50/24/25（23→R14�
 EXPECT_TOTAL = 199       # 146 + 53
 EXPECT_VERSION = "v10.5.0"  # SKILL.md 末尾 Version 行的期望版本号
 
+# 契约生效日单一事实源（2026-11-11 修 N4）。gate_check.py 同读此文件，
+# ⑪-F 校验该文件存在、键值合法、且两脚本仍在引用——防有人改回各自硬编码。
+# 读取失败时降级为「永不强制」（哨兵日期），由 ⑪-F 报红灯，避免门禁直接崩溃、
+# 也避免静默沿用某个过期阈值。
+try:
+    CONTRACT_DATES = json.loads(
+        (SKILL_DIR / "eval" / "contract_dates.json").read_text(encoding="utf-8"))
+except Exception as _e:  # noqa: BLE001
+    CONTRACT_DATES = {"v2_review_since": "9999-12-31",
+                      "claims_since": "9999-12-31",
+                      "_load_error": str(_e)}
+
 # Rules 侧已知空洞（对称于 KNOWN_FB_GAPS，2026-10-08 合并精简配套）：
 # 33/55/87 已合并入他规则，编号空洞不回填——新增 Rule 自 R146 续号，防历史编号歧义。
 # 原「编号连续 1..N」假设与空洞冲突（删中间编号后尾部编号 R145 必被判越界），
@@ -594,11 +606,25 @@ def check_claim_drift(topics_actual: int) -> None:
     bad_hot = [int(h) for h in re.findall(r"题材专项\s*hot\s*(\d+)\s*条", skill_text) if int(h) != topics_actual]
     if bad_hot:
         problems.append(f"SKILL「题材专项 hot {bad_hot} 条」≠ 实跑 {topics_actual}")
+    # F 契约生效日单一源（2026-11-11 修 N4）
+    # 原先 sync_check.v2_review_since 与 gate_check.V2_REVIEW_SINCE 各写死一份，
+    # 只靠注释要求人肉同步，任何单边改动都会让同一契约出现两套时间线。
+    if "_load_error" in CONTRACT_DATES:
+        problems.append(f"contract_dates.json 读取失败：{CONTRACT_DATES['_load_error']}")
+    else:
+        for k in ("v2_review_since", "claims_since"):
+            v = CONTRACT_DATES.get(k)
+            if not (isinstance(v, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", v)):
+                problems.append(f"contract_dates.json 的 {k}={v!r} 非合法 YYYY-MM-DD")
+        for f in ("scripts/sync_check.py", "eval/gate_check.py"):
+            if "contract_dates.json" not in read_text(f):
+                problems.append(f"{f} 未引用 contract_dates.json（疑改回硬编码，双源漂移）")
     if problems:
         check(False, "⑪ 游离声称/版本漂移一致性", "；".join(problems))
         return
     detail = (f"rule_index 尾注={EXPECT_VERSION} / CHANGELOG 最新={EXPECT_VERSION} / "
-              f"feed-learning 引用一致 / SKILL 索引={EXPECT_TOTAL} / 题材专项 hot={topics_actual}")
+              f"feed-learning 引用一致 / SKILL 索引={EXPECT_TOTAL} / 题材专项 hot={topics_actual} / "
+              f"契约日 v2={CONTRACT_DATES['v2_review_since']} claims={CONTRACT_DATES['claims_since']}")
     check(True, "⑪ 游离声称/版本漂移一致性", detail)
 
 
@@ -727,7 +753,10 @@ def check_topics_freshness() -> None:
     # 背景：10-11 月 23 篇 v2 中仅 2 篇有复检件（10-30、11-03），而 gate_check M3 只 warn、
     # ⑫ 原先只查命名偏离，导致「有定稿无复检」可以一路绿灯跑完。
     # 历史欠账不追溯（复检无法回填），只对 V2_REVIEW_SINCE 起的新日期硬判。
-    v2_review_since = "2026-11-10"
+    # 2026-11-11 修 N4：原为本地硬编码 "2026-11-10"，与 gate_check.V2_REVIEW_SINCE
+    # 各存一份、靠注释要求人肉同步。现两处同读 eval/contract_dates.json，
+    # 由 ⑪-F 校验该文件存在且两脚本仍在引用，防单边改回硬编码造成双源漂移。
+    v2_review_since = CONTRACT_DATES["v2_review_since"]
     miss_review = [d for d in all_v2
                    if d >= v2_review_since and not (art / f"{d}_v2_review.json").exists()]
     if miss_review:
@@ -779,6 +808,14 @@ def check_receipt_consistency() -> None:
         checked += 1
         if nid not in " ".join(day_blocks):
             problems.append(f"{date} 收据 note_id {nid} 未回记到 automation memory（漂移）")
+        # git_pending 消解校验（2026-11-11 修 N2）：收据标记「内容已备份、代码未推」后，
+        # 若后续补推成功却无人回记，这条状态会永久滞留，事后无法分辨推没推。
+        # 11-10 实锤：收据 git_pending=true，实际已由 gh_api 推成 4cdbbce，日志/表/收据三处口径全不一致。
+        if d.get("git_pending") is True and not d.get("git_resolved"):
+            problems.append(
+                f"{date} 收据 git_pending=true 未消解"
+                f"（{str(d.get('git_error') or '未记原因')[:40]}）；"
+                f"补推成功后须回记 git_resolved / git_resolved_commit")
     check(not problems, "⑬ IMA 收据↔automation memory 一致性",
           "；".join(problems) or f"最近 {checked} 条收据 note_id 均已回记")
 

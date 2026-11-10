@@ -69,11 +69,21 @@ def main() -> int:
         if ref_file.is_file():
             remote_sha = ref_file.read_text(encoding="utf-8").strip()
             remote_mode = "local-ref-unverified"
+    # 2026-11-11 修 N3：旧实现把 ok 判成「remote_sha == head_sha」，而 warn_only
+    # 只在 not ok 时才计入 warn。于是 ls-remote 失败、退读本地 origin/main 且恰好
+    # 等于 HEAD 时，ok=True + warn_only=True → 既不进 hard_fail 也不进 warn，
+    # 完全静默地报 pass。这恰好违反项目铁律「本地 commit ≠ remote push，以
+    # ls-remote 为准」——没核验过就不能算验过。
+    # 现：ok 仅在有远端实读且一致时为 True；未核验一律 ok=False + warn_only，
+    # 由 warn 路径返回 exit 2 并把 remote_mode 显式打出来。
+    verified = remote_mode == "ls-remote"
     checks.append({
         "id": "remote",
-        "ok": bool(remote_sha) and remote_sha == head_sha,
-        "warn_only": remote_mode == "local-ref-unverified",
-        "detail": f"{remote_mode} / 本地={head_sha[:7]} / 远端={remote_sha[:7] or '未知'}",
+        "ok": verified and bool(remote_sha) and remote_sha == head_sha,
+        "warn_only": not verified,
+        "verified": verified,
+        "detail": f"{remote_mode} / 本地={head_sha[:7]} / 远端={remote_sha[:7] or '未知'}"
+                  + ("" if verified else "（远端未核验，本地 ref 不得作为推送证据）"),
         "error": err[:120] if err else "",
     })
 
@@ -105,6 +115,9 @@ def main() -> int:
         "checks": checks,
         "head": head_sha[:7],
         "skill_version": skill_ver,
+        # 远端是否真被核验过。pass=True 只代表「没有硬失败」，不代表推送已证实；
+        # 消费方（人或其他脚本）须同时看这个字段（2026-11-11 修 N3）。
+        "remote_verified": next((c.get("verified") for c in checks if c["id"] == "remote"), None),
     }
     print(json.dumps(result, ensure_ascii=False, indent=2))
     if hard_fail:

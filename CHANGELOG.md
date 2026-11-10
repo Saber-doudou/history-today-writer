@@ -28,6 +28,17 @@
 - **⑩ `gate_check` M1 无日期阈值——同一份契约两套时间线**：`sync_check ⑫` 自 `v2_review_since=2026-11-10` 起强制、历史放过，而 M1 对任何 v2 缺 `_v2_review.json` 一律 `fail`，不认日期。后果：`gate_check --recent 3` 对历史篇恒全红，新信号被噪音淹没；且我在 `KNOWN_GAPS` 里按 ⑫ 口径写「21 篇不作为豁免登记」，漏掉了 M1 这条路径，属自相矛盾的描述。修：新增模块常量 `V2_REVIEW_SINCE = "2026-11-10"`（注释要求与 `sync_check.v2_review_since` 保持一致），M1 改为「件存在 pass / 缺件且早于强制日 skip / 强制日及之后缺件 fail」。负向测试：造 `2026-11-11` 空 v2 → `M1=fail`，证明阈值不是无脑放过。
 - **⑪ `gate_check --recent` 恒为假绿**：该分支原为 `check(p, cfg)` 直呼，**不传 claims 路径**，A8 全部走「账本不存在 → skip」。实测 11-09、11-06 用 `--article` 逐篇查均 `A8=fail`，`--recent 3` 却报 `pass 3 / fail 0`。修：按文件名自动关联同目录 `topic_result_{date}.json`，与 `--article` 分支同口径。修后 `--recent 3` 如实报 `pass 1 / fail 2`，与逐篇一致。此条属审查报告「校验器自身的假绿」同类，但原报告只点了 ⑦⑨（DB 不可读时只 print 不 check），未发现本项。
 - **测试同步**：`test_gate_check.make()` 增 `date` 参数（默认 2026-10-22，不影响既有用例）；`test_m1_missing_recheck` 改用强制日当天；新增 `test_m1_historical_missing_recheck_skipped` 覆盖历史 skip 口径。单测 68 → **69**。
+
+### v10.5.0 复审修复（2026-11-11，外部审查 N1-N4 闭环）
+
+> 外部复审确认 8 项阻断级中 7 项真修、1 项（②）半修，同时指出「修了检查器、没修产出方与闭环」的 4 条新阻断级问题。逐条核实均属实，本轮闭环。单测 69 → **73**；`sync_check` 24/24；三篇最近产物红灯与 KNOWN_GAPS 登记一一对应（G-01/G-02 历史欠账、G-03 新增待批）。
+
+- **N1 修 A8 激励倒挂（② 的产出方补全）**：复审实锤 11-10 全流程跑完但 `topic_result_2026-11-10.json` 从未落盘，旧逻辑「账本不存在 → skip」让这篇 `pass=True`——不写账本放行、写了账本反被五态严判，最贵的新门禁在最新一轮运行里等于没跑。修三层：① `gate_check` A8 对缺账本按 `CLAIMS_SINCE`（2026-11-10，从单一源读取）判 fail，历史不追溯；② SKILL Phase 1 产物名统一为 `topic_result_{YYYY-MM-DD}.json` 并标注「必落盘 archive/daily/、契约 review/schema/topic_result.v2.json」（原先 :82 写无日期名、:103 带日期名，SOP 自相矛盾且从未告诉生产端账本该写什么——契约文件 10-22 就存在却无消费方）；③ Phase 3.8 与 automation prompt 同步「账本缺失即 A8 fail」。新增 3 条 A8 测试（缺账本 fail/skip、null fail）。
+- **N2 修 commit_from_log 误取 + git_pending 永不消解**：`publish_history` 11-10 行写 `✅ f0458e1`（实为 11-09 的提交），根因是 `findall(...)[-1]` 在整份日志盲取最后一个 `commit=`，抓到了「11-09 收据回改说明」里的值；真正的 11-10 推送（`4cdbbce`，API 降级）写成「远端 main `f2765c7`→**`4cdbbce`**」不带 `commit=` 前缀，反而没被采到。修：只扫 `^## ` 切块后标题含 L3 的段，取值优先级 `→**\`hash\`**` > `commit=` > `→\`hash\``；实跑 11-09=f0458e1（真实沿用，L3 时 git 无变更 no-op）、11-10=4cdbbce，均已订正数据行。配套：`l3_publish` 收据在「旧收据有 pending 标记、本次成功」时显式写 `git_pending=False` 并清 `git_error`（旧实现只写 True 从不写 False，标记永久滞留）；⑬ 增「git_pending=true 未消解即红灯」校验（负向测试：临时摘掉 11-10 收据的 git_resolved 即报 23/24）；11-10 收据补记 `git_resolved=true / 4cdbbce / gh_api`（原有字段未动）。
+- **N3 修 check_delivery 远端未核验静默变绿**：ls-remote 失败时回退读本地 `origin/main` ref，若恰好等于 HEAD 则 `ok=True` 且 `warn_only=True`——既不进 hard_fail 也不进 warn，`pass=True` 零告警，直接违反「本地 commit ≠ remote push，以 ls-remote 为准」铁律。修：`ok` 仅在有远端实读且一致时为 True，未核验一律 `ok=False + warn_only`（exit 2）+ `remote_verified=False` 顶层字段 + detail 显式标注「远端未核验，本地 ref 不得作为推送证据」。负向测试：mock ls-remote 超时 → `remote_verified=False`、detail 带警示。
+- **N4 消契约生效日双源**：`sync_check.v2_review_since` 与 `gate_check.V2_REVIEW_SINCE` 各写死 `"2026-11-10"`、只靠注释要求人肉同步。修：新建 `eval/contract_dates.json` 单一源（含 `v2_review_since` / `claims_since`），两脚本同读；⑪ 增 F 项校验该文件可读、键值合法（YYYY-MM-DD）、且两脚本仍在引用（防有人改回硬编码）；读取失败降级为哨兵日期「永不强制」+ ⑪ 报红，不崩门禁也不静默沿用过期阈值。
+- **顺手修（复审 🟡 清单中与本次改动相邻的）**：SKILL Phase 3.8「观察期至 2026-11-05」已过期 → 改「观察期已结束，现为常规自检」；SKILL Phase 1 写死「日更文章 216 篇」已漂移（实测 258）→ 改「篇数见 `--self-test`」，行长 496→484/500、文件 17614B/18000B。
+- **测试**：新增 A8 缺账本 fail/skip 与 null fail 共 3 条、git_pending 消解 1 条；`make()` 支持 ledger 场景。单测 69 → **73**，全绿。
 - **认知修正**：`gate_check --recent N` 此前被当作「整体回归入口」，但它只是一次批量调用，逐篇判定与 `--article` 必须同源。凡新增检查项，两条调用路径都要过一遍，否则绿灯不代表通过。
 
 ## 记录（不改版本号）| 2026-11-09 MEMORY.md 体积治理（⑧ 复发根治 + automation memory 归档 N）

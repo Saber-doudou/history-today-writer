@@ -75,6 +75,24 @@ class TestReceiptFlags(unittest.TestCase):
         self.assertTrue(d["git_pending"])
         self.assertIn("network", d["git_error"])
 
+    def test_git_pending_resolved_on_rerun(self):
+        """上一次标记未推送、本次成功 → 显式写 False 并清掉 git_error。
+
+        2026-11-11 修 N2：旧实现只写 True 从不写 False，标记永久滞留，
+        事后无法分辨到底推没推（11-10 实锤：收据 pending=true，实际已推成 4cdbbce）。
+        """
+        import json
+        ledger = Path(self.tmp.name) / "2026-10-30_ima_receipt.json"
+        ledger.write_text(json.dumps({
+            "date": "2026-10-30", "note_id": "n0",
+            "git_pending": True, "git_error": "[network] timeout",
+        }, ensure_ascii=False), encoding="utf-8")
+        l3.GIT_STATE.update({"pending": False, "error": ""})
+        p = l3.write_ima_receipt("2026-10-30", "v10.4.4", "n1", "commit=abc1234", "kb1")
+        d = self._read(p)
+        self.assertIs(d["git_pending"], False)
+        self.assertNotIn("git_error", d)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

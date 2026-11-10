@@ -42,9 +42,15 @@ HANZI = re.compile(r"[\u4e00-\u9fff]")
 DATE_CN = re.compile(r"(\d{4})年(\d{1,2})月(\d{1,2})日")
 DATE_ISO = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
 
-# v2 复检件强制生效日。与 sync_check.py 的 v2_review_since 必须保持一致——
-# 同一份契约不能有两套时间线，否则一处放过、一处报红（2026-11-10 修正）。
-V2_REVIEW_SINCE = "2026-11-10"
+# 契约生效日从 eval/contract_dates.json 单一源读取，不再本地硬编码。
+# 背景：2026-11-10 曾在 sync_check.v2_review_since 与 gate_check.V2_REVIEW_SINCE
+# 各写死一份 "2026-11-10"，靠注释要求人肉同步；任何一处改动都会让同一契约出现
+# 两套时间线（一处放过、一处报红）。现由 sync_check ⑪-F 校验本文件被两处引用。
+CONTRACT = json.loads((HERE / "contract_dates.json").read_text(encoding="utf-8"))
+V2_REVIEW_SINCE = CONTRACT["v2_review_since"]
+# 事实账本（topic_result_{date}.json）强制落盘生效日。此前账本缺失一律 skip，
+# 造成激励倒挂：不写账本放行、写了账本反被五态严判（2026-11-11 修 N1）。
+CLAIMS_SINCE = CONTRACT["claims_since"]
 
 
 def parse_article(text: str) -> tuple[str, str, str]:
@@ -140,7 +146,15 @@ def check(article_path: Path, cfg: dict, core_image: str = "", claims_path: Path
             else:
                 add("A8", "skip", "claims 为空且无 key_facts（合法空账本）")
     else:
-        add("A8", "skip", "claims 账本不存在")
+        # 账本文件不存在。此前一律 skip，导致激励倒挂：不写账本反而放行、
+        # 写了账本却被五态严判（2026-11-11 修 N1，实锤于 11-10 那篇：
+        # A8=skip 使 pass=True，而同期 11-06/11-09 因有账本反被报 fail）。
+        # 现按 CLAIMS_SINCE 设阈值：该日及之后缺账本 = 违约（fail），历史不追溯。
+        if article_date and article_date >= CLAIMS_SINCE:
+            add("A8", "fail",
+                f"claims 账本不存在（{article_date} 起强制落盘 topic_result_{article_date}.json）")
+        else:
+            add("A8", "skip", "claims 账本不存在（早于强制日，历史不追溯）")
 
     add("A9", "skip", cfg["deferred_checks"]["A9"])
 
