@@ -711,6 +711,16 @@ def find_noncanonical_artifacts(art_dir: Path) -> list[tuple[str, str]]:
     return bad
 
 
+def missing_ledger_dates(all_v2: list[str], art: Path, claims_since: str) -> list[str]:
+    """⑫ 账本硬闸核心判定（2026-11-11 第四轮抽出，可导入单测）。
+
+    扫全部 >= claims_since 的 v2 定稿，缺 topic_result_{date}.json 即入列。
+    不只查最新一篇：新定稿出现不得让旧缺口消失（G-03 永久留红的机器侧保证）。
+    """
+    return [d for d in all_v2
+            if d >= claims_since and not (art / f"topic_result_{d}.json").is_file()]
+
+
 def check_topics_freshness() -> None:
     """⑫ 记忆分片新鲜度（2026-09-10 新增）。
 
@@ -776,12 +786,10 @@ def check_topics_freshness() -> None:
     # 无机器硬闸——账本不落盘文章照发。现在 ⑫ 对生效日后所有 v2 缺账本直接红，
     # 与 v2 复检件同一条机器链路，L1 漏落盘会在 L2/L3 的 sync_check 处被拦住。
     # 2026-11-11 第四轮复审：原只查 all_v2[0]（最新一篇），新定稿一出，旧缺口
-    # 就从 ⑫ 消失，与 KNOWN_GAPS「11-10 永久留红」承诺矛盾。现扫全部
-    # >= claims_since 的 v2；已登记 KNOWN_GAPS 的日期（G-01/G-02/G-03 等）
-    # 仍会出现在 problems 里，属「登记留红」的既定代价，不算新缺陷。
+    # 就从 ⑫ 消失，与 KNOWN_GAPS「11-10 永久留红」承诺矛盾。判定逻辑抽至
+    # missing_ledger_dates()（可导入单测，test_review_round4 钉住行为）。
     claims_since = CONTRACT_DATES["claims_since"]
-    miss_ledger = [d for d in all_v2
-                   if d >= claims_since and not (art / f"topic_result_{d}.json").is_file()]
+    miss_ledger = missing_ledger_dates(all_v2, art, claims_since)
     if miss_ledger:
         problems.append(
             f"缺事实账本 {len(miss_ledger)} 篇 "

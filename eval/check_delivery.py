@@ -30,6 +30,25 @@ def git(*args: str, timeout: int = 20) -> tuple[int, str, str]:
         return 124, "", f"timeout after {timeout}s"
 
 
+def extract_version(subjects: list[str]) -> str:
+    """从 commit subject 列表（HEAD 起倒序）提取版本号（2026-11-11 第四轮抽出，可导入单测）。
+
+    2026-11-11 第四轮复审：旧正则 r"(v\\d+\\.\\d+\\.\\d+):" 只认「v10.6.0: xxx」开头，
+    conventional commit（feat(v10.6.0): / docs(xxx):）会跳过并回溯取到旧版本，
+    造成 SKILL=v10.6.0 / HEAD=v10.5.0 的假红。现放宽为「裸前缀或 conventional
+    前缀（feat/fix/docs/...）均可」，取「从 HEAD 往下第一条带版本号的提交」。
+    """
+    for line in subjects:
+        m = VERSION_RE.match(line.strip())
+        if m:
+            v = m.group(1)
+            return v if v.startswith("v") else f"v{v}"
+    return ""
+
+
+VERSION_RE = re.compile(r"(?:\w+\()?((?:v)?\d+\.\d+\.\d+)\)?:")
+
+
 def main() -> int:
     checks: list[dict] = []
 
@@ -48,15 +67,10 @@ def main() -> int:
     m_skill = re.search(r"\*Version:\s*(v\d+\.\d+\.\d+)", skill_text)
     skill_ver = m_skill.group(1) if m_skill else ""
     head_ver = ""
-    # 2026-11-11 第四轮复审：旧正则 r"(v\d+\.\d+\.\d+):" 只认「v10.6.0: xxx」开头，
-    # conventional commit（feat(v10.6.0): / docs(xxx):）会跳过并回溯取到旧版本，
-    # 造成 SKILL=v10.6.0 / HEAD=v10.5.0 的假红。现放宽为「裸前缀或 conventional
-    # 前缀（feat/fix/docs/...）均可」，取「从 HEAD 往下第一条带版本号的提交」。
     for line in subjects.splitlines():
-        m_head = re.match(r"(?:\w+\()?((?:v)?\d+\.\d+\.\d+)\)?:", line.strip())
-        if m_head:
-            v = m_head.group(1)
-            head_ver = v if v.startswith("v") else f"v{v}"
+        v = extract_version([line])
+        if v:
+            head_ver = v
             break
     checks.append({
         "id": "version",
