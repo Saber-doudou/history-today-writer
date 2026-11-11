@@ -228,6 +228,6 @@ MEMORY.md 受 sync_check ⑧ 硬门禁 3000 字符约束，**禁止内嵌质量�
 
 ---
 
-*Version: v10.6.0 | 2026-11-11（第三轮复审 M1-M4：⑫ 账本硬闸/单一源容错/快照链路/版本归位，详见 CHANGELOG v10.6.0；199=146+53、hot 90/90 不变；基于 v10.5.0）| 质量门禁/审校契约整改详见 CHANGELOG v10.4.4；B-04 非法 review 迁 archive/legacy/；sync_topics 入库宽容认 -v2；测试 39→62；逐版见 CHANGELOG.md*
+*Version: v10.6.1 | 2026-11-11（方案 A：L3 claim gate 登记留红放行，详见 CHANGELOG v10.6.1；199=146+53、hot 90/90 不变；基于 v10.6.0）| 质量门禁/审校契约整改详见 CHANGELOG v10.4.4；B-04 非法 review 迁 archive/legacy/；sync_topics 入库宽容认 -v2；测试 39→62；逐版见 CHANGELOG.md*
 
 > 注：v9.7.7 的规则（R102/103/104）与 v9.7.8 优化同批提交于 1c92cb9，git 历史无独立 v9.7.7 提交。

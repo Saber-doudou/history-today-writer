@@ -1,5 +1,18 @@
 # CHANGELOG — history-today-writer
 
+## v10.6.1 | 2026-11-11（方案 A：L3 claim gate 登记留红放行；规则数 199=146+53、hot 90/90 不变；基于 v10.6.0）
+
+> **升号理由（PATCH）**：单文件工具级修复（l3_publish.py），不改规则库、不改 sync_check 判定语义、不改 KNOWN_GAPS 登记语义，无门禁机制变更（仅放行通道），按「PATCH=每次 L2 +1」口径升 patch。改动仅在工作空间 `scripts/l3_publish.py`（非 git 仓库交付物），SKILL Version 行 / EXPECT_VERSION / CHANGELOG 三处同步。
+
+- **背景（结构性锁死缺陷）**：G-03 使 ⑫ 对 2026-11-10 永久报红（账本不补、登记留红），而 L3 的 `verify_claim_consistency` 只看 exit code → sync_check 恒 exit 1 → L3 git 通道被结构性锁死，哪怕本次 git 无活可干。属机制层缺陷（gate 不区分「已裁定的登记留红」与「新真缺陷」），非 prompt 绕过问题。Master 2026-11-11 批准方案 A。
+- **修复内容（只改 l3_publish.py）**：
+  1. `verify_claim_consistency` 返回值扩为 `(ok, msg, stdout)`，docstring 顺手更正过期声称「18 项校验」→ 24 项；
+  2. 新增 `parse_known_gap_dates()`：从 `review/KNOWN_GAPS.md` 的 `### G-xx｜YYYY-MM-DD｜` 标题行解析登记日期集合（不硬编码 11-10，禁范围通配）；
+  3. 新增 `_is_registered_gap_fail()`：当 ⑫ 报出的缺账本日期 ⊆ 登记集合 → 放行；出现未登记日期、其他检查项红、或明细行报告数 > 可提取数（⑫ 最多打印前 5 篇，防截断误放）、或 KNOWN_GAPS 缺失/解析为空 → 保守不放行；
+  4. phase6 接入：失败时先走放行判定，放行则在提示中标注「登记留红放行」留审计痕迹；skip/dry/fail 三分支文案同步。
+- **明确不做**：不动 sync_check.py 核心判定（红仍红）、不动 KNOWN_GAPS 登记语义、不加 `--known-gaps` 模式（方案 B 否决）。
+- **回归**：见 2026-11-11 执行记录（真跑 L3 验证 exit 0 + 放行提示；负向测试见工作空间当日 log）。
+
 ## v10.6.0 | 2026-11-11（第三轮复审 M1-M4：产出方硬闸 + 单一源容错 + 快照链路；规则数 199=146+53、hot 90/90 不变；基于 v10.5.0）
 
 > **升号理由（MINOR，机制改造集）**：本轮 5 处门禁机制变更——⑫ 新增「账本落盘硬闸」、⑪-F 校验扩充至键值合法性+引用存活、A8 增 `CLAIMS_SINCE` 阈值、`check_delivery` 远端核验收紧、单一源降级语义（两脚本同步）。按 Master D4 确立判据「四处门禁机制变更即升 MINOR」执行。v10.5.0 条目内的 N1-N4 段属该版本的复审修复记录，本版本是其延续。

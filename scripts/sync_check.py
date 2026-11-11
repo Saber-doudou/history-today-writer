@@ -48,7 +48,7 @@ SKILL_DIR = Path(__file__).resolve().parent.parent
 EXPECT_RULES = 146       # R1-R149 扣除已合并空洞 33/55/87（33→并入 R118 过渡句、55→并入 R14 内外因平衡、87→并入 R56 具象类比；约束不丢，编号不复用不回填）；R148 新增于 2026-10-13 国际子午线会议 L2；R149 新增于 2026-10-15 武汉长江大桥 L2
 EXPECT_FORBIDDEN = 53    # F1-F58 扣除已删空洞 23/49/50/24/25（23→R14、49/50→R94/R95、24→R56、25→5N.1；均约束已由他规则承载）
 EXPECT_TOTAL = 199       # 146 + 53
-EXPECT_VERSION = "v10.6.0"  # SKILL.md 末尾 Version 行的期望版本号
+EXPECT_VERSION = "v10.6.1"  # SKILL.md 末尾 Version 行的期望版本号
 
 # 契约生效日单一事实源（2026-11-11 修 N4）。gate_check.py 同读此文件，
 # ⑪-F 校验该文件存在、键值合法、且两脚本仍在引用——防有人改回各自硬编码。
